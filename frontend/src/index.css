@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #0f172a;
+  --color-ashoka: #1e3a5f;
+  --color-saffron: #d97706;
+  --color-chakra: #0f766e;
+}
+
+body {
+  background-color: #f6f7f9;
+  color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+}

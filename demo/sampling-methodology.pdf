@@ -1,0 +1,110 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [4 0 R 6 0 R] /Count 2 >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+4 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 792] /Resources << /Font << /F1 3 0 R >> >> /Contents 5 0 R >>
+endobj
+5 0 obj
+<< /Length 2669 >>
+stream
+BT /F1 10 Tf 12 TL 54 760 Td
+(SAMPLING METHODOLOGY FOR OFFICIAL SURVEYS) Tj T*
+(National Statistical Office - training note) Tj T*
+() Tj T*
+(1. THE SAMPLING FRAME) Tj T*
+() Tj T*
+(The sampling frame is the list of units from which a sample is actually drawn.) Tj T*
+(Any mismatch between the frame and the target population produces coverage error,) Tj T*
+(and coverage error cannot be repaired by weighting after the fact. Frames for) Tj T*
+(household surveys in India are commonly built from Census enumeration blocks in) Tj T*
+(urban areas and from village lists in rural areas.) Tj T*
+() Tj T*
+(2. STRATIFICATION) Tj T*
+() Tj T*
+(Stratified random sampling divides the population into homogeneous strata and) Tj T*
+(draws an independent sample within each stratum. When the strata are internally) Tj T*
+(homogeneous with respect to the study variable, stratification reduces the) Tj T*
+(variance of the estimator relative to simple random sampling of the same size.) Tj T*
+(Allocation across strata may be proportional to stratum size, or optimal, in) Tj T*
+(which case it also accounts for within-stratum variance and cost of enumeration.) Tj T*
+() Tj T*
+(3. PROBABILITY PROPORTIONAL TO SIZE) Tj T*
+() Tj T*
+(Probability proportional to size selection gives larger units a greater chance of) Tj T*
+(inclusion. This improves efficiency when the study variable is correlated with) Tj T*
+(the measure of size used for selection. In multi-stage designs, first-stage units) Tj T*
+(such as villages or urban blocks are frequently selected with probability) Tj T*
+(proportional to population, with a fixed number of households selected at the) Tj T*
+(second stage.) Tj T*
+() Tj T*
+(4. WEIGHTING AND ESTIMATION) Tj T*
+() Tj T*
+(The design weight of a unit is the reciprocal of its probability of selection.) Tj T*
+(Design weights are adjusted for non-response and are often calibrated to known) Tj T*
+(population totals so that survey estimates agree with external benchmarks such) Tj T*
+(as projected population. Variance estimation must reflect the design: treating a) Tj T*
+(multi-stage stratified sample as if it were simple random sampling understates) Tj T*
+(standard errors, sometimes severely.) Tj T*
+() Tj T*
+(5. NON-SAMPLING ERROR) Tj T*
+() Tj T*
+(Non-sampling error includes measurement error, processing error and non-response.) Tj T*
+(In large official surveys non-sampling error frequently exceeds sampling error in) Tj T*
+(magnitude, and unlike sampling error it does not shrink as the sample grows. It) Tj T*
+(is controlled through interviewer training, instrument design, supervision and) Tj T*
+(independent re-interview of a subsample.) Tj T*
+() Tj T*
+ET
+endstream
+endobj
+6 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 792] /Resources << /Font << /F1 3 0 R >> >> /Contents 7 0 R >>
+endobj
+7 0 obj
+<< /Length 1216 >>
+stream
+BT /F1 10 Tf 12 TL 54 760 Td
+(6. DATA QUALITY, EDITING AND IMPUTATION) Tj T*
+() Tj T*
+(Editing rules detect records that violate logical or arithmetic constraints.) Tj T*
+(Selective editing concentrates limited review effort on the records whose) Tj T*
+(correction would most change the published aggregate. Imputation replaces a) Tj T*
+(missing value with a plausible substitute derived from responding units. The) Tj T*
+(imputation method must be recorded, because imputed values add uncertainty that) Tj T*
+(naive variance estimates ignore. Donor-based hot-deck imputation preserves the) Tj T*
+(distribution of the variable better than mean imputation, which artificially) Tj T*
+(reduces variance.) Tj T*
+() Tj T*
+(7. QUESTIONNAIRE AND FIELD OPERATIONS) Tj T*
+() Tj T*
+(A well designed questionnaire places sensitive questions late in the interview,) Tj T*
+(after the respondent has committed time to the exercise and rapport has been) Tj T*
+(established. Computer assisted personal interviewing enforces skip patterns and) Tj T*
+(range checks at the point of collection, which removes an entire class of) Tj T*
+(downstream editing work and shortens the interval between collection and release.) Tj T*
+() Tj T*
+ET
+endstream
+endobj
+xref
+0 8
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000121 00000 n 
+0000000191 00000 n 
+0000000317 00000 n 
+0000003038 00000 n 
+0000003164 00000 n 
+trailer
+<< /Size 8 /Root 1 0 R >>
+startxref
+4432
+%%EOF

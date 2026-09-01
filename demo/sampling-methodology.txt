@@ -1,0 +1,64 @@
+SAMPLING METHODOLOGY FOR OFFICIAL SURVEYS
+National Statistical Office - training note
+
+1. THE SAMPLING FRAME
+
+The sampling frame is the list of units from which a sample is actually drawn.
+Any mismatch between the frame and the target population produces coverage error,
+and coverage error cannot be repaired by weighting after the fact. Frames for
+household surveys in India are commonly built from Census enumeration blocks in
+urban areas and from village lists in rural areas.
+
+2. STRATIFICATION
+
+Stratified random sampling divides the population into homogeneous strata and
+draws an independent sample within each stratum. When the strata are internally
+homogeneous with respect to the study variable, stratification reduces the
+variance of the estimator relative to simple random sampling of the same size.
+Allocation across strata may be proportional to stratum size, or optimal, in
+which case it also accounts for within-stratum variance and cost of enumeration.
+
+3. PROBABILITY PROPORTIONAL TO SIZE
+
+Probability proportional to size selection gives larger units a greater chance of
+inclusion. This improves efficiency when the study variable is correlated with
+the measure of size used for selection. In multi-stage designs, first-stage units
+such as villages or urban blocks are frequently selected with probability
+proportional to population, with a fixed number of households selected at the
+second stage.
+
+4. WEIGHTING AND ESTIMATION
+
+The design weight of a unit is the reciprocal of its probability of selection.
+Design weights are adjusted for non-response and are often calibrated to known
+population totals so that survey estimates agree with external benchmarks such
+as projected population. Variance estimation must reflect the design: treating a
+multi-stage stratified sample as if it were simple random sampling understates
+standard errors, sometimes severely.
+
+5. NON-SAMPLING ERROR
+
+Non-sampling error includes measurement error, processing error and non-response.
+In large official surveys non-sampling error frequently exceeds sampling error in
+magnitude, and unlike sampling error it does not shrink as the sample grows. It
+is controlled through interviewer training, instrument design, supervision and
+independent re-interview of a subsample.
+
+6. DATA QUALITY, EDITING AND IMPUTATION
+
+Editing rules detect records that violate logical or arithmetic constraints.
+Selective editing concentrates limited review effort on the records whose
+correction would most change the published aggregate. Imputation replaces a
+missing value with a plausible substitute derived from responding units. The
+imputation method must be recorded, because imputed values add uncertainty that
+naive variance estimates ignore. Donor-based hot-deck imputation preserves the
+distribution of the variable better than mean imputation, which artificially
+reduces variance.
+
+7. QUESTIONNAIRE AND FIELD OPERATIONS
+
+A well designed questionnaire places sensitive questions late in the interview,
+after the respondent has committed time to the exercise and rapport has been
+established. Computer assisted personal interviewing enforces skip patterns and
+range checks at the point of collection, which removes an entire class of
+downstream editing work and shortens the interval between collection and release.
