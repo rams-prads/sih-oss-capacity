@@ -20,7 +20,8 @@ Competencies) as used by Mission Karmayogi and the Karmayogi Qualification Frame
 | **Gap engine** | Ranks each officer's shortfall per competency, weighted by how critical that competency is to their role. |
 | **Recommendation engine** | Matches gap competencies to catalogue courses through the Sunbird API contract, favouring courses that close several gaps at once. |
 | **Assessment loop** | Upload a PDF or text file, generate MCQs tagged to a competency, take the quiz, and watch attained proficiency — and the gap — update. |
-| **Learner dashboard** | Target vs attained radar, ranked gaps, recommended courses, enrolment and progress. |
+| **Learner dashboard** | Target vs attained radar, ranked gaps, recommended courses and enrolment. |
+| **My learning** | Every enrolled, completed and expired course, with progress derived from videos watched and checkpoints passed, plus a topic-by-topic record of what the officer gets right and wrong. |
 | **Admin analytics** | Department-wide competency heatmap, top capacity gaps, and cohort training recommendations. |
 
 ---
@@ -87,7 +88,7 @@ npm run dev                     # http://localhost:5173
 **Tests**
 
 ```bash
-cd backend && python -m pytest      # 34 tests
+cd backend && python -m pytest      # 61 tests
 ```
 
 **With Postgres**
@@ -171,13 +172,66 @@ Start both servers, open `http://localhost:5173`, and leave the officer selector
 3. **Assessment.** Upload `demo/sampling-methodology.pdf`, choose **C01**, generate.
    Answer the questions, submit — attained proficiency rises, the gap shrinks, and
    role readiness is recomputed on screen.
-4. **Department view.** The heatmap shows capacity across the cadre, the bar chart
+4. **My learning.** All four course states on one screen: one in progress, one not
+   started, one completed, one expired. Open *Foundations of Survey Design*, watch the
+   two remaining videos in module 2 — the bar moves each time — and the checkpoint
+   unlocks. Take it; the topic record updates with what was right and wrong.
+5. **Department view.** The heatmap shows capacity across the cadre, the bar chart
    ranks department-wide gaps, and each top gap gets a costed cohort training
    recommendation.
-5. **Integration.** Show `backend/app/integration/sunbird.py` and run the two-terminal
+6. **Integration.** Show `backend/app/integration/sunbird.py` and run the two-terminal
    proof above.
 
 `demo/` contains the sample material in both PDF and text form.
+
+---
+
+## My learning: courses, checkpoints and topic record
+
+Each course is **three modules of three video lessons**, and every module ends in a
+**checkpoint quiz** that unlocks only once its videos are watched. Pass mark is 60%,
+and a checkpoint can be retaken until it is passed.
+
+**Progress is always derived, never stored by hand.** A course is 12 units — 9 videos
+plus 3 checkpoints — and the bar shows completed units. There is no endpoint that sets
+a progress percentage, so the number on screen can only be earned.
+
+Status follows from the same data, in this order:
+
+| Status | Meaning |
+|---|---|
+| **Completed** | Every video watched and every checkpoint passed. |
+| **Expired** | The enrolment window closed before the course was finished. Partial progress is still shown. |
+| **In progress** | Some units done. |
+| **Not started** | Enrolled, nothing done yet. |
+
+A finished course never flips to expired when its date passes.
+
+### Topic record
+
+Checkpoint questions come from an **authored, topic-tagged question bank** (72 items
+across 18 topics), not from the LLM — so the same question means the same thing every
+time and mastery is measured against stable items. Every answer is stored with its
+topic, giving a running accuracy per topic:
+
+- **Strong** 80%+ · **Developing** 50–79% · **Needs work** below 50%
+
+Accuracy counts **every attempt**, not just the best one. An officer who fails a
+checkpoint 1/4 and then passes 3/4 reads as 50% on that topic — the course advances,
+but the record remains honest about what they know.
+
+The LLM upload-to-quiz flow is unchanged and still available for ad-hoc material; it
+just no longer carries the weight of measuring topic mastery.
+
+### Endpoints
+
+| Method | Path | Purpose |
+|---|---|---|
+| `GET` | `/api/users/{id}/learning` | The whole dashboard in one call |
+| `POST` | `/api/users/{id}/lessons/{lesson_id}/complete` | Mark a video watched |
+| `GET` | `/api/checkpoints/{id}?user_id=` | Fetch a module quiz (409 while locked) |
+| `POST` | `/api/checkpoints/{id}/submit?user_id=` | Score it and record the topics |
+| `GET` | `/api/users/{id}/topic-mastery` | Topic accuracy, weakest first |
 
 ---
 
@@ -226,11 +280,14 @@ backend/
     llm/         base.py · providers.py                    ← swappable generation
     quiz/        service.py                                ← extract, chunk, validate
     routers/     users · gaps · quiz · admin · mock_sunbird
+    engines/     progress.py                              ← derived progress
   seed/          seed.py · igot_courses_seed.json (26 courses)
-  tests/         34 tests
+                 curriculum.json · question_bank.json (72 items)
+  tests/         61 tests
 frontend/
-  src/pages/     Learner.tsx · Upload.tsx · Admin.tsx
-  src/components/Radar · Heatmap · GapList · CourseCard · ui
+  src/pages/     Learner.tsx · MyLearning.tsx · Upload.tsx · Admin.tsx
+  src/components/Radar · Heatmap · GapList · CourseCard · Progress
+                 CourseProgressCard · CheckpointModal · TopicMasteryPanel · ui
 demo/            sample material for the assessment demo
 ```
 

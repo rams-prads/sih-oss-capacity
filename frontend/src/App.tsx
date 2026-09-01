@@ -4,6 +4,7 @@ import { getUsers, setActiveUser } from "./api";
 import type { User } from "./api";
 import Admin from "./pages/Admin";
 import Learner from "./pages/Learner";
+import MyLearning from "./pages/MyLearning";
 import Upload from "./pages/Upload";
 
 const DEMO_USER = "u-jso-anita";
@@ -45,6 +46,9 @@ export default function App() {
             <NavLink to="/learner" className={tab}>
               My competencies
             </NavLink>
+            <NavLink to="/my-learning" className={tab}>
+              My learning
+            </NavLink>
             <NavLink to="/assess" className={tab}>
               Assessment
             </NavLink>
@@ -74,6 +78,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Navigate to="/learner" replace />} />
           <Route path="/learner" element={<Learner userId={userId} user={active} />} />
+          <Route path="/my-learning" element={<MyLearning userId={userId} />} />
           <Route path="/assess" element={<Upload userId={userId} />} />
           <Route path="/admin" element={<Admin />} />
         </Routes>

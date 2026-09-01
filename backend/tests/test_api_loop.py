@@ -54,6 +54,7 @@ def test_login_and_authenticated_identity(client):
 
 
 def test_enrolment_round_trip(client):
+    """Enrol, then let progress come from watching a video - never set by hand."""
     response = client.post(
         "/api/users/u-jso-farah/enrolments", json={"course_identifier": "do_3137421900011"}
     )
@@ -62,10 +63,17 @@ def test_enrolment_round_trip(client):
     rows = client.get("/api/users/u-jso-farah/enrolments").json()
     assert any(r["course_identifier"] == "do_3137421900011" for r in rows)
 
-    updated = client.patch(
-        "/api/users/u-jso-farah/enrolments/do_3137421900011", json={"progress_pct": 100}
-    ).json()
-    assert updated["status"] == "completed"
+    board = client.get("/api/users/u-jso-farah/learning").json()
+    course = next(
+        c for c in board["courses"] if c["course_identifier"] == "do_3137421900011"
+    )
+    assert course["status"] == "not_started"
+    assert course["progress_pct"] == 0
+
+    first_lesson = course["modules"][0]["lessons"][0]["id"]
+    after = client.post(f"/api/users/u-jso-farah/lessons/{first_lesson}/complete").json()
+    assert after["progress_pct"] > 0
+    assert after["status"] == "in_progress"
 
 
 def test_upload_generate_take_quiz_shrinks_the_gap(client):
@@ -186,4 +194,18 @@ def test_admin_overview_and_metrics(client):
     assert metrics["competencies"] == 15
     assert metrics["roles"] == 3
     assert metrics["catalogue_size"] == 26
-    assert metrics["mcq_validity_rate_pct"] > 0
+    # No generated quizzes yet, so the validity rate has nothing to report on.
+    assert metrics["mcq_validity_rate_pct"] == 0.0
+
+    upload = client.post(
+        "/api/materials", files={"file": ("s.txt", io.BytesIO(SAMPLE.encode()), "text/plain")}
+    ).json()
+    client.post(
+        "/api/quizzes",
+        json={
+            "source_material_id": upload["source_material_id"],
+            "competency_id": "C01",
+            "num_questions": 6,
+        },
+    )
+    assert client.get("/api/admin/metrics").json()["mcq_validity_rate_pct"] > 0

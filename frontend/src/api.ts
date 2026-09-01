@@ -177,3 +177,144 @@ export const getAdminOverview = (department?: string) =>
   api.get<AdminOverview>("/admin/overview", { params: department ? { department } : {} })
     .then((r) => r.data);
 export const getDepartments = () => api.get<string[]>("/departments").then((r) => r.data);
+
+// --- learning dashboard ---------------------------------------------------
+export type CourseStatus = "not_started" | "in_progress" | "completed" | "expired";
+export type Verdict = "strong" | "developing" | "weak";
+
+export interface LessonItem {
+  id: number;
+  position: number;
+  title: string;
+  duration_min: number;
+  completed: boolean;
+}
+
+export interface ModuleItem {
+  module_index: number;
+  title: string;
+  topic_id: string;
+  topic_name: string;
+  checkpoint_id: number;
+  pass_pct: number;
+  lessons: LessonItem[];
+  lessons_completed: number;
+  lessons_total: number;
+  checkpoint_unlocked: boolean;
+  checkpoint_passed: boolean;
+  best_score_pct: number | null;
+  attempts: number;
+}
+
+export interface NextAction {
+  kind: "lesson" | "checkpoint";
+  label: string;
+  lesson_id: number | null;
+  checkpoint_id: number | null;
+}
+
+export interface LearningCourse {
+  course_identifier: string;
+  course_name: string;
+  provider: string;
+  competency_ids: string[];
+  status: CourseStatus;
+  progress_pct: number;
+  lessons_completed: number;
+  lessons_total: number;
+  checkpoints_passed: number;
+  checkpoints_total: number;
+  enrolled_at: string | null;
+  completed_at: string | null;
+  expires_at: string | null;
+  days_remaining: number | null;
+  avg_checkpoint_score: number | null;
+  next_action: NextAction | null;
+  modules: ModuleItem[];
+}
+
+export interface TopicMastery {
+  topic_id: string;
+  topic_name: string;
+  competency_id: string;
+  questions_answered: number;
+  questions_correct: number;
+  accuracy_pct: number;
+  attempts: number;
+  verdict: Verdict;
+  last_seen: string | null;
+}
+
+export interface LearningSummary {
+  enrolled: number;
+  in_progress: number;
+  completed: number;
+  expired: number;
+  not_started: number;
+  lessons_completed: number;
+  lessons_total: number;
+  checkpoints_passed: number;
+  overall_progress_pct: number;
+  avg_checkpoint_score: number | null;
+  questions_answered: number;
+  questions_correct: number;
+}
+
+export interface LearningDashboard {
+  user_id: string;
+  user_name: string;
+  role_name: string;
+  department: string;
+  summary: LearningSummary;
+  courses: LearningCourse[];
+  topic_mastery: TopicMastery[];
+  strongest_topics: TopicMastery[];
+  weakest_topics: TopicMastery[];
+}
+
+export interface CheckpointQuiz {
+  checkpoint_id: number;
+  course_identifier: string;
+  course_name: string;
+  title: string;
+  topic_id: string;
+  topic_name: string;
+  pass_pct: number;
+  attempt_no: number;
+  questions: { id: number; stem: string; options: string[]; difficulty: number }[];
+}
+
+export interface CheckpointResult {
+  checkpoint_id: number;
+  topic_name: string;
+  score_pct: number;
+  correct_count: number;
+  total: number;
+  passed: boolean;
+  pass_pct: number;
+  attempt_no: number;
+  course_progress_pct: number;
+  course_status: CourseStatus;
+  topic_accuracy_pct: number;
+  topic_verdict: Verdict;
+  items: {
+    question_id: number;
+    stem: string;
+    options: string[];
+    your_answer: number;
+    answer_index: number;
+    correct: boolean;
+    explanation: string;
+  }[];
+}
+
+export const getLearning = (id: string) =>
+  api.get<LearningDashboard>(`/users/${id}/learning`).then((r) => r.data);
+export const completeLesson = (userId: string, lessonId: number) =>
+  api.post(`/users/${userId}/lessons/${lessonId}/complete`).then((r) => r.data);
+export const getCheckpoint = (checkpointId: number, userId: string) =>
+  api.get<CheckpointQuiz>(`/checkpoints/${checkpointId}`, { params: { user_id: userId } })
+    .then((r) => r.data);
+export const submitCheckpoint = (checkpointId: number, userId: string, answers: number[]) =>
+  api.post<CheckpointResult>(`/checkpoints/${checkpointId}/submit`, { answers },
+    { params: { user_id: userId } }).then((r) => r.data);

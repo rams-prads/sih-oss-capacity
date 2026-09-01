@@ -126,6 +126,9 @@ class Enrolment(Base):
     progress_pct: Mapped[int] = mapped_column(Integer, default=0)
     enrolled_at: Mapped[datetime] = mapped_column(DateTime, default=_utcnow)
     completed_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
+    # Karmayogi course windows close; an unfinished enrolment past this date reads
+    # as "expired" rather than silently sitting at partial progress for ever.
+    expires_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
 
 
 class SourceMaterial(Base):
@@ -187,4 +190,95 @@ class AssessmentResult(Base):
     per_item: Mapped[list[bool]] = mapped_column(JSON, nullable=False)
     prior_level: Mapped[int] = mapped_column(Integer, default=0)
     new_level: Mapped[int] = mapped_column(Integer, default=0)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=_utcnow)
+
+
+# --- Course curriculum: lessons, checkpoints and topic-level results -------
+class Topic(Base):
+    """A teachable slice of a competency. Questions and results hang off it, so
+    "you are weak on imputation" is answerable, not just "weak on C03"."""
+
+    __tablename__ = "topics"
+
+    id: Mapped[str] = mapped_column(String(8), primary_key=True)
+    name: Mapped[str] = mapped_column(String(200), nullable=False)
+    competency_id: Mapped[str] = mapped_column(ForeignKey("competencies.id"), nullable=False)
+
+
+class Lesson(Base):
+    """One video in a course."""
+
+    __tablename__ = "lessons"
+    __table_args__ = (
+        UniqueConstraint("course_identifier", "position", name="uq_course_lesson_position"),
+    )
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    course_identifier: Mapped[str] = mapped_column(String(64), nullable=False, index=True)
+    position: Mapped[int] = mapped_column(Integer, nullable=False)
+    module_index: Mapped[int] = mapped_column(Integer, default=0)
+    title: Mapped[str] = mapped_column(String(300), nullable=False)
+    topic_id: Mapped[str] = mapped_column(ForeignKey("topics.id"), nullable=False)
+    duration_min: Mapped[int] = mapped_column(Integer, default=10)
+
+
+class Checkpoint(Base):
+    """The quiz that gates a module, taken after its lessons are watched."""
+
+    __tablename__ = "checkpoints"
+    __table_args__ = (
+        UniqueConstraint("course_identifier", "module_index", name="uq_course_checkpoint"),
+    )
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    course_identifier: Mapped[str] = mapped_column(String(64), nullable=False, index=True)
+    module_index: Mapped[int] = mapped_column(Integer, nullable=False)
+    title: Mapped[str] = mapped_column(String(300), nullable=False)
+    topic_id: Mapped[str] = mapped_column(ForeignKey("topics.id"), nullable=False)
+    pass_pct: Mapped[int] = mapped_column(Integer, default=60)
+
+
+class BankQuestion(Base):
+    """Curriculum question, authored and topic-tagged (not LLM generated)."""
+
+    __tablename__ = "bank_questions"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    topic_id: Mapped[str] = mapped_column(ForeignKey("topics.id"), nullable=False, index=True)
+    stem: Mapped[str] = mapped_column(Text, nullable=False)
+    options: Mapped[list[str]] = mapped_column(JSON, nullable=False)
+    answer_index: Mapped[int] = mapped_column(Integer, nullable=False)
+    explanation: Mapped[str] = mapped_column(Text, default="")
+    difficulty: Mapped[float] = mapped_column(Float, default=0.5)
+
+
+class LessonProgress(Base):
+    __tablename__ = "lesson_progress"
+    __table_args__ = (UniqueConstraint("user_id", "lesson_id", name="uq_user_lesson"),)
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    user_id: Mapped[str] = mapped_column(ForeignKey("users.id"), nullable=False, index=True)
+    lesson_id: Mapped[int] = mapped_column(ForeignKey("lessons.id"), nullable=False)
+    course_identifier: Mapped[str] = mapped_column(String(64), nullable=False, index=True)
+    completed_at: Mapped[datetime] = mapped_column(DateTime, default=_utcnow)
+
+
+class CheckpointAttempt(Base):
+    """One sitting of a module checkpoint.
+
+    `items` keeps the topic alongside each answer, so topic mastery can be
+    rebuilt without re-joining to the question bank as it changes over time.
+    """
+
+    __tablename__ = "checkpoint_attempts"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    user_id: Mapped[str] = mapped_column(ForeignKey("users.id"), nullable=False, index=True)
+    checkpoint_id: Mapped[int] = mapped_column(ForeignKey("checkpoints.id"), nullable=False)
+    course_identifier: Mapped[str] = mapped_column(String(64), nullable=False, index=True)
+    topic_id: Mapped[str] = mapped_column(ForeignKey("topics.id"), nullable=False)
+    score_pct: Mapped[float] = mapped_column(Float, nullable=False)
+    passed: Mapped[bool] = mapped_column(Boolean, default=False)
+    attempt_no: Mapped[int] = mapped_column(Integer, default=1)
+    items: Mapped[list[dict]] = mapped_column(JSON, nullable=False)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=_utcnow)

@@ -15,7 +15,6 @@ from app.schemas import (
     EnrolRequest,
     GapItem,
     GapReport,
-    ProgressUpdate,
     RecommendationResponse,
 )
 
@@ -82,23 +81,3 @@ def list_enrolments(user_id: str, db: DbSession):
         select(Enrolment).where(Enrolment.user_id == user_id).order_by(Enrolment.enrolled_at)
     ).all()
     return rows
-
-
-@router.patch("/users/{user_id}/enrolments/{identifier}", response_model=EnrolmentOut)
-def update_progress(user_id: str, identifier: str, payload: ProgressUpdate, db: DbSession):
-    row = db.scalar(
-        select(Enrolment).where(
-            Enrolment.user_id == user_id, Enrolment.course_identifier == identifier
-        )
-    )
-    if row is None:
-        raise HTTPException(status.HTTP_404_NOT_FOUND, "Enrolment not found")
-    row.progress_pct = payload.progress_pct
-    if payload.progress_pct >= 100:
-        from datetime import datetime, timezone
-
-        row.status = "completed"
-        row.completed_at = datetime.now(timezone.utc)
-    db.commit()
-    db.refresh(row)
-    return row

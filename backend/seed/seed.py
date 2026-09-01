@@ -5,20 +5,29 @@ Idempotent - it drops and recreates the schema each time.
 """
 from __future__ import annotations
 
+import json
 import sys
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
+from sqlalchemy import select  # noqa: E402
+
 from app.db import Base, SessionLocal, engine  # noqa: E402
 from app.models import (  # noqa: E402
     AssessmentResult,
+    BankQuestion,
+    Checkpoint,
+    CheckpointAttempt,
     Competency,
     CompetencyType,
     Enrolment,
+    Lesson,
+    LessonProgress,
     Role,
     RoleRequirement,
+    Topic,
     User,
     UserCompetency,
 )
@@ -113,20 +122,6 @@ USERS = [
      {"C04": 4, "C09": 4, "C10": 4, "C07": 3, "C12": 3, "C14": 3, "C15": 4}),
 ]
 
-# Prior enrolments so the learner dashboard is not empty on first load.
-ENROLMENTS = [
-    ("u-jso-anita", "do_3137421900017", "Descriptive and Inferential Statistics for Officers",
-     "completed", 100),
-    ("u-jso-anita", "do_3137421900028",
-     "Data Ethics, Confidentiality and the Collection of Statistics Act", "enrolled", 40),
-    ("u-si-vikram", "do_3137421900013", "Questionnaire Design and CAPI Field Operations",
-     "enrolled", 25),
-    ("u-da-suresh", "do_3137421900025", "Statistical Computing with R for Official Statistics",
-     "enrolled", 60),
-    ("u-da-neha", "do_3137421900027", "Data Visualization and Statistical Reporting",
-     "completed", 100),
-]
-
 # Assessment history feeds the gap-closure metric.
 HISTORY = [
     ("u-jso-anita", "C04", 75.0, 1, 2),
@@ -136,6 +131,106 @@ HISTORY = [
     ("u-da-neha", "C04", 91.0, 3, 4),
     ("u-da-imran", "C10", 45.0, 1, 1),
 ]
+
+
+# --- Learning histories ---------------------------------------------------
+# (lessons_done, [(module_index, correct_of_4), ...], enrolled_days_ago, expires_in_days)
+# Status is DERIVED from this, never stated: all lessons + all checkpoints passed
+# is "completed"; an unfinished course past its expiry date is "expired".
+SURVEY_DESIGN = "do_3137421900011"
+DATA_QUALITY = "do_3137421900015"
+QUESTIONNAIRE = "do_3137421900013"
+DESCRIPTIVE = "do_3137421900017"
+R_COMPUTING = "do_3137421900025"
+CLASSIFICATION = "do_3137421900023"
+
+LEARNING = [
+    # Anita is the demo profile: one of every status, and a retried checkpoint.
+    ("u-jso-anita", SURVEY_DESIGN, 4, [(0, 3)], 40, 55),
+    ("u-jso-anita", DESCRIPTIVE, 9, [(0, 4), (1, 3), (2, 1), (2, 3)], 120, 200),
+    ("u-jso-anita", CLASSIFICATION, 3, [], 150, -20),
+    ("u-jso-anita", DATA_QUALITY, 0, [], 8, 90),
+
+    ("u-jso-rakesh", SURVEY_DESIGN, 9, [(0, 4), (1, 4), (2, 3)], 100, 180),
+    ("u-jso-rakesh", R_COMPUTING, 6, [(0, 3), (1, 2), (1, 3)], 30, 60),
+
+    ("u-jso-farah", DATA_QUALITY, 2, [], 20, 70),
+    ("u-jso-farah", QUESTIONNAIRE, 0, [], 5, 90),
+
+    ("u-si-vikram", QUESTIONNAIRE, 5, [(0, 3)], 45, 45),
+    ("u-si-vikram", CLASSIFICATION, 1, [], 140, -10),
+
+    ("u-si-lalita", QUESTIONNAIRE, 9, [(0, 4), (1, 3), (2, 4)], 110, 190),
+    ("u-si-lalita", CLASSIFICATION, 4, [(0, 3)], 25, 65),
+
+    ("u-da-suresh", R_COMPUTING, 7, [(0, 4), (1, 3)], 35, 50),
+    ("u-da-suresh", DESCRIPTIVE, 9, [(0, 3), (1, 4), (2, 3)], 130, 210),
+
+    ("u-da-neha", DESCRIPTIVE, 9, [(0, 4), (1, 4), (2, 4)], 160, 240),
+    ("u-da-neha", R_COMPUTING, 9, [(0, 4), (1, 3), (2, 4)], 90, 170),
+
+    ("u-da-imran", DESCRIPTIVE, 2, [], 15, 75),
+    ("u-da-imran", R_COMPUTING, 0, [], 6, 85),
+
+    ("u-admin-meera", DESCRIPTIVE, 9, [(0, 4), (1, 4), (2, 3)], 200, 280),
+]
+
+
+def load_curriculum(db, now):
+    """Topics, lessons, checkpoints and the authored question bank."""
+    here = Path(__file__).resolve().parent
+    curriculum = json.loads((here / "curriculum.json").read_text(encoding="utf-8"))
+    bank = json.loads((here / "question_bank.json").read_text(encoding="utf-8"))
+
+    for topic_id, meta in curriculum["topics"].items():
+        db.add(Topic(id=topic_id, name=meta["name"], competency_id=meta["competency_id"]))
+
+    lesson_count = 0
+    for course_id, modules in curriculum["courses"].items():
+        position = 0
+        for module_index, module in enumerate(modules):
+            for title, minutes in module["lessons"]:
+                db.add(
+                    Lesson(
+                        course_identifier=course_id,
+                        position=position,
+                        module_index=module_index,
+                        title=title,
+                        topic_id=module["topic"],
+                        duration_min=minutes,
+                    )
+                )
+                position += 1
+                lesson_count += 1
+            db.add(
+                Checkpoint(
+                    course_identifier=course_id,
+                    module_index=module_index,
+                    title=module["title"],
+                    topic_id=module["topic"],
+                    pass_pct=60,
+                )
+            )
+
+    question_count = 0
+    for topic_id, questions in bank.items():
+        if topic_id.startswith("_"):
+            continue
+        for q in questions:
+            db.add(
+                BankQuestion(
+                    topic_id=topic_id,
+                    stem=q["stem"],
+                    options=q["options"],
+                    answer_index=q["answer_index"],
+                    explanation=q.get("explanation", ""),
+                    difficulty=q.get("difficulty", 0.5),
+                )
+            )
+            question_count += 1
+
+    db.flush()
+    return lesson_count, question_count
 
 
 def run() -> None:
@@ -183,18 +278,74 @@ def run() -> None:
                     )
                 )
 
-        for uid, identifier, course_name, status, progress in ENROLMENTS:
+        lesson_count, question_count = load_curriculum(db, now)
+
+        catalogue = json.loads(
+            (Path(__file__).resolve().parent / "igot_courses_seed.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        course_names = {c["identifier"]: c["name"] for c in catalogue["content"]}
+
+        lessons_by_course: dict[str, list[Lesson]] = {}
+        checkpoints_by_course: dict[str, dict[int, Checkpoint]] = {}
+        for lesson in db.scalars(select(Lesson).order_by(Lesson.position)).all():
+            lessons_by_course.setdefault(lesson.course_identifier, []).append(lesson)
+        for cp in db.scalars(select(Checkpoint)).all():
+            checkpoints_by_course.setdefault(cp.course_identifier, {})[cp.module_index] = cp
+
+        for uid, course_id, lessons_done, attempts, enrolled_ago, expires_in in LEARNING:
+            enrolled_at = now - timedelta(days=enrolled_ago)
             db.add(
                 Enrolment(
                     user_id=uid,
-                    course_identifier=identifier,
-                    course_name=course_name,
-                    status=status,
-                    progress_pct=progress,
-                    enrolled_at=now - timedelta(days=30),
-                    completed_at=(now - timedelta(days=7)) if status == "completed" else None,
+                    course_identifier=course_id,
+                    course_name=course_names.get(course_id, ""),
+                    status="enrolled",
+                    progress_pct=0,          # recomputed from lessons and checkpoints
+                    enrolled_at=enrolled_at,
+                    expires_at=enrolled_at + timedelta(days=enrolled_ago + expires_in),
                 )
             )
+
+            course_lessons = lessons_by_course.get(course_id, [])
+            for offset, lesson in enumerate(course_lessons[:lessons_done]):
+                db.add(
+                    LessonProgress(
+                        user_id=uid,
+                        lesson_id=lesson.id,
+                        course_identifier=course_id,
+                        completed_at=enrolled_at + timedelta(days=offset + 1),
+                    )
+                )
+
+            seen: dict[int, int] = {}
+            for order, (module_index, correct) in enumerate(attempts):
+                checkpoint = checkpoints_by_course.get(course_id, {}).get(module_index)
+                if checkpoint is None:
+                    continue
+                seen[module_index] = seen.get(module_index, 0) + 1
+                score = round(100 * correct / 4, 1)
+                db.add(
+                    CheckpointAttempt(
+                        user_id=uid,
+                        checkpoint_id=checkpoint.id,
+                        course_identifier=course_id,
+                        topic_id=checkpoint.topic_id,
+                        score_pct=score,
+                        passed=score >= checkpoint.pass_pct,
+                        attempt_no=seen[module_index],
+                        items=[
+                            {
+                                "question_id": 0,
+                                "topic_id": checkpoint.topic_id,
+                                "correct": i < correct,
+                            }
+                            for i in range(4)
+                        ],
+                        created_at=enrolled_at + timedelta(days=order + 2),
+                    )
+                )
 
         for i, (uid, competency_id, score, prior, new) in enumerate(HISTORY):
             correct = round(score / 100 * 8)
@@ -211,12 +362,25 @@ def run() -> None:
                 )
             )
 
+        db.flush()
+
+        # Progress is derived, so write the derived value back onto the enrolment
+        # rows; nothing in the app sets progress_pct by hand.
+        from app.engines.progress import course_progress, derive_status
+
+        for enrolment in db.scalars(select(Enrolment)).all():
+            progress = course_progress(db, enrolment.user_id, enrolment.course_identifier)
+            enrolment.progress_pct = progress["progress_pct"]
+            enrolment.status = derive_status(enrolment, progress, now)
+            if enrolment.status == "completed" and enrolment.completed_at is None:
+                enrolment.completed_at = enrolment.enrolled_at + timedelta(days=30)
+
         db.commit()
 
     print(
         f"Seeded {len(COMPETENCIES)} competencies, {len(ROLES)} roles, "
-        f"{len(USERS)} officers, {len(ENROLMENTS)} enrolments, "
-        f"{len(HISTORY)} assessment records."
+        f"{len(USERS)} officers, {len(LEARNING)} enrolments with curriculum "
+        f"({lesson_count} lessons, {question_count} bank questions)."
     )
 
 

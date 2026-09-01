@@ -258,3 +258,145 @@ class TokenOut(BaseModel):
     access_token: str
     token_type: str = "bearer"
     user: UserOut
+
+
+# --- learning dashboard: curriculum, progress, topic mastery --------------
+class LessonOut(BaseModel):
+    id: int
+    position: int
+    title: str
+    duration_min: int
+    completed: bool
+
+
+class ModuleOut(BaseModel):
+    module_index: int
+    title: str
+    topic_id: str
+    topic_name: str
+    checkpoint_id: int
+    pass_pct: int
+    lessons: list[LessonOut]
+    lessons_completed: int
+    lessons_total: int
+    checkpoint_unlocked: bool
+    checkpoint_passed: bool
+    best_score_pct: float | None = None
+    attempts: int
+
+
+class NextAction(BaseModel):
+    kind: str = Field(description="lesson | checkpoint")
+    label: str
+    lesson_id: int | None = None
+    checkpoint_id: int | None = None
+
+
+class LearningCourse(BaseModel):
+    course_identifier: str
+    course_name: str
+    provider: str = "iGOT Karmayogi"
+    competency_ids: list[str] = []
+    status: str = Field(description="not_started | in_progress | completed | expired")
+    progress_pct: int
+    lessons_completed: int
+    lessons_total: int
+    checkpoints_passed: int
+    checkpoints_total: int
+    enrolled_at: datetime | None = None
+    completed_at: datetime | None = None
+    expires_at: datetime | None = None
+    days_remaining: int | None = None
+    avg_checkpoint_score: float | None = None
+    next_action: NextAction | None = None
+    modules: list[ModuleOut] = []
+
+
+class TopicMastery(BaseModel):
+    topic_id: str
+    topic_name: str
+    competency_id: str
+    questions_answered: int
+    questions_correct: int
+    accuracy_pct: float
+    attempts: int
+    verdict: str = Field(description="strong | developing | weak")
+    last_seen: datetime | None = None
+
+
+class LearningSummary(BaseModel):
+    enrolled: int
+    in_progress: int
+    completed: int
+    expired: int
+    not_started: int
+    lessons_completed: int
+    lessons_total: int
+    checkpoints_passed: int
+    overall_progress_pct: int
+    avg_checkpoint_score: float | None = None
+    questions_answered: int
+    questions_correct: int
+
+
+class LearningDashboard(BaseModel):
+    user_id: str
+    user_name: str
+    role_name: str
+    department: str
+    summary: LearningSummary
+    courses: list[LearningCourse]
+    topic_mastery: list[TopicMastery]
+    strongest_topics: list[TopicMastery]
+    weakest_topics: list[TopicMastery]
+
+
+class CheckpointQuestionOut(BaseModel):
+    id: int
+    stem: str
+    options: list[str]
+    difficulty: float
+
+
+class CheckpointQuizOut(BaseModel):
+    checkpoint_id: int
+    course_identifier: str
+    course_name: str = ""
+    title: str
+    topic_id: str
+    topic_name: str
+    pass_pct: int
+    attempt_no: int
+    questions: list[CheckpointQuestionOut]
+
+
+class CheckpointSubmitRequest(BaseModel):
+    answers: list[int]
+
+
+class CheckpointItemResult(BaseModel):
+    question_id: int
+    stem: str
+    options: list[str]
+    your_answer: int
+    answer_index: int
+    correct: bool
+    explanation: str = ""
+
+
+class CheckpointSubmitOut(BaseModel):
+    checkpoint_id: int
+    course_identifier: str
+    topic_id: str
+    topic_name: str
+    score_pct: float
+    correct_count: int
+    total: int
+    passed: bool
+    pass_pct: int
+    attempt_no: int
+    course_progress_pct: int
+    course_status: str
+    topic_accuracy_pct: float
+    topic_verdict: str
+    items: list[CheckpointItemResult]

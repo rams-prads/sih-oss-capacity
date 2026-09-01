@@ -1,0 +1,415 @@
+{
+  "_comment": "Course curricula: 3 modules per course, 3 video lessons per module, one checkpoint quiz per module. Topics are the unit that questions and mastery are tracked against.",
+  "topics": {
+    "T01": {
+      "name": "Sampling frames and coverage",
+      "competency_id": "C01"
+    },
+    "T02": {
+      "name": "Stratification and allocation",
+      "competency_id": "C01"
+    },
+    "T03": {
+      "name": "Selection probability and weighting",
+      "competency_id": "C01"
+    },
+    "T04": {
+      "name": "Validation and editing rules",
+      "competency_id": "C03"
+    },
+    "T05": {
+      "name": "Missing data and imputation",
+      "competency_id": "C03"
+    },
+    "T06": {
+      "name": "Quality indicators and error sources",
+      "competency_id": "C03"
+    },
+    "T07": {
+      "name": "Question wording and response formats",
+      "competency_id": "C02"
+    },
+    "T08": {
+      "name": "Questionnaire flow and sensitive topics",
+      "competency_id": "C02"
+    },
+    "T09": {
+      "name": "CAPI and CATI field operations",
+      "competency_id": "C02"
+    },
+    "T10": {
+      "name": "Summary measures and distributions",
+      "competency_id": "C04"
+    },
+    "T11": {
+      "name": "Sampling distributions and confidence intervals",
+      "competency_id": "C04"
+    },
+    "T12": {
+      "name": "Hypothesis testing",
+      "competency_id": "C04"
+    },
+    "T13": {
+      "name": "Data structures and import in R",
+      "competency_id": "C09"
+    },
+    "T14": {
+      "name": "Data manipulation and reshaping",
+      "competency_id": "C09"
+    },
+    "T15": {
+      "name": "Survey weights and reproducible reporting",
+      "competency_id": "C09"
+    },
+    "T16": {
+      "name": "Structure of the NIC",
+      "competency_id": "C08"
+    },
+    "T17": {
+      "name": "Structure of the NCO",
+      "competency_id": "C08"
+    },
+    "T18": {
+      "name": "Coding practice and common errors",
+      "competency_id": "C08"
+    }
+  },
+  "courses": {
+    "do_3137421900011": [
+      {
+        "topic": "T01",
+        "title": "Frames and coverage",
+        "lessons": [
+          [
+            "What a sampling frame is",
+            11
+          ],
+          [
+            "Coverage error: under- and over-coverage",
+            13
+          ],
+          [
+            "Building frames from Census blocks and village lists",
+            12
+          ]
+        ]
+      },
+      {
+        "topic": "T02",
+        "title": "Stratification",
+        "lessons": [
+          [
+            "Why stratify: variance reduction",
+            12
+          ],
+          [
+            "Choosing stratification variables",
+            10
+          ],
+          [
+            "Proportional versus optimal allocation",
+            14
+          ]
+        ]
+      },
+      {
+        "topic": "T03",
+        "title": "Selection and weighting",
+        "lessons": [
+          [
+            "Probability proportional to size",
+            13
+          ],
+          [
+            "Design weights and non-response adjustment",
+            15
+          ],
+          [
+            "Calibration to population benchmarks",
+            12
+          ]
+        ]
+      }
+    ],
+    "do_3137421900015": [
+      {
+        "topic": "T04",
+        "title": "Editing",
+        "lessons": [
+          [
+            "Logical and arithmetic edit rules",
+            12
+          ],
+          [
+            "Selective editing and score functions",
+            14
+          ],
+          [
+            "Outlier detection in survey returns",
+            11
+          ]
+        ]
+      },
+      {
+        "topic": "T05",
+        "title": "Imputation",
+        "lessons": [
+          [
+            "Types of missingness",
+            10
+          ],
+          [
+            "Hot-deck and donor imputation",
+            13
+          ],
+          [
+            "Recording imputation and its effect on variance",
+            12
+          ]
+        ]
+      },
+      {
+        "topic": "T06",
+        "title": "Measuring quality",
+        "lessons": [
+          [
+            "Sampling versus non-sampling error",
+            11
+          ],
+          [
+            "Response and edit-failure rates",
+            10
+          ],
+          [
+            "Quality reports for statistical releases",
+            12
+          ]
+        ]
+      }
+    ],
+    "do_3137421900013": [
+      {
+        "topic": "T07",
+        "title": "Writing questions",
+        "lessons": [
+          [
+            "Wording that avoids ambiguity",
+            11
+          ],
+          [
+            "Open, closed and scaled response formats",
+            12
+          ],
+          [
+            "Reference periods and recall",
+            10
+          ]
+        ]
+      },
+      {
+        "topic": "T08",
+        "title": "Structuring the instrument",
+        "lessons": [
+          [
+            "Question order and rapport",
+            10
+          ],
+          [
+            "Placing sensitive questions",
+            11
+          ],
+          [
+            "Skip patterns and filters",
+            12
+          ]
+        ]
+      },
+      {
+        "topic": "T09",
+        "title": "Field operations",
+        "lessons": [
+          [
+            "CAPI versus paper: what changes",
+            12
+          ],
+          [
+            "Range and consistency checks at collection",
+            13
+          ],
+          [
+            "Managing enumerators and re-interview",
+            11
+          ]
+        ]
+      }
+    ],
+    "do_3137421900017": [
+      {
+        "topic": "T10",
+        "title": "Describing data",
+        "lessons": [
+          [
+            "Measures of central tendency",
+            10
+          ],
+          [
+            "Dispersion and shape",
+            11
+          ],
+          [
+            "Tabulation and cross-tabulation",
+            12
+          ]
+        ]
+      },
+      {
+        "topic": "T11",
+        "title": "From sample to population",
+        "lessons": [
+          [
+            "Sampling distribution of the mean",
+            13
+          ],
+          [
+            "Standard error and confidence intervals",
+            14
+          ],
+          [
+            "Interpreting intervals correctly",
+            11
+          ]
+        ]
+      },
+      {
+        "topic": "T12",
+        "title": "Testing hypotheses",
+        "lessons": [
+          [
+            "Null and alternative hypotheses",
+            11
+          ],
+          [
+            "p-values and significance levels",
+            13
+          ],
+          [
+            "Type I and Type II error",
+            12
+          ]
+        ]
+      }
+    ],
+    "do_3137421900025": [
+      {
+        "topic": "T13",
+        "title": "Getting data into R",
+        "lessons": [
+          [
+            "Vectors, factors and data frames",
+            12
+          ],
+          [
+            "Reading CSV and fixed-width files",
+            11
+          ],
+          [
+            "Types, coercion and missing values",
+            13
+          ]
+        ]
+      },
+      {
+        "topic": "T14",
+        "title": "Shaping data",
+        "lessons": [
+          [
+            "Filtering, selecting and mutating",
+            13
+          ],
+          [
+            "Grouped summaries",
+            12
+          ],
+          [
+            "Long and wide reshaping",
+            14
+          ]
+        ]
+      },
+      {
+        "topic": "T15",
+        "title": "Weights and reporting",
+        "lessons": [
+          [
+            "Applying design weights in R",
+            15
+          ],
+          [
+            "Weighted estimates and standard errors",
+            14
+          ],
+          [
+            "Reproducible reports with scripts",
+            11
+          ]
+        ]
+      }
+    ],
+    "do_3137421900023": [
+      {
+        "topic": "T16",
+        "title": "The NIC",
+        "lessons": [
+          [
+            "Purpose and hierarchy of the NIC",
+            11
+          ],
+          [
+            "Sections, divisions, groups and classes",
+            13
+          ],
+          [
+            "Principal activity and mixed activities",
+            12
+          ]
+        ]
+      },
+      {
+        "topic": "T17",
+        "title": "The NCO",
+        "lessons": [
+          [
+            "Purpose and structure of the NCO",
+            11
+          ],
+          [
+            "Skill level and skill specialisation",
+            13
+          ],
+          [
+            "Occupation versus industry",
+            10
+          ]
+        ]
+      },
+      {
+        "topic": "T18",
+        "title": "Coding in practice",
+        "lessons": [
+          [
+            "Reading a description and assigning a code",
+            12
+          ],
+          [
+            "Common misclassifications",
+            13
+          ],
+          [
+            "Quality checks on coded returns",
+            11
+          ]
+        ]
+      }
+    ]
+  }
+}

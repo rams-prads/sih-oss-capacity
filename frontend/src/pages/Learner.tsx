@@ -1,9 +1,17 @@
 import { useCallback, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { enrol, getEnrolments, getGaps, getRecommendations } from "../api";
-import type { Enrolment, GapItem, GapReport, Recommendation, User } from "../api";
+import type {
+  CourseStatus,
+  Enrolment,
+  GapItem,
+  GapReport,
+  Recommendation,
+  User,
+} from "../api";
 import { CourseCard } from "../components/CourseCard";
 import { GapList } from "../components/GapList";
+import { ProgressBar, StatusPill } from "../components/Progress";
 import { CompetencyRadar } from "../components/Radar";
 import { Card, Empty, ErrorNote, Spinner, Stat } from "../components/ui";
 
@@ -117,21 +125,30 @@ export default function Learner({ userId, user }: { userId: string; user?: User 
       </Card>
 
       {enrolments.length > 0 && (
-        <Card title="My learning" subtitle="Progress reported through the Sunbird enrolment API">
+        <Card
+          title="My learning"
+          subtitle="Videos watched and checkpoint quizzes passed"
+          right={
+            <Link
+              to="/my-learning"
+              className="rounded-lg border border-slate-300 px-3 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-50"
+            >
+              Open full record
+            </Link>
+          }
+        >
           <ul className="divide-y divide-slate-100">
-            {enrolments.map((e) => (
+            {enrolments.slice(0, 4).map((e) => (
               <li key={e.course_identifier} className="flex items-center gap-4 py-3">
                 <div className="min-w-0 flex-1">
                   <p className="truncate text-sm font-medium text-slate-900">{e.course_name}</p>
                   <code className="text-[11px] text-slate-400">{e.course_identifier}</code>
                 </div>
-                <div className="h-1.5 w-40 overflow-hidden rounded-full bg-slate-100">
-                  <div
-                    className={`h-full rounded-full ${e.status === "completed" ? "bg-teal-600" : "bg-amber-500"}`}
-                    style={{ width: `${e.progress_pct}%` }}
-                  />
+                <StatusPill status={e.status as CourseStatus} />
+                <div className="w-40 shrink-0">
+                  <ProgressBar value={e.progress_pct} status={e.status as CourseStatus} />
                 </div>
-                <span className="w-16 shrink-0 text-right text-xs tabular-nums text-slate-500">
+                <span className="w-10 shrink-0 text-right text-xs tabular-nums text-slate-500">
                   {e.progress_pct}%
                 </span>
               </li>

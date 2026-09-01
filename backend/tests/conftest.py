@@ -18,9 +18,14 @@ from app.main import app  # noqa: E402
 from seed import seed as seed_module  # noqa: E402
 
 
-@pytest.fixture(scope="session", autouse=True)
+@pytest.fixture(autouse=True)
 def seeded_db():
     seed_module.run()
+    yield
+
+
+@pytest.fixture(scope="session", autouse=True)
+def cleanup_db_file():
     yield
     # Windows keeps the SQLite file locked until every connection is released.
     from app.db import engine
