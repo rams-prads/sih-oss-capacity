@@ -93,6 +93,7 @@ class User(Base):
     role_id: Mapped[str] = mapped_column(ForeignKey("roles.id"), nullable=False)
     department: Mapped[str] = mapped_column(String(200), nullable=False)
     is_admin: Mapped[bool] = mapped_column(Boolean, default=False)
+    password_hash: Mapped[str] = mapped_column(String(255), default="")
 
     role: Mapped[Role] = relationship(back_populates="users")
     competencies: Mapped[list[UserCompetency]] = relationship(

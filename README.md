@@ -23,6 +23,7 @@ Competencies) as used by Mission Karmayogi and the Karmayogi Qualification Frame
 | **Learner dashboard** | Target vs attained radar, ranked gaps, recommended courses and enrolment. |
 | **My learning** | Every enrolled, completed and expired course, with progress derived from videos watched and checkpoints passed, plus a topic-by-topic record of what the officer gets right and wrong. |
 | **Admin analytics** | Department-wide competency heatmap, top capacity gaps, and cohort training recommendations. |
+| **Department training view** | Weakest topics across the cadre, courses that stall, and enrolments about to lapse. Requires an administrator sign-in. |
 
 ---
 
@@ -88,15 +89,20 @@ npm run dev                     # http://localhost:5173
 **Tests**
 
 ```bash
-cd backend && python -m pytest      # 61 tests
+cd backend && python -m pytest      # 84 tests
+cd frontend && npm test             # 31 component tests
 ```
 
-**With Postgres**
+**With Docker**
 
 ```bash
 cp .env.example .env
-docker compose up                  # db + backend, seeded on boot
+docker compose up                  # db + backend (seeded on boot) + frontend on :5173
 ```
+
+Note: the compose stack is statically validated but has not been executed — Docker
+was not available on the machine this was built on. The local instructions above are
+the exercised path.
 
 ---
 
@@ -116,6 +122,33 @@ Everything is environment-driven; see `.env.example`.
 call. Set `LLM_PROVIDER=openai` (or `gemini`/`ollama`) with a key in `.env` for
 model-written questions; the rest of the pipeline is unchanged, because generation
 sits behind `LLMProvider`.
+
+---
+
+## Accounts and access
+
+The app signs in with an officer id and password (PBKDF2-SHA256, `app/security.py`).
+Production would federate to Keycloak as iGOT does; nothing outside that one module
+touches hashing.
+
+| Account | Password | Access |
+|---|---|---|
+| `u-admin-meera` | `admin123` | Administrator |
+| every other seeded officer | `officer123` | Learner only |
+
+For convenience during a demo, an `X-User-Id` header selects any seeded officer
+without a login, so a judge can switch profiles freely. **That shortcut is never
+accepted by the administrator endpoints** — department analytics expose every
+officer's record, so they require a real token from a password login:
+
+```
+no credentials                  -> 401
+X-User-Id: u-admin-meera        -> 401     (the header cannot grant admin)
+token for a non-admin officer   -> 403
+token for an administrator      -> 200
+```
+
+Set `DEMO_HEADER_AUTH=false` to require a real token everywhere.
 
 ---
 
@@ -188,7 +221,8 @@ Start both servers, open `http://localhost:5173`, and leave the officer selector
 
 ## My learning: courses, checkpoints and topic record
 
-Each course is **three modules of three video lessons**, and every module ends in a
+All 26 catalogue courses carry a curriculum. Each is **three modules of three video
+lessons**, and every module ends in a
 **checkpoint quiz** that unlocks only once its videos are watched. Pass mark is 60%,
 and a checkpoint can be retaken until it is passed.
 
@@ -209,8 +243,8 @@ A finished course never flips to expired when its date passes.
 
 ### Topic record
 
-Checkpoint questions come from an **authored, topic-tagged question bank** (72 items
-across 18 topics), not from the LLM — so the same question means the same thing every
+Checkpoint questions come from an **authored, topic-tagged question bank** (180 items
+across 45 topics, three per competency), not from the LLM — so the same question means the same thing every
 time and mastery is measured against stable items. Every answer is stored with its
 topic, giving a running accuracy per topic:
 
@@ -232,6 +266,7 @@ just no longer carries the weight of measuring topic mastery.
 | `GET` | `/api/checkpoints/{id}?user_id=` | Fetch a module quiz (409 while locked) |
 | `POST` | `/api/checkpoints/{id}/submit?user_id=` | Score it and record the topics |
 | `GET` | `/api/users/{id}/topic-mastery` | Topic accuracy, weakest first |
+| `GET` | `/api/admin/learning` | Department rollup: weak topics, stalled courses, lapsing enrolments (admin only) |
 
 ---
 
@@ -282,12 +317,13 @@ backend/
     routers/     users · gaps · quiz · admin · mock_sunbird
     engines/     progress.py                              ← derived progress
   seed/          seed.py · igot_courses_seed.json (26 courses)
-                 curriculum.json · question_bank.json (72 items)
-  tests/         61 tests
+                 curriculum.json · question_bank.json (180 items)
+  tests/         84 tests
 frontend/
   src/pages/     Learner.tsx · MyLearning.tsx · Upload.tsx · Admin.tsx
   src/components/Radar · Heatmap · GapList · CourseCard · Progress
-                 CourseProgressCard · CheckpointModal · TopicMasteryPanel · ui
+                 CourseProgressCard · CheckpointModal · TopicMasteryPanel
+                 LearningRollup · AdminSignIn · ui  (31 tests)
 demo/            sample material for the assessment demo
 ```
 

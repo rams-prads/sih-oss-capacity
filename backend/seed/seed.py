@@ -15,6 +15,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from sqlalchemy import select  # noqa: E402
 
 from app.db import Base, SessionLocal, engine  # noqa: E402
+from app.security import hash_password  # noqa: E402
 from app.models import (  # noqa: E402
     AssessmentResult,
     BankQuestion,
@@ -152,24 +153,24 @@ LEARNING = [
     ("u-jso-anita", DATA_QUALITY, 0, [], 8, 90),
 
     ("u-jso-rakesh", SURVEY_DESIGN, 9, [(0, 4), (1, 4), (2, 3)], 100, 180),
-    ("u-jso-rakesh", R_COMPUTING, 6, [(0, 3), (1, 2), (1, 3)], 30, 60),
+    ("u-jso-rakesh", R_COMPUTING, 6, [(0, 3), (1, 2), (1, 3)], 30, 18),
 
-    ("u-jso-farah", DATA_QUALITY, 2, [], 20, 70),
+    ("u-jso-farah", DATA_QUALITY, 3, [], 20, 70),
     ("u-jso-farah", QUESTIONNAIRE, 0, [], 5, 90),
 
-    ("u-si-vikram", QUESTIONNAIRE, 5, [(0, 3)], 45, 45),
-    ("u-si-vikram", CLASSIFICATION, 1, [], 140, -10),
+    ("u-si-vikram", QUESTIONNAIRE, 5, [(0, 3)], 45, 12),
+    ("u-si-vikram", CLASSIFICATION, 3, [(0, 0)], 140, -10),
 
     ("u-si-lalita", QUESTIONNAIRE, 9, [(0, 4), (1, 3), (2, 4)], 110, 190),
     ("u-si-lalita", CLASSIFICATION, 4, [(0, 3)], 25, 65),
 
-    ("u-da-suresh", R_COMPUTING, 7, [(0, 4), (1, 3)], 35, 50),
+    ("u-da-suresh", R_COMPUTING, 7, [(0, 4), (1, 3)], 35, 25),
     ("u-da-suresh", DESCRIPTIVE, 9, [(0, 3), (1, 4), (2, 3)], 130, 210),
 
     ("u-da-neha", DESCRIPTIVE, 9, [(0, 4), (1, 4), (2, 4)], 160, 240),
     ("u-da-neha", R_COMPUTING, 9, [(0, 4), (1, 3), (2, 4)], 90, 170),
 
-    ("u-da-imran", DESCRIPTIVE, 2, [], 15, 75),
+    ("u-da-imran", DESCRIPTIVE, 3, [(0, 1)], 15, 75),
     ("u-da-imran", R_COMPUTING, 0, [], 6, 85),
 
     ("u-admin-meera", DESCRIPTIVE, 9, [(0, 4), (1, 4), (2, 3)], 200, 280),
@@ -186,17 +187,18 @@ def load_curriculum(db, now):
         db.add(Topic(id=topic_id, name=meta["name"], competency_id=meta["competency_id"]))
 
     lesson_count = 0
-    for course_id, modules in curriculum["courses"].items():
+    for course_id, topic_ids in curriculum["courses"].items():
         position = 0
-        for module_index, module in enumerate(modules):
-            for title, minutes in module["lessons"]:
+        for module_index, topic_id in enumerate(topic_ids):
+            topic = curriculum["topics"][topic_id]
+            for title, minutes in topic["lessons"]:
                 db.add(
                     Lesson(
                         course_identifier=course_id,
                         position=position,
                         module_index=module_index,
                         title=title,
-                        topic_id=module["topic"],
+                        topic_id=topic_id,
                         duration_min=minutes,
                     )
                 )
@@ -206,8 +208,8 @@ def load_curriculum(db, now):
                 Checkpoint(
                     course_identifier=course_id,
                     module_index=module_index,
-                    title=module["title"],
-                    topic_id=module["topic"],
+                    title=topic["module_title"],
+                    topic_id=topic_id,
                     pass_pct=60,
                 )
             )
@@ -258,6 +260,8 @@ def run() -> None:
 
         for uid, name, role_id, department, is_admin, levels in USERS:
             slug = name.lower().replace(" ", ".")
+            # Demo credentials, documented in the README. Real deployments
+            # federate to Keycloak and never store a password here.
             db.add(
                 User(
                     id=uid,
@@ -266,6 +270,7 @@ def run() -> None:
                     role_id=role_id,
                     department=department,
                     is_admin=is_admin,
+                    password_hash=hash_password("admin123" if is_admin else "officer123"),
                 )
             )
             for competency_id, level in levels.items():

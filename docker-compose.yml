@@ -21,6 +21,8 @@ services:
       DATABASE_URL: postgresql+psycopg://sih:sih@db:5432/sih_oss
       KARMAYOGI_MODE: ${KARMAYOGI_MODE:-mock}
       LLM_PROVIDER: ${LLM_PROVIDER:-stub}
+      JWT_SECRET: ${JWT_SECRET:-change-me-in-deployment}
+      DEMO_HEADER_AUTH: ${DEMO_HEADER_AUTH:-true}
       OPENAI_API_KEY: ${OPENAI_API_KEY:-}
       GEMINI_API_KEY: ${GEMINI_API_KEY:-}
       CORS_ORIGINS: http://localhost:5173,http://127.0.0.1:5173
@@ -32,6 +34,20 @@ services:
     command: >
       sh -c "python -m seed.seed &&
              uvicorn app.main:app --host 0.0.0.0 --port 8000"
+    healthcheck:
+      test: ["CMD-SHELL", "python -c \"import urllib.request;urllib.request.urlopen('http://localhost:8000/health')\""]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "5173:80"
+    depends_on:
+      backend:
+        condition: service_healthy
 
 volumes:
   pgdata:

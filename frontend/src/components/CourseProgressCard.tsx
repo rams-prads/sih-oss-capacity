@@ -96,7 +96,13 @@ export function CourseProgressCard({
                   ? onWatch(course.next_action!.lesson_id!)
                   : onCheckpoint(course.next_action!.checkpoint_id!)
               }
-              disabled={busyLessonId === course.next_action.lesson_id}
+              disabled={
+                // Only a lesson can be mid-flight. Comparing null to null here
+                // used to disable every "Take checkpoint" button.
+                course.next_action.kind === "lesson" &&
+                busyLessonId !== null &&
+                busyLessonId === course.next_action.lesson_id
+              }
               className="rounded-lg bg-slate-900 px-3 py-1.5 text-xs font-medium text-white transition hover:bg-slate-700 disabled:bg-slate-400"
             >
               {course.next_action.kind === "lesson" ? "Watch next video" : "Take checkpoint"}

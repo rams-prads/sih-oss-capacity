@@ -9,30 +9,66 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { getAdminOverview, getDepartments } from "../api";
-import type { AdminOverview } from "../api";
+import {
+  getAdminLearning,
+  getAdminOverview,
+  getDepartments,
+  restoreToken,
+  setToken,
+} from "../api";
+import type { AdminLearningOverview, AdminOverview } from "../api";
+import { AdminSignIn } from "../components/AdminSignIn";
 import { Heatmap } from "../components/Heatmap";
+import { AtRiskList, CourseRollupTable, TopicRollupTable } from "../components/LearningRollup";
 import { Card, Empty, ErrorNote, Spinner, Stat } from "../components/ui";
 
+type Tab = "capacity" | "learning";
+
 export default function Admin() {
+  const [signedIn, setSignedIn] = useState(() => Boolean(restoreToken()));
+  const [tab, setTab] = useState<Tab>("capacity");
   const [overview, setOverview] = useState<AdminOverview | null>(null);
+  const [learning, setLearning] = useState<AdminLearningOverview | null>(null);
   const [departments, setDepartments] = useState<string[]>([]);
   const [department, setDepartment] = useState("");
   const [error, setError] = useState("");
 
   useEffect(() => {
+    if (!signedIn) return;
     getDepartments().then(setDepartments).catch(() => setDepartments([]));
-  }, []);
+  }, [signedIn]);
 
   useEffect(() => {
+    if (!signedIn) return;
+    setError("");
     setOverview(null);
-    getAdminOverview(department || undefined)
-      .then(setOverview)
-      .catch(() => setError("Could not load department analytics."));
-  }, [department]);
+    setLearning(null);
+    const scope = department || undefined;
+    Promise.all([getAdminOverview(scope), getAdminLearning(scope)])
+      .then(([o, l]) => {
+        setOverview(o);
+        setLearning(l);
+      })
+      .catch((e) => {
+        if ((e as { response?: { status?: number } })?.response?.status === 401) {
+          setToken(null);
+          setSignedIn(false);
+        } else {
+          setError("Could not load department analytics.");
+        }
+      });
+  }, [department, signedIn]);
 
+  function signOut() {
+    setToken(null);
+    setSignedIn(false);
+    setOverview(null);
+    setLearning(null);
+  }
+
+  if (!signedIn) return <AdminSignIn onSignedIn={() => setSignedIn(true)} />;
   if (error) return <ErrorNote>{error}</ErrorNote>;
-  if (!overview) return <Spinner label="Aggregating capacity across the cadre" />;
+  if (!overview || !learning) return <Spinner label="Aggregating capacity across the cadre" />;
 
   const chartData = overview.competency_stats
     .filter((s) => s.avg_gap > 0)
@@ -46,25 +82,49 @@ export default function Admin() {
   return (
     <div className="space-y-5">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <div>
-          <h2 className="text-lg font-semibold text-slate-900">Department capacity</h2>
-          <p className="text-sm text-slate-500">
-            Where the cadre falls short of its FRAC role requirements
-          </p>
-        </div>
-        <select
-          value={department}
-          onChange={(e) => setDepartment(e.target.value)}
-          className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm"
-        >
-          <option value="">All departments</option>
-          {departments.map((d) => (
-            <option key={d} value={d}>
-              {d}
-            </option>
+        <div className="flex gap-1 rounded-xl bg-slate-100 p-1">
+          {([
+            ["capacity", "Competency capacity"],
+            ["learning", "Training progress"],
+          ] as [Tab, string][]).map(([key, label]) => (
+            <button
+              key={key}
+              onClick={() => setTab(key)}
+              className={`rounded-lg px-3 py-1.5 text-sm font-medium transition ${
+                tab === key ? "bg-white text-slate-900 shadow-sm" : "text-slate-600"
+              }`}
+            >
+              {label}
+            </button>
           ))}
-        </select>
+        </div>
+
+        <div className="flex items-center gap-2">
+          <select
+            value={department}
+            onChange={(e) => setDepartment(e.target.value)}
+            className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm"
+          >
+            <option value="">All departments</option>
+            {departments.map((d) => (
+              <option key={d} value={d}>
+                {d}
+              </option>
+            ))}
+          </select>
+          <button
+            onClick={signOut}
+            className="rounded-lg border border-slate-300 px-3 py-2 text-xs font-medium text-slate-600 hover:bg-slate-50"
+          >
+            Sign out
+          </button>
+        </div>
       </div>
+
+      {tab === "learning" ? (
+        <LearningTab data={learning} />
+      ) : (
+      <>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <Stat label="Officers" value={overview.officer_count} hint={overview.department} />
@@ -207,6 +267,76 @@ export default function Admin() {
             </tbody>
           </table>
         </div>
+      </Card>
+      </>
+      )}
+    </div>
+  );
+}
+
+
+function LearningTab({ data }: { data: AdminLearningOverview }) {
+  return (
+    <div className="space-y-5">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <Stat
+          label="Course completion"
+          value={`${data.completion_rate_pct}%`}
+          hint={`${data.completed} of ${data.enrolments} enrolments`}
+          tone={data.completion_rate_pct >= 50 ? "good" : "warn"}
+        />
+        <Stat
+          label="Average progress"
+          value={`${data.avg_progress_pct}%`}
+          hint="across every enrolment"
+        />
+        <Stat
+          label="Lapsed unfinished"
+          value={data.expired}
+          hint="enrolment window closed"
+          tone={data.expired > 0 ? "warn" : "good"}
+        />
+        <Stat
+          label="Not started"
+          value={data.not_started}
+          hint={`${data.officers_with_no_enrolment} officers with no enrolment`}
+        />
+      </div>
+
+      <div className="grid gap-5 lg:grid-cols-2">
+        <Card
+          title="Weakest topics across the cadre"
+          subtitle="Measured from checkpoint answers, weakest first"
+        >
+          <TopicRollupTable rows={data.weakest_topics} />
+        </Card>
+
+        <Card
+          title="Courses that stall"
+          subtitle="Lowest completion rate first — where the cadre gets stuck"
+        >
+          <CourseRollupTable rows={data.course_rollup} />
+        </Card>
+      </div>
+
+      <div className="grid gap-5 lg:grid-cols-2">
+        <Card
+          title="Expiring within 30 days"
+          subtitle="Unfinished enrolments about to lapse"
+        >
+          <AtRiskList rows={data.expiring_soon} kind="expiring" />
+        </Card>
+
+        <Card title="Already lapsed" subtitle="Windows that closed before completion">
+          <AtRiskList rows={data.expired_incomplete} kind="expired" />
+        </Card>
+      </div>
+
+      <Card
+        title="Full topic record"
+        subtitle="Every topic the department has been assessed on"
+      >
+        <TopicRollupTable rows={data.topic_rollup} />
       </Card>
     </div>
   );

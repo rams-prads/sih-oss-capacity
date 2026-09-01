@@ -6,6 +6,7 @@ from sqlalchemy import select
 
 from app.deps import CurrentUser, DbSession, create_access_token
 from app.models import Competency, Role, User, UserCompetency
+from app.security import verify_password
 from app.schemas import (
     CompetencyOut,
     LoginRequest,
@@ -97,10 +98,13 @@ def list_departments(db: DbSession):
 
 @router.post("/auth/login", response_model=TokenOut)
 def login(payload: LoginRequest, db: DbSession):
-    """Demo login: pick a seeded officer. Real deployments federate to Keycloak."""
+    """Sign in with an officer id and password. Production federates to Keycloak."""
     user = db.get(User, payload.user_id)
-    if user is None:
-        raise HTTPException(status.HTTP_404_NOT_FOUND, "Unknown officer")
+    if user is None or not user.password_hash:
+        # Same message either way, so the endpoint cannot be used to enumerate ids.
+        raise HTTPException(status.HTTP_401_UNAUTHORIZED, "Incorrect officer id or password")
+    if not verify_password(payload.password, user.password_hash):
+        raise HTTPException(status.HTTP_401_UNAUTHORIZED, "Incorrect officer id or password")
     return TokenOut(access_token=create_access_token(user.id), user=_user_out(user))
 
 

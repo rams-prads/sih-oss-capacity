@@ -4,48 +4,48 @@
     {
       "stem": "A household survey draws its sample from a list of dwellings compiled three years ago. Newly constructed colonies are absent from that list. What error does this introduce?",
       "options": [
-        "Processing error at the tabulation stage",
-        "Sampling error that shrinks as n grows",
         "Non-response bias among listed households",
-        "Under-coverage of the target population"
+        "Sampling error that shrinks as n grows",
+        "Under-coverage of the target population",
+        "Processing error at the tabulation stage"
       ],
-      "answer_index": 3,
+      "answer_index": 2,
       "difficulty": 0.5,
       "explanation": "Units that exist in the population but are missing from the frame are under-covered. This is a frame defect, not a sampling or processing problem."
     },
     {
       "stem": "Why can post-survey weighting NOT repair coverage error in the sampling frame?",
       "options": [
-        "Weighting is only valid for stratified designs",
         "Coverage error affects only the variance, never the point estimate",
         "Weights must sum to the sample size, not the population",
-        "Units missing from the frame had no chance of selection, so no respondent represents them"
+        "Units missing from the frame had no chance of selection, so no respondent represents them",
+        "Weighting is only valid for stratified designs"
       ],
-      "answer_index": 3,
+      "answer_index": 2,
       "difficulty": 0.8,
       "explanation": "Weighting redistributes the responses you did obtain. A unit with zero selection probability is represented by nobody, so no weight can stand in for it."
     },
     {
       "stem": "A frame lists some commercial premises twice under slightly different names. If this is not detected, the estimates will be affected by:",
       "options": [
-        "Under-coverage of the commercial sector",
         "Over-coverage, giving those units an inflated chance of selection",
+        "Under-coverage of the commercial sector",
         "A reduction in the design effect",
         "Imputation bias"
       ],
-      "answer_index": 1,
+      "answer_index": 0,
       "difficulty": 0.6,
       "explanation": "Duplicate frame entries are over-coverage: the duplicated unit has roughly twice the selection probability it should have."
     },
     {
       "stem": "For rural household surveys in India, the sampling frame at the first stage is most commonly built from:",
       "options": [
+        "The electoral roll of the district",
         "A list of registered enterprises",
-        "Village lists from the Census",
         "Ration card registers",
-        "The electoral roll of the district"
+        "Village lists from the Census"
       ],
-      "answer_index": 1,
+      "answer_index": 3,
       "difficulty": 0.3,
       "explanation": "Census village lists provide the standard first-stage frame in rural areas; urban areas use Census enumeration blocks."
     }
@@ -54,12 +54,12 @@
     {
       "stem": "Stratification reduces the variance of an estimator most when strata are:",
       "options": [
-        "Formed at random from the frame",
-        "Internally varied so each contains the full range of values",
+        "Internally homogeneous and different from each other on the study variable",
         "Equal in size regardless of their composition",
-        "Internally homogeneous and different from each other on the study variable"
+        "Internally varied so each contains the full range of values",
+        "Formed at random from the frame"
       ],
-      "answer_index": 3,
+      "answer_index": 0,
       "difficulty": 0.6,
       "explanation": "The gain comes from removing between-stratum variation from the sampling error. Homogeneous strata that differ from one another maximise that gain."
     },
@@ -67,9 +67,9 @@
       "stem": "Under proportional allocation, the number of units sampled from a stratum is set in proportion to:",
       "options": [
         "The size of the stratum in the population",
-        "The cost of enumerating one unit in the stratum",
         "The response rate achieved in the previous round",
-        "The variance of the study variable in the stratum"
+        "The variance of the study variable in the stratum",
+        "The cost of enumerating one unit in the stratum"
       ],
       "answer_index": 0,
       "difficulty": 0.4,
@@ -78,12 +78,12 @@
     {
       "stem": "Optimal allocation assigns a LARGER sample to a stratum when that stratum has:",
       "options": [
-        "The highest previous response rate",
+        "The smallest population size",
         "Low variability and high cost per unit",
-        "High variability in the study variable and low cost per unit",
-        "The smallest population size"
+        "The highest previous response rate",
+        "High variability in the study variable and low cost per unit"
       ],
-      "answer_index": 2,
+      "answer_index": 3,
       "difficulty": 0.8,
       "explanation": "Neyman allocation puts effort where variance is high and enumeration is cheap; both push the allocated sample up."
     },
@@ -92,8 +92,8 @@
       "options": [
         "Turnover and employment are strongly related, so size bands are homogeneous on the study variable",
         "Size bands always contain equal numbers of establishments",
-        "It guarantees a higher response rate",
-        "It removes the need for weighting"
+        "It removes the need for weighting",
+        "It guarantees a higher response rate"
       ],
       "answer_index": 0,
       "difficulty": 0.5,
@@ -104,24 +104,24 @@
     {
       "stem": "The design weight of a sampled unit is:",
       "options": [
-        "Its probability of selection",
         "The number of units in its stratum",
+        "The reciprocal of its probability of selection",
         "The ratio of the sample size to the population size",
-        "The reciprocal of its probability of selection"
+        "Its probability of selection"
       ],
-      "answer_index": 3,
+      "answer_index": 1,
       "difficulty": 0.4,
       "explanation": "A unit selected with probability 1/500 represents about 500 units, so its design weight is 500."
     },
     {
       "stem": "In a two-stage design, villages are selected with probability proportional to population and a fixed number of households is taken in each. The effect on household selection probabilities is that they are:",
       "options": [
-        "Highest in the smallest villages",
         "Proportional to village population",
         "Undefined without a listing of all households",
-        "Approximately equal across villages, making the design self-weighting"
+        "Approximately equal across villages, making the design self-weighting",
+        "Highest in the smallest villages"
       ],
-      "answer_index": 3,
+      "answer_index": 2,
       "difficulty": 0.9,
       "explanation": "PPS at stage one and a fixed take at stage two offset each other, producing roughly equal overall probabilities. This is the classic self-weighting design."
     },
@@ -129,9 +129,9 @@
       "stem": "Calibration adjusts survey weights so that:",
       "options": [
         "Weighted survey totals match known population benchmarks",
+        "The sample size matches the target",
         "Imputed values equal the observed mean",
-        "Every respondent carries the same weight",
-        "The sample size matches the target"
+        "Every respondent carries the same weight"
       ],
       "answer_index": 0,
       "difficulty": 0.6,
@@ -140,12 +140,12 @@
     {
       "stem": "Treating a multi-stage stratified sample as if it were a simple random sample when estimating variance will typically:",
       "options": [
+        "Leave standard errors unchanged",
         "Bias the point estimate upward",
         "Understate the standard errors",
-        "Overstate the standard errors",
-        "Leave standard errors unchanged"
+        "Overstate the standard errors"
       ],
-      "answer_index": 1,
+      "answer_index": 2,
       "difficulty": 0.7,
       "explanation": "Clustering makes observations within a PSU positively correlated. Ignoring it understates variance, sometimes badly."
     }
@@ -154,24 +154,24 @@
     {
       "stem": "An edit rule flags a record where a respondent's age is 12 and marital status is 'widowed'. This is best described as:",
       "options": [
-        "An imputation rule",
-        "A range edit on a single field",
         "A consistency edit between two related fields",
+        "A range edit on a single field",
+        "An imputation rule",
         "An outlier detection rule"
       ],
-      "answer_index": 2,
+      "answer_index": 0,
       "difficulty": 0.5,
       "explanation": "Range edits check one field against permitted values; consistency edits check the relationship between fields, as here."
     },
     {
       "stem": "The purpose of selective editing is to:",
       "options": [
-        "Edit every record to the same standard",
         "Remove all records that fail any edit rule",
         "Concentrate limited review effort on records whose correction would most change the published aggregate",
+        "Edit every record to the same standard",
         "Replace failed records with imputed values automatically"
       ],
-      "answer_index": 2,
+      "answer_index": 1,
       "difficulty": 0.7,
       "explanation": "Selective editing scores records by their likely influence on the estimate, so scarce analyst time goes where it changes the published figure."
     },
@@ -190,12 +190,12 @@
     {
       "stem": "Over-editing is a risk because it:",
       "options": [
-        "Always increases the response rate",
         "Consumes resources and can introduce bias by smoothing genuine variation",
+        "Always increases the response rate",
         "Removes the need for imputation",
         "Reduces the sample size below the design target"
       ],
-      "answer_index": 1,
+      "answer_index": 0,
       "difficulty": 0.8,
       "explanation": "Editing everything costs time and can quietly pull true extreme values toward the middle, biasing dispersion measures."
     }
@@ -204,36 +204,36 @@
     {
       "stem": "Data are 'missing completely at random' (MCAR) when the probability of a value being missing:",
       "options": [
-        "Is the same in every stratum by design",
+        "Does not depend on observed or unobserved data",
         "Depends only on observed variables",
         "Depends on the missing value itself",
-        "Does not depend on observed or unobserved data"
+        "Is the same in every stratum by design"
       ],
-      "answer_index": 3,
+      "answer_index": 0,
       "difficulty": 0.7,
       "explanation": "MCAR is the strongest and rarest assumption. MAR depends on observed data; MNAR depends on the unobserved value itself."
     },
     {
       "stem": "Compared with mean imputation, hot-deck donor imputation is generally preferred because it:",
       "options": [
-        "Removes the need to record which values were imputed",
-        "Guarantees an unbiased point estimate",
+        "Is faster to compute",
         "Preserves the distribution of the variable rather than piling values at the mean",
-        "Is faster to compute"
+        "Removes the need to record which values were imputed",
+        "Guarantees an unbiased point estimate"
       ],
-      "answer_index": 2,
+      "answer_index": 1,
       "difficulty": 0.6,
       "explanation": "Mean imputation artificially shrinks variance. Donor methods take a real value from a similar responding unit, keeping the shape of the distribution."
     },
     {
       "stem": "Why must imputed values be flagged in the microdata?",
       "options": [
-        "Flagging is required before weighting can be applied",
-        "Imputation adds uncertainty that naive variance estimates ignore",
         "It allows imputed records to be deleted before publication",
-        "Imputed values are always wrong"
+        "Flagging is required before weighting can be applied",
+        "Imputed values are always wrong",
+        "Imputation adds uncertainty that naive variance estimates ignore"
       ],
-      "answer_index": 1,
+      "answer_index": 3,
       "difficulty": 0.7,
       "explanation": "Treating imputed values as if they were observed understates variance. The flag lets users apply methods that account for imputation uncertainty."
     },
@@ -241,9 +241,9 @@
       "stem": "Item non-response differs from unit non-response in that item non-response is:",
       "options": [
         "A missing answer to some questions from a responding unit",
-        "A record deleted during editing",
+        "A refusal by the entire household to participate",
         "A unit missing from the sampling frame",
-        "A refusal by the entire household to participate"
+        "A record deleted during editing"
       ],
       "answer_index": 0,
       "difficulty": 0.4,
@@ -254,48 +254,48 @@
     {
       "stem": "Unlike sampling error, non-sampling error:",
       "options": [
-        "Can be estimated directly from the sample variance",
         "Does not necessarily shrink as the sample size grows",
+        "Can be estimated directly from the sample variance",
         "Only occurs in censuses",
         "Is removed by increasing the number of strata"
       ],
-      "answer_index": 1,
+      "answer_index": 0,
       "difficulty": 0.6,
       "explanation": "Doubling the sample can double the volume of measurement and processing error. Only sampling error is guaranteed to fall with n."
     },
     {
       "stem": "In large official surveys, non-sampling error compared with sampling error is:",
       "options": [
-        "Equal by construction",
+        "Frequently larger in magnitude",
         "Always negligible",
         "Always smaller because of training",
-        "Frequently larger in magnitude"
+        "Equal by construction"
       ],
-      "answer_index": 3,
+      "answer_index": 0,
       "difficulty": 0.5,
       "explanation": "At large sample sizes sampling error is small, which leaves measurement, processing and non-response as the dominant error sources."
     },
     {
       "stem": "Independent re-interview of a subsample is used primarily to:",
       "options": [
-        "Replace non-responding households",
-        "Calibrate the design weights",
         "Increase the effective sample size",
-        "Measure response and interviewer error"
+        "Measure response and interviewer error",
+        "Calibrate the design weights",
+        "Replace non-responding households"
       ],
-      "answer_index": 3,
+      "answer_index": 1,
       "difficulty": 0.7,
       "explanation": "Re-interview compares an independent measurement against the original to quantify measurement and interviewer variance."
     },
     {
       "stem": "A quality report accompanying a statistical release would normally include all of the following EXCEPT:",
       "options": [
+        "Coefficients of variation for key estimates",
         "The imputation rate",
         "The identities of individual respondents",
-        "The response rate",
-        "Coefficients of variation for key estimates"
+        "The response rate"
       ],
-      "answer_index": 1,
+      "answer_index": 2,
       "difficulty": 0.3,
       "explanation": "Respondent identity is protected by statistical confidentiality. Response, imputation and precision measures are standard quality indicators."
     }
@@ -304,12 +304,12 @@
     {
       "stem": "Which question is double-barrelled and should be split?",
       "options": [
-        "How many persons usually reside in this household?",
         "In the last 30 days, did you seek medical treatment?",
         "Are you satisfied with the quality and the timeliness of the release?",
+        "How many persons usually reside in this household?",
         "What is your principal occupation?"
       ],
-      "answer_index": 2,
+      "answer_index": 1,
       "difficulty": 0.4,
       "explanation": "It asks about two attributes at once. A respondent satisfied with quality but not timeliness cannot answer accurately."
     },
@@ -317,8 +317,8 @@
       "stem": "A closed question with pre-coded options is preferred over an open question mainly when:",
       "options": [
         "The full range of plausible answers is known in advance",
-        "The interviewer is inexperienced",
         "The subject is sensitive",
+        "The interviewer is inexperienced",
         "The sample size is small"
       ],
       "answer_index": 0,
@@ -328,24 +328,24 @@
     {
       "stem": "Lengthening the recall period in a consumption survey from 7 days to 30 days typically:",
       "options": [
-        "Has no effect on reported expenditure",
+        "Eliminates telescoping error",
         "Improves accuracy for all item types equally",
-        "Reduces recall accuracy for small frequent purchases",
-        "Eliminates telescoping error"
+        "Has no effect on reported expenditure",
+        "Reduces recall accuracy for small frequent purchases"
       ],
-      "answer_index": 2,
+      "answer_index": 3,
       "difficulty": 0.7,
       "explanation": "Longer reference periods lose small, frequent items to forgetting; short periods suit frequent purchases and long periods suit rare large ones."
     },
     {
       "stem": "A response scale offering 'Excellent, Good, Good, Poor' is defective because the options are not:",
       "options": [
-        "Balanced in length",
+        "Mutually exclusive",
         "Written in the local language",
         "Ordered alphabetically",
-        "Mutually exclusive"
+        "Balanced in length"
       ],
-      "answer_index": 3,
+      "answer_index": 0,
       "difficulty": 0.3,
       "explanation": "Duplicated categories mean the same answer maps to two codes, so responses cannot be interpreted."
     }
@@ -354,24 +354,24 @@
     {
       "stem": "Sensitive questions are usually placed late in an interview because:",
       "options": [
-        "Early questions must be closed-ended",
+        "Interviewers memorise them last",
         "They take longer to answer",
-        "The respondent has invested time and rapport has been built",
-        "Interviewers memorise them last"
+        "Early questions must be closed-ended",
+        "The respondent has invested time and rapport has been built"
       ],
-      "answer_index": 2,
+      "answer_index": 3,
       "difficulty": 0.4,
       "explanation": "Asking sensitive items early risks a break-off that costs the whole interview. Late placement means earlier answers are already secured."
     },
     {
       "stem": "A skip pattern instructs the interviewer to:",
       "options": [
-        "Return to a previous section for verification",
-        "Omit every third question to save time",
         "Record a non-response code",
-        "Bypass questions that do not apply given an earlier answer"
+        "Omit every third question to save time",
+        "Bypass questions that do not apply given an earlier answer",
+        "Return to a previous section for verification"
       ],
-      "answer_index": 3,
+      "answer_index": 2,
       "difficulty": 0.3,
       "explanation": "Filters route the respondent past inapplicable blocks, for instance skipping employment detail for a respondent not in the labour force."
     },
@@ -379,9 +379,9 @@
       "stem": "Opening a household questionnaire with straightforward demographic items rather than income questions is intended to:",
       "options": [
         "Establish rapport and reduce early break-off",
-        "Satisfy a legal requirement",
         "Improve the sampling frame",
-        "Reduce the total interview length"
+        "Reduce the total interview length",
+        "Satisfy a legal requirement"
       ],
       "answer_index": 0,
       "difficulty": 0.5,
@@ -390,12 +390,12 @@
     {
       "stem": "In a paper instrument, a complex nest of skip instructions is risky chiefly because:",
       "options": [
-        "It increases printing cost",
         "It prevents stratification",
         "Interviewers may misroute, creating missing or invalid data",
+        "It increases printing cost",
         "It requires longer reference periods"
       ],
-      "answer_index": 2,
+      "answer_index": 1,
       "difficulty": 0.6,
       "explanation": "Manual routing errors are a well documented source of item non-response on paper; CAPI enforces routing automatically."
     }
@@ -404,48 +404,48 @@
     {
       "stem": "The main data-quality advantage of CAPI over a paper schedule is that CAPI:",
       "options": [
-        "Removes the need for a sampling frame",
         "Enforces skip patterns and range checks at the moment of collection",
+        "Removes the need for a sampling frame",
         "Guarantees a higher response rate",
         "Eliminates the need for supervision"
       ],
-      "answer_index": 1,
+      "answer_index": 0,
       "difficulty": 0.4,
       "explanation": "Validating at the doorstep prevents errors that would otherwise be found weeks later in editing, when the respondent is unreachable."
     },
     {
       "stem": "A CAPI hard check should be reserved for values that are:",
       "options": [
-        "Merely unusual but possible",
         "Logically impossible, since it blocks the interviewer from proceeding",
-        "Sensitive in nature",
-        "Slow to type"
+        "Merely unusual but possible",
+        "Slow to type",
+        "Sensitive in nature"
       ],
-      "answer_index": 1,
+      "answer_index": 0,
       "difficulty": 0.7,
       "explanation": "Hard checks on merely unusual values force interviewers to enter false data to move on. Soft warnings suit implausible-but-possible values."
     },
     {
       "stem": "CATI is generally less suitable than CAPI for rural household surveys in India mainly because of:",
       "options": [
-        "The absence of skip logic in CATI systems",
-        "The cost of software licences",
         "Uneven telephone coverage, which biases who can be reached",
+        "The cost of software licences",
+        "The absence of skip logic in CATI systems",
         "Longer questionnaire length"
       ],
-      "answer_index": 2,
+      "answer_index": 0,
       "difficulty": 0.6,
       "explanation": "Telephone frames under-cover exactly the households of most interest, introducing coverage bias that weighting cannot fully repair."
     },
     {
       "stem": "Paradata such as interview timestamps and question timings are useful mainly for:",
       "options": [
+        "Estimating population totals",
         "Calibrating weights",
-        "Detecting interviewer falsification and problem questions",
         "Building the sampling frame",
-        "Estimating population totals"
+        "Detecting interviewer falsification and problem questions"
       ],
-      "answer_index": 1,
+      "answer_index": 3,
       "difficulty": 0.8,
       "explanation": "Implausibly fast interviews or a question that consistently takes very long are signals for supervision and instrument revision."
     }
@@ -454,12 +454,12 @@
     {
       "stem": "Household income in a district is strongly right-skewed by a few very high earners. The better measure of a typical household is the:",
       "options": [
-        "Standard deviation",
+        "Range",
         "Arithmetic mean",
-        "Median",
-        "Range"
+        "Standard deviation",
+        "Median"
       ],
-      "answer_index": 2,
+      "answer_index": 3,
       "difficulty": 0.4,
       "explanation": "The mean is pulled toward the long right tail. The median is unaffected by how extreme the extremes are."
     },
@@ -467,8 +467,8 @@
       "stem": "The coefficient of variation is useful because it:",
       "options": [
         "Expresses dispersion relative to the mean, allowing comparison across different units",
-        "Removes the effect of outliers",
         "Is always smaller than the standard deviation",
+        "Removes the effect of outliers",
         "Converts any distribution to a normal one"
       ],
       "answer_index": 0,
@@ -479,8 +479,8 @@
       "stem": "In a cross-tabulation of employment status by education level, the cell percentages should be computed on the row total when the question of interest is:",
       "options": [
         "How employment status differs across education levels",
-        "The overall share of graduates",
         "How many people are in each cell",
+        "The overall share of graduates",
         "The sampling error of the table"
       ],
       "answer_index": 0,
@@ -490,12 +490,12 @@
     {
       "stem": "A distribution with a long left tail is described as:",
       "options": [
-        "Bimodal",
-        "Leptokurtic",
+        "Negatively skewed",
         "Positively skewed",
-        "Negatively skewed"
+        "Leptokurtic",
+        "Bimodal"
       ],
-      "answer_index": 3,
+      "answer_index": 0,
       "difficulty": 0.3,
       "explanation": "Skew is named for the direction of the tail; a long left tail means negative skew, with mean typically below median."
     }
@@ -504,24 +504,24 @@
     {
       "stem": "The standard error of a sample mean measures:",
       "options": [
-        "The largest error made by any interviewer",
-        "The bias introduced by non-response",
         "The spread of individual values in the population",
-        "How much the sample mean would vary across repeated samples"
+        "How much the sample mean would vary across repeated samples",
+        "The bias introduced by non-response",
+        "The largest error made by any interviewer"
       ],
-      "answer_index": 3,
+      "answer_index": 1,
       "difficulty": 0.6,
       "explanation": "The standard deviation describes individuals; the standard error describes the sampling distribution of the estimate itself."
     },
     {
       "stem": "To halve the standard error of a mean under simple random sampling, the sample size must be multiplied by approximately:",
       "options": [
-        "8",
-        "16",
         "4",
-        "2"
+        "2",
+        "8",
+        "16"
       ],
-      "answer_index": 2,
+      "answer_index": 0,
       "difficulty": 0.7,
       "explanation": "The standard error falls with the square root of n, so a fourfold increase in sample size halves it. Precision is expensive."
     },
@@ -530,8 +530,8 @@
       "options": [
         "Under repeated sampling, 95% of intervals built this way would contain the true mean",
         "There is a 95% probability the true mean lies in this particular interval",
-        "The sample mean has a 5% chance of being wrong",
-        "95% of households have between 4.1 and 4.5 members"
+        "95% of households have between 4.1 and 4.5 members",
+        "The sample mean has a 5% chance of being wrong"
       ],
       "answer_index": 0,
       "difficulty": 0.9,
@@ -540,12 +540,12 @@
     {
       "stem": "The design effect of a survey compares its variance with that of:",
       "options": [
-        "A census of the population",
         "A simple random sample of the same size",
+        "A census of the population",
         "The previous round of the same survey",
         "A stratified sample of twice the size"
       ],
-      "answer_index": 1,
+      "answer_index": 0,
       "difficulty": 0.7,
       "explanation": "Deff above 1 means clustering has cost precision relative to SRS; it is the standard summary of a complex design's efficiency."
     }
@@ -554,48 +554,48 @@
     {
       "stem": "A p-value of 0.03 means that:",
       "options": [
-        "The result will replicate 97% of the time",
-        "The effect size is 3%",
+        "If the null hypothesis were true, data this extreme would occur 3% of the time",
         "There is a 3% probability the null hypothesis is true",
-        "If the null hypothesis were true, data this extreme would occur 3% of the time"
+        "The effect size is 3%",
+        "The result will replicate 97% of the time"
       ],
-      "answer_index": 3,
+      "answer_index": 0,
       "difficulty": 0.8,
       "explanation": "The p-value is computed assuming the null is true. It is not the probability that the null is true, and says nothing about replication."
     },
     {
       "stem": "A Type I error occurs when an analyst:",
       "options": [
-        "Uses the wrong test statistic",
-        "Selects an unrepresentative sample",
         "Rejects a null hypothesis that is actually true",
-        "Fails to reject a null hypothesis that is false"
+        "Fails to reject a null hypothesis that is false",
+        "Uses the wrong test statistic",
+        "Selects an unrepresentative sample"
       ],
-      "answer_index": 2,
+      "answer_index": 0,
       "difficulty": 0.5,
       "explanation": "Type I is a false positive, controlled by the significance level. Type II is a false negative, controlled by power and sample size."
     },
     {
       "stem": "With a very large sample, a statistically significant difference may still be unimportant because:",
       "options": [
-        "p-values cannot be computed for large samples",
-        "Large samples always violate the assumptions of the test",
         "The null hypothesis becomes untestable",
-        "Significance testing detects tiny effects that carry no practical meaning"
+        "Large samples always violate the assumptions of the test",
+        "Significance testing detects tiny effects that carry no practical meaning",
+        "p-values cannot be computed for large samples"
       ],
-      "answer_index": 3,
+      "answer_index": 2,
       "difficulty": 0.8,
       "explanation": "Significance answers 'is there an effect', not 'is it big enough to matter'. Always report the effect size alongside the p-value."
     },
     {
       "stem": "Increasing the sample size in a hypothesis test primarily increases:",
       "options": [
+        "The probability of a Type I error",
         "The effect size",
         "The power to detect a real effect",
-        "The significance level",
-        "The probability of a Type I error"
+        "The significance level"
       ],
-      "answer_index": 1,
+      "answer_index": 2,
       "difficulty": 0.6,
       "explanation": "Power is the chance of rejecting a false null. The significance level is chosen by the analyst, not driven by n."
     }
@@ -604,48 +604,48 @@
     {
       "stem": "In R, a column of district names read from a CSV is stored as a factor. Applying as.numeric() directly to it returns:",
       "options": [
-        "An error that halts the script",
-        "NA for every element",
+        "The original text unchanged",
         "The integer codes of the factor levels, not the original values",
-        "The original text unchanged"
+        "An error that halts the script",
+        "NA for every element"
       ],
-      "answer_index": 2,
+      "answer_index": 1,
       "difficulty": 0.8,
       "explanation": "Factors are integers with labels. The safe idiom is as.numeric(as.character(x)); the direct conversion silently returns level codes."
     },
     {
       "stem": "A data frame differs from a matrix in R in that a data frame:",
       "options": [
-        "Must be square",
         "Stores only numeric values",
+        "Can hold different types in different columns",
         "Cannot be indexed by column name",
-        "Can hold different types in different columns"
+        "Must be square"
       ],
-      "answer_index": 3,
+      "answer_index": 1,
       "difficulty": 0.4,
       "explanation": "A matrix is a single type throughout; a data frame is a list of equal-length vectors that may each have their own type."
     },
     {
       "stem": "A survey file codes 'not applicable' as 99. If read without instruction, R will:",
       "options": [
-        "Refuse to read the column",
-        "Automatically convert it to NA",
         "Store the column as character",
-        "Treat 99 as a valid numeric value and include it in means"
+        "Automatically convert it to NA",
+        "Treat 99 as a valid numeric value and include it in means",
+        "Refuse to read the column"
       ],
-      "answer_index": 3,
+      "answer_index": 2,
       "difficulty": 0.6,
       "explanation": "Sentinel codes must be declared with na.strings or recoded, otherwise they silently contaminate every summary statistic."
     },
     {
       "stem": "When reading a fixed-width file, the essential extra information required is:",
       "options": [
-        "The number of rows",
         "The file encoding only",
         "The sampling design",
-        "The column widths or positions"
+        "The column widths or positions",
+        "The number of rows"
       ],
-      "answer_index": 3,
+      "answer_index": 2,
       "difficulty": 0.3,
       "explanation": "Fixed-width files carry no delimiters, so the layout of start and end positions must be supplied from the record specification."
     }
@@ -655,9 +655,9 @@
       "stem": "To produce mean expenditure by district from a household data frame, the appropriate operation is:",
       "options": [
         "Group by district, then summarise the mean",
+        "Filter to one district at a time and bind the rows",
         "Reshape to wide format, then average the columns",
-        "Sort by district, then take the overall mean",
-        "Filter to one district at a time and bind the rows"
+        "Sort by district, then take the overall mean"
       ],
       "answer_index": 0,
       "difficulty": 0.4,
@@ -666,36 +666,36 @@
     {
       "stem": "Data in 'long' format store one observation per:",
       "options": [
-        "Survey round",
-        "District, aggregated",
+        "Household, with variables across columns",
         "Unit-and-variable combination, in a single value column",
-        "Household, with variables across columns"
+        "Survey round",
+        "District, aggregated"
       ],
-      "answer_index": 2,
+      "answer_index": 1,
       "difficulty": 0.6,
       "explanation": "Long format stacks measurements with a key column naming the variable; wide format spreads them across separate columns."
     },
     {
       "stem": "A left join of households to a district lookup table produces more rows than the household table had. The most likely cause is:",
       "options": [
+        "A missing value in the household table",
         "The lookup table being sorted differently",
         "Duplicate district keys in the lookup table",
-        "A missing value in the household table",
         "Using left instead of inner join"
       ],
-      "answer_index": 1,
+      "answer_index": 2,
       "difficulty": 0.8,
       "explanation": "A left join preserves every left row and multiplies against duplicate matches on the right. Deduplicate the lookup before joining."
     },
     {
       "stem": "Computing a mean in R when the vector contains NA returns NA unless you:",
       "options": [
-        "Convert the vector to a factor",
         "Sort the vector",
         "Pass na.rm = TRUE, having first decided that dropping them is appropriate",
+        "Convert the vector to a factor",
         "Increase the working precision"
       ],
-      "answer_index": 2,
+      "answer_index": 1,
       "difficulty": 0.5,
       "explanation": "na.rm silences the NA but is a substantive decision: dropping missing values assumes they are missing at random."
     }
@@ -705,8 +705,8 @@
       "stem": "A weighted mean should be used instead of an unweighted mean whenever:",
       "options": [
         "Units were selected with unequal probabilities",
-        "The variable is skewed",
         "The sample is larger than 1000",
+        "The variable is skewed",
         "Some values are missing"
       ],
       "answer_index": 0,
@@ -716,24 +716,24 @@
     {
       "stem": "Applying design weights to point estimates but computing standard errors as if the sample were simple random will:",
       "options": [
-        "Be correct in both respects",
-        "Produce an error in most software",
         "Give correct estimates with understated standard errors",
-        "Give incorrect estimates with correct standard errors"
+        "Give incorrect estimates with correct standard errors",
+        "Be correct in both respects",
+        "Produce an error in most software"
       ],
-      "answer_index": 2,
+      "answer_index": 0,
       "difficulty": 0.9,
       "explanation": "This is the most common analysis mistake with complex survey data: the estimate is fine, the stated precision is optimistic."
     },
     {
       "stem": "The main reason to write analysis as a script rather than clicking through a GUI is that a script:",
       "options": [
-        "Requires less memory",
-        "Runs faster",
         "Can be re-run to reproduce the exact published figures",
+        "Runs faster",
+        "Requires less memory",
         "Removes the need for documentation"
       ],
-      "answer_index": 2,
+      "answer_index": 0,
       "difficulty": 0.4,
       "explanation": "Reproducibility is the point: when a figure is queried months later, the script regenerates it exactly."
     },
@@ -741,9 +741,9 @@
       "stem": "Setting a random seed before an imputation or a bootstrap ensures that:",
       "options": [
         "The same results are obtained on every re-run",
-        "The sample becomes representative",
         "Variance estimates are correct",
-        "The results are unbiased"
+        "The results are unbiased",
+        "The sample becomes representative"
       ],
       "answer_index": 0,
       "difficulty": 0.6,
@@ -754,48 +754,48 @@
     {
       "stem": "The National Industrial Classification classifies a unit according to its:",
       "options": [
-        "Employment size band",
+        "Economic activity",
         "Occupation of its workers",
         "Legal ownership form",
-        "Economic activity"
+        "Employment size band"
       ],
-      "answer_index": 3,
+      "answer_index": 0,
       "difficulty": 0.4,
       "explanation": "NIC classifies what the unit produces. NCO classifies what individual workers do."
     },
     {
       "stem": "The correct hierarchy of the NIC, from broadest to narrowest, is:",
       "options": [
-        "Group, class, section, division",
-        "Class, group, division, section",
         "Section, division, group, class",
-        "Division, section, class, group"
+        "Division, section, class, group",
+        "Group, class, section, division",
+        "Class, group, division, section"
       ],
-      "answer_index": 2,
+      "answer_index": 0,
       "difficulty": 0.6,
       "explanation": "Sections carry alphabetic codes; divisions, groups and classes progressively add digits to the numeric code."
     },
     {
       "stem": "An establishment both mills flour and runs a small retail counter. Under NIC it should be classified by:",
       "options": [
-        "The retail activity, since it faces the customer",
-        "Whichever activity employs more workers",
+        "The activity accounting for the greatest value added",
         "The activity listed first in its registration",
-        "The activity accounting for the greatest value added"
+        "Whichever activity employs more workers",
+        "The retail activity, since it faces the customer"
       ],
-      "answer_index": 3,
+      "answer_index": 0,
       "difficulty": 0.8,
       "explanation": "The principal activity rule uses the largest share of value added, with employment or turnover as practical proxies."
     },
     {
       "stem": "A unit that assembles garments entirely from material owned by another firm, for a fee, is classified under:",
       "options": [
-        "Business services",
-        "Transport and storage",
         "Wholesale trade",
-        "Manufacturing, because the transformation activity determines the class"
+        "Manufacturing, because the transformation activity determines the class",
+        "Transport and storage",
+        "Business services"
       ],
-      "answer_index": 3,
+      "answer_index": 1,
       "difficulty": 0.9,
       "explanation": "Physical transformation places the unit in manufacturing regardless of who owns the inputs; this contract-work case is a classic coding trap."
     }
@@ -804,36 +804,36 @@
     {
       "stem": "The National Classification of Occupations classifies:",
       "options": [
-        "The industry of the employing unit",
         "The kind of work a person performs",
-        "The wage band of the worker",
-        "The educational qualification held"
+        "The industry of the employing unit",
+        "The educational qualification held",
+        "The wage band of the worker"
       ],
-      "answer_index": 1,
+      "answer_index": 0,
       "difficulty": 0.3,
       "explanation": "NCO describes the job itself. Two people in the same industry can hold very different occupations."
     },
     {
       "stem": "In the NCO, the concept of 'skill level' broadly corresponds to:",
       "options": [
-        "The salary the job commands",
-        "The number of years the person has worked",
         "The size of the employing establishment",
-        "The complexity and range of tasks in the job"
+        "The number of years the person has worked",
+        "The complexity and range of tasks in the job",
+        "The salary the job commands"
       ],
-      "answer_index": 3,
+      "answer_index": 2,
       "difficulty": 0.7,
       "explanation": "Skill level reflects task complexity, usually associated with a level of education or training, not tenure or pay."
     },
     {
       "stem": "An accountant employed by a textile mill is coded in NIC and NCO respectively as:",
       "options": [
-        "Accounting services, and textile occupation",
         "Textile manufacturing in both",
         "Textile manufacturing, and accounting occupation",
+        "Accounting services, and textile occupation",
         "Accounting services in both"
       ],
-      "answer_index": 2,
+      "answer_index": 1,
       "difficulty": 0.8,
       "explanation": "NIC follows the employer's activity, NCO follows the worker's job. Conflating the two is the most frequent classification error."
     },
@@ -841,9 +841,9 @@
       "stem": "'Skill specialisation' in the NCO refers to the:",
       "options": [
         "Field of knowledge, tools and materials the job involves",
+        "Seniority of the post",
         "Sector of the economy",
-        "Length of the training programme",
-        "Seniority of the post"
+        "Length of the training programme"
       ],
       "answer_index": 0,
       "difficulty": 0.6,
@@ -854,50 +854,1400 @@
     {
       "stem": "A field return records activity as 'shop'. The correct action by the coder is to:",
       "options": [
-        "Code it as manufacturing by default",
-        "Leave the field blank",
+        "Refer it back for more detail, since the description is too vague to code",
         "Assign the most common retail code",
-        "Refer it back for more detail, since the description is too vague to code"
+        "Leave the field blank",
+        "Code it as manufacturing by default"
       ],
-      "answer_index": 3,
+      "answer_index": 0,
       "difficulty": 0.5,
       "explanation": "Guessing propagates an error into the published aggregate. Insufficient descriptions should be queried, not resolved by assumption."
     },
     {
       "stem": "The most common cause of misclassification between NIC and NCO in field returns is:",
       "options": [
-        "Coding at too detailed a level",
-        "Use of the previous year's classification version",
+        "Recording the employer's industry in the occupation field",
         "Illegible handwriting",
-        "Recording the employer's industry in the occupation field"
+        "Use of the previous year's classification version",
+        "Coding at too detailed a level"
       ],
-      "answer_index": 3,
+      "answer_index": 0,
       "difficulty": 0.6,
       "explanation": "Enumerators frequently write 'railways' or 'hospital' as the occupation. The occupation field needs the job, not the workplace."
     },
     {
       "stem": "Independent double-coding of a subsample of returns is used to:",
       "options": [
-        "Replace the need for a coding manual",
-        "Reduce the sample size needed",
+        "Measure the coding error rate",
         "Speed up the coding operation",
-        "Measure the coding error rate"
+        "Reduce the sample size needed",
+        "Replace the need for a coding manual"
       ],
-      "answer_index": 3,
+      "answer_index": 0,
       "difficulty": 0.5,
       "explanation": "Two coders working independently on the same descriptions give a direct measure of coding reliability."
     },
     {
       "stem": "When a classification is revised between survey rounds, comparability over time is preserved by:",
       "options": [
-        "Aggregating to the section level only",
-        "Coding everything to the old version indefinitely",
+        "Publishing a concordance between old and new codes",
         "Discarding the earlier round",
-        "Publishing a concordance between old and new codes"
+        "Coding everything to the old version indefinitely",
+        "Aggregating to the section level only"
+      ],
+      "answer_index": 0,
+      "difficulty": 0.7,
+      "explanation": "A concordance maps old codes to new so series can be bridged; back-casting key aggregates usually accompanies it."
+    }
+  ],
+  "T19": [
+    {
+      "stem": "Under the SNA production boundary, which activity is EXCLUDED from GDP?",
+      "options": [
+        "Owner-occupied housing services",
+        "Subsistence farming for own consumption",
+        "Unpaid domestic housework performed for one's own household",
+        "Illegal but voluntary market transactions"
+      ],
+      "answer_index": 2,
+      "difficulty": 0.7,
+      "explanation": "Own-account production of goods counts, and imputed housing rent counts, but unpaid household services such as cooking and cleaning for one's own household sit outside the boundary."
+    },
+    {
+      "stem": "The imputed rent of owner-occupied dwellings is included in GDP in order to:",
+      "options": [
+        "Account for property taxes",
+        "Reflect construction activity",
+        "Increase measured output",
+        "Keep GDP comparable between economies where renting is more or less common"
+      ],
+      "answer_index": 3,
+      "difficulty": 0.8,
+      "explanation": "Without the imputation, an economy where households own their homes would appear to produce less housing service than an otherwise identical renting economy."
+    },
+    {
+      "stem": "Which institutional sector do government-owned enterprises selling at economically significant prices belong to?",
+      "options": [
+        "Non-financial corporations",
+        "General government",
+        "Households",
+        "Non-profit institutions serving households"
+      ],
+      "answer_index": 0,
+      "difficulty": 0.7,
+      "explanation": "Sector is decided by economic behaviour, not ownership: a market producer is a corporation even when the State owns it."
+    },
+    {
+      "stem": "Intermediate consumption refers to goods and services that are:",
+      "options": [
+        "Imported for resale without transformation",
+        "Sold directly to final consumers",
+        "Used up in the production process during the accounting period",
+        "Held as fixed assets over several years"
+      ],
+      "answer_index": 2,
+      "difficulty": 0.5,
+      "explanation": "Intermediate consumption is fully consumed within the period; durable items used repeatedly are fixed capital instead."
+    }
+  ],
+  "T20": [
+    {
+      "stem": "Gross value added is calculated as:",
+      "options": [
+        "Output plus taxes on products",
+        "Final consumption minus imports",
+        "Output minus compensation of employees",
+        "Output minus intermediate consumption"
+      ],
+      "answer_index": 3,
+      "difficulty": 0.4,
+      "explanation": "GVA measures the value a producer adds beyond the inputs it consumes."
+    },
+    {
+      "stem": "To move from GVA at basic prices to GDP at market prices you:",
+      "options": [
+        "Add compensation of employees",
+        "Subtract intermediate consumption",
+        "Add taxes on products and subtract subsidies on products",
+        "Add subsidies and subtract taxes"
+      ],
+      "answer_index": 2,
+      "difficulty": 0.8,
+      "explanation": "Basic prices exclude product taxes and include product subsidies, so the adjustment reverses both."
+    },
+    {
+      "stem": "Constant-price GVA is used rather than current-price GVA when the aim is to measure:",
+      "options": [
+        "Real growth in output, free of price change",
+        "Tax revenue from production",
+        "The current size of the economy in rupees",
+        "The share of wages in output"
+      ],
+      "answer_index": 0,
+      "difficulty": 0.6,
+      "explanation": "Deflating to constant prices strips out inflation so that changes reflect volume rather than price."
+    },
+    {
+      "stem": "Double deflation compiles real GVA by deflating:",
+      "options": [
+        "Only output, using the GDP deflator",
+        "Value added directly with the CPI",
+        "Only intermediate consumption",
+        "Output and intermediate consumption separately with their own price indices"
+      ],
+      "answer_index": 3,
+      "difficulty": 0.9,
+      "explanation": "Because input and output prices can move differently, deflating each separately gives a more accurate volume measure than deflating GVA as a whole."
+    }
+  ],
+  "T21": [
+    {
+      "stem": "In the expenditure approach, GDP equals:",
+      "options": [
+        "Consumption plus imports minus exports",
+        "Wages plus profits plus rent plus interest",
+        "Consumption plus investment plus government spending plus net exports",
+        "Output minus intermediate consumption"
+      ],
+      "answer_index": 2,
+      "difficulty": 0.5,
+      "explanation": "C + I + G + (X - M) sums final expenditures; imports are subtracted because they are not domestic production."
+    },
+    {
+      "stem": "Imports are subtracted in the expenditure approach because they:",
+      "options": [
+        "Are taxed at the border",
+        "Are recorded at cost, insurance and freight values",
+        "Are already included in consumption and investment but were not domestically produced",
+        "Reduce national welfare"
+      ],
+      "answer_index": 2,
+      "difficulty": 0.7,
+      "explanation": "Spending totals include purchases of foreign goods, so the import deduction removes what the domestic economy did not produce."
+    },
+    {
+      "stem": "The income approach measures GDP by summing:",
+      "options": [
+        "Compensation of employees, gross operating surplus, mixed income and net production taxes",
+        "Exports and government revenue",
+        "Household savings and investment",
+        "Only wages and salaries"
+      ],
+      "answer_index": 0,
+      "difficulty": 0.6,
+      "explanation": "It totals the incomes generated by production, which in principle equals the value of what was produced."
+    },
+    {
+      "stem": "When the production, expenditure and income estimates of GDP differ, the difference is:",
+      "options": [
+        "Always attributed to the informal sector",
+        "Ignored in published accounts",
+        "Evidence that one approach is theoretically wrong",
+        "A statistical discrepancy arising from independent data sources"
       ],
       "answer_index": 3,
       "difficulty": 0.7,
-      "explanation": "A concordance maps old codes to new so series can be bridged; back-casting key aggregates usually accompanies it."
+      "explanation": "The three are equal by definition but measured from different sources, so a residual discrepancy is expected and reported."
+    }
+  ],
+  "T22": [
+    {
+      "stem": "A Laspeyres price index holds quantities fixed at:",
+      "options": [
+        "The average of both periods",
+        "The current period",
+        "The previous year",
+        "The base period"
+      ],
+      "answer_index": 3,
+      "difficulty": 0.5,
+      "explanation": "Laspeyres asks what the base-period basket costs now; Paasche uses current-period quantities instead."
+    },
+    {
+      "stem": "The Laspeyres index tends to overstate the cost of living because it ignores:",
+      "options": [
+        "Substitution away from goods whose relative prices have risen",
+        "Quality improvement in goods",
+        "Changes in household size",
+        "New outlets entering the market"
+      ],
+      "answer_index": 0,
+      "difficulty": 0.8,
+      "explanation": "Consumers shift toward cheaper alternatives, but the fixed base basket assumes they do not, giving upward substitution bias."
+    },
+    {
+      "stem": "A Fisher index is constructed as:",
+      "options": [
+        "The larger of the two",
+        "The arithmetic mean of the two",
+        "The geometric mean of the Laspeyres and Paasche indices",
+        "The Laspeyres index divided by the Paasche index"
+      ],
+      "answer_index": 2,
+      "difficulty": 0.7,
+      "explanation": "The geometric mean gives a superlative index that sits between the two and satisfies the time reversal test."
+    },
+    {
+      "stem": "Chain drift occurs when an index that is chained frequently:",
+      "options": [
+        "Fails to return to its original level after prices return to their starting values",
+        "Cannot be computed for missing items",
+        "Rises faster than the base-weighted index by definition",
+        "Ignores seasonal goods"
+      ],
+      "answer_index": 0,
+      "difficulty": 0.9,
+      "explanation": "With volatile prices and strong substitution, chaining can accumulate a bias so the index does not return to where it began."
+    }
+  ],
+  "T23": [
+    {
+      "stem": "CPI weights are normally derived from:",
+      "options": [
+        "The wholesale price index",
+        "National accounts investment data",
+        "A household consumption expenditure survey",
+        "The count of retail outlets"
+      ],
+      "answer_index": 2,
+      "difficulty": 0.5,
+      "explanation": "Weights reflect how households actually allocate spending, which is measured by a consumption expenditure survey."
+    },
+    {
+      "stem": "The main reason to revise the base year of a price index periodically is that:",
+      "options": [
+        "Consumption patterns drift, so old weights stop representing current spending",
+        "Price collection costs rise",
+        "Legislation requires it annually",
+        "The arithmetic becomes harder over time"
+      ],
+      "answer_index": 0,
+      "difficulty": 0.6,
+      "explanation": "An outdated basket gives increasing weight to goods households no longer buy in the same proportion."
+    },
+    {
+      "stem": "When a series is rebased, historical values are made comparable by:",
+      "options": [
+        "Averaging the two series",
+        "Discarding the old series",
+        "Recomputing the old series with new weights",
+        "Linking the old and new series with an overlap factor"
+      ],
+      "answer_index": 3,
+      "difficulty": 0.7,
+      "explanation": "A linking factor computed over an overlap period splices the series so the level is continuous."
+    },
+    {
+      "stem": "A weighting diagram in a price index specifies:",
+      "options": [
+        "The relative importance of each item group in total expenditure",
+        "The frequency of collection",
+        "The number of price quotations collected",
+        "The geographic spread of outlets"
+      ],
+      "answer_index": 0,
+      "difficulty": 0.4,
+      "explanation": "It is the structure of expenditure shares that determines how much each item influences the headline index."
+    }
+  ],
+  "T24": [
+    {
+      "stem": "When a specified item is permanently unavailable in an outlet, the correct action is to:",
+      "options": [
+        "Drop the item from the index permanently",
+        "Select a comparable replacement and adjust for any quality difference",
+        "Carry the last observed price forward indefinitely",
+        "Record a zero price"
+      ],
+      "answer_index": 1,
+      "difficulty": 0.7,
+      "explanation": "Replacement keeps the sample representative, but the quality difference must be adjusted so a genuine price change is not confused with a specification change."
+    },
+    {
+      "stem": "Failing to adjust for quality improvement when an item is replaced will typically:",
+      "options": [
+        "Understate measured inflation",
+        "Affect only the seasonal components",
+        "Leave the index unaffected",
+        "Overstate measured inflation"
+      ],
+      "answer_index": 3,
+      "difficulty": 0.9,
+      "explanation": "A better product at a higher price is partly paying for more quality; treating the whole rise as inflation overstates it."
+    },
+    {
+      "stem": "Seasonal items that disappear for part of the year are commonly handled by:",
+      "options": [
+        "Excluding the whole index group",
+        "Using the previous year's price unchanged",
+        "Imputing their price movement from similar available items",
+        "Setting their weight to zero permanently"
+      ],
+      "answer_index": 2,
+      "difficulty": 0.8,
+      "explanation": "Imputation from a similar group keeps the index continuous without inventing a price observation."
+    },
+    {
+      "stem": "Price collectors are instructed to record the price actually charged, including temporary discounts, because the index measures:",
+      "options": [
+        "The long-run equilibrium price",
+        "The list price set by manufacturers",
+        "The price excluding indirect taxes",
+        "What households actually pay"
+      ],
+      "answer_index": 3,
+      "difficulty": 0.5,
+      "explanation": "A consumer price index tracks transaction prices faced by households, so genuine discounts available to all buyers are in scope."
+    }
+  ],
+  "T25": [
+    {
+      "stem": "The 2030 Agenda is structured as:",
+      "options": [
+        "Pillars, then sectors, then measures",
+        "Indicators, then goals, then targets",
+        "Goals, then targets, then indicators",
+        "Themes, then ministries, then goals"
+      ],
+      "answer_index": 2,
+      "difficulty": 0.4,
+      "explanation": "Seventeen goals break into targets, and each target is monitored by one or more indicators."
+    },
+    {
+      "stem": "India's National Indicator Framework differs from the global framework in that it:",
+      "options": [
+        "Is compiled by the United Nations",
+        "Replaces the global goals with different ones",
+        "Covers only economic goals",
+        "Selects and adapts indicators to national priorities and data availability"
+      ],
+      "answer_index": 3,
+      "difficulty": 0.6,
+      "explanation": "National frameworks localise monitoring while remaining mapped to the global targets."
+    },
+    {
+      "stem": "Which ministry is responsible for compiling India's National Indicator Framework?",
+      "options": [
+        "NITI Aayog alone",
+        "Ministry of Finance",
+        "Ministry of Statistics and Programme Implementation",
+        "Ministry of Home Affairs"
+      ],
+      "answer_index": 2,
+      "difficulty": 0.5,
+      "explanation": "MoSPI compiles and publishes the NIF and its progress reports, working with line ministries that own the source data."
+    },
+    {
+      "stem": "An indicator is best described as:",
+      "options": [
+        "A policy objective in words",
+        "A funding allocation",
+        "A measurable quantity that tracks progress toward a target",
+        "A data collection instrument"
+      ],
+      "answer_index": 2,
+      "difficulty": 0.3,
+      "explanation": "Targets state the intent; indicators are the measurable evidence of movement toward it."
+    }
+  ],
+  "T26": [
+    {
+      "stem": "A Tier I SDG indicator is one that has:",
+      "options": [
+        "Been retired from the framework",
+        "No agreed methodology yet",
+        "An agreed methodology but little country data",
+        "An agreed methodology and data regularly produced by countries"
+      ],
+      "answer_index": 3,
+      "difficulty": 0.6,
+      "explanation": "Tier II has methodology but sparse data; Tier III lacked an established methodology and the tier has since been phased out."
+    },
+    {
+      "stem": "Administrative sources are often preferred to surveys for SDG reporting when:",
+      "options": [
+        "The indicator requires attitudes or opinions",
+        "National coverage is not needed",
+        "The programme itself records complete data on every beneficiary",
+        "Sampling error must be estimated"
+      ],
+      "answer_index": 2,
+      "difficulty": 0.7,
+      "explanation": "Registers can give complete counts cheaply and frequently, though their coverage and definitions must match the indicator."
+    },
+    {
+      "stem": "A proxy indicator is used when:",
+      "options": [
+        "Funding for surveys is unavailable this year",
+        "The concept cannot be measured directly with available data",
+        "The target has already been met",
+        "The true indicator is politically sensitive"
+      ],
+      "answer_index": 1,
+      "difficulty": 0.6,
+      "explanation": "A proxy stands in for a concept that is hard to observe, and its limitations must be documented alongside it."
+    },
+    {
+      "stem": "Combining data from several ministries for one indicator most often creates problems of:",
+      "options": [
+        "Duplicate sampling frames",
+        "Too many observations",
+        "Differing definitions, reference periods and coverage",
+        "Excessive precision"
+      ],
+      "answer_index": 2,
+      "difficulty": 0.7,
+      "explanation": "Harmonising concepts across sources is usually harder than the arithmetic of combining them."
+    }
+  ],
+  "T27": [
+    {
+      "stem": "Disaggregation of SDG indicators is required primarily to:",
+      "options": [
+        "Increase the number of published tables",
+        "Reveal whether progress is leaving particular groups behind",
+        "Reduce sampling error",
+        "Simplify international comparison"
+      ],
+      "answer_index": 1,
+      "difficulty": 0.5,
+      "explanation": "A national average can improve while a disadvantaged group stagnates; disaggregation by sex, location and social group exposes that."
+    },
+    {
+      "stem": "A national average that improves while the gap between richest and poorest widens illustrates why:",
+      "options": [
+        "Aggregate progress alone is an insufficient measure",
+        "Disaggregation causes bias",
+        "Averages should never be published",
+        "Indicators should be revised"
+      ],
+      "answer_index": 0,
+      "difficulty": 0.6,
+      "explanation": "This is exactly the failure mode the leave-no-one-behind principle is designed to detect."
+    },
+    {
+      "stem": "When disaggregating a survey-based indicator by district, the main statistical risk is:",
+      "options": [
+        "Violating the production boundary",
+        "Losing the sampling frame",
+        "Double counting households",
+        "Small sample sizes making estimates unreliable"
+      ],
+      "answer_index": 3,
+      "difficulty": 0.7,
+      "explanation": "Surveys designed for state-level precision often cannot support district estimates without small-area estimation methods."
+    },
+    {
+      "stem": "Estimates too imprecise to publish should be:",
+      "options": [
+        "Suppressed or flagged with their reliability clearly stated",
+        "Replaced with the national average",
+        "Rounded to hide the imprecision",
+        "Published without comment"
+      ],
+      "answer_index": 0,
+      "difficulty": 0.6,
+      "explanation": "Standard practice is to suppress or footnote estimates below a reliability threshold rather than let users treat them as firm."
+    }
+  ],
+  "T28": [
+    {
+      "stem": "To compare a single value across about twenty districts, the clearest chart is usually a:",
+      "options": [
+        "Pie chart",
+        "Scatter plot",
+        "Stacked area chart",
+        "Horizontal bar chart sorted by value"
+      ],
+      "answer_index": 3,
+      "difficulty": 0.4,
+      "explanation": "Sorted bars let the reader rank and compare lengths precisely; pie slices and areas are much harder to compare."
+    },
+    {
+      "stem": "Pie charts become unreliable mainly when:",
+      "options": [
+        "There are many categories of similar size",
+        "Values are percentages",
+        "Colours are used",
+        "The total is known"
+      ],
+      "answer_index": 0,
+      "difficulty": 0.5,
+      "explanation": "People judge angles poorly, so similar slices are indistinguishable; a bar chart shows the same data far more precisely."
+    },
+    {
+      "stem": "A line chart is the right form when the horizontal axis represents:",
+      "options": [
+        "Unordered categories",
+        "Parts of a whole",
+        "Two independent variables",
+        "A continuous ordered dimension such as time"
+      ],
+      "answer_index": 3,
+      "difficulty": 0.4,
+      "explanation": "Connecting points implies continuity between them, which only makes sense for an ordered dimension."
+    },
+    {
+      "stem": "To show the relationship between two continuous variables across units, use a:",
+      "options": [
+        "Pie chart",
+        "Scatter plot",
+        "Stacked bar chart",
+        "Gauge"
+      ],
+      "answer_index": 1,
+      "difficulty": 0.4,
+      "explanation": "A scatter plot maps each unit to a point in two dimensions, revealing correlation, clusters and outliers."
+    }
+  ],
+  "T29": [
+    {
+      "stem": "In a published statistical table, figures should be rounded so that:",
+      "options": [
+        "All columns have the same width",
+        "Totals always end in zero",
+        "As many digits as possible are displayed",
+        "The precision shown matches the precision the data actually support"
+      ],
+      "answer_index": 3,
+      "difficulty": 0.6,
+      "explanation": "Printing digits beyond what the estimate can support implies false accuracy to the reader."
+    },
+    {
+      "stem": "When rounded components of a table do not sum to the rounded total, the correct response is to:",
+      "options": [
+        "Remove the total row",
+        "Add a footnote explaining that components may not sum due to rounding",
+        "Adjust one component so the total matches",
+        "Round everything to the nearest thousand"
+      ],
+      "answer_index": 1,
+      "difficulty": 0.5,
+      "explanation": "Silently forcing components to add up misrepresents the underlying figures; a footnote is the standard convention."
+    },
+    {
+      "stem": "Colour alone should not be used to convey meaning in a chart because:",
+      "options": [
+        "It increases file size",
+        "Readers with colour vision deficiency may not distinguish the categories",
+        "Colours vary between screens",
+        "Printing is expensive"
+      ],
+      "answer_index": 1,
+      "difficulty": 0.5,
+      "explanation": "Accessible design pairs colour with a second channel such as position, pattern or a direct label."
+    },
+    {
+      "stem": "Every published table should carry a unit statement because:",
+      "options": [
+        "A number without its unit cannot be interpreted",
+        "It determines the sort order",
+        "It is required for indexing",
+        "It fills space in the header"
+      ],
+      "answer_index": 0,
+      "difficulty": 0.3,
+      "explanation": "Rupees, lakh, thousands and percentages all look alike as bare digits; the unit is part of the datum."
+    }
+  ],
+  "T30": [
+    {
+      "stem": "Truncating the vertical axis of a bar chart so it does not start at zero:",
+      "options": [
+        "Exaggerates the apparent difference between bars",
+        "Has no effect on interpretation",
+        "Is required when values are large",
+        "Improves accessibility"
+      ],
+      "answer_index": 0,
+      "difficulty": 0.6,
+      "explanation": "Bar length encodes magnitude, so a non-zero baseline distorts the very comparison the bars are meant to support."
+    },
+    {
+      "stem": "Error bars on an estimate are included in order to show:",
+      "options": [
+        "The range of the raw data",
+        "The sample size",
+        "The uncertainty around the estimate",
+        "The trend over time"
+      ],
+      "answer_index": 2,
+      "difficulty": 0.5,
+      "explanation": "They communicate that the point estimate is one draw from a distribution, not an exact value."
+    },
+    {
+      "stem": "When two estimates have overlapping confidence intervals, it is safest to describe the difference as:",
+      "options": [
+        "Definitely zero",
+        "Statistically significant",
+        "Not clearly distinguishable given the precision of the data",
+        "Larger than it appears"
+      ],
+      "answer_index": 2,
+      "difficulty": 0.8,
+      "explanation": "Overlap does not prove equality, but it does mean the data cannot firmly separate the two."
+    },
+    {
+      "stem": "An estimate with a very high coefficient of variation should be:",
+      "options": [
+        "Converted to an index",
+        "Rounded to more digits",
+        "Suppressed or flagged as unreliable",
+        "Published prominently"
+      ],
+      "answer_index": 2,
+      "difficulty": 0.6,
+      "explanation": "Statistical offices set CV thresholds above which an estimate is footnoted or withheld to prevent misuse."
+    }
+  ],
+  "T31": [
+    {
+      "stem": "The Collection of Statistics Act primarily empowers the government to:",
+      "options": [
+        "Regulate private survey agencies",
+        "Prosecute businesses for tax evasion",
+        "Collect statistical information and obliges respondents to furnish it",
+        "Set prices for essential commodities"
+      ],
+      "answer_index": 2,
+      "difficulty": 0.5,
+      "explanation": "The Act creates the legal basis for statistical collection and the corresponding duty on respondents to reply."
+    },
+    {
+      "stem": "Information collected under the Act may be used for:",
+      "options": [
+        "Enforcement action against the respondent",
+        "Sale to commercial data brokers",
+        "Statistical purposes only",
+        "Any lawful government purpose"
+      ],
+      "answer_index": 2,
+      "difficulty": 0.7,
+      "explanation": "The statistical-purpose restriction is what makes the guarantee of confidentiality credible to respondents."
+    },
+    {
+      "stem": "A statistics officer who discloses an identifiable individual return to a colleague outside the statistical function has:",
+      "options": [
+        "Acted properly if the data were anonymised afterwards",
+        "Breached the confidentiality provisions of the Act",
+        "Acted properly if the colleague is a government servant",
+        "Committed no offence if no harm resulted"
+      ],
+      "answer_index": 1,
+      "difficulty": 0.7,
+      "explanation": "Access is restricted to those performing the statistical function, regardless of the recipient's employer or intentions."
+    },
+    {
+      "stem": "The duty to furnish information under the Act falls on:",
+      "options": [
+        "The enumerator",
+        "The respondent from whom the information is sought",
+        "Only government departments",
+        "Only registered companies"
+      ],
+      "answer_index": 1,
+      "difficulty": 0.4,
+      "explanation": "The Act places the obligation on the informant, with penalties for wilful refusal or knowingly false returns."
+    }
+  ],
+  "T32": [
+    {
+      "stem": "The confidentiality pledge given to respondents means their individual returns will:",
+      "options": [
+        "Never be published or disclosed in identifiable form",
+        "Be shared only with their state government",
+        "Be available on request under transparency rules",
+        "Be published after five years"
+      ],
+      "answer_index": 0,
+      "difficulty": 0.5,
+      "explanation": "Only aggregates are released; the individual return is protected indefinitely."
+    },
+    {
+      "stem": "A request under a transparency or right-to-information provision for individual survey returns should be:",
+      "options": [
+        "Refused, because statistical confidentiality is a statutory exemption",
+        "Referred to the respondent for consent",
+        "Granted in full",
+        "Granted with names removed only"
+      ],
+      "answer_index": 0,
+      "difficulty": 0.8,
+      "explanation": "Statistical confidentiality is a recognised exemption; removing names alone rarely prevents re-identification."
+    },
+    {
+      "stem": "Confidentiality obligations of a statistics officer end when:",
+      "options": [
+        "They do not end, and continue after the officer leaves service",
+        "The survey round is published",
+        "The respondent dies",
+        "Five years have passed"
+      ],
+      "answer_index": 0,
+      "difficulty": 0.7,
+      "explanation": "The duty attaches to the information, not to the officer's current posting, and persists after they move on."
+    },
+    {
+      "stem": "Sharing microdata with a university researcher is acceptable only when:",
+      "options": [
+        "The research is government funded",
+        "The data have been anonymised and released under a controlled access arrangement",
+        "The researcher signs no agreement but promises discretion",
+        "The researcher is a citizen"
+      ],
+      "answer_index": 1,
+      "difficulty": 0.6,
+      "explanation": "Access regimes combine anonymisation, a legal agreement and often a secure environment, rather than relying on trust."
+    }
+  ],
+  "T33": [
+    {
+      "stem": "Indirect identification occurs when a person is recognised from:",
+      "options": [
+        "Their name in the dataset",
+        "Their signature on the schedule",
+        "The interviewer's notes",
+        "A combination of attributes such as age, occupation and village"
+      ],
+      "answer_index": 3,
+      "difficulty": 0.6,
+      "explanation": "Removing names is not enough: a rare combination of quasi-identifiers can single out one individual."
+    },
+    {
+      "stem": "Cell suppression in a published table is applied when a cell:",
+      "options": [
+        "Is a percentage",
+        "Is based on too few units, risking identification",
+        "Has a large value",
+        "Contains a zero"
+      ],
+      "answer_index": 1,
+      "difficulty": 0.6,
+      "explanation": "Small counts can expose an individual, so cells below a threshold are suppressed."
+    },
+    {
+      "stem": "Secondary suppression is needed because:",
+      "options": [
+        "It doubles the protection",
+        "Printing requires symmetry",
+        "Users expect it",
+        "A single suppressed cell can be recovered by subtraction from published totals"
+      ],
+      "answer_index": 3,
+      "difficulty": 0.9,
+      "explanation": "Additional cells must be suppressed so the primary suppression cannot be reconstructed arithmetically from row and column totals."
+    },
+    {
+      "stem": "k-anonymity requires that every combination of quasi-identifiers in a released file:",
+      "options": [
+        "Is removed entirely",
+        "Is unique",
+        "Appears exactly k times",
+        "Appears for at least k individuals"
+      ],
+      "answer_index": 3,
+      "difficulty": 0.8,
+      "explanation": "With at least k matching records, no single individual can be picked out from that combination alone."
+    }
+  ],
+  "T34": [
+    {
+      "stem": "An administrative register differs from a survey in that it is:",
+      "options": [
+        "Always a sample",
+        "A by-product of running a programme, not designed for statistics",
+        "Free of coverage error",
+        "Collected by enumerators"
+      ],
+      "answer_index": 1,
+      "difficulty": 0.5,
+      "explanation": "Registers are built to administer a scheme, so their definitions and coverage follow programme rules rather than statistical need."
+    },
+    {
+      "stem": "The most common problem when using a benefit register to measure poverty is that it covers:",
+      "options": [
+        "Too many people to process",
+        "Only the current financial year",
+        "Only urban areas by law",
+        "Only those who applied and qualified, not everyone in need"
+      ],
+      "answer_index": 3,
+      "difficulty": 0.7,
+      "explanation": "Eligibility and take-up filter the register, so it measures programme participation rather than the underlying condition."
+    },
+    {
+      "stem": "Linking an administrative register to a survey frame requires:",
+      "options": [
+        "Ministerial approval in every case",
+        "Identical sample sizes",
+        "The same reference period only",
+        "A common identifier or reliable matching variables"
+      ],
+      "answer_index": 3,
+      "difficulty": 0.6,
+      "explanation": "Without a shared key, probabilistic matching on name, age and address introduces both false matches and missed links."
+    },
+    {
+      "stem": "A definitional mismatch arises when the register records:",
+      "options": [
+        "Values with more decimal places",
+        "Data in a different file format",
+        "A concept close to but not the same as the statistical concept required",
+        "Fewer records than expected"
+      ],
+      "answer_index": 2,
+      "difficulty": 0.6,
+      "explanation": "For instance a register may count registered enterprises while the statistic needs operating enterprises."
+    }
+  ],
+  "T35": [
+    {
+      "stem": "Scanner data from retailers improves price statistics chiefly by providing:",
+      "options": [
+        "Official list prices",
+        "Transaction prices and quantities for very many items",
+        "Producer cost structures",
+        "Household income data"
+      ],
+      "answer_index": 1,
+      "difficulty": 0.6,
+      "explanation": "Point-of-sale records give both what was charged and how much sold, allowing weights to update far more frequently."
+    },
+    {
+      "stem": "Mobile network data used for mobility statistics suffers most from:",
+      "options": [
+        "Coverage bias, since it represents subscribers rather than people",
+        "A shortage of observations",
+        "Excessive precision",
+        "Slow update cycles"
+      ],
+      "answer_index": 0,
+      "difficulty": 0.7,
+      "explanation": "Handset ownership varies by age, income and gender, so the population observed is not the population of interest."
+    },
+    {
+      "stem": "Satellite imagery is most directly useful in official statistics for estimating:",
+      "options": [
+        "Occupational structure",
+        "Crop area and land use",
+        "Consumer price levels",
+        "Household income"
+      ],
+      "answer_index": 1,
+      "difficulty": 0.5,
+      "explanation": "Remote sensing observes physical land surface, which maps well onto area and land-cover statistics."
+    },
+    {
+      "stem": "Web-scraped price data raise a particular concern about:",
+      "options": [
+        "Excessive sample size",
+        "Interviewer variance",
+        "Stability of the source, since sites change without notice",
+        "Respondent burden"
+      ],
+      "answer_index": 2,
+      "difficulty": 0.7,
+      "explanation": "The statistical office does not control the source, so the series can break when a website is restructured."
+    }
+  ],
+  "T36": [
+    {
+      "stem": "Traditional survey quality measures transfer poorly to found data because there is:",
+      "options": [
+        "No reference period",
+        "Too little data",
+        "No known sampling design or inclusion probability",
+        "No possible bias"
+      ],
+      "answer_index": 2,
+      "difficulty": 0.8,
+      "explanation": "Design-based inference needs known selection probabilities, which found data do not have."
+    },
+    {
+      "stem": "Selectivity in big data means that:",
+      "options": [
+        "The data are collected too often",
+        "The units observed differ systematically from the target population",
+        "Variables are missing at random",
+        "The dataset is too small"
+      ],
+      "answer_index": 1,
+      "difficulty": 0.7,
+      "explanation": "Volume does not cure selection bias: a very large but skewed sample is still skewed."
+    },
+    {
+      "stem": "A very large but non-representative dataset compared with a small probability sample is:",
+      "options": [
+        "Free of standard error",
+        "Potentially more biased, because size does not correct selection",
+        "Equally reliable",
+        "Always more accurate"
+      ],
+      "answer_index": 1,
+      "difficulty": 0.8,
+      "explanation": "Size shrinks variance but not bias, and with huge n the bias dominates total error entirely."
+    },
+    {
+      "stem": "Before adopting a new data source for official statistics, the essential first step is to:",
+      "options": [
+        "Publish results immediately",
+        "Document its coverage, definitions and stability against the statistical need",
+        "Encrypt the data",
+        "Discard the existing survey"
+      ],
+      "answer_index": 1,
+      "difficulty": 0.6,
+      "explanation": "A documented quality assessment is what allows users and successors to judge fitness for purpose."
+    }
+  ],
+  "T37": [
+    {
+      "stem": "A geodetic datum defines:",
+      "options": [
+        "The reference model of the Earth against which coordinates are measured",
+        "The scale of a printed map",
+        "The colour scheme of a map",
+        "The projection used for display"
+      ],
+      "answer_index": 0,
+      "difficulty": 0.7,
+      "explanation": "The same latitude and longitude on different datums can refer to points hundreds of metres apart."
+    },
+    {
+      "stem": "Every map projection necessarily distorts:",
+      "options": [
+        "Only colour",
+        "Some combination of area, shape, distance or direction",
+        "Only labels",
+        "Nothing, if the scale is large"
+      ],
+      "answer_index": 1,
+      "difficulty": 0.6,
+      "explanation": "Flattening a curved surface cannot preserve all properties at once, so the projection is chosen for what must be preserved."
+    },
+    {
+      "stem": "For a map comparing statistical quantities across districts, the projection should preserve:",
+      "options": [
+        "Shape at the poles",
+        "Direction",
+        "Printed page proportions",
+        "Area, so regions are not visually over- or under-weighted"
+      ],
+      "answer_index": 3,
+      "difficulty": 0.8,
+      "explanation": "An equal-area projection stops large-looking regions from dominating the reader's impression of the data."
+    },
+    {
+      "stem": "Geocoding a survey unit means:",
+      "options": [
+        "Encrypting its identifier",
+        "Giving it a classification code",
+        "Assigning it geographic coordinates",
+        "Assigning it a stratum"
+      ],
+      "answer_index": 2,
+      "difficulty": 0.4,
+      "explanation": "Geocoding attaches a location so the record can be mapped, aggregated spatially or linked to area data."
+    }
+  ],
+  "T38": [
+    {
+      "stem": "An area frame is preferred to a list frame when:",
+      "options": [
+        "No reliable list of units exists but the territory can be divided completely",
+        "A complete register is available",
+        "The population is very small",
+        "Only telephone interviews are planned"
+      ],
+      "answer_index": 0,
+      "difficulty": 0.7,
+      "explanation": "Area frames guarantee coverage by partitioning space, which is why they are used where lists are outdated or absent."
+    },
+    {
+      "stem": "Digital listing on handheld devices during field work mainly reduces:",
+      "options": [
+        "Sampling error",
+        "The need for a sampling frame",
+        "Respondent burden",
+        "Transcription errors and the time before data are usable"
+      ],
+      "answer_index": 3,
+      "difficulty": 0.5,
+      "explanation": "Capturing the listing electronically removes a manual copying step and shortens the path to a usable frame."
+    },
+    {
+      "stem": "Administrative boundary changes between survey rounds threaten:",
+      "options": [
+        "The weighting diagram",
+        "The response rate",
+        "The confidentiality pledge",
+        "Comparability of area-based estimates over time"
+      ],
+      "answer_index": 3,
+      "difficulty": 0.7,
+      "explanation": "When a district splits or merges, its series is not comparable unless the geography is harmonised or a concordance is applied."
+    },
+    {
+      "stem": "Within an area frame, the first-stage sampling unit is typically a:",
+      "options": [
+        "A registered enterprise",
+        "Single household",
+        "Defined geographic segment such as a village or enumeration block",
+        "An individual person"
+      ],
+      "answer_index": 2,
+      "difficulty": 0.5,
+      "explanation": "Selecting compact geographic segments first keeps field travel manageable before listing households within them."
+    }
+  ],
+  "T39": [
+    {
+      "stem": "In a choropleth map, the choice of class intervals:",
+      "options": [
+        "Can substantially change the visual message of the same data",
+        "Is fixed by international standard",
+        "Only affects the legend",
+        "Has no effect on interpretation"
+      ],
+      "answer_index": 0,
+      "difficulty": 0.7,
+      "explanation": "Equal-interval, quantile and natural-breaks classifications of identical data can produce strikingly different maps."
+    },
+    {
+      "stem": "Choropleth maps should normally show rates rather than counts because:",
+      "options": [
+        "Counts cannot be coloured",
+        "Rates are always more precise",
+        "Larger or more populous areas otherwise dominate purely by size",
+        "Counts are confidential"
+      ],
+      "answer_index": 2,
+      "difficulty": 0.6,
+      "explanation": "Mapping raw counts largely reproduces the population distribution rather than the phenomenon of interest."
+    },
+    {
+      "stem": "The modifiable areal unit problem refers to results changing when:",
+      "options": [
+        "The boundaries used to aggregate the data are redrawn",
+        "A different projection is chosen",
+        "The colour scheme changes",
+        "The sample size increases"
+      ],
+      "answer_index": 0,
+      "difficulty": 0.9,
+      "explanation": "Both the scale of aggregation and the specific zoning can alter correlations and apparent patterns."
+    },
+    {
+      "stem": "Small area estimation is used when direct survey estimates for an area are:",
+      "options": [
+        "Available from a register",
+        "Too precise to publish",
+        "Confidential",
+        "Too imprecise because the local sample is small"
+      ],
+      "answer_index": 3,
+      "difficulty": 0.7,
+      "explanation": "Model-based methods borrow strength from related areas and auxiliary data to produce usable local estimates."
+    }
+  ],
+  "T40": [
+    {
+      "stem": "SDMX exists primarily to standardise:",
+      "options": [
+        "The design of questionnaires",
+        "The exchange of statistical data and metadata between organisations",
+        "Sampling methodology",
+        "Chart colour schemes"
+      ],
+      "answer_index": 1,
+      "difficulty": 0.5,
+      "explanation": "It gives a common structure so data can move between agencies without bespoke translation each time."
+    },
+    {
+      "stem": "In the SDMX model, a dimension is a concept that:",
+      "options": [
+        "Describes the quality of the data",
+        "Records the observed value",
+        "Names the publishing agency only",
+        "Helps uniquely identify each observation, such as reference area or period"
+      ],
+      "answer_index": 3,
+      "difficulty": 0.7,
+      "explanation": "Dimensions form the key of an observation; attributes carry descriptive information that does not identify it."
+    },
+    {
+      "stem": "The observed number itself is held in SDMX as the:",
+      "options": [
+        "Attribute",
+        "Dimension",
+        "Code list",
+        "Measure"
+      ],
+      "answer_index": 3,
+      "difficulty": 0.5,
+      "explanation": "Dimensions locate the observation, attributes qualify it, and the measure is the value."
+    },
+    {
+      "stem": "A data flow in SDMX represents:",
+      "options": [
+        "The order of questions in a survey",
+        "The revision history of a series",
+        "The network route between servers",
+        "A specific collection of data reported against a defined structure"
+      ],
+      "answer_index": 3,
+      "difficulty": 0.7,
+      "explanation": "The data flow ties a body of reported data to the structure definition that governs it."
+    }
+  ],
+  "T41": [
+    {
+      "stem": "A data structure definition specifies:",
+      "options": [
+        "The sampling design",
+        "The colour palette for publication",
+        "The dimensions, attributes and measures a dataset must contain",
+        "The confidentiality policy"
+      ],
+      "answer_index": 2,
+      "difficulty": 0.6,
+      "explanation": "The DSD is the contract describing how a conforming dataset must be shaped."
+    },
+    {
+      "stem": "A code list provides:",
+      "options": [
+        "The permitted values for a coded concept, each with an identifier and label",
+        "Programming source code",
+        "The list of authorised users",
+        "Free text descriptions of the data"
+      ],
+      "answer_index": 0,
+      "difficulty": 0.5,
+      "explanation": "Restricting a dimension to an agreed code list is what makes datasets from different sources comparable."
+    },
+    {
+      "stem": "Structural metadata must be versioned because:",
+      "options": [
+        "Storage is cheap",
+        "Consumers need to know which definitions a given dataset was built against",
+        "It improves compression",
+        "Regulations require annual renumbering"
+      ],
+      "answer_index": 1,
+      "difficulty": 0.7,
+      "explanation": "Adding or retiring codes changes meaning, and version identifiers let users interpret older files correctly."
+    },
+    {
+      "stem": "Adding a new code to a published code list should be treated as:",
+      "options": [
+        "A confidentiality issue",
+        "A routine edit needing no record",
+        "A reason to withdraw the series",
+        "A structural change requiring a version update and communication to users"
+      ],
+      "answer_index": 3,
+      "difficulty": 0.7,
+      "explanation": "Downstream systems validate against the code list, so an unannounced addition breaks them silently."
+    }
+  ],
+  "T42": [
+    {
+      "stem": "Reference metadata accompanying a dataset describes:",
+      "options": [
+        "The file size and format only",
+        "The chart types used",
+        "The list of authorised downloaders",
+        "How the data were produced, their concepts and their limitations"
+      ],
+      "answer_index": 3,
+      "difficulty": 0.6,
+      "explanation": "It is what lets a user who was not involved in production judge whether the data suit their purpose."
+    },
+    {
+      "stem": "Publishing statistics through an API rather than only as spreadsheets mainly benefits users by:",
+      "options": [
+        "Reducing the statistical office's obligations",
+        "Improving sampling precision",
+        "Removing the need for metadata",
+        "Allowing automated, repeatable retrieval of exactly the series needed"
+      ],
+      "answer_index": 3,
+      "difficulty": 0.5,
+      "explanation": "Machine access removes manual downloading and re-keying, and keeps downstream products current."
+    },
+    {
+      "stem": "When a published series is revised, good dissemination practice is to:",
+      "options": [
+        "Delete the series and start again",
+        "Publish the revision with a documented reason and keep the earlier vintage identifiable",
+        "Publish only the new figure without comment",
+        "Silently overwrite the old figures"
+      ],
+      "answer_index": 1,
+      "difficulty": 0.7,
+      "explanation": "Users who acted on the earlier figure need to see what changed and why, so revisions are documented and vintages preserved."
+    },
+    {
+      "stem": "Machine-readable dissemination requires that data be:",
+      "options": [
+        "Released only as PDF",
+        "Formatted attractively for printing",
+        "Structured consistently so software can parse them without human interpretation",
+        "Aggregated to the national level"
+      ],
+      "answer_index": 2,
+      "difficulty": 0.5,
+      "explanation": "Merged header cells and footnotes inside data cells defeat automated parsing, however readable they look to a person."
+    }
+  ],
+  "T43": [
+    {
+      "stem": "The first step in turning a policy question into an analysis is to:",
+      "options": [
+        "Choose the software",
+        "Select a chart type",
+        "Request the largest available dataset",
+        "Define precisely what is to be measured and for which population"
+      ],
+      "answer_index": 3,
+      "difficulty": 0.5,
+      "explanation": "An unclear definition of the concept and population makes every later technical choice arbitrary."
+    },
+    {
+      "stem": "A question such as 'is unemployment rising?' must first be sharpened by specifying:",
+      "options": [
+        "The chart colours",
+        "The budget available",
+        "The publication date",
+        "The definition of unemployment, the population and the time frame"
+      ],
+      "answer_index": 3,
+      "difficulty": 0.6,
+      "explanation": "Different definitions and reference periods can point in opposite directions on the same underlying data."
+    },
+    {
+      "stem": "An analyst finds that districts with more health centres have higher reported disease rates. The most likely explanation is:",
+      "options": [
+        "Sampling error alone",
+        "Better detection and reporting where services exist",
+        "Health centres cause disease",
+        "A data entry error"
+      ],
+      "answer_index": 1,
+      "difficulty": 0.8,
+      "explanation": "Detection bias is a classic confounder: measurement improves where capacity exists, inflating recorded rates."
+    },
+    {
+      "stem": "Keeping findings separate from inference in a report means:",
+      "options": [
+        "Omitting the methodology",
+        "Avoiding all recommendations",
+        "Distinguishing what the data show from what the analyst concludes",
+        "Publishing tables without any commentary"
+      ],
+      "answer_index": 2,
+      "difficulty": 0.6,
+      "explanation": "Readers must be able to accept the measurements while judging the interpretation for themselves."
+    }
+  ],
+  "T44": [
+    {
+      "stem": "A brief for senior officers should open with:",
+      "options": [
+        "The main finding and what it means",
+        "The methodology",
+        "A history of the survey",
+        "A list of data sources"
+      ],
+      "answer_index": 0,
+      "difficulty": 0.5,
+      "explanation": "Decision-makers read the top and may read no further, so the conclusion leads and the method supports."
+    },
+    {
+      "stem": "Writing 'employment fell by 2.3 percentage points' rather than 'employment fell by 2.3%' matters because:",
+      "options": [
+        "It is shorter",
+        "Either is equally correct",
+        "Percentage points sound more precise",
+        "A change in a percentage is not the same as a percentage change"
+      ],
+      "answer_index": 3,
+      "difficulty": 0.8,
+      "explanation": "A move from 40% to 37.7% is 2.3 percentage points but a 5.75% relative fall; confusing them misstates the size."
+    },
+    {
+      "stem": "In a two-page brief, technical detail on method is best placed:",
+      "options": [
+        "Omitted entirely",
+        "In an annex or footnote, referenced from the main text",
+        "Distributed evenly throughout",
+        "In the opening paragraph"
+      ],
+      "answer_index": 1,
+      "difficulty": 0.5,
+      "explanation": "The method must be available for scrutiny without displacing the finding the reader came for."
+    },
+    {
+      "stem": "Using plain language for numbers means:",
+      "options": [
+        "Using technical vocabulary consistently",
+        "Explaining what a figure implies in concrete terms the reader can act on",
+        "Rounding everything to whole numbers",
+        "Avoiding all statistics"
+      ],
+      "answer_index": 1,
+      "difficulty": 0.5,
+      "explanation": "'One in five households' communicates more to a non-specialist reader than an unexplained proportion."
+    }
+  ],
+  "T45": [
+    {
+      "stem": "A margin of error is best explained to a non-technical reader as:",
+      "options": [
+        "The difference between two surveys",
+        "The share of respondents who refused",
+        "The mistake made by the analyst",
+        "A range within which the true value is likely to lie"
+      ],
+      "answer_index": 3,
+      "difficulty": 0.6,
+      "explanation": "Framing it as a plausible range conveys the idea without requiring the reader to know sampling theory."
+    },
+    {
+      "stem": "Limitations of an analysis should be:",
+      "options": [
+        "Omitted to preserve confidence",
+        "Placed only in a final annex",
+        "Mentioned only if challenged",
+        "Stated clearly near the findings they affect"
+      ],
+      "answer_index": 3,
+      "difficulty": 0.6,
+      "explanation": "A caveat buried far from the number it qualifies will not reach the reader who acts on that number."
+    },
+    {
+      "stem": "When a small survey-based change is within the margin of error, the honest description is:",
+      "options": [
+        "That the data show no clear change",
+        "That the indicator has definitely improved",
+        "That the change is small but real",
+        "That the survey failed"
+      ],
+      "answer_index": 0,
+      "difficulty": 0.7,
+      "explanation": "Reporting movement the data cannot support is the most common way statistical briefings mislead."
+    },
+    {
+      "stem": "Challenged on a figure by a senior official, the appropriate response is to:",
+      "options": [
+        "Withdraw the figure immediately",
+        "Defend the number regardless",
+        "Explain the method and evidence, and correct it if the challenge is right",
+        "Refer them to the annex"
+      ],
+      "answer_index": 2,
+      "difficulty": 0.5,
+      "explanation": "Professional credibility rests on transparency about method and willingness to correct genuine error."
     }
   ]
 }

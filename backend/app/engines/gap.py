@@ -74,3 +74,73 @@ def compute_gaps(db: Session, user_id: str) -> GapReport:
 def top_gaps(report: GapReport, n: int = 5) -> list[GapItem]:
     """The n highest-priority competencies the officer has not yet met."""
     return [i for i in report.items if i.gap > 0][:n]
+
+
+def compute_gaps_bulk(db: Session, users: list[User]) -> list[GapReport]:
+    """Gap reports for many officers with a fixed number of queries.
+
+    compute_gaps issues several queries per officer, which is fine for one
+    dashboard but turns the department view into an N+1 scan. This loads the
+    taxonomy, requirements and proficiencies once and does the rest in memory.
+    """
+    if not users:
+        return []
+
+    competencies = {c.id: c for c in db.scalars(select(Competency)).all()}
+    roles = {r.id: r for r in db.scalars(select(Role)).all()}
+
+    requirements_by_role: dict[str, list[RoleRequirement]] = {}
+    for requirement in db.scalars(select(RoleRequirement)).all():
+        requirements_by_role.setdefault(requirement.role_id, []).append(requirement)
+
+    user_ids = [u.id for u in users]
+    attained: dict[str, dict[str, int]] = {uid: {} for uid in user_ids}
+    for link in db.scalars(
+        select(UserCompetency).where(UserCompetency.user_id.in_(user_ids))
+    ).all():
+        attained.setdefault(link.user_id, {})[link.competency_id] = link.attained_level
+
+    reports = []
+    for user in users:
+        levels = attained.get(user.id, {})
+        items: list[GapItem] = []
+        for requirement in requirements_by_role.get(user.role_id, []):
+            competency = competencies.get(requirement.competency_id)
+            if competency is None:
+                continue
+            attained_level = levels.get(requirement.competency_id, 0)
+            gap = max(0, requirement.target_level - attained_level)
+            items.append(
+                GapItem(
+                    competency_id=requirement.competency_id,
+                    competency_name=competency.name,
+                    competency_type=competency.type,
+                    target_level=requirement.target_level,
+                    attained_level=attained_level,
+                    gap=gap,
+                    weight=requirement.weight,
+                    weighted_gap=round(gap * requirement.weight, 3),
+                    meets_target=gap == 0,
+                )
+            )
+        items.sort(key=lambda i: (-i.weighted_gap, -i.gap, i.competency_id))
+
+        total = round(sum(i.weighted_gap for i in items), 3)
+        max_possible = round(sum(i.target_level * i.weight for i in items), 3)
+        role = roles.get(user.role_id)
+        reports.append(
+            GapReport(
+                user_id=user.id,
+                user_name=user.name,
+                role_id=user.role_id,
+                role_name=role.name if role else user.role_id,
+                department=user.department,
+                items=items,
+                total_weighted_gap=total,
+                max_weighted_gap=max_possible,
+                readiness_pct=(
+                    100.0 if max_possible == 0 else round(100 * (1 - total / max_possible), 1)
+                ),
+            )
+        )
+    return reports

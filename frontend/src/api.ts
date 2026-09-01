@@ -318,3 +318,97 @@ export const getCheckpoint = (checkpointId: number, userId: string) =>
 export const submitCheckpoint = (checkpointId: number, userId: string, answers: number[]) =>
   api.post<CheckpointResult>(`/checkpoints/${checkpointId}/submit`, { answers },
     { params: { user_id: userId } }).then((r) => r.data);
+
+// --- auth -----------------------------------------------------------------
+const TOKEN_KEY = "oss.token";
+
+export function setToken(token: string | null) {
+  if (token) {
+    api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    try {
+      localStorage.setItem(TOKEN_KEY, token);
+    } catch {
+      /* private browsing: the token simply does not persist */
+    }
+  } else {
+    delete api.defaults.headers.common["Authorization"];
+    try {
+      localStorage.removeItem(TOKEN_KEY);
+    } catch {
+      /* ignore */
+    }
+  }
+}
+
+export function restoreToken(): string | null {
+  try {
+    const token = localStorage.getItem(TOKEN_KEY);
+    if (token) api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    return token;
+  } catch {
+    return null;
+  }
+}
+
+export const login = (user_id: string, password: string) =>
+  api.post<{ access_token: string; user: User }>("/auth/login", { user_id, password })
+    .then((r) => r.data);
+
+// --- department learning analytics ---------------------------------------
+export interface TopicRollup {
+  topic_id: string;
+  topic_name: string;
+  competency_id: string;
+  competency_name: string;
+  officers_assessed: number;
+  questions_answered: number;
+  avg_accuracy_pct: number;
+  weak: number;
+  developing: number;
+  strong: number;
+}
+
+export interface CourseRollup {
+  course_identifier: string;
+  course_name: string;
+  enrolled: number;
+  in_progress: number;
+  completed: number;
+  expired: number;
+  not_started: number;
+  completion_rate_pct: number;
+  avg_progress_pct: number;
+}
+
+export interface AtRiskEnrolment {
+  user_id: string;
+  user_name: string;
+  course_identifier: string;
+  course_name: string;
+  progress_pct: number;
+  days_remaining: number | null;
+  status: CourseStatus;
+}
+
+export interface AdminLearningOverview {
+  department: string;
+  officer_count: number;
+  enrolments: number;
+  in_progress: number;
+  completed: number;
+  expired: number;
+  not_started: number;
+  avg_progress_pct: number;
+  completion_rate_pct: number;
+  officers_with_no_enrolment: number;
+  topic_rollup: TopicRollup[];
+  weakest_topics: TopicRollup[];
+  course_rollup: CourseRollup[];
+  expiring_soon: AtRiskEnrolment[];
+  expired_incomplete: AtRiskEnrolment[];
+}
+
+export const getAdminLearning = (department?: string) =>
+  api.get<AdminLearningOverview>("/admin/learning", {
+    params: department ? { department } : {},
+  }).then((r) => r.data);

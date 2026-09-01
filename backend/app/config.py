@@ -22,6 +22,10 @@ class Settings:
     ollama_base: str = os.environ.get("OLLAMA_BASE", "http://localhost:11434")
 
     jwt_secret: str = os.environ.get("JWT_SECRET", "dev-only-not-a-production-secret")
+    # Lets a judge switch between seeded officers with an X-User-Id header instead
+    # of logging in. Convenience only: it never grants administrator access, and
+    # setting DEMO_HEADER_AUTH=false requires a real token everywhere.
+    demo_header_auth: bool = os.environ.get("DEMO_HEADER_AUTH", "true").lower() == "true"
     jwt_ttl_minutes: int = int(os.environ.get("JWT_TTL_MINUTES", "720"))
 
     cors_origins: list[str] = os.environ.get(

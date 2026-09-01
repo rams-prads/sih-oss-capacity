@@ -44,7 +44,9 @@ def test_taxonomy_endpoints(client):
 
 
 def test_login_and_authenticated_identity(client):
-    token = client.post("/api/auth/login", json={"user_id": "u-jso-anita"}).json()
+    token = client.post(
+        "/api/auth/login", json={"user_id": "u-jso-anita", "password": "officer123"}
+    ).json()
     assert token["user"]["role_name"] == "Junior Statistical Officer"
 
     me = client.get(
@@ -175,9 +177,17 @@ def test_messy_upload_is_rejected_without_crashing(client):
     assert corrupt.status_code == 400
 
 
+def _admin_headers(client):
+    token = client.post(
+        "/api/auth/login", json={"user_id": "u-admin-meera", "password": "admin123"}
+    ).json()["access_token"]
+    return {"Authorization": f"Bearer {token}"}
+
+
 def test_admin_overview_and_metrics(client):
     """AC 8.6: heatmap and top gaps render from seeded multi-user data."""
-    overview = client.get("/api/admin/overview").json()
+    headers = _admin_headers(client)
+    overview = client.get("/api/admin/overview", headers=headers).json()
     assert overview["officer_count"] >= 8
     assert overview["heatmap"]
     assert 1 <= len(overview["top_gaps"]) <= 3
@@ -186,11 +196,13 @@ def test_admin_overview_and_metrics(client):
         assert cohort["course"] is not None
 
     scoped = client.get(
-        "/api/admin/overview", params={"department": "MoSPI - Field Operations Division"}
+        "/api/admin/overview",
+        params={"department": "MoSPI - Field Operations Division"},
+        headers=headers,
     ).json()
     assert scoped["officer_count"] == 2
 
-    metrics = client.get("/api/admin/metrics").json()
+    metrics = client.get("/api/admin/metrics", headers=headers).json()
     assert metrics["competencies"] == 15
     assert metrics["roles"] == 3
     assert metrics["catalogue_size"] == 26
@@ -208,4 +220,4 @@ def test_admin_overview_and_metrics(client):
             "num_questions": 6,
         },
     )
-    assert client.get("/api/admin/metrics").json()["mcq_validity_rate_pct"] > 0
+    assert client.get("/api/admin/metrics", headers=headers).json()["mcq_validity_rate_pct"] > 0

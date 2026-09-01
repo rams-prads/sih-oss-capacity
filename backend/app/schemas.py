@@ -252,6 +252,7 @@ class MetricsOut(BaseModel):
 # --- auth -----------------------------------------------------------------
 class LoginRequest(BaseModel):
     user_id: str
+    password: str
 
 
 class TokenOut(BaseModel):
@@ -400,3 +401,57 @@ class CheckpointSubmitOut(BaseModel):
     topic_accuracy_pct: float
     topic_verdict: str
     items: list[CheckpointItemResult]
+
+
+# --- department learning analytics ---------------------------------------
+class TopicRollup(BaseModel):
+    topic_id: str
+    topic_name: str
+    competency_id: str
+    competency_name: str = ""
+    officers_assessed: int
+    questions_answered: int
+    avg_accuracy_pct: float
+    weak: int
+    developing: int
+    strong: int
+
+
+class CourseRollup(BaseModel):
+    course_identifier: str
+    course_name: str
+    enrolled: int
+    in_progress: int
+    completed: int
+    expired: int
+    not_started: int
+    completion_rate_pct: float
+    avg_progress_pct: float
+
+
+class AtRiskEnrolment(BaseModel):
+    user_id: str
+    user_name: str
+    course_identifier: str
+    course_name: str
+    progress_pct: int
+    days_remaining: int | None = None
+    status: str
+
+
+class AdminLearningOverview(BaseModel):
+    department: str
+    officer_count: int
+    enrolments: int
+    in_progress: int
+    completed: int
+    expired: int
+    not_started: int
+    avg_progress_pct: float
+    completion_rate_pct: float
+    officers_with_no_enrolment: int
+    topic_rollup: list[TopicRollup]
+    weakest_topics: list[TopicRollup]
+    course_rollup: list[CourseRollup]
+    expiring_soon: list[AtRiskEnrolment]
+    expired_incomplete: list[AtRiskEnrolment]

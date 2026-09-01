@@ -1,415 +1,992 @@
 {
-  "_comment": "Course curricula: 3 modules per course, 3 video lessons per module, one checkpoint quiz per module. Topics are the unit that questions and mastery are tracked against.",
+  "_comment": "Topic-owned curriculum. A topic belongs to a competency and carries its own three video lessons and module title, so every course tagged to that competency reuses them. A course curriculum is just the three topics it covers, in order; each topic becomes one module ending in a checkpoint quiz.",
   "topics": {
     "T01": {
       "name": "Sampling frames and coverage",
-      "competency_id": "C01"
+      "competency_id": "C01",
+      "module_title": "Frames and coverage",
+      "lessons": [
+        [
+          "What a sampling frame is",
+          11
+        ],
+        [
+          "Coverage error: under- and over-coverage",
+          13
+        ],
+        [
+          "Building frames from Census blocks and village lists",
+          12
+        ]
+      ]
     },
     "T02": {
       "name": "Stratification and allocation",
-      "competency_id": "C01"
+      "competency_id": "C01",
+      "module_title": "Stratification",
+      "lessons": [
+        [
+          "Why stratify: variance reduction",
+          12
+        ],
+        [
+          "Choosing stratification variables",
+          10
+        ],
+        [
+          "Proportional versus optimal allocation",
+          14
+        ]
+      ]
     },
     "T03": {
       "name": "Selection probability and weighting",
-      "competency_id": "C01"
+      "competency_id": "C01",
+      "module_title": "Selection and weighting",
+      "lessons": [
+        [
+          "Probability proportional to size",
+          13
+        ],
+        [
+          "Design weights and non-response adjustment",
+          15
+        ],
+        [
+          "Calibration to population benchmarks",
+          12
+        ]
+      ]
     },
     "T04": {
       "name": "Validation and editing rules",
-      "competency_id": "C03"
+      "competency_id": "C03",
+      "module_title": "Editing",
+      "lessons": [
+        [
+          "Logical and arithmetic edit rules",
+          12
+        ],
+        [
+          "Selective editing and score functions",
+          14
+        ],
+        [
+          "Outlier detection in survey returns",
+          11
+        ]
+      ]
     },
     "T05": {
       "name": "Missing data and imputation",
-      "competency_id": "C03"
+      "competency_id": "C03",
+      "module_title": "Imputation",
+      "lessons": [
+        [
+          "Types of missingness",
+          10
+        ],
+        [
+          "Hot-deck and donor imputation",
+          13
+        ],
+        [
+          "Recording imputation and its effect on variance",
+          12
+        ]
+      ]
     },
     "T06": {
       "name": "Quality indicators and error sources",
-      "competency_id": "C03"
+      "competency_id": "C03",
+      "module_title": "Measuring quality",
+      "lessons": [
+        [
+          "Sampling versus non-sampling error",
+          11
+        ],
+        [
+          "Response and edit-failure rates",
+          10
+        ],
+        [
+          "Quality reports for statistical releases",
+          12
+        ]
+      ]
     },
     "T07": {
       "name": "Question wording and response formats",
-      "competency_id": "C02"
+      "competency_id": "C02",
+      "module_title": "Writing questions",
+      "lessons": [
+        [
+          "Wording that avoids ambiguity",
+          11
+        ],
+        [
+          "Open, closed and scaled response formats",
+          12
+        ],
+        [
+          "Reference periods and recall",
+          10
+        ]
+      ]
     },
     "T08": {
       "name": "Questionnaire flow and sensitive topics",
-      "competency_id": "C02"
+      "competency_id": "C02",
+      "module_title": "Structuring the instrument",
+      "lessons": [
+        [
+          "Question order and rapport",
+          10
+        ],
+        [
+          "Placing sensitive questions",
+          11
+        ],
+        [
+          "Skip patterns and filters",
+          12
+        ]
+      ]
     },
     "T09": {
       "name": "CAPI and CATI field operations",
-      "competency_id": "C02"
+      "competency_id": "C02",
+      "module_title": "Field operations",
+      "lessons": [
+        [
+          "CAPI versus paper: what changes",
+          12
+        ],
+        [
+          "Range and consistency checks at collection",
+          13
+        ],
+        [
+          "Managing enumerators and re-interview",
+          11
+        ]
+      ]
     },
     "T10": {
       "name": "Summary measures and distributions",
-      "competency_id": "C04"
+      "competency_id": "C04",
+      "module_title": "Describing data",
+      "lessons": [
+        [
+          "Measures of central tendency",
+          10
+        ],
+        [
+          "Dispersion and shape",
+          11
+        ],
+        [
+          "Tabulation and cross-tabulation",
+          12
+        ]
+      ]
     },
     "T11": {
       "name": "Sampling distributions and confidence intervals",
-      "competency_id": "C04"
+      "competency_id": "C04",
+      "module_title": "From sample to population",
+      "lessons": [
+        [
+          "Sampling distribution of the mean",
+          13
+        ],
+        [
+          "Standard error and confidence intervals",
+          14
+        ],
+        [
+          "Interpreting intervals correctly",
+          11
+        ]
+      ]
     },
     "T12": {
       "name": "Hypothesis testing",
-      "competency_id": "C04"
+      "competency_id": "C04",
+      "module_title": "Testing hypotheses",
+      "lessons": [
+        [
+          "Null and alternative hypotheses",
+          11
+        ],
+        [
+          "p-values and significance levels",
+          13
+        ],
+        [
+          "Type I and Type II error",
+          12
+        ]
+      ]
     },
     "T13": {
       "name": "Data structures and import in R",
-      "competency_id": "C09"
+      "competency_id": "C09",
+      "module_title": "Getting data into R",
+      "lessons": [
+        [
+          "Vectors, factors and data frames",
+          12
+        ],
+        [
+          "Reading CSV and fixed-width files",
+          11
+        ],
+        [
+          "Types, coercion and missing values",
+          13
+        ]
+      ]
     },
     "T14": {
       "name": "Data manipulation and reshaping",
-      "competency_id": "C09"
+      "competency_id": "C09",
+      "module_title": "Shaping data",
+      "lessons": [
+        [
+          "Filtering, selecting and mutating",
+          13
+        ],
+        [
+          "Grouped summaries",
+          12
+        ],
+        [
+          "Long and wide reshaping",
+          14
+        ]
+      ]
     },
     "T15": {
       "name": "Survey weights and reproducible reporting",
-      "competency_id": "C09"
+      "competency_id": "C09",
+      "module_title": "Weights and reporting",
+      "lessons": [
+        [
+          "Applying design weights in R",
+          15
+        ],
+        [
+          "Weighted estimates and standard errors",
+          14
+        ],
+        [
+          "Reproducible reports with scripts",
+          11
+        ]
+      ]
     },
     "T16": {
       "name": "Structure of the NIC",
-      "competency_id": "C08"
+      "competency_id": "C08",
+      "module_title": "The NIC",
+      "lessons": [
+        [
+          "Purpose and hierarchy of the NIC",
+          11
+        ],
+        [
+          "Sections, divisions, groups and classes",
+          13
+        ],
+        [
+          "Principal activity and mixed activities",
+          12
+        ]
+      ]
     },
     "T17": {
       "name": "Structure of the NCO",
-      "competency_id": "C08"
+      "competency_id": "C08",
+      "module_title": "The NCO",
+      "lessons": [
+        [
+          "Purpose and structure of the NCO",
+          11
+        ],
+        [
+          "Skill level and skill specialisation",
+          13
+        ],
+        [
+          "Occupation versus industry",
+          10
+        ]
+      ]
     },
     "T18": {
       "name": "Coding practice and common errors",
-      "competency_id": "C08"
+      "competency_id": "C08",
+      "module_title": "Coding in practice",
+      "lessons": [
+        [
+          "Reading a description and assigning a code",
+          12
+        ],
+        [
+          "Common misclassifications",
+          13
+        ],
+        [
+          "Quality checks on coded returns",
+          11
+        ]
+      ]
+    },
+    "T19": {
+      "name": "SNA concepts and the production boundary",
+      "competency_id": "C05",
+      "module_title": "National accounts foundations",
+      "lessons": [
+        [
+          "What the System of National Accounts measures",
+          12
+        ],
+        [
+          "The production boundary and what falls outside it",
+          13
+        ],
+        [
+          "Institutional sectors and the economy",
+          11
+        ]
+      ]
+    },
+    "T20": {
+      "name": "Gross value added by economic activity",
+      "competency_id": "C05",
+      "module_title": "Compiling GVA",
+      "lessons": [
+        [
+          "Output, intermediate consumption and GVA",
+          14
+        ],
+        [
+          "Compiling GVA by industry",
+          13
+        ],
+        [
+          "From GVA to GDP at market prices",
+          12
+        ]
+      ]
+    },
+    "T21": {
+      "name": "Expenditure and income approaches",
+      "competency_id": "C05",
+      "module_title": "Three approaches to GDP",
+      "lessons": [
+        [
+          "The expenditure approach",
+          12
+        ],
+        [
+          "The income approach",
+          12
+        ],
+        [
+          "Reconciling the three estimates",
+          13
+        ]
+      ]
+    },
+    "T22": {
+      "name": "Index number formulae",
+      "competency_id": "C06",
+      "module_title": "Index number theory",
+      "lessons": [
+        [
+          "Laspeyres, Paasche and Fisher",
+          14
+        ],
+        [
+          "Chaining and the drift problem",
+          12
+        ],
+        [
+          "Elementary aggregate formulae",
+          13
+        ]
+      ]
+    },
+    "T23": {
+      "name": "Weighting diagrams and base revision",
+      "competency_id": "C06",
+      "module_title": "Weights and the base year",
+      "lessons": [
+        [
+          "Where CPI weights come from",
+          12
+        ],
+        [
+          "Choosing and revising the base year",
+          13
+        ],
+        [
+          "Linking series across a revision",
+          11
+        ]
+      ]
+    },
+    "T24": {
+      "name": "Price collection and quality control",
+      "competency_id": "C06",
+      "module_title": "Collecting prices",
+      "lessons": [
+        [
+          "Outlet and item selection",
+          11
+        ],
+        [
+          "Handling missing and seasonal items",
+          13
+        ],
+        [
+          "Quality change and item substitution",
+          14
+        ]
+      ]
+    },
+    "T25": {
+      "name": "Global and national indicator frameworks",
+      "competency_id": "C07",
+      "module_title": "The SDG frameworks",
+      "lessons": [
+        [
+          "Goals, targets and indicators",
+          11
+        ],
+        [
+          "The global indicator framework",
+          12
+        ],
+        [
+          "India's National Indicator Framework",
+          13
+        ]
+      ]
+    },
+    "T26": {
+      "name": "Indicator tiers and data sources",
+      "competency_id": "C07",
+      "module_title": "Sourcing indicators",
+      "lessons": [
+        [
+          "The tier classification of indicators",
+          12
+        ],
+        [
+          "Surveys, registers and administrative sources",
+          13
+        ],
+        [
+          "Filling data gaps and proxies",
+          11
+        ]
+      ]
+    },
+    "T27": {
+      "name": "Progress reporting and disaggregation",
+      "competency_id": "C07",
+      "module_title": "Reporting progress",
+      "lessons": [
+        [
+          "Measuring progress toward a target",
+          12
+        ],
+        [
+          "Disaggregation and leaving no one behind",
+          13
+        ],
+        [
+          "Reporting cycles and data flows",
+          11
+        ]
+      ]
+    },
+    "T28": {
+      "name": "Choosing the right chart",
+      "competency_id": "C10",
+      "module_title": "Chart selection",
+      "lessons": [
+        [
+          "Matching chart form to the question",
+          12
+        ],
+        [
+          "Comparison, distribution, composition and trend",
+          13
+        ],
+        [
+          "Charts to avoid and why",
+          11
+        ]
+      ]
+    },
+    "T29": {
+      "name": "Tables and statistical release design",
+      "competency_id": "C10",
+      "module_title": "Designing releases",
+      "lessons": [
+        [
+          "Structuring a statistical table",
+          12
+        ],
+        [
+          "Rounding, units and footnotes",
+          11
+        ],
+        [
+          "Accessibility in published output",
+          12
+        ]
+      ]
+    },
+    "T30": {
+      "name": "Honest presentation of uncertainty",
+      "competency_id": "C10",
+      "module_title": "Showing uncertainty",
+      "lessons": [
+        [
+          "Error bars and confidence bands",
+          13
+        ],
+        [
+          "Axis choices that mislead",
+          12
+        ],
+        [
+          "Suppressing unreliable estimates",
+          11
+        ]
+      ]
+    },
+    "T31": {
+      "name": "The Collection of Statistics Act",
+      "competency_id": "C11",
+      "module_title": "The legal framework",
+      "lessons": [
+        [
+          "Purpose and scope of the Act",
+          12
+        ],
+        [
+          "Powers and duties of statistics officers",
+          13
+        ],
+        [
+          "Penalties and obligations of respondents",
+          11
+        ]
+      ]
+    },
+    "T32": {
+      "name": "Statistical confidentiality",
+      "competency_id": "C11",
+      "module_title": "Confidentiality in practice",
+      "lessons": [
+        [
+          "The confidentiality pledge to respondents",
+          11
+        ],
+        [
+          "Permitted and prohibited uses of returns",
+          13
+        ],
+        [
+          "Handling requests for identifiable data",
+          12
+        ]
+      ]
+    },
+    "T33": {
+      "name": "Disclosure control and safe release",
+      "competency_id": "C11",
+      "module_title": "Safe dissemination",
+      "lessons": [
+        [
+          "Direct and indirect identification",
+          13
+        ],
+        [
+          "Cell suppression and thresholds",
+          12
+        ],
+        [
+          "Anonymised microdata for researchers",
+          14
+        ]
+      ]
+    },
+    "T34": {
+      "name": "Administrative registers as a data source",
+      "competency_id": "C12",
+      "module_title": "Administrative data",
+      "lessons": [
+        [
+          "What registers can and cannot measure",
+          12
+        ],
+        [
+          "Linking registers to survey frames",
+          14
+        ],
+        [
+          "Coverage and definitional mismatch",
+          13
+        ]
+      ]
+    },
+    "T35": {
+      "name": "Scanner, mobile and satellite data",
+      "competency_id": "C12",
+      "module_title": "Alternative sources",
+      "lessons": [
+        [
+          "Scanner data in price statistics",
+          13
+        ],
+        [
+          "Mobile network and web-scraped data",
+          12
+        ],
+        [
+          "Satellite imagery for area statistics",
+          13
+        ]
+      ]
+    },
+    "T36": {
+      "name": "Quality frameworks for non-survey data",
+      "competency_id": "C12",
+      "module_title": "Assuring new sources",
+      "lessons": [
+        [
+          "Why survey quality measures do not transfer",
+          13
+        ],
+        [
+          "Selectivity in found data",
+          14
+        ],
+        [
+          "Documenting a non-survey source",
+          11
+        ]
+      ]
+    },
+    "T37": {
+      "name": "Coordinates, projections and geocoding",
+      "competency_id": "C13",
+      "module_title": "Geospatial foundations",
+      "lessons": [
+        [
+          "Coordinate systems and datums",
+          13
+        ],
+        [
+          "Projections and the distortion they cause",
+          12
+        ],
+        [
+          "Geocoding survey units",
+          13
+        ]
+      ]
+    },
+    "T38": {
+      "name": "Area frames and digital listing",
+      "competency_id": "C13",
+      "module_title": "Geography in survey operations",
+      "lessons": [
+        [
+          "Area frames versus list frames",
+          12
+        ],
+        [
+          "Digital listing on handheld devices",
+          13
+        ],
+        [
+          "Boundary changes between rounds",
+          11
+        ]
+      ]
+    },
+    "T39": {
+      "name": "Spatial presentation of indicators",
+      "competency_id": "C13",
+      "module_title": "Mapping statistics",
+      "lessons": [
+        [
+          "Choropleth maps and classification",
+          13
+        ],
+        [
+          "The modifiable areal unit problem",
+          14
+        ],
+        [
+          "Small area estimates on a map",
+          12
+        ]
+      ]
+    },
+    "T40": {
+      "name": "The SDMX information model",
+      "competency_id": "C14",
+      "module_title": "SDMX foundations",
+      "lessons": [
+        [
+          "Why standardised exchange matters",
+          11
+        ],
+        [
+          "Dimensions, attributes and measures",
+          13
+        ],
+        [
+          "Datasets and data flows",
+          12
+        ]
+      ]
+    },
+    "T41": {
+      "name": "Code lists and data structure definitions",
+      "competency_id": "C14",
+      "module_title": "Structuring metadata",
+      "lessons": [
+        [
+          "Building a data structure definition",
+          13
+        ],
+        [
+          "Code lists and concept schemes",
+          12
+        ],
+        [
+          "Versioning structural metadata",
+          11
+        ]
+      ]
+    },
+    "T42": {
+      "name": "Machine-readable dissemination",
+      "competency_id": "C14",
+      "module_title": "Publishing for machines",
+      "lessons": [
+        [
+          "Reference metadata alongside data",
+          12
+        ],
+        [
+          "APIs for statistical dissemination",
+          13
+        ],
+        [
+          "Documenting revisions in a series",
+          11
+        ]
+      ]
+    },
+    "T43": {
+      "name": "Structuring an analysis",
+      "competency_id": "C15",
+      "module_title": "Framing the question",
+      "lessons": [
+        [
+          "Turning a policy question into an analysis",
+          13
+        ],
+        [
+          "Choosing what to measure",
+          12
+        ],
+        [
+          "Separating findings from inference",
+          12
+        ]
+      ]
+    },
+    "T44": {
+      "name": "Writing for decision-makers",
+      "competency_id": "C15",
+      "module_title": "Writing that lands",
+      "lessons": [
+        [
+          "Leading with the finding",
+          11
+        ],
+        [
+          "Plain language for numbers",
+          12
+        ],
+        [
+          "Structuring a two-page brief",
+          12
+        ]
+      ]
+    },
+    "T45": {
+      "name": "Presenting uncertainty and caveats",
+      "competency_id": "C15",
+      "module_title": "Being honest about limits",
+      "lessons": [
+        [
+          "Communicating margins of error",
+          13
+        ],
+        [
+          "Stating limitations without burying them",
+          12
+        ],
+        [
+          "Answering challenges to your numbers",
+          12
+        ]
+      ]
     }
   },
   "courses": {
     "do_3137421900011": [
-      {
-        "topic": "T01",
-        "title": "Frames and coverage",
-        "lessons": [
-          [
-            "What a sampling frame is",
-            11
-          ],
-          [
-            "Coverage error: under- and over-coverage",
-            13
-          ],
-          [
-            "Building frames from Census blocks and village lists",
-            12
-          ]
-        ]
-      },
-      {
-        "topic": "T02",
-        "title": "Stratification",
-        "lessons": [
-          [
-            "Why stratify: variance reduction",
-            12
-          ],
-          [
-            "Choosing stratification variables",
-            10
-          ],
-          [
-            "Proportional versus optimal allocation",
-            14
-          ]
-        ]
-      },
-      {
-        "topic": "T03",
-        "title": "Selection and weighting",
-        "lessons": [
-          [
-            "Probability proportional to size",
-            13
-          ],
-          [
-            "Design weights and non-response adjustment",
-            15
-          ],
-          [
-            "Calibration to population benchmarks",
-            12
-          ]
-        ]
-      }
+      "T01",
+      "T02",
+      "T03"
     ],
-    "do_3137421900015": [
-      {
-        "topic": "T04",
-        "title": "Editing",
-        "lessons": [
-          [
-            "Logical and arithmetic edit rules",
-            12
-          ],
-          [
-            "Selective editing and score functions",
-            14
-          ],
-          [
-            "Outlier detection in survey returns",
-            11
-          ]
-        ]
-      },
-      {
-        "topic": "T05",
-        "title": "Imputation",
-        "lessons": [
-          [
-            "Types of missingness",
-            10
-          ],
-          [
-            "Hot-deck and donor imputation",
-            13
-          ],
-          [
-            "Recording imputation and its effect on variance",
-            12
-          ]
-        ]
-      },
-      {
-        "topic": "T06",
-        "title": "Measuring quality",
-        "lessons": [
-          [
-            "Sampling versus non-sampling error",
-            11
-          ],
-          [
-            "Response and edit-failure rates",
-            10
-          ],
-          [
-            "Quality reports for statistical releases",
-            12
-          ]
-        ]
-      }
+    "do_3137421900012": [
+      "T01",
+      "T02",
+      "T10"
     ],
     "do_3137421900013": [
-      {
-        "topic": "T07",
-        "title": "Writing questions",
-        "lessons": [
-          [
-            "Wording that avoids ambiguity",
-            11
-          ],
-          [
-            "Open, closed and scaled response formats",
-            12
-          ],
-          [
-            "Reference periods and recall",
-            10
-          ]
-        ]
-      },
-      {
-        "topic": "T08",
-        "title": "Structuring the instrument",
-        "lessons": [
-          [
-            "Question order and rapport",
-            10
-          ],
-          [
-            "Placing sensitive questions",
-            11
-          ],
-          [
-            "Skip patterns and filters",
-            12
-          ]
-        ]
-      },
-      {
-        "topic": "T09",
-        "title": "Field operations",
-        "lessons": [
-          [
-            "CAPI versus paper: what changes",
-            12
-          ],
-          [
-            "Range and consistency checks at collection",
-            13
-          ],
-          [
-            "Managing enumerators and re-interview",
-            11
-          ]
-        ]
-      }
+      "T07",
+      "T08",
+      "T09"
+    ],
+    "do_3137421900014": [
+      "T07",
+      "T08",
+      "T43"
+    ],
+    "do_3137421900015": [
+      "T04",
+      "T05",
+      "T06"
+    ],
+    "do_3137421900016": [
+      "T04",
+      "T05",
+      "T13"
     ],
     "do_3137421900017": [
-      {
-        "topic": "T10",
-        "title": "Describing data",
-        "lessons": [
-          [
-            "Measures of central tendency",
-            10
-          ],
-          [
-            "Dispersion and shape",
-            11
-          ],
-          [
-            "Tabulation and cross-tabulation",
-            12
-          ]
-        ]
-      },
-      {
-        "topic": "T11",
-        "title": "From sample to population",
-        "lessons": [
-          [
-            "Sampling distribution of the mean",
-            13
-          ],
-          [
-            "Standard error and confidence intervals",
-            14
-          ],
-          [
-            "Interpreting intervals correctly",
-            11
-          ]
-        ]
-      },
-      {
-        "topic": "T12",
-        "title": "Testing hypotheses",
-        "lessons": [
-          [
-            "Null and alternative hypotheses",
-            11
-          ],
-          [
-            "p-values and significance levels",
-            13
-          ],
-          [
-            "Type I and Type II error",
-            12
-          ]
-        ]
-      }
+      "T10",
+      "T11",
+      "T12"
     ],
-    "do_3137421900025": [
-      {
-        "topic": "T13",
-        "title": "Getting data into R",
-        "lessons": [
-          [
-            "Vectors, factors and data frames",
-            12
-          ],
-          [
-            "Reading CSV and fixed-width files",
-            11
-          ],
-          [
-            "Types, coercion and missing values",
-            13
-          ]
-        ]
-      },
-      {
-        "topic": "T14",
-        "title": "Shaping data",
-        "lessons": [
-          [
-            "Filtering, selecting and mutating",
-            13
-          ],
-          [
-            "Grouped summaries",
-            12
-          ],
-          [
-            "Long and wide reshaping",
-            14
-          ]
-        ]
-      },
-      {
-        "topic": "T15",
-        "title": "Weights and reporting",
-        "lessons": [
-          [
-            "Applying design weights in R",
-            15
-          ],
-          [
-            "Weighted estimates and standard errors",
-            14
-          ],
-          [
-            "Reproducible reports with scripts",
-            11
-          ]
-        ]
-      }
+    "do_3137421900018": [
+      "T10",
+      "T11",
+      "T13"
+    ],
+    "do_3137421900019": [
+      "T19",
+      "T20",
+      "T21"
+    ],
+    "do_3137421900020": [
+      "T22",
+      "T23",
+      "T24"
+    ],
+    "do_3137421900021": [
+      "T25",
+      "T26",
+      "T27"
+    ],
+    "do_3137421900022": [
+      "T25",
+      "T26",
+      "T28"
     ],
     "do_3137421900023": [
-      {
-        "topic": "T16",
-        "title": "The NIC",
-        "lessons": [
-          [
-            "Purpose and hierarchy of the NIC",
-            11
-          ],
-          [
-            "Sections, divisions, groups and classes",
-            13
-          ],
-          [
-            "Principal activity and mixed activities",
-            12
-          ]
-        ]
-      },
-      {
-        "topic": "T17",
-        "title": "The NCO",
-        "lessons": [
-          [
-            "Purpose and structure of the NCO",
-            11
-          ],
-          [
-            "Skill level and skill specialisation",
-            13
-          ],
-          [
-            "Occupation versus industry",
-            10
-          ]
-        ]
-      },
-      {
-        "topic": "T18",
-        "title": "Coding in practice",
-        "lessons": [
-          [
-            "Reading a description and assigning a code",
-            12
-          ],
-          [
-            "Common misclassifications",
-            13
-          ],
-          [
-            "Quality checks on coded returns",
-            11
-          ]
-        ]
-      }
+      "T16",
+      "T17",
+      "T18"
+    ],
+    "do_3137421900024": [
+      "T16",
+      "T17",
+      "T04"
+    ],
+    "do_3137421900036": [
+      "T13",
+      "T14",
+      "T15"
+    ],
+    "do_3137421900025": [
+      "T13",
+      "T14",
+      "T15"
+    ],
+    "do_3137421900026": [
+      "T13",
+      "T14",
+      "T10"
+    ],
+    "do_3137421900027": [
+      "T28",
+      "T29",
+      "T30"
+    ],
+    "do_3137421900028": [
+      "T31",
+      "T32",
+      "T33"
+    ],
+    "do_3137421900029": [
+      "T31",
+      "T32",
+      "T40"
+    ],
+    "do_3137421900030": [
+      "T34",
+      "T35",
+      "T36"
+    ],
+    "do_3137421900031": [
+      "T37",
+      "T38",
+      "T39"
+    ],
+    "do_3137421900032": [
+      "T37",
+      "T38",
+      "T13"
+    ],
+    "do_3137421900033": [
+      "T40",
+      "T41",
+      "T42"
+    ],
+    "do_3137421900034": [
+      "T43",
+      "T44",
+      "T45"
+    ],
+    "do_3137421900035": [
+      "T43",
+      "T44",
+      "T28"
     ]
   }
 }
