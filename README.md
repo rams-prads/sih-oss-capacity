@@ -30,13 +30,13 @@ Competencies) as used by Mission Karmayogi and the Karmayogi Qualification Frame
 
 ## Data sources
 
-The catalogue is **184 courses from two real sources**, plus a small authored set that
+The catalogue is **282 courses from two real sources**, plus a small authored set that
 carries this app's own lessons and quizzes. Every course states which it came from, and
 the UI badges them apart.
 
 | Source | Count | What it is |
 |---|---|---|
-| **iGOT Karmayogi** | 138 | Fetched from the live iGOT content search API. Real identifiers, titles, providers and durations — NEGD MeitY, ISTM, DoPT, ISRO, IIT Kanpur, UpGrad, and MoSPI's own Capacity Development Division. |
+| **iGOT Karmayogi** | 236 | Fetched from the live iGOT content search API. Real identifiers, titles, providers and durations — NEGD MeitY, ISTM, DoPT, ISRO, IIT Kanpur, UpGrad, and MoSPI's own Capacity Development Division. |
 | **NSSTA (TPAC-approved)** | 20 | Programmes from the published NSSTA Advance Training Calendar FY 2025-26, approved by the Training Programme Approval Committee. Real venues, cadres, durations and batch sizes. |
 | **Sandbox** | 26 | Authored courses that carry the curriculum, videos and checkpoint question bank the *My Courses* screen runs on. Clearly labelled; not presented as real catalogue content. |
 
@@ -70,7 +70,7 @@ taxonomy onto our competency ids rather than trusting the search query that foun
 course. iGOT's search is fuzzy full-text: `"survey design sampling"` returns *Borehole
 Planning Core Logging and Sampling in Base Metal Exploration*, which shares one word and
 no subject. It is tagged **Mines** in KCM, maps to nothing here, and drops out along with
-36 others — so there is no blocklist of unrelated domains to maintain.
+42 others — so there is no blocklist of unrelated domains to maintain.
 
 **What still needs credentials.** Enrolment and progress writes go through Keycloak user
 tokens, which this repository does not ship. Those run against the sandbox
@@ -130,7 +130,7 @@ cd backend
 python -m venv .venv
 .venv/Scripts/activate          # Windows;  source .venv/bin/activate on macOS/Linux
 pip install -r requirements.txt
-python -m seed.seed             # 26 competencies, 3 roles, 9 officers, 184 courses
+python -m seed.seed             # 36 competencies, 17 designations, 9 officers, 282 courses
 uvicorn app.main:app --reload --port 8000
 ```
 
@@ -145,7 +145,7 @@ npm run dev                     # http://localhost:5173
 **Tests**
 
 ```bash
-cd backend && python -m pytest      # 86 tests
+cd backend && python -m pytest      # 87 tests
 cd frontend && npm test             # 31 component tests
 ```
 
@@ -234,19 +234,38 @@ new      = clamp(round(α × observed + (1 − α) × prior), 0, 4)      α = 0.
 
 Blending with the prior stops a single quiz from swinging an officer's record.
 
-### Seeded roles
+### Designations
 
-- **JSO — Junior Statistical Officer:** C01(3,H) C02(3,H) C03(3,H) C04(2,M) C09(2,M) C11(2,M) C15(2,M) C16(2,M) C19(2,L) C22(2,M) C25(2,L)
-- **SI — Statistical Investigator (Field):** C02(3,H) C03(2,M) C08(3,H) C13(2,M) C11(2,M) C15(2,M) C17(2,M) C22(2,L) C24(2,L)
-- **DA — Statistical Data Analyst:** C04(4,H) C09(4,H) C10(3,H) C07(3,M) C12(2,M) C14(2,M) C15(3,M) C19(3,H) C20(3,M) C21(2,L) C26(2,M)
+The profile is anchored on **designation** — what an officer actually holds — across
+the real MoSPI hierarchy, both streams, MTS through Secretary:
 
-The **26 competencies** cover the four domains the problem statement names:
+| Grade | Statistical stream | Administrative stream |
+|---|---|---|
+| 1–2 | Multi-Tasking Staff · officials below JSO | |
+| 3 | **Junior Statistical Officer (JSO)** | Assistant Section Officer (ASO) |
+| 4 | Senior Statistical Officer (SSO) | Section Officer (SO) |
+| 5–7 | Assistant Director · Deputy Director · Joint Director | |
+| 8–10 | Director · Deputy Director General · Additional Director General | Deputy Secretary · Joint Secretary |
+| 11–13 | Director General | Additional Secretary · Secretary |
+
+Each designation lists the competencies expected of it, most central first.
+
+**On target levels — an honest note.** MoSPI does not publish a per-designation
+proficiency matrix, so stating exact levels per competency would be a guess dressed as
+data. Levels are instead expanded from one documented rule: the designation's band
+(support 2, junior/middle 3, senior 4), one level lower for secondary competencies,
+weight H for the first three listed and M then L after. The competency *lists* are real;
+the *numbers* follow a stated rule. See `DESIGNATIONS` in `backend/seed/seed.py`.
+
+The **36 competencies** cover the four domains the problem statement names, plus the
+administrative ladder the OSS actually runs on:
 
 | Domain | Competencies |
 |---|---|
 | **Statistical** (14) | Survey design and sampling, questionnaire and CAPI operations, data quality, statistical analysis, national accounts, price indices, SDG indicators, NIC/NCO classification, big data, GIS, SDMX metadata, and labour, agricultural and industrial statistics. |
 | **Technical** (8) | R/Python, SQL and database management, data visualisation, AI/ML, cloud and government cloud, cybersecurity and data privacy, DPI and e-governance. |
-| **Behavioural / managerial** (4) | Analytical thinking and communication, leadership and team management, project management, decision making and change management. |
+| **Behavioural / managerial** (8) | Analytical thinking and communication, leadership and team management, project management, decision making and change management, strategic planning and governance, stakeholder management and coordination, risk management, institutional leadership. |
+| **Administrative / policy** | Office procedures and noting & drafting, government rules and public administration, financial management and GFR, HR and establishment, parliamentary procedures, policy analysis and formulation. |
 
 The technical, digital-governance and behavioural competencies are not decorative: they
 are what NSSTA's own calendar trains — machine learning with Python at IIT Madras,
@@ -259,11 +278,11 @@ leadership at IIM Ahmedabad, agricultural and labour statistics at NSSTA itself.
 Start both servers, open `http://localhost:5173`, and leave the officer selector on
 **Anita Deshmukh — JSO**.
 
-1. **My Dashboard.** The radar shows target vs attained across her eleven role
-   requirements; readiness is 55.7%. The gap engine puts **Survey Design & Sampling
+1. **My Dashboard.** The radar shows target vs attained across the eight
+   competencies her JSO designation requires; readiness is 53.0%. The gap engine puts **Survey Design & Sampling
    Methodology** and **Data Quality Assurance** at the top, both weighted gap 2.0.
-2. **Recommended training.** The top card is *Data Analysis using R* — a real iGOT
-   course — because it closes three of her gaps at once. Note the badges: courses are
+2. **Recommended training.** The top cards are real iGOT courses, ranked because they
+   close several of her gaps at once. Note the badges: courses are
    marked **iGOT Karmayogi**, **NSSTA · TPAC approved** or **Sandbox**, and the NSSTA
    ones ask to *request nomination* rather than offering enrolment. Each of her top
    gaps gets two routes rather than the catalogue's deepest subject taking every slot.
@@ -383,10 +402,10 @@ backend/
     routers/     users · gaps · quiz · admin · mock_sunbird
     engines/     progress.py                              ← derived progress
   scripts/       fetch_igot.py                            ← live iGOT ingest
-  seed/          seed.py · igot_courses_seed.json (26 sandbox + 138 iGOT)
+  seed/          seed.py · igot_courses_seed.json (26 sandbox + 236 iGOT)
                  nssta_tpac_seed.json (20 TPAC programmes)
                  curriculum.json · question_bank.json (180 items)
-  tests/         86 tests
+  tests/         87 tests
 frontend/
   src/pages/     Learner.tsx · MyLearning.tsx · Upload.tsx · Admin.tsx
   src/components/Radar · Heatmap · GapList · CourseCard · Progress

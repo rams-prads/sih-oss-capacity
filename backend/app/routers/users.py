@@ -40,13 +40,16 @@ def list_competencies(db: DbSession):
 
 @router.get("/roles", response_model=list[RoleOut])
 def list_roles(db: DbSession):
-    roles = db.scalars(select(Role).order_by(Role.id)).all()
+    # Ordered by grade so the response reads as the hierarchy it is.
+    roles = db.scalars(select(Role).order_by(Role.grade, Role.id)).all()
     names = {c.id: c.name for c in db.scalars(select(Competency)).all()}
     return [
         RoleOut(
             id=r.id,
             name=r.name,
             description=r.description,
+            stream=r.stream,
+            grade=r.grade,
             requirements=[
                 RoleRequirementOut(
                     competency_id=req.competency_id,

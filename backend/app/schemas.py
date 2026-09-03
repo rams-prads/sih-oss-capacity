@@ -31,6 +31,8 @@ class RoleOut(ORMModel):
     id: str
     name: str
     description: str = ""
+    stream: str = ""
+    grade: int = 0
     requirements: list[RoleRequirementOut] = []
 
 

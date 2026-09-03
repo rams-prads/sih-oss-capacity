@@ -378,11 +378,25 @@
       "source": "igot"
     },
     {
+      "identifier": "do_1134354826750771201203",
+      "name": "Public Policy and the VUCA World",
+      "description": "In an era defined by rapid and unpredictable change, public policy must adapt to a Volatile, Uncertain, Complex, and Ambiguous (VUCA) environment. This course delves into the core principles of the public policy process, from problem identification to evaluation, providing a framework for effective governance in modern times. It addresses why understanding the policy cycle is critical for all publ",
+      "se_competencies": [
+        "C27"
+      ],
+      "targetLevel": 2,
+      "duration": 7621,
+      "provider": "Indian Institute of Public Administration",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
       "identifier": "do_1134693696236748801441",
       "name": "Right to Information Act - Part 2",
       "description": "Building on the foundational principles of the Right to Information Act, 2005, this second part offers a detailed exploration of its operational and legal intricacies. The course is essential for government functionaries tasked with upholding the principles of transparency and accountability. It delves into the specific responsibilities and duties of Public Information Officers (PIOs) and First Ap",
       "se_competencies": [
-        "C11"
+        "C11",
+        "C29"
       ],
       "targetLevel": 2,
       "duration": 4920,
@@ -391,14 +405,205 @@
       "source": "igot"
     },
     {
+      "identifier": "do_1134970386480578561102",
+      "name": "Public Procurement Framework of GOI",
+      "description": "In government operations, the procurement of goods, services, and works involves significant public funds, demanding strict adherence to established principles and procedures. This course is designed to equip government officers with a thorough understanding of the public procurement framework. It delves into the core tenets of transparency, fairness, competition, economy, efficiency, and accounta",
+      "se_competencies": [
+        "C31"
+      ],
+      "targetLevel": 2,
+      "duration": 6900,
+      "provider": "Department of Expenditure",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1134971137511260161111",
+      "name": "Fundamental Rules and Supplementary Rules (FRSR) Part-III- Leave Rules",
+      "description": "This comprehensive course is designed to build proficiency in the Fundamental Rules and Supplementary Rules (FRSR) Part-III, which governs the leave entitlements for Central Government employees. Understanding these rules is essential for proper human resource management and for employees to be aware of their rights and duties. The course delves into the specifics of numerous leave types, such as ",
+      "se_competencies": [
+        "C30",
+        "C32"
+      ],
+      "targetLevel": 2,
+      "duration": 13800,
+      "provider": "Department of Expenditure",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_113555204227244032132",
+      "name": "Stakeholders in Governance",
+      "description": "In today's complex administrative landscape, successful governance requires active collaboration with a wide array of stakeholders who have a vested interest in public policies and services. Understanding who these stakeholders are, what their interests are, and how to engage them effectively is a core competency for any public functionary. This course is designed to build this essential capabilit",
+      "se_competencies": [
+        "C27"
+      ],
+      "targetLevel": 2,
+      "duration": 6180,
+      "provider": "Institute of Secretariat Training and Management",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1135750430687232001108",
+      "name": "Stakeholders in Governance (Hindi)",
+      "description": "प्रभावी सार्वजनिक सेवा वितरण और नीति कार्यान्वयन के लिए शासन में हितधारकों की भूमिका को समझना महत्वपूर्ण है। यह पाठ्यक्रम सरकारी अधिकारियों को हितधारक विश्लेषण और प्रबंधन के लिए एक व्यापक ढांचा प्रदान करने के लिए डिज़ाइन किया गया है। पाठ्यक्रम इस बात पर प्रकाश डालता है कि हितधारकों की पहचान क्यों आवश्यक है और यह कैसे शासन प्रक्रियाओं की पारदर्शिता और जवाबदेही को बढ़ाता है। शिक्षार्थी प्रमुख हितधार",
+      "se_competencies": [
+        "C27"
+      ],
+      "targetLevel": 2,
+      "duration": 6420,
+      "provider": "Institute of Secretariat Training and Management",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1135947505370890241121",
+      "name": "Parliamentary Procedures",
+      "description": "This course offers a comprehensive overview of Indian parliamentary procedures, tailored for government officials. It delves into the critical functions of the Parliament, explaining why a thorough understanding of its procedural rules is essential for effective public administration. Key learning areas include the classification and lifecycle of parliamentary questions, such as Starred and Unstar",
+      "se_competencies": [
+        "C33",
+        "C29"
+      ],
+      "targetLevel": 2,
+      "duration": 7200,
+      "provider": "Institute of Secretariat Training and Management",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1135948071783301121144",
+      "name": "Noting and Drafting",
+      "description": "In the machinery of government, the ability to create precise notes and well-structured drafts is a cornerstone of effective administration. Every official communication, from internal file notings to formal letters, shapes policy implementation and public service delivery. This course is designed to equip public officials with the foundational skills required to excel in this critical area, ensur",
+      "se_competencies": [
+        "C29"
+      ],
+      "targetLevel": 2,
+      "duration": 7200,
+      "provider": "Institute of Secretariat Training and Management",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1135948534007070721153",
+      "name": "Office Procedure",
+      "description": "This foundational course delves into the essential office procedures that form the backbone of efficient and transparent government operations. It is specifically designed for public functionaries seeking to develop a strong understanding of the established systems and protocols that govern administrative work. The curriculum will cover critical topics such as the principles of noting and drafting",
+      "se_competencies": [
+        "C29"
+      ],
+      "targetLevel": 2,
+      "duration": 8220,
+      "provider": "Institute of Secretariat Training and Management",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1136308144723640321761",
+      "name": "Formulation of Public Policies",
+      "description": "This foundational course is designed to equip public officials with a thorough understanding of the intricate process of public policy formulation. It addresses the critical question of how government decisions are made, translated into actionable policies, and prepared for implementation. The course begins by examining the concept of agenda setting, exploring how certain issues gain prominence an",
+      "se_competencies": [
+        "C27"
+      ],
+      "targetLevel": 2,
+      "duration": 4500,
+      "provider": "Institute of Secretariat Training and Management",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_113660472598454272132",
+      "name": "Parliament at Work",
+      "description": "This course offers a comprehensive overview of the essential functions and procedures of the Indian Parliament, designed for public sector professionals who interact with or support the legislative process. Understanding the intricacies of Parliament is crucial for effective governance, policy implementation, and maintaining accountability. The course begins by demystifying the legislative journey",
+      "se_competencies": [
+        "C33"
+      ],
+      "targetLevel": 2,
+      "duration": 20460,
+      "provider": "Institute of Secretariat Training and Management",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_113669696891633664186",
+      "name": "Central Government Health Scheme CGHS and Central Services MA Rules",
+      "description": "This course offers a detailed examination of the Central Government Health Scheme (CGHS) and the Central Services (Medical Attendance) Rules, which are fundamental components of the welfare measures for government employees. The content is structured to provide officials, particularly those in administrative and human resources roles, with the necessary knowledge to correctly interpret and apply t",
+      "se_competencies": [
+        "C30"
+      ],
+      "targetLevel": 2,
+      "duration": 4200,
+      "provider": "Institute of Secretariat Training and Management",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_113690425123274752141",
+      "name": "Budgetary System in Government",
+      "description": "This course is designed to equip government officials with a thorough understanding of India's public budgetary framework. It begins by establishing the constitutional foundation for financial procedures, referencing key articles that shape the entire budget cycle. The curriculum systematically breaks down the process, from the initial preparation of budget estimates to the final stages of expendi",
+      "se_competencies": [
+        "C31"
+      ],
+      "targetLevel": 2,
+      "duration": 2981,
+      "provider": "National Academy Of Defence Financial Management (NADFM)",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_113692513327054848156",
+      "name": "Public Administration",
+      "description": "This course, 'Introduction to Public Administration,' serves as an essential guide for public functionaries seeking to understand the fundamental mechanics of governance. It addresses the critical question of why robust public administration is vital for national development and citizen welfare. The curriculum is structured to cover key learning areas, including the historical evolution and theore",
+      "se_competencies": [
+        "C29",
+        "C27",
+        "C32",
+        "C31"
+      ],
+      "targetLevel": 2,
+      "duration": 4500,
+      "provider": "Institute of Secretariat Training and Management",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1136930414558986241114",
+      "name": "Payment Function and Booking of Expenditure",
+      "description": "This foundational course is designed to equip government officials with a thorough understanding of payment functions and the procedures for booking expenditure. In the context of public service, managing financial transactions with accuracy and integrity is paramount. This course delves into the critical aspects of public financial management, explaining why robust payment and expenditure systems",
+      "se_competencies": [
+        "C31"
+      ],
+      "targetLevel": 2,
+      "duration": 4962,
+      "provider": "National Academy Of Defence Financial Management (NADFM)",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
       "identifier": "do_113693885524467712197",
       "name": "Right to Information Act - Part 1",
       "description": "This course, 'Foundations of the Right to Information Act, 2005 - Part 1,' serves as an essential guide for public functionaries. It delves into the core principles of the RTI Act, a pivotal tool for promoting transparency in government operations. The curriculum covers the fundamental aspects of the Act, including its scope, applicability, and the structure of the information-providing machinery,",
       "se_competencies": [
-        "C11"
+        "C11",
+        "C29"
       ],
       "targetLevel": 2,
       "duration": 3300,
+      "provider": "Institute of Secretariat Training and Management",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_113700280213667840163",
+      "name": "Central Secretariat Functionaries - Role of an ASO",
+      "description": "Designed for new entrants and aspiring officials, this course delves into the specific operational landscape of an Assistant Section Officer (ASO) in the Central Secretariat. The curriculum is structured to build a strong foundation in the essential day-to-day tasks that drive government administration. Key learning areas include the fundamentals of noting and drafting, correct procedures for file",
+      "se_competencies": [
+        "C29",
+        "C32",
+        "C30",
+        "C35"
+      ],
+      "targetLevel": 2,
+      "duration": 1920,
       "provider": "Institute of Secretariat Training and Management",
       "primaryCategory": "Course",
       "source": "igot"
@@ -413,6 +618,19 @@
       "targetLevel": 1,
       "duration": 14400,
       "provider": "Capacity Building Commission",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_11372351094117171211",
+      "name": "TOTAL QUALITY MANAGEMENT",
+      "description": "This course offers a detailed exploration of Total Quality Management (TQM) as a strategic tool for enhancing organizational efficiency and effectiveness. The program is structured to provide a holistic understanding, starting with how to operationalize TQM and initiate a culture of quality. Participants will delve into the systematic quality improvement process, learning to identify opportunities",
+      "se_competencies": [
+        "C29"
+      ],
+      "targetLevel": 2,
+      "duration": 2892,
+      "provider": "National Institute of Communication Finance",
       "primaryCategory": "Course",
       "source": "igot"
     },
@@ -443,6 +661,21 @@
       "targetLevel": 2,
       "duration": 5158,
       "provider": "Ministry of Mines",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_113797117911187456164",
+      "name": "Central Civil Services (Conduct) Rules 1964",
+      "description": "This foundational course delves into the critical provisions of the Central Civil Services (Conduct) Rules, 1964, which form the bedrock of ethical governance and professional integrity for government employees. The content is structured to provide a clear and systematic understanding of the expected conduct in public life. Key learning areas include maintaining absolute integrity, devotion to dut",
+      "se_competencies": [
+        "C30",
+        "C35",
+        "C32"
+      ],
+      "targetLevel": 2,
+      "duration": 2761,
+      "provider": "National Academy Of Defence Financial Management (NADFM)",
       "primaryCategory": "Course",
       "source": "igot"
     },
@@ -479,7 +712,8 @@
       "name": "Leadership",
       "description": "In the dynamic environment of public service, strong leadership is crucial for driving progress and achieving organizational goals. This course provides a comprehensive introduction to the principles of effective leadership. It begins by examining the timeless qualities of great leaders and how their vision and actions can inspire change. Learners will delve into the practical aspects of leadershi",
       "se_competencies": [
-        "C24"
+        "C24",
+        "C34"
       ],
       "targetLevel": 2,
       "duration": 5700,
@@ -506,6 +740,7 @@
       "name": "Team Building",
       "description": "In any professional environment, the ability to work effectively in a team is paramount. While individual skills are valuable, collective success is achieved when team members can collaborate, communicate, and support one another. This course provides a comprehensive framework for understanding and implementing the principles of team building, which is crucial for enhancing organizational producti",
       "se_competencies": [
+        "C34",
         "C24",
         "C15"
       ],
@@ -529,12 +764,71 @@
       "source": "igot"
     },
     {
+      "identifier": "do_113829161015566336171",
+      "name": "Insights from Data for Policy",
+      "description": "In an era of data-driven governance, the ability to interpret data correctly is paramount for effective public policy. This course provides a comprehensive framework for understanding and analyzing data beyond the surface level. It addresses the critical need for policymakers to not just consume data, but to question, interpret, and communicate it with clarity and integrity. The curriculum delves ",
+      "se_competencies": [
+        "C04",
+        "C10",
+        "C26"
+      ],
+      "targetLevel": 2,
+      "duration": 19170,
+      "provider": "Indian School of Business",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1138319085802127361122",
+      "name": "CCS LTC Rules 1988",
+      "description": "This detailed course is designed to equip Central Government employees and administrative officials with a thorough working knowledge of the CCS (LTC) Rules, 1988. The material systematically breaks down the key components of the rules, starting from their applicability and scope to the specific entitlements based on pay levels. Key learning areas include the distinction between hometown and all-I",
+      "se_competencies": [
+        "C32",
+        "C30"
+      ],
+      "targetLevel": 2,
+      "duration": 2836,
+      "provider": "National Academy Of Defence Financial Management (NADFM)",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_11383258376188723213",
+      "name": "Ethos : The first Pillar",
+      "description": "This foundational course introduces the principles of Mission Karmayogi and the Competency Framework designed to reform the Indian Civil Services. The primary focus is on 'Ethos,' the first and most crucial pillar that defines the character and guiding values of a civil servant. The course systematically breaks down this pillar into five essential competencies that are vital for effective governan",
+      "se_competencies": [
+        "C30"
+      ],
+      "targetLevel": 2,
+      "duration": 12033,
+      "provider": "Indian Institute of Public Administration",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_113836739863207936151",
+      "name": "Conflict Resolution and Negotiation",
+      "description": "In any dynamic workplace, disagreements are inevitable. This course, 'Conflict Resolution and Negotiation Skills,' is designed to equip public service professionals with the competencies to transform potentially disruptive conflicts into opportunities for growth and collaboration. The program delves into the root causes of conflict and provides a comprehensive overview of various resolution method",
+      "se_competencies": [
+        "C34",
+        "C24"
+      ],
+      "targetLevel": 2,
+      "duration": 5700,
+      "provider": "Department of Personnel and Training DoPT",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
       "identifier": "do_1138416487704576001135",
       "name": "Speaking Effectively",
       "description": "In today's professional landscape, the ability to communicate clearly and persuasively is a critical skill for success. This course, \"The Art of Speaking Effectively,\" is designed to transform participants into charismatic and confident communicators. It addresses the common fear of public speaking by providing structured, actionable techniques that can be applied in any context, from team meeting",
       "se_competencies": [
         "C15",
-        "C24"
+        "C34",
+        "C24",
+        "C28",
+        "C36"
       ],
       "targetLevel": 2,
       "duration": 18884,
@@ -543,11 +837,25 @@
       "source": "igot"
     },
     {
+      "identifier": "do_11384681423599206415",
+      "name": "Mail Monitoring Units (MMUs English)",
+      "description": "This program is designed to enhance the understanding and effectiveness of monitoring mail and parcel operations across the Department of Posts. It delves into the reasons for establishing Mail Monitoring Units (MMUs), focusing on the need to meet the expectations of new-age customers and improve service quality. The course provides a detailed walkthrough of the three key stages of postal operatio",
+      "se_competencies": [
+        "C30"
+      ],
+      "targetLevel": 2,
+      "duration": 6575,
+      "provider": "Department of Posts",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
       "identifier": "do_113850929618542592110",
       "name": "Right to Information (Prarambh)",
       "description": "This foundational course delves into the critical aspects of the Right to Information (RTI) Act 2005, a landmark legislation for enhancing transparency in public administration. The content is designed to equip government officials with the necessary knowledge to handle RTI applications effectively and in accordance with the law. The course begins by establishing the context of the RTI Act, explai",
       "se_competencies": [
-        "C11"
+        "C11",
+        "C29"
       ],
       "targetLevel": 2,
       "duration": 2110,
@@ -556,11 +864,25 @@
       "source": "igot"
     },
     {
+      "identifier": "do_113853845439004672151",
+      "name": "Office Procedures",
+      "description": "This foundational course is designed to equip government employees with a thorough understanding of essential office procedures. It delves into the protocols and standards that define how staff work together in a hierarchical system, ensuring operational consistency and efficiency. The curriculum covers the core functions performed by different office sections, with a special focus on the meticulo",
+      "se_competencies": [
+        "C29"
+      ],
+      "targetLevel": 2,
+      "duration": 5700,
+      "provider": "Department of Personnel and Training DoPT",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
       "identifier": "do_1138566152274821121103",
       "name": "Right to Information (RTI)",
       "description": "This course offers a detailed examination of the Right to Information (RTI) Act, 2005, which operationalizes the fundamental right to freedom of speech and expression. The curriculum is designed to equip learners with a thorough understanding of the Act's provisions and practical application. Key learning areas include the definition of 'information', 'public authority', and 'third party'; the ste",
       "se_competencies": [
-        "C11"
+        "C11",
+        "C29"
       ],
       "targetLevel": 2,
       "duration": 8100,
@@ -595,6 +917,19 @@
       ],
       "targetLevel": 2,
       "duration": 16200,
+      "provider": "Institute of Secretariat Training and Management",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1138629688940789761144",
+      "name": "Secretariat Functioning in File",
+      "description": "Gain a foundational understanding of the backbone of government administration with this detailed course on secretariat functioning. This program is specifically designed to clarify the intricate procedures involved in managing official files and correspondence within the governmental framework. You will learn the established protocols for file movement, the importance of accurate record-keeping, ",
+      "se_competencies": [
+        "C29"
+      ],
+      "targetLevel": 2,
+      "duration": 3180,
       "provider": "Institute of Secretariat Training and Management",
       "primaryCategory": "Course",
       "source": "igot"
@@ -651,6 +986,19 @@
       "source": "igot"
     },
     {
+      "identifier": "do_1138905379910615041195",
+      "name": "5G Link Budget Analysis Part 2",
+      "description": "Building upon foundational concepts, this course provides a comprehensive guide to performing 5G radio link budget calculations in complex real-world environments. Participants will learn to navigate the technical specifications and formulas defined by 3GPP standards for critical deployment scenarios such as dense urban macrocells (UMa), street canyons (UMi), and indoor office settings. The course",
+      "se_competencies": [
+        "C23"
+      ],
+      "targetLevel": 2,
+      "duration": 7644,
+      "provider": "National Telecommunications Institute for Policy Research, Innovation and Training (NTIPRIT)",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
       "identifier": "do_1138906481328046081201",
       "name": "Overview of Cloud Computing",
       "description": "This course offers a detailed introduction to the world of cloud computing, designed for professionals seeking to understand its impact on technology and business operations. The curriculum begins by defining cloud computing and contrasting it with legacy on-premise infrastructure, highlighting key advantages like cost efficiency, scalability, global availability, and enhanced security. You will e",
@@ -696,6 +1044,61 @@
       "targetLevel": 2,
       "duration": 29700,
       "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1138969498504314881388",
+      "name": "FRSR Part I - General Rules",
+      "description": "The Fundamental Rules and Supplementary Rules (FRSR) form the bedrock of service-related administration for Central Government employees. A thorough understanding of these regulations is essential for officials to ensure consistent, fair, and compliant management of personnel matters. This course is designed to provide a detailed examination of FRSR Part I - General Rules, covering the entire life",
+      "se_competencies": [
+        "C30",
+        "C32",
+        "C35",
+        "C31"
+      ],
+      "targetLevel": 2,
+      "duration": 19200,
+      "provider": "Department of Expenditure",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1138969994154803201401",
+      "name": "Frauds and Risks Management in India Post",
+      "description": "This program is designed to equip Department of Posts employees with the necessary knowledge to effectively manage frauds and risks associated with postal financial services. The course begins by establishing the context of risk in a modernized, core banking environment and outlines the primary objectives of the Fraud and Risk Management Unit (FRMU), from risk assessment to compliance. A significa",
+      "se_competencies": [
+        "C30"
+      ],
+      "targetLevel": 2,
+      "duration": 2165,
+      "provider": "Department of Posts",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_113899188449886208113",
+      "name": "Office Procedure and Dak Managements",
+      "description": "This course offers a comprehensive guide to the principles and practices of office procedure and Dak management, essential for the effective functioning of any government department. It addresses the critical need for efficiency, consistency, and transparency in public service delivery by detailing the standardized workflows outlined in the Central Secretariat Manual of Office Procedure (CSMOP). P",
+      "se_competencies": [
+        "C30"
+      ],
+      "targetLevel": 2,
+      "duration": 2836,
+      "provider": "Department of Posts",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_113913394375778304186",
+      "name": "GFR 2017- General System of Financial Management",
+      "description": "This course is designed to equip government officials with a thorough working knowledge of the General Financial Rules (GFR) 2017, focusing on the general system of financial management. The curriculum delves into the foundational rules for managing public money, starting with the procedures for assessing and crediting government receipts, dues, and rents. It elaborates on the standards of financi",
+      "se_competencies": [
+        "C31"
+      ],
+      "targetLevel": 2,
+      "duration": 2503,
+      "provider": "Defence Accounts Department (DAD)",
       "primaryCategory": "Course",
       "source": "igot"
     },
@@ -782,7 +1185,10 @@
       "name": "Purpose-Driven Leadership",
       "description": "Embark on a transformative journey with 'Developing Purpose-Driven Leadership for Public Service,' a course designed to empower leaders within the Indian civil services. In an era defined by volatility, uncertainty, complexity, and ambiguity (VUCA), the need for authentic and resilient leadership has never been greater. This course addresses that need by providing a deep dive into the principles t",
       "se_competencies": [
-        "C24"
+        "C34",
+        "C24",
+        "C28",
+        "C36"
       ],
       "targetLevel": 2,
       "duration": 6936,
@@ -796,6 +1202,7 @@
       "description": "Unlock the potential of your team with this comprehensive course on team management and leadership. Designed for public sector professionals, this program delves into the core competencies required for successful collaboration and high performance. You will learn to navigate the natural stages of team development, applying models like Tuckman's framework to guide your team from initial formation t",
       "se_competencies": [
         "C24",
+        "C34",
         "C15"
       ],
       "targetLevel": 2,
@@ -809,6 +1216,7 @@
       "name": "e-Ustad: Negotiation Skills",
       "description": "In today's complex society, law enforcement officers require skills that extend beyond traditional enforcement. This course on Negotiation Skills is designed to meet that need, equipping police personnel to handle arguments, de-escalate tense situations, and collaborate with diverse communities. The program provides a structured approach to transforming officers into effective mediators and commun",
       "se_competencies": [
+        "C34",
         "C24",
         "C15",
         "C26"
@@ -825,6 +1233,7 @@
       "description": "In today's complex society, the effectiveness of police personnel extends beyond technical proficiency to include a high degree of interpersonal skill. This course is designed to address this need by providing a comprehensive foundation in soft skills. It explores why these skills, including communication and emotional intelligence, constitute a significant portion of career success and are indisp",
       "se_competencies": [
         "C15",
+        "C29",
         "C04"
       ],
       "targetLevel": 2,
@@ -839,6 +1248,8 @@
       "description": "In today's dynamic and competitive professional landscape, technical abilities alone are not enough to ensure success. This course, 'Developing Essential Soft Skills for Workplace Success,' is designed to build the foundational interpersonal skills that are critical for career advancement and effective collaboration. It addresses why skills such as communication and teamwork are just as vital as t",
       "se_competencies": [
         "C15",
+        "C29",
+        "C34",
         "C24"
       ],
       "targetLevel": 2,
@@ -861,10 +1272,24 @@
       "source": "igot"
     },
     {
+      "identifier": "do_114017409019920384165",
+      "name": "General Financial Rules",
+      "description": "This course offers an in-depth exploration of the General Financial Rules (GFR) 2017, a critical framework for any official dealing with public funds. The curriculum is structured to provide a thorough understanding of financial management systems within the central government. Key learning areas include the standards of financial propriety, budget implementation, and government accounting procedu",
+      "se_competencies": [
+        "C31"
+      ],
+      "targetLevel": 2,
+      "duration": 10380,
+      "provider": "National Academy of Direct Taxes NADT",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
       "identifier": "do_1140322061367951361227",
       "name": "Team Building and Team Management",
       "description": "In today's collaborative work environments, the ability to build and manage effective teams is a critical skill for achieving organizational success. This course is designed to equip public sector professionals with the foundational knowledge and practical tools needed to foster teamwork and lead with confidence. It addresses the core principles of team dynamics, highlighting why cohesive teams ar",
       "se_competencies": [
+        "C34",
         "C24"
       ],
       "targetLevel": 2,
@@ -878,11 +1303,26 @@
       "name": "Understanding Right to Information Act",
       "description": "The Right to Information (RTI) Act is a cornerstone of transparent and accountable governance, providing a powerful tool for citizens to access information from public authorities. This course, 'Understanding the Right to Information (RTI) Act', is designed to demystify this crucial legislation for public officials and citizens alike. It establishes the context for why the RTI Act was enacted and ",
       "se_competencies": [
-        "C11"
+        "C11",
+        "C29"
       ],
       "targetLevel": 2,
       "duration": 1920,
       "provider": "Indian Oil Corporation Limited (IOCL)",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1140350635561861121228",
+      "name": "DoSJE - Matters handled by Administration and Establishment Division",
+      "description": "This introductory module offers a comprehensive overview of the subject matters handled by the Administration and Establishment Division. The course is structured to provide learners with a clear and concise understanding of why this division is critical to the smooth functioning of a government organization. Key learning areas include a detailed breakdown of the division's core responsibilities, ",
+      "se_competencies": [
+        "C32",
+        "C29"
+      ],
+      "targetLevel": 2,
+      "duration": 1380,
+      "provider": "Department of Social Justice and Empowerment",
       "primaryCategory": "Course",
       "source": "igot"
     },
@@ -916,6 +1356,34 @@
       "source": "igot"
     },
     {
+      "identifier": "do_114094349353377792144",
+      "name": "Using Data to Monitor and Improve Public Procurement",
+      "description": "This course is designed to equip public officials with the skills to use data effectively in the procurement lifecycle. It begins by establishing a strong foundation, discussing the primary objectives of public procurement through the '5Rs' framework and referencing key government documents like the GFR and Department of Expenditure manuals. The curriculum then introduces the concept of Key Perfor",
+      "se_competencies": [
+        "C31",
+        "C04",
+        "C26"
+      ],
+      "targetLevel": 2,
+      "duration": 5280,
+      "provider": "Administrative Staff College of India",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1141135055139635201377",
+      "name": "Office Procedure - Updated",
+      "description": "In the context of public service, adherence to established procedures is paramount for ensuring transparency, accountability, and efficiency. This foundational course is designed to equip government officials with a thorough understanding of standard office procedures as practiced in the Government of India. The curriculum delves into the core components of daily administrative work, providing a s",
+      "se_competencies": [
+        "C29"
+      ],
+      "targetLevel": 2,
+      "duration": 8220,
+      "provider": "Institute of Secretariat Training and Management",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
       "identifier": "do_1141311869341614081189",
       "name": "Data Storytelling",
       "description": "In today's data-driven world, the ability to communicate insights effectively is a critical skill. This course, 'Effective Data Storytelling: Transforming Data into Narratives,' equips you with the essential tools to turn complex information into persuasive stories. The curriculum is structured to guide you from foundational concepts to practical application. You will begin by understanding the si",
@@ -931,6 +1399,86 @@
       "source": "igot"
     },
     {
+      "identifier": "do_1141365038534410241285",
+      "name": "Standard Questionnaire for visit to Branch Post Office",
+      "description": "This course is designed to equip Inspecting Officers with the necessary skills to perform thorough and effective inspections of Branch Post Offices. With the integration of centralized systems like CBS and CSI, the nature of postal inspections has evolved. This program details the modern inspection process, focusing on the use of the DARPAN app. The curriculum is structured around the four key par",
+      "se_competencies": [
+        "C30"
+      ],
+      "targetLevel": 2,
+      "duration": 2256,
+      "provider": "RAKNPA",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1141496571754577921594",
+      "name": "Records Management",
+      "description": "Effective records management is a cornerstone of good governance, ensuring transparency, accountability, and the preservation of institutional memory. This course offers a detailed exploration of the principles and practices essential for handling public records in accordance with Indian law. It begins by defining what constitutes a record and systematically breaks down the stages of the records m",
+      "se_competencies": [
+        "C29"
+      ],
+      "targetLevel": 2,
+      "duration": 3600,
+      "provider": "Institute of Secretariat Training and Management",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1141496905135472641576",
+      "name": "Budget and Related Activities",
+      "description": "Understanding the intricacies of government budgeting is crucial for ensuring the effective and transparent allocation of public resources. This course offers an in-depth examination of the fundamental principles and practices of budgeting within the governmental framework. Participants will gain a thorough understanding of the key terms, structural components, and features of a public budget. The",
+      "se_competencies": [
+        "C31"
+      ],
+      "targetLevel": 2,
+      "duration": 2700,
+      "provider": "Institute of Secretariat Training and Management",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1141499022225326081609",
+      "name": "Direct Trainer Skills",
+      "description": "This foundational course is designed to equip aspiring and new trainers with the core competencies needed to excel in their roles. In the context of public service, effective training is paramount for capacity building and enhancing organizational efficiency. This program provides a structured journey into the world of instructional delivery, starting with the theoretical underpinnings of adult le",
+      "se_competencies": [
+        "C29"
+      ],
+      "targetLevel": 2,
+      "duration": 3600,
+      "provider": "Institute of Secretariat Training and Management",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1141509834998251521644",
+      "name": "Water Pollution and Management Approaches",
+      "description": "In an era of increasing water scarcity and environmental stress, understanding the dynamics of water pollution and its management is paramount for public officials and environmental professionals. This course addresses the urgent need for effective water quality management by providing a detailed examination of the challenges facing global freshwater systems. Participants will gain a thorough unde",
+      "se_competencies": [
+        "C17"
+      ],
+      "targetLevel": 2,
+      "duration": 10800,
+      "provider": "World Bank",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1141538206410752001665",
+      "name": "CCS (CCA) Rules part 1- CCS CCA Rules - An Overview and Suspension",
+      "description": "This foundational course offers an in-depth exploration of the Central Civil Services (Classification, Control and Appeal) Rules, 1965, a cornerstone of administrative governance in India. Understanding these rules is critical for public servants to ensure procedural fairness, maintain discipline, and uphold the integrity of the civil services. The course begins by defining key terminology and exp",
+      "se_competencies": [
+        "C30",
+        "C35",
+        "C32"
+      ],
+      "targetLevel": 1,
+      "duration": 3600,
+      "provider": "Institute of Secretariat Training and Management",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
       "identifier": "do_1141540393136046081732",
       "name": "Managing Change: Implementing Responsible Data Management",
       "description": "In an era of rapid digital transformation, the ability to manage data responsibly is a critical competency for any public or social impact organization. This course provides a comprehensive guide to implementing robust and ethical data management systems. You will begin by understanding the core concepts of responsible data, including the data lifecycle, data governance, and the principles of priv",
@@ -938,7 +1486,8 @@
         "C03",
         "C11",
         "C04",
-        "C26"
+        "C26",
+        "C27"
       ],
       "targetLevel": 2,
       "duration": 8601,
@@ -973,6 +1522,67 @@
       "source": "igot"
     },
     {
+      "identifier": "do_11419374723747840017",
+      "name": "Admn, HR and Establishment practices in BSNL.",
+      "description": "This foundational course offers an in-depth exploration of the administrative, HR, and establishment procedures that govern the functioning of BSNL and other public sector undertakings. The curriculum is structured to provide clarity on the rules and regulations that impact an employee's career lifecycle and the organization's operational integrity. The course begins by detailing the context of th",
+      "se_competencies": [
+        "C32",
+        "C30",
+        "C35"
+      ],
+      "targetLevel": 2,
+      "duration": 13013,
+      "provider": "Bharat Sanchar Nigam Limited(BSNL)",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_114195197456596992127",
+      "name": "Introduction to Scenario Planning and Analysis",
+      "description": "In an era of rapid change, the ability to anticipate and prepare for the future is a critical competency for public sector leaders. This course, 'Fundamentals of Scenario Planning and Analysis,' introduces a structured methodology for strategic foresight. It moves beyond simple forecasting to help organizations envision and prepare for a range of possible futures. The curriculum details the generi",
+      "se_competencies": [
+        "C25",
+        "C04",
+        "C10"
+      ],
+      "targetLevel": 1,
+      "duration": 1975,
+      "provider": "RAKNPA",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1141956337116200961150",
+      "name": "Change Management in Digital Transformation",
+      "description": "In an era of rapid technological advancement, successful digital transformation hinges on more than just implementing new systems; it requires effectively managing organizational and behavioral change. This course is designed for public sector professionals to navigate the complexities of this process. It provides a deep dive into why many digital projects fail due to neglecting the 'human factor'",
+      "se_competencies": [
+        "C26"
+      ],
+      "targetLevel": 2,
+      "duration": 4033,
+      "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1141977555379404801220",
+      "name": "File management in AutoCAD",
+      "description": "Maintaining the health of your drawing files is crucial for any AutoCAD professional. This course offers a comprehensive guide to essential file management and maintenance tasks that ensure project stability and optimal software performance. You will delve into the practical application of AutoCAD's built-in utilities designed to prevent data loss and corruption. The course systematically covers t",
+      "se_competencies": [
+        "C10",
+        "C23",
+        "C03",
+        "C19",
+        "C04",
+        "C29"
+      ],
+      "targetLevel": 2,
+      "duration": 1865,
+      "provider": "Autodesk",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
       "identifier": "do_1142012225299906561237",
       "name": "Cyber Security",
       "description": "In today's interconnected world, understanding and implementing cybersecurity measures is crucial for every individual. This course offers a comprehensive introduction to the core concepts of digital safety. It begins by establishing the importance of desktop security, detailing threats such as viruses, malware, and hacking, and explaining protective measures like antivirus software, firewalls, an",
@@ -985,6 +1595,32 @@
       "targetLevel": 2,
       "duration": 3237,
       "provider": "Central Industrial Security Force (CISF)",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1142084509889495041557",
+      "name": "Budget formulation in Government of India",
+      "description": "This course offers an in-depth exploration of the budget formulation process in the Government of India, a cornerstone of public financial management. It begins by establishing the context of the annual budget, not merely as a financial statement, but as a critical instrument for implementing the government's economic and social policies. You will learn about the complete lifecycle of budget prepa",
+      "se_competencies": [
+        "C31"
+      ],
+      "targetLevel": 2,
+      "duration": 2580,
+      "provider": "Department of Expenditure",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1142126184516403201821",
+      "name": "Receipt and Payment Rules",
+      "description": "This course offers a detailed exploration of the 'Receipt and Payment Rules 2022' and is essential for any official involved in the financial management of government funds. The curriculum is structured to provide a clear understanding of the core principles and procedures that ensure transparency and accountability in public finance. Key learning areas include the general rules governing the rece",
+      "se_competencies": [
+        "C31"
+      ],
+      "targetLevel": 2,
+      "duration": 2922,
+      "provider": "Defence Accounts Department (DAD)",
       "primaryCategory": "Course",
       "source": "igot"
     },
@@ -1002,6 +1638,19 @@
       "source": "igot"
     },
     {
+      "identifier": "do_1142225522181324801349",
+      "name": "Fundamentals of Government Office Procedures and Communication",
+      "description": "This course is designed to equip learners with the essential knowledge and skills for operating effectively within a government office. It establishes a strong foundation by explaining office organization, efficient workspace management, and the principles of structured official communication. The curriculum delves into various forms of correspondence, such as letters, memos, and U.O. notes, and c",
+      "se_competencies": [
+        "C29"
+      ],
+      "targetLevel": 2,
+      "duration": 1638,
+      "provider": "Indian Railway Institute Of Transport Management (IRITM)",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
       "identifier": "do_11422319743288115211350",
       "name": "Overview of Pradhan Mantri Fasal Bima Yojana",
       "description": "This course offers an in-depth understanding of the Pradhan Mantri Fasal Bima Yojana (PMFBY), a critical government initiative designed to provide a financial safety net for India's farmers. The program begins by outlining the fundamental objectives and nationwide scope of PMFBY, explaining how it protects agricultural producers against losses from non-preventable natural risks. Key learning areas",
@@ -1011,6 +1660,19 @@
       "targetLevel": 1,
       "duration": 2196,
       "provider": "Pradhan Mantri Fasal Bima Yojana PMFBY",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_114234627750100992133",
+      "name": "Ministry of Parliament Affairs Module 1 - Overview of the Parliament",
+      "description": "This course is designed to provide a comprehensive introduction to the Indian Parliament, a cornerstone of the nation's democratic framework. It begins by establishing the constitutional basis of the Parliament, explaining why a deep understanding of its functions is crucial for public servants. The curriculum delves into the specific composition and roles of both the Lok Sabha and the Rajya Sabha",
+      "se_competencies": [
+        "C30"
+      ],
+      "targetLevel": 1,
+      "duration": 1710,
+      "provider": "Ministry of Parliamentary Affairs",
       "primaryCategory": "Course",
       "source": "igot"
     },
@@ -1122,6 +1784,19 @@
       "source": "igot"
     },
     {
+      "identifier": "do_11425303493053644813",
+      "name": "Indian Knowledge System: Perspectives on Public Administration",
+      "description": "Gain a comprehensive understanding of ancient Indian political thought and its enduring relevance in the field of public administration. This course provides a detailed examination of governance models that have shaped Indian statecraft for centuries. The curriculum begins with an introduction to 'Rajadharma' and its philosophical underpinnings in texts like the Manusmriti and the epics. The core ",
+      "se_competencies": [
+        "C30"
+      ],
+      "targetLevel": 2,
+      "duration": 8310,
+      "provider": "Indian Institute Of Management Bangalore",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
       "identifier": "do_1142539628020695041118",
       "name": "Mastering GIS (Level - 1)",
       "description": "Mastering GIS (Level 1) is designed to equip public sector professionals with the fundamental knowledge and skills to leverage geospatial technology. The course begins by defining GIS, Geomatics, and other key terminologies, establishing a solid theoretical base. It delves into the practical aspects of data acquisition through various modern tools like satellite imagery, aerial photography, drones",
@@ -1163,6 +1838,22 @@
       ],
       "targetLevel": 2,
       "duration": 3805,
+      "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1142601429582315521201",
+      "name": "Risk Management",
+      "description": "In an era of increasing cyber threats, effective risk management is crucial for organizational resilience. This course offers a detailed exploration of the structured approach required to safeguard digital assets and information systems. Participants will begin by understanding the significance of risk management and its core terminologies, including assets, vulnerabilities, threats, and the conce",
+      "se_competencies": [
+        "C03",
+        "C11",
+        "C04",
+        "C26"
+      ],
+      "targetLevel": 2,
+      "duration": 7067,
       "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
       "primaryCategory": "Course",
       "source": "igot"
@@ -1234,6 +1925,19 @@
       "source": "igot"
     },
     {
+      "identifier": "do_1142749125629296641463",
+      "name": "Fiscal Policy: Impact and Significance in the Indian Telecom Sector",
+      "description": "This course delves into the principles and application of fiscal policy within the Indian economic landscape, with a specific focus on the telecommunications sector. It is designed for public officials who need to understand the mechanisms of government finance and their real-world impact. The course begins by defining fiscal policy and its essential tools, providing a foundational understanding o",
+      "se_competencies": [
+        "C05"
+      ],
+      "targetLevel": 2,
+      "duration": 2100,
+      "provider": "Ministry of Communications- Department of Telecommunications",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
       "identifier": "do_1142769973077196801271",
       "name": "Ensuring AI Governance of India",
       "description": "This course offers a comprehensive overview of the strategic and practical considerations for integrating Artificial Intelligence into public governance. It addresses the fundamental question of how government entities can effectively plan, implement, and manage AI projects to enhance citizen services and internal efficiency. The discussion moves beyond the hype to focus on the real-world challeng",
@@ -1264,6 +1968,7 @@
       "name": "Building a Psychologically Safe Workplace",
       "description": "A thriving and innovative workplace is built on a foundation of psychological safety. This course offers a comprehensive exploration of how to cultivate an environment where every team member feels secure enough to take interpersonal risks, share ideas, and voice concerns. The curriculum delves into the core concepts of psychological safety, highlighting its direct impact on team dynamics, employe",
       "se_competencies": [
+        "C34",
         "C24",
         "C15"
       ],
@@ -1292,6 +1997,7 @@
       "description": "In today's dynamic professional landscape, soft skills are as crucial as technical expertise. This course is designed to build a strong foundation in the interpersonal attributes that foster effective collaboration and personal management. It delves into the core of what makes a professional effective, covering a wide spectrum of skills including communication, teamwork, problem-solving, emotional",
       "se_competencies": [
         "C15",
+        "C34",
         "C04",
         "C24",
         "C26"
@@ -1328,6 +2034,32 @@
       "targetLevel": 1,
       "duration": 3480,
       "provider": "Ministry of Communications- Department of Telecommunications",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1142968930893250561338",
+      "name": "Monitoring of Assurances by Ministry of Parliamentary Affairs",
+      "description": "This course delves into the essential governmental function of monitoring and fulfilling parliamentary assurances. It is designed for officials involved in legislative processes, policy implementation, and inter-ministerial coordination. The course begins by establishing the context of parliamentary assurances, explaining why their timely fulfillment is crucial for maintaining legislative accounta",
+      "se_competencies": [
+        "C33"
+      ],
+      "targetLevel": 2,
+      "duration": 2220,
+      "provider": "Ministry of Parliamentary Affairs",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_114296949478375424123",
+      "name": "Ministry of Parliamentary Affairs: Overview of Consultative Committees",
+      "description": "This course is designed to provide a foundational understanding of the role and functioning of Consultative Committees in the Indian parliamentary system. It delves into the procedural framework that governs these committees, which are vital for informal consultations between government ministries and Members of Parliament. The content explains why these committees are constituted and details thei",
+      "se_competencies": [
+        "C33"
+      ],
+      "targetLevel": 1,
+      "duration": 3360,
+      "provider": "Ministry of Parliamentary Affairs",
       "primaryCategory": "Course",
       "source": "igot"
     },
@@ -1395,6 +2127,34 @@
       "source": "igot"
     },
     {
+      "identifier": "do_11431736995744972811263",
+      "name": "Office Ergonomics and Workplace Wellbeing",
+      "description": "This course offers a detailed exploration of ergonomics within the office environment, designed to enhance employee wellbeing and organizational productivity. It begins by establishing the fundamental concepts of ergonomics, including its classifications and its importance in preventing occupational health issues like Cumulative Trauma Disorders (CTD). The curriculum delves into practical applicat",
+      "se_competencies": [
+        "C29"
+      ],
+      "targetLevel": 2,
+      "duration": 4918,
+      "provider": "Indian Institute of Technology (IIT) Guwahati",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_11431810354823987211313",
+      "name": "Negotiation",
+      "description": "This course delves into the fundamental principles and strategic applications of negotiation. It is designed for public sector professionals seeking to enhance their ability to manage conflicts, lead teams, and secure favorable agreements. The course begins by defining negotiation and its necessity in situations of conflict, distinguishing it from simple persuasion. It then explores the critical d",
+      "se_competencies": [
+        "C34",
+        "C24",
+        "C26"
+      ],
+      "targetLevel": 2,
+      "duration": 3928,
+      "provider": "Armed Forces Medical College",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
       "identifier": "do_1143182059032002561958",
       "name": "Digital Public Infrastructure- DigiLocker",
       "description": "Delve into the architecture and principles of India's Digital Public Infrastructure (DPI), the backbone of the nation's digital transformation. This course explains the interconnected systems like Aadhaar, UPI, and API Setu that form the 'India Stack.' The primary focus is on DigiLocker, exploring its function as a secure, citizen-centric platform for issuing, storing, and verifying digital docume",
@@ -1410,10 +2170,24 @@
       "source": "igot"
     },
     {
+      "identifier": "do_1143238969641205761148",
+      "name": "Introduction to Public Policy",
+      "description": "Designed for public officials and governance professionals, this introductory course delves into the essential principles of public policy. It begins by addressing the fundamental question of why governments create policies, exploring concepts such as market failures, externalities, public goods, and the need for social welfare interventions. The course provides a comprehensive overview of the too",
+      "se_competencies": [
+        "C27"
+      ],
+      "targetLevel": 1,
+      "duration": 12114,
+      "provider": "Karmayogi Bharat",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
       "identifier": "do_114324413093732352131",
       "name": "Artificial Intelligence: Unlocking Potential and Securing Trust",
       "description": "Dive into the world of Artificial Intelligence and understand its profound impact on modern governance and society. This course begins with a journey through the history of AI, from its conceptual origins to the current era of Large Language Models (LLMs) and Generative AI. You will gain clarity on fundamental concepts, distinguishing between machine learning, deep learning, and other key buzzword",
       "se_competencies": [
+        "C31",
         "C20",
         "C23",
         "C03",
@@ -1468,6 +2242,19 @@
       "source": "igot"
     },
     {
+      "identifier": "do_1143280309065646081602",
+      "name": "Executing Large Scale Digital Transformation Projects",
+      "description": "In an era of rapid technological advancement, government officers are increasingly called upon to lead complex digital transformation initiatives. This course offers a strategic roadmap for navigating the entire lifecycle of a large-scale government IT project. It begins by establishing the context for digital projects in governance, from responding to national incidents to enhancing citizen servi",
+      "se_competencies": [
+        "C23"
+      ],
+      "targetLevel": 2,
+      "duration": 9781,
+      "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
       "identifier": "do_1143322855990149121796",
       "name": "Data and Social Media Analytics for Governance",
       "description": "In an increasingly digital world, the ability to analyze data is crucial for effective governance. This course provides a comprehensive overview of data and social media analytics tailored for public sector professionals. It begins by establishing the context of why data analytics is vital for modern government functions, including enhancing transparency, improving efficiency, and understanding pu",
@@ -1477,7 +2264,8 @@
         "C04",
         "C10",
         "C26",
-        "C11"
+        "C11",
+        "C29"
       ],
       "targetLevel": 2,
       "duration": 2861,
@@ -1506,7 +2294,8 @@
         "C03",
         "C19",
         "C04",
-        "C10"
+        "C10",
+        "C27"
       ],
       "targetLevel": 2,
       "duration": 4458,
@@ -1528,16 +2317,61 @@
       "source": "igot"
     },
     {
+      "identifier": "do_11434365818569523211240",
+      "name": "Enhancing Public Services Through Design Thinking",
+      "description": "This course provides a comprehensive introduction to Design Thinking, empowering public service professionals to tackle complex challenges with an innovative, human-centered approach. It delves into the five distinct stages of the Design Thinking process, starting with building deep empathy for citizens to understand their needs and pain points. Learners will then progress to defining problems, br",
+      "se_competencies": [
+        "C27",
+        "C26"
+      ],
+      "targetLevel": 2,
+      "duration": 2059,
+      "provider": "Indian Institute of Public Administration",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
       "identifier": "do_11434423929951027218",
       "name": "Digital Transformation: Effective Procurement and Project Management",
       "description": "As India advances its digital transformation agenda, the ability to effectively procure and manage large-scale IT projects is paramount for public sector officials. This course offers a comprehensive guide to the foundational pillars of digital project execution. It begins by detailing how to craft robust Detailed Project Reports (DPRs) that establish clear scope, budget, and feasibility. The curr",
       "se_competencies": [
         "C25",
+        "C31",
         "C26"
       ],
       "targetLevel": 2,
       "duration": 7478,
       "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1143486649654968321408",
+      "name": "Media Management",
+      "description": "In an era of high public scrutiny and rapid information dissemination, effective media management is a critical function for modern policing. This course is designed to equip law enforcement professionals with the strategic communication skills necessary to build public trust and maintain institutional credibility. The curriculum provides a comprehensive overview of media relations, focusing on th",
+      "se_competencies": [
+        "C29"
+      ],
+      "targetLevel": 2,
+      "duration": 8220,
+      "provider": "Bureau of Police Research and Development BPRD",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1143493505487093761972",
+      "name": "Introduction to Indian Railways Human Resource Management System",
+      "description": "This practical course offers a comprehensive guide for Indian Railways employees on the efficient use of the Human Resource Management System (HRMS). The training focuses on empowering employees with self-service tools that enhance transparency and streamline critical HR processes. The curriculum is designed to build confidence and independence in managing personal and professional records digital",
+      "se_competencies": [
+        "C10",
+        "C23",
+        "C29",
+        "C32",
+        "C30"
+      ],
+      "targetLevel": 1,
+      "duration": 4793,
+      "provider": "Western Railway (WR)",
       "primaryCategory": "Course",
       "source": "igot"
     },
@@ -1555,6 +2389,19 @@
       "targetLevel": 2,
       "duration": 1761,
       "provider": "Indian Maritime University",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1143514675313541121211",
+      "name": "Indian Knowledge Systems in Governance: A Values-Based Approach",
+      "description": "This course offers a comprehensive journey into the ethical foundations of governance, drawing from the deep well of Indian Knowledge Systems (IKS). It moves beyond conventional administrative training to connect public servants with the timeless values that have shaped India's civilizational ethos. The curriculum is structured to provide a robust understanding of how principles like duty (Dharma)",
+      "se_competencies": [
+        "C26"
+      ],
+      "targetLevel": 2,
+      "duration": 6369,
+      "provider": "Department of Telecommunications",
       "primaryCategory": "Course",
       "source": "igot"
     },
@@ -1626,6 +2473,7 @@
         "C04",
         "C03",
         "C11",
+        "C29",
         "C15"
       ],
       "targetLevel": 2,
@@ -1640,6 +2488,7 @@
       "description": "Dive into the foundational principles of creating secure and scalable Digital Public Infrastructure (DPI) in this insightful course. As governments worldwide accelerate their digital transformation journeys, understanding how to build secure DPIs has become paramount. This course addresses the context by explaining why a 'security by design' mindset is crucial for protecting citizen data and ensur",
       "se_competencies": [
         "C23",
+        "C27",
         "C25",
         "C03",
         "C11",
@@ -1656,7 +2505,9 @@
       "name": "Transformational Leadership",
       "description": "In today's rapidly evolving professional landscape, effective leadership is crucial for navigating complexity and driving organizational success. This course on Transformational Leadership offers an in-depth examination of a visionary leadership style that moves beyond simple management to inspire genuine change and growth. It is designed for leaders and aspiring leaders who seek to create a posit",
       "se_competencies": [
-        "C24"
+        "C24",
+        "C28",
+        "C36"
       ],
       "targetLevel": 2,
       "duration": 3640,
@@ -1695,11 +2546,55 @@
       "source": "igot"
     },
     {
+      "identifier": "do_11436203641637273611064",
+      "name": "Ticket to Transformation: Digitalizing Human Resources in Railways",
+      "description": "This case explores the ambitious digital transformation of the Human Resources function in Indian Railways, one of the largest public sector employers in the world. It follows the shift from a manual, paper-based system to an integrated Human Resource Management System (HRMS) developed by CRIS, the IT arm of Indian Railways. The case outlines why the change was needed, how it was implemented, and ",
+      "se_competencies": [
+        "C28",
+        "C24",
+        "C36",
+        "C25",
+        "C09"
+      ],
+      "targetLevel": 2,
+      "duration": 3900,
+      "provider": "Capacity Building Commission",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_114362713408495616148",
+      "name": "Ethics and Decentralization in Governance and Public Administration",
+      "description": "This course provides a critical examination of India's administrative systems, tracing the influence of colonial-era practices on modern governance. It addresses the persistence of excessive formalism, rigid hierarchies, and a lack of public responsiveness inherited from the past. As a powerful alternative, the course introduces the concept of Rajadharma, a framework for ethical, service-oriented ",
+      "se_competencies": [
+        "C17"
+      ],
+      "targetLevel": 2,
+      "duration": 5940,
+      "provider": "National Academy of Defence Production (NADP) Nagpur",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1143661213763420161686",
+      "name": "Investor Education: Smart Investing and Financial Planning",
+      "description": "In an increasingly complex economic landscape, mastering personal finance is crucial for long-term security and wealth creation. This course is designed for individuals seeking to elevate their financial literacy beyond basic savings, providing the tools for smart investing and robust financial planning. It addresses the critical need for a structured approach to managing money, aligning financial",
+      "se_competencies": [
+        "C05"
+      ],
+      "targetLevel": 2,
+      "duration": 7643,
+      "provider": "National Institute of Securities Markets (NISM)",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
       "identifier": "do_11436613676448153616",
       "name": "Fundamentals of the Digital Public Infrastructure Approach",
       "description": "In an era of rapid digital change, Digital Public Infrastructure (DPI) has emerged as a foundational element for effective governance and improved public service delivery. This course delves into the core principles of the DPI approach, explaining how it enables scalable, secure, and inclusive digital ecosystems. Participants will journey through the entire lifecycle of DPI implementation, from in",
       "se_competencies": [
         "C23",
+        "C27",
         "C25",
         "C03",
         "C11",
@@ -1784,6 +2679,19 @@
       "source": "igot"
     },
     {
+      "identifier": "do_1143979801959055361565",
+      "name": "Strategic Management for Businesses and Corporates",
+      "description": "In today's dynamic environment, strategic management is crucial for organizational resilience and success. This course provides a comprehensive overview of strategy formulation, designed for executives and managers tasked with guiding their organization's future. You will begin by understanding the critical distinction between business strategy, which focuses on competitive advantage in a specific",
+      "se_competencies": [
+        "C31"
+      ],
+      "targetLevel": 2,
+      "duration": 5349,
+      "provider": "Indian Institute of Management Ahmedabad",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
       "identifier": "do_1143981874766561281690",
       "name": "Handling Unit Level Data of Household Consumption Expenditure Survey",
       "description": "The Household Consumption Expenditure Survey (HCES) is a foundational component of India's official statistical system, providing deep insights into the economic well-being of households. This course is designed to equip researchers, policy analysts, and data scientists with the practical skills needed to work directly with this vital data. You will learn the complete data workflow, starting from ",
@@ -1821,6 +2729,35 @@
       "targetLevel": 2,
       "duration": 4026,
       "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1144074211488481281581",
+      "name": "Haryana Civil Services General Provident Fund Rules 2016",
+      "description": "This course offers a detailed examination of the Haryana Civil Services General Provident Fund (GPF) Rules, 2016, a critical component of financial planning for government employees. The content is structured to provide a clear and practical understanding of how the GPF system operates. You will begin by learning the fundamental scope and applicability of the rules, including the specific eligibil",
+      "se_competencies": [
+        "C31",
+        "C30",
+        "C32"
+      ],
+      "targetLevel": 2,
+      "duration": 3600,
+      "provider": "Haryana Institute of Public Administration",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1144074415439953921416",
+      "name": "Compassionate Financial Assistance and Appointment Rules 2019",
+      "description": "This course is designed to provide a clear and detailed understanding of the rules governing Compassionate Financial Assistance (CFA) and appointments within the civil services. It addresses the critical need for officials to correctly interpret and apply these regulations to support the families of government employees in times of need. The curriculum systematically covers the core components of ",
+      "se_competencies": [
+        "C32",
+        "C31"
+      ],
+      "targetLevel": 2,
+      "duration": 5400,
+      "provider": "Haryana Institute of Public Administration",
       "primaryCategory": "Course",
       "source": "igot"
     },
@@ -1893,6 +2830,38 @@
       "source": "igot"
     },
     {
+      "identifier": "do_11442291495752499211077",
+      "name": "Strategic Planning and Growth",
+      "description": "In today's dynamic business environment, strategic foresight is crucial for sustainable growth. This course is designed to equip managers, entrepreneurs, and consultants with a robust toolkit for strategic analysis and planning. You will delve into five powerful frameworks that are fundamental to modern business strategy. The course begins with the Ansoff Matrix to identify growth opportunities an",
+      "se_competencies": [
+        "C28",
+        "C24",
+        "C36",
+        "C26",
+        "C04",
+        "C15",
+        "C29"
+      ],
+      "targetLevel": 2,
+      "duration": 4175,
+      "provider": "National Academy of Defence Production (NADP) Nagpur",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1144243454102241281533",
+      "name": "Foundations of Public Policy and Policy Analysis",
+      "description": "This course introduces participants to the fundamentals of public policy and provides analytical tools to understand, evaluate, and design effective policies. It offers a clear understanding of why governments take certain actions, how policy decisions are formulated, and how systematic analysis can improve decision-making processes. Through real-world examples from sectors such as health, environ",
+      "se_competencies": [
+        "C27"
+      ],
+      "targetLevel": 1,
+      "duration": 3232,
+      "provider": "Meghalaya Administrative Training Institute",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
       "identifier": "do_1144314741016166401174",
       "name": "YUVA AI for All",
       "description": "Designed to promote nationwide AI literacy, this course offers a comprehensive introduction to the world of Artificial Intelligence. It begins by laying down the fundamental principles of AI, Machine Learning, and advanced concepts like Generative AI and Large Language Models (LLMs), all explained in a simple, actionable manner. The curriculum is structured to provide practical, hands-on experienc",
@@ -1903,6 +2872,36 @@
       "targetLevel": 2,
       "duration": 13807,
       "provider": "India AI",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1144412064345702401464",
+      "name": "राज्य स्तरीय औद्योगिक उत्पादन सूचकांक का संकलन",
+      "description": "यह पाठ्यक्रम 'राज्य स्तरीय औद्योगिक उत्पादन सूचकांक (IIP) का संकलन' पर एक विस्तृत मार्गदर्शिका प्रदान करता है, जो आर्थिक विकास का एक महत्वपूर्ण संकेतक है। इस पाठ्यक्रम का उद्देश्य शिक्षार्थियों को IIP की अवधारणा, इसके घटकों और इसके संकलन में शामिल कार्यप्रणाली से परिचित कराना है। इसमें बताया गया है कि कैसे IIP समय के साथ औद्योगिक उत्पादन में होने वाले बदलावों को मापता है, जिसमें आधार वर्ष 2011-12 ",
+      "se_competencies": [
+        "C01",
+        "C04",
+        "C05"
+      ],
+      "targetLevel": 2,
+      "duration": 4012,
+      "provider": "RCVP Noronha Academy of Administration and Management (RCVPNAAM) Bhopal",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1144412158218076161291",
+      "name": "Foundations of Management and Organisational Behaviour",
+      "description": "Designed for current and aspiring healthcare leaders, this course delves into the core principles of effective management and organizational dynamics. It begins by tracing the historical evolution of management theories, including the contributions of Taylor, Fayol, and the Human Relations Movement, providing context for today's practices. The curriculum emphasizes the application of these theorie",
+      "se_competencies": [
+        "C29",
+        "C24",
+        "C34"
+      ],
+      "targetLevel": 1,
+      "duration": 12422,
+      "provider": "Armed Forces Medical College",
       "primaryCategory": "Course",
       "source": "igot"
     },
@@ -1946,6 +2945,80 @@
       "source": "igot"
     },
     {
+      "identifier": "do_1144518503192330241784",
+      "name": "Navigating Parliamentary Questions",
+      "description": "This course provides a detailed examination of the institutional framework and procedures for managing Parliamentary Questions in India, a critical function of legislative accountability. It is designed for government officials and parliamentary staff who are responsible for ensuring that queries from Parliament are addressed accurately and promptly. The curriculum covers the entire lifecycle of a",
+      "se_competencies": [
+        "C33",
+        "C29"
+      ],
+      "targetLevel": 2,
+      "duration": 1500,
+      "provider": "Institute of Secretariat Training and Management",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1144526169355960321983",
+      "name": "संसदीय प्रश्नों से परिचय",
+      "description": "यह पाठ्यक्रम विशेष रूप से उन सरकारी अधिकारियों और कर्मचारियों के लिए डिज़ाइन किया गया है जो संसदीय मामलों को संभालते हैं। इसका उद्देश्य संसदीय प्रश्नों से जुड़ी प्रक्रियाओं की व्यापक समझ प्रदान करना है, जो लोकतांत्रिक शासन में एक महत्वपूर्ण जवाबदेही तंत्र है। पाठ्यक्रम में, शिक्षार्थी विभिन्न प्रकार के प्रश्नों और उनके महत्व को समझेंगे। इसमें प्रश्नों को प्राप्त करने से लेकर संबंधित मंत्रालयों या ",
+      "se_competencies": [
+        "C33",
+        "C29"
+      ],
+      "targetLevel": 2,
+      "duration": 1500,
+      "provider": "Institute of Secretariat Training and Management",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_11445264562097356811009",
+      "name": "Digital Marketing and Social Media Strategies for Governance",
+      "description": "In an increasingly digital world, effective communication is paramount for modern governance. This course provides a detailed guide for public sector professionals on leveraging digital marketing and social media to foster a more transparent, responsive, and citizen-centric administration. It moves beyond traditional marketing concepts to address the unique challenges and responsibilities of gover",
+      "se_competencies": [
+        "C29",
+        "C10",
+        "C23"
+      ],
+      "targetLevel": 2,
+      "duration": 3660,
+      "provider": "National Academy of Defence Production (NADP) Nagpur",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_11445339283518259211095",
+      "name": "Haryana Civil Services Government Employees Conduct Rules 2016",
+      "description": "This course provides a detailed examination of the Haryana Civil Services Conduct Rules of 2016, a critical framework for ensuring integrity and professionalism in public administration. The program is structured to give learners a thorough understanding of their duties and limitations as government employees. It begins by defining the scope and applicability of the rules, establishing a foundatio",
+      "se_competencies": [
+        "C30",
+        "C35",
+        "C32"
+      ],
+      "targetLevel": 2,
+      "duration": 3600,
+      "provider": "Haryana Institute of Public Administration",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_11445537356084019211140",
+      "name": "Introduction to Industry 4.0 and Digital Transformation",
+      "description": "Industry 4.0 is reshaping the landscape of manufacturing and public services by integrating physical operations with smart, digital technologies. This course serves as a comprehensive introduction to the principles and applications of this industrial transformation. You will delve into the key enabling technologies, including the Internet of Things (IoT) for data collection, Artificial Intelligenc",
+      "se_competencies": [
+        "C10",
+        "C23",
+        "C04",
+        "C26"
+      ],
+      "targetLevel": 1,
+      "duration": 2354,
+      "provider": "Administrative Staff College of India",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
       "identifier": "do_1144582931607224321112",
       "name": "Navigating DPDP: The Future of Digital Governance in India",
       "description": "This policy-focused course delves into the practical implementation of the Digital Personal Data Protection (DPDP) Act, 2023, within government institutions. It provides a critical examination of the framework's core components, including exemptions for state functions under Section 17 and the delicate balance between citizen rights and public accountability. The discussion addresses significant o",
@@ -1953,10 +3026,38 @@
         "C03",
         "C11",
         "C22",
+        "C27",
         "C04"
       ],
       "targetLevel": 2,
       "duration": 4058,
+      "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_11446742573732659212",
+      "name": "Public Procurement for Sustainable Development",
+      "description": "This program offers a practical understanding of Sustainable Public Procurement (SPP) as a strategic lever for public sector transformation. It addresses the critical need to align government purchasing power with broader sustainability objectives. The course delves into the policy, regulatory, and institutional frameworks that underpin SPP, providing a clear roadmap for implementation. Key learni",
+      "se_competencies": [
+        "C31",
+        "C27"
+      ],
+      "targetLevel": 2,
+      "duration": 3133,
+      "provider": "Administrative Staff College of India",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1144681871632302081973",
+      "name": "Digital Transformation with Cyber Secure Governance",
+      "description": "In an era of rapid digital transformation, ensuring the security of public infrastructure is paramount. This course positions cybersecurity not merely as a technical challenge, but as a critical governance function that underpins public trust and national security. It is designed for public officials who are responsible for steering their organizations through digitalization, providing them with a",
+      "se_competencies": [
+        "C23"
+      ],
+      "targetLevel": 2,
+      "duration": 15647,
       "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
       "primaryCategory": "Course",
       "source": "igot"
@@ -1978,6 +3079,19 @@
       "source": "igot"
     },
     {
+      "identifier": "do_11448190861105561611419",
+      "name": "Public Procurement in Indian Railways: Principles and Processes",
+      "description": "This course provides a detailed examination of public procurement as practiced in Indian Railways, highlighting its significance as a strategic and constitutionally guided process. It is designed for officials involved in procurement to ensure they operate with probity, prudence, and a strong sense of public responsibility. The curriculum delves into the constitutional foundations of tendering, re",
+      "se_competencies": [
+        "C31"
+      ],
+      "targetLevel": 2,
+      "duration": 3644,
+      "provider": "Indian Railways Institute of Electrical Engineering (IRIEEN)",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
       "identifier": "do_1144916919742627841509",
       "name": "Fundamentals of Cloud Computing and Cloud Services",
       "description": "This skill-oriented course is designed to provide participants with foundational knowledge and practical skills in cloud computing technologies and services. The course offers a comprehensive understanding of cloud computing concepts, architectures, deployment models, and service strategies, with a strong emphasis on real-world applications and implementation. Participants will learn how cloud com",
@@ -1988,6 +3102,19 @@
       "targetLevel": 2,
       "duration": 4632,
       "provider": "National Institute of Electronics and Information Technology - NIELIT (formerly DOEACC Society)",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_114514842690207744143",
+      "name": "Fraud Risk Management In High Risk Environments",
+      "description": "This course provides an in-depth exploration of the behavioural, psychological, and structural dimensions of fraud in high-risk environments, such as defence procurement and public finance. It introduces participants to advanced forensic frameworks including the M.I.C.E. model, Fraud Diamond, Fraud Scale, Triangle of Fraud Action, and Dorminey’s Meta Model to explain why fraud occurs, how it is ex",
+      "se_competencies": [
+        "C05"
+      ],
+      "targetLevel": 2,
+      "duration": 3495,
+      "provider": "National Academy of Defence Production (NADP) Nagpur",
       "primaryCategory": "Course",
       "source": "igot"
     },
@@ -2178,6 +3305,32 @@
       "source": "igot"
     },
     {
+      "identifier": "do_1145794893939752961688",
+      "name": "Medical Attendance Rules for Central Government Employees",
+      "description": "The course provides a comprehensive understanding of the policies governing medical facilities and reimbursement provisions for Central Government employees. It explains the eligibility criteria, scope of benefits, and authorized medical services available under the applicable rules. The course guides learners through the procedures for availing medical treatment, submitting claims, and ensuring c",
+      "se_competencies": [
+        "C32"
+      ],
+      "targetLevel": 2,
+      "duration": 4748,
+      "provider": "National institute of Health and Family Welfare",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1145807719107051521722",
+      "name": "Pradhan Mantri Awaas Yojana-Gramin: Financial Management and Budgeting",
+      "description": "This course provides a detailed understanding of financial management and fund flow mechanisms under the Pradhan Mantri Awaas Yojana – Gramin (PMAY-G). It explains the processes of budgeting, fund allocation, Direct Benefit Transfer (DBT), State Nodal Account (SNA) operations, and Fund Transfer Order (FTO) mechanisms that ensure transparent, efficient, and timely release of funds to beneficiaries.",
+      "se_competencies": [
+        "C17"
+      ],
+      "targetLevel": 2,
+      "duration": 8159,
+      "provider": "Department of Rural Development (DRD)",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
       "identifier": "do_1145850566619545601933",
       "name": "National Panchayat Awards: Performance and Evaluation Framework",
       "description": "This course provides a comprehensive understanding of the National Panchayat Awards framework, including its guidelines, evaluation processes, and role in promoting excellence in grassroots governance. It highlights how Panchayati Raj Institutions (PRIs) are assessed and recognized based on their performance in governance, service delivery, and sustainable development outcomes. The course covers k",
@@ -2187,6 +3340,60 @@
       "targetLevel": 2,
       "duration": 4519,
       "provider": "Karmayogi Bharat",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1145942323706183681163",
+      "name": "Suspension Procedures for AIS Officers",
+      "description": "This course provides a comprehensive understanding of the suspension procedures applicable to All India Services (AIS) officers under the AIS (Discipline and Appeal) Rules, 1969. It focuses on the legal framework governing suspension, including grounds for suspension, competent authorities, procedural requirements, financial implications, review mechanisms, and safeguards to ensure compliance with",
+      "se_competencies": [
+        "C30",
+        "C35"
+      ],
+      "targetLevel": 2,
+      "duration": 2929,
+      "provider": "Department of Personnel and Training DoPT",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1145996983269457921270",
+      "name": "Cyber Smart: Tackling Social Media Offences",
+      "description": "This course provides a comprehensive understanding of social media-related offences and the measures required to safeguard against them in an increasingly digital environment. Participants will explore the evolution, magnitude, and various forms of social media offences, including cyberbullying, phishing, identity theft, impersonation, profile hacking, online frauds, and the misuse of digital plat",
+      "se_competencies": [
+        "C29"
+      ],
+      "targetLevel": 2,
+      "duration": 2967,
+      "provider": "Department of Telecommunications",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1145997648112025601167",
+      "name": "Generative AI for Human Resources Professionals",
+      "description": "Generative AI is becoming a practical capability for people-focused functions, including recruitment, employee communication, HR operations, engagement analysis, and workforce decision support. This course helps HR professionals, government department leaders, and Indian Administrative Services officers use large language models responsibly in workplace settings. Across three modules, learners exp",
+      "se_competencies": [
+        "C20",
+        "C23"
+      ],
+      "targetLevel": 2,
+      "duration": 8425,
+      "provider": "Fractal",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_11460696253553049618",
+      "name": "Fundamentals of Enterprise Risk Management",
+      "description": "This course on Enterprise Risk Management (ERM) aims to impart the knowledge and skills required to manage risk within the organisation. The risk needs to be identified, assessed, monitored, and communicated effectively to achieve the desired objectives. The course explores the role of ERM in strengthening governance, enhancing accountability, improving decision-making, and building organisational",
+      "se_competencies": [
+        "C25"
+      ],
+      "targetLevel": 2,
+      "duration": 4716,
+      "provider": "Department of Telecommunications",
       "primaryCategory": "Course",
       "source": "igot"
     },
@@ -2249,15 +3456,70 @@
       "source": "igot"
     },
     {
+      "identifier": "do_1146145957509693441504",
+      "name": "Budget Documents and Presentation and Approval of the Budget",
+      "description": "This course offers an in-depth exploration of the Union Budget of India, a critical instrument of the nation's financial administration. It is specifically designed to provide a clear and structured understanding of the entire budgetary process for government officials. The curriculum begins with the conceptual framework of the Union Budget and the administrative machinery involved. Learners will ",
+      "se_competencies": [
+        "C31"
+      ],
+      "targetLevel": 2,
+      "duration": 2079,
+      "provider": "Department of Expenditure",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1146146229237760001525",
+      "name": "Budget Formulation in the Government of India",
+      "description": "This course offers an in-depth exploration of the budget formulation process in the Government of India, a cornerstone of public financial management. It begins by establishing the context of the annual budget, not merely as a financial statement, but as a critical instrument for implementing the government's economic and social policies. You will learn about the complete lifecycle of budget prepa",
+      "se_competencies": [
+        "C31"
+      ],
+      "targetLevel": 2,
+      "duration": 1859,
+      "provider": "Department of Expenditure",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_11461621857989427211142",
+      "name": "Fundamentals of Public Procurement through GeM",
+      "description": "Dive into the mechanics of modern public procurement with this detailed course on the Government e-Marketplace (GeM). The curriculum begins by establishing the fundamental purpose and scope of public procurement within the governmental framework. You will explore the operational structure of the GeM portal, gaining clarity on the distinct roles, responsibilities, and obligations for both buyers an",
+      "se_competencies": [
+        "C31"
+      ],
+      "targetLevel": 2,
+      "duration": 2067,
+      "provider": "Coal India Limited (CIL)",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
       "identifier": "do_1146210747476623361171",
       "name": "Understanding the Right to Information Act and Good Governance",
       "description": "In a democratic society, transparency and accountability are cornerstones of effective public administration. This course delves into the transformative impact of the RTI Act, 2005. It is designed for public officials who need to understand their obligations under the Act and for citizens who wish to leverage it for greater governmental transparency. The course begins by outlining the fundamental ",
       "se_competencies": [
-        "C11"
+        "C30",
+        "C35",
+        "C11",
+        "C29"
       ],
       "targetLevel": 2,
       "duration": 2818,
       "provider": "National Academy of Defence Production (NADP) Nagpur",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_11462110275386572811416",
+      "name": "Strategic Media Management for Law Enforcement",
+      "description": "In an era of high public scrutiny and rapid information dissemination, effective media management is a critical function for modern policing. This course is designed to equip law enforcement professionals with the strategic communication skills necessary to build public trust and maintain institutional credibility. The curriculum provides a comprehensive overview of media relations, focusing on th",
+      "se_competencies": [
+        "C29"
+      ],
+      "targetLevel": 2,
+      "duration": 8197,
+      "provider": "Bureau of Police Research and Development BPRD",
       "primaryCategory": "Course",
       "source": "igot"
     },
@@ -2272,6 +3534,33 @@
       "targetLevel": 2,
       "duration": 19473,
       "provider": "Department of Rural Development (DRD)",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1146211777479475201308",
+      "name": "Industry 4.0-Digital Transformation in Manufacturing",
+      "description": "This course provides a comprehensive introduction to Industry 4.0, focusing on the technologies, opportunities, challenges, and human factors shaping the future of industry and manufacturing. It begins with an overview of the concept and evolution of Industry 4.0, followed by an exploration of the key technologies driving digital transformation, including Artificial Intelligence, the Internet of T",
+      "se_competencies": [
+        "C18"
+      ],
+      "targetLevel": 2,
+      "duration": 5112,
+      "provider": "National Academy of Defence Production (NADP) Nagpur",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1146330561006059521377",
+      "name": "Negotiation Skills: Managing Emotions and Biases for Win-Win Outcomes",
+      "description": "Negotiation is an integral part of everyday life and is not limited to multinational corporations or state leaders. We negotiate regularly with colleagues, supervisors, and stakeholders within and across departments on a wide range of issues. While some negotiations are formal, others are informal and occur as part of our routine interactions. Effective negotiation is often associated with strong ",
+      "se_competencies": [
+        "C34",
+        "C24"
+      ],
+      "targetLevel": 2,
+      "duration": 8872,
+      "provider": "Kautilya School of Public Policy",
       "primaryCategory": "Course",
       "source": "igot"
     },
@@ -2293,6 +3582,7 @@
       "name": "Team Building and Collaboration",
       "description": "In any professional environment, the ability to work effectively in a team is paramount. While individual skills are valuable, collective success is achieved when team members can collaborate, communicate, and support one another. This course provides a comprehensive framework for understanding and implementing the principles of team building, which is crucial for enhancing organizational producti",
       "se_competencies": [
+        "C34",
         "C24",
         "C15"
       ],
@@ -2334,6 +3624,33 @@
       "source": "igot"
     },
     {
+      "identifier": "do_1146437836292505601229",
+      "name": "Introduction to Secretariat Functioning and File Management",
+      "description": "Gain a foundational understanding of the backbone of government administration with this detailed course on secretariat functioning. This program is specifically designed to clarify the intricate procedures involved in managing official files and correspondence within the governmental framework. You will learn the established protocols for file movement, the importance of accurate record-keeping, ",
+      "se_competencies": [
+        "C29"
+      ],
+      "targetLevel": 1,
+      "duration": 4015,
+      "provider": "Institute of Secretariat Training and Management",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1146444822851174401192",
+      "name": "Conflict Resolution and Negotiation",
+      "description": "In any dynamic workplace, disagreements are inevitable. This course, 'Conflict Resolution and Negotiation Skills,' is designed to equip public service professionals with the competencies to transform potentially disruptive conflicts into opportunities for growth and collaboration. The program delves into the root causes of conflict and provides a comprehensive overview of various resolution method",
+      "se_competencies": [
+        "C34",
+        "C24"
+      ],
+      "targetLevel": 2,
+      "duration": 2346,
+      "provider": "Department of Personnel and Training DoPT",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
       "identifier": "do_1146458614010593281426",
       "name": "AI for Digital Transformation with Machine Learning and Deep Learning",
       "description": "In an era where Artificial Intelligence (AI) is redefining the boundaries of innovation, a clear understanding of this technology is imperative for effective governance. This course serves as a pivotal introduction to AI, Machine Learning (ML), and Deep Learning (DL), specifically tailored for officials in the Government of India and State Governments. The curriculum is designed not to delve into ",
@@ -2347,6 +3664,72 @@
       "targetLevel": 2,
       "duration": 5195,
       "provider": "Wadhwani Foundation",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_114648673993457664181",
+      "name": "Introduction to Noting and Drafting",
+      "description": "In the machinery of government, the ability to create precise notes and well-structured drafts is a cornerstone of effective administration. Every official communication, from internal file notings to formal letters, shapes policy implementation and public service delivery. This course is designed to equip public officials with the foundational skills required to excel in this critical area, ensur",
+      "se_competencies": [
+        "C29"
+      ],
+      "targetLevel": 1,
+      "duration": 5964,
+      "provider": "Institute of Secretariat Training and Management",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1146492834344140801196",
+      "name": "Introduction to Office Procedures in Government",
+      "description": "In the context of public service, adherence to established procedures is paramount for ensuring transparency, accountability, and efficiency. This foundational course is designed to equip government officials with a thorough understanding of standard office procedures as practiced in the Government of India. The curriculum delves into the core components of daily administrative work, providing a s",
+      "se_competencies": [
+        "C29"
+      ],
+      "targetLevel": 1,
+      "duration": 9112,
+      "provider": "Institute of Secretariat Training and Management",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1146492969644113921128",
+      "name": "Leave Rules and Management in Government Service",
+      "description": "This course offers a detailed exploration of the updated leave rules governing central government employees. It serves as an essential guide for both employees seeking to understand their entitlements and administrative personnel responsible for managing leave records. The curriculum covers the fundamental principles of leave policies, including the various categories such as Earned Leave, Half Pa",
+      "se_competencies": [
+        "C32",
+        "C30"
+      ],
+      "targetLevel": 2,
+      "duration": 1990,
+      "provider": "Institute of Secretariat Training and Management",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1146494589414932481279",
+      "name": "Introduction to Public Procurement of Works",
+      "description": "This course provides a comprehensive understanding of public procurement of works, with a focus on the principles, procedures, and regulatory framework governing the effective and accountable use of public funds. It introduces the key principles of public procurement, including transparency, fairness, competition, economy, efficiency, and accountability. The course provides an in-depth understandi",
+      "se_competencies": [
+        "C31"
+      ],
+      "targetLevel": 1,
+      "duration": 2269,
+      "provider": "Department of Expenditure",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1146500320965754881197",
+      "name": "Risk Management in Infrastructure Projects",
+      "description": "In the domain of public works, managing large-scale infrastructure projects presents unique and significant challenges. This course, 'Effective Risk Management for Infrastructure Projects,' is designed to equip government officials and project managers with the essential competencies to navigate this complex landscape. The curriculum provides a structured approach to risk management, starting from",
+      "se_competencies": [
+        "C25"
+      ],
+      "targetLevel": 2,
+      "duration": 4635,
+      "provider": "Institute of Secretariat Training and Management",
       "primaryCategory": "Course",
       "source": "igot"
     },
@@ -2372,6 +3755,7 @@
       "name": "Team Building and Team Management",
       "description": "In today's collaborative work environments, the ability to build and manage effective teams is a critical skill for achieving organizational success. This course is designed to equip public sector professionals with the foundational knowledge and practical tools needed to foster teamwork and lead with confidence. It addresses the core principles of team dynamics, highlighting why cohesive teams ar",
       "se_competencies": [
+        "C34",
         "C24"
       ],
       "targetLevel": 2,

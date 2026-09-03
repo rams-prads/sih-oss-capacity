@@ -74,6 +74,16 @@ QUERIES: dict[str, list[str]] = {
     "C24": ["leadership", "team building"],
     "C25": ["project management"],
     "C26": ["decision making", "change management"],
+    "C27": ["policy analysis", "policy formulation"],
+    "C28": ["strategic planning", "strategic management"],
+    "C29": ["noting and drafting", "office procedure", "file management"],
+    "C30": ["public administration", "government service rules"],
+    "C31": ["general financial rules", "public procurement", "budget government"],
+    "C32": ["establishment rules", "human resource management"],
+    "C33": ["parliament procedure", "parliamentary questions"],
+    "C34": ["stakeholder management", "negotiation skills"],
+    "C35": ["risk management"],
+    "C36": ["organizational transformation", "institutional leadership"],
 }
 
 # KCM sub-theme -> our competencies. Checked first: a sub-theme is specific
@@ -105,7 +115,32 @@ SUBTHEME_MAP: dict[str, list[str]] = {
     "inspiring others": ["C24"],
     "mentoring": ["C24"],
     "rti responsiveness": ["C11"],
-    "rti records management": ["C11"],
+    "rti records management": ["C11", "C29"],
+
+    # The administrative ladder. iGOT carries the real ISTM/DoPT material -
+    # General Financial Rules, CCS (CCA) Rules, Noting and Drafting,
+    # Parliamentary Procedures - and KCM names these precisely.
+    "office procedures": ["C29"],
+    "file/dak management": ["C29"],
+    "noting & drafting of official communications": ["C29"],
+    "expenditure management": ["C31"],
+    "government accounts": ["C31"],
+    "budget formulation & implementation": ["C31"],
+    "procurement of services / goods / works": ["C31"],
+    "contract management": ["C31"],
+    "handling establishment matters": ["C32"],
+    "handling leave and travel": ["C32"],
+    "conduct rules": ["C30"],
+    "provisions on suspension": ["C30"],
+    "handling fundamental rules /supplementary rules": ["C30"],
+    "submission of briefs, supply of information": ["C33"],
+    "maintaining records of parliamentary matters": ["C33"],
+    "policy design/ amendment": ["C27"],
+    "policy implementation": ["C27"],
+    "influencing and negotiation": ["C34"],
+    "conflict management": ["C34"],
+    "relationship management": ["C34"],
+    "forward thinking": ["C28"],
 }
 
 # KCM theme -> our competencies. Fallback when the sub-theme is unmapped.
@@ -116,7 +151,7 @@ THEME_MAP: dict[str, list[str]] = {
     "communication": ["C15"],
     "team leadership": ["C24"],
     "collaborative leadership": ["C24"],
-    "strategic leadership": ["C24"],
+    "strategic leadership": ["C24", "C28", "C36"],
     "change management": ["C26"],
     "decision making": ["C26"],
     "handling rti matters": ["C11"],
@@ -125,6 +160,17 @@ THEME_MAP: dict[str, list[str]] = {
     "rural and agriculture": ["C17"],
     "finance and economy": ["C05"],
     "commerce and industry": ["C18"],
+    "office management": ["C29"],
+    "administration matters": ["C30"],
+    "governance": ["C30"],
+    "vigilance administration": ["C30", "C35"],
+    "financial management": ["C31"],
+    "public procurement (gfr)": ["C31"],
+    "establishment & hr": ["C32"],
+    "handling parliamentary matters": ["C33"],
+    "policy architecture": ["C27"],
+    "information & communication management": ["C29"],
+    "operational excellence": ["C29"],
 }
 
 PER_QUERY = 6

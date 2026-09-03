@@ -1,4 +1,5 @@
-"""Seed the demo database: FRAC taxonomy, 3 OSS roles, officers, history.
+"""Seed the demo database: FRAC taxonomy, the OSS designation hierarchy,
+officers and their history.
 
 Run:  python -m seed.seed        (from backend/)
 Idempotent - it drops and recreates the schema each time.
@@ -97,35 +98,132 @@ COMPETENCIES = [
      "Planning, monitoring and evaluating survey and statistical programmes."),
     ("C26", "Decision Making & Change Management", CompetencyType.BEHAVIOURAL,
      "Evidence-based judgement and leading adoption of new methods and systems."),
+
+    # C27-C36 carry the administrative, policy and leadership ladder. The OSS is
+    # not only statisticians: an ASO, a Section Officer and a Deputy Secretary
+    # sit in the same system and are measured on office procedure, government
+    # rules and policy work, none of which C01-C26 expressed.
+    ("C27", "Policy Analysis & Formulation", CompetencyType.DOMAIN,
+     "Reading evidence into policy options and drafting policy instruments."),
+    ("C28", "Strategic Planning & Governance", CompetencyType.BEHAVIOURAL,
+     "Setting direction for a statistical programme or institution."),
+    ("C29", "Office Procedures, Noting & Drafting", CompetencyType.FUNCTIONAL,
+     "Noting, drafting, file and record management under the Manual of Office Procedure."),
+    ("C30", "Government Rules & Public Administration", CompetencyType.DOMAIN,
+     "Service rules, government processes and public administration practice."),
+    ("C31", "Financial Management & GFR", CompetencyType.FUNCTIONAL,
+     "Budgeting, financial procedures and General Financial Rules compliance."),
+    ("C32", "HR & Establishment Matters", CompetencyType.FUNCTIONAL,
+     "Establishment, cadre and personnel administration."),
+    ("C33", "Parliamentary Procedures", CompetencyType.DOMAIN,
+     "Parliament questions, assurances and legislative business."),
+    ("C34", "Stakeholder Management & Coordination", CompetencyType.BEHAVIOURAL,
+     "Inter-ministerial coordination, negotiation and managing data users."),
+    ("C35", "Risk Management", CompetencyType.BEHAVIOURAL,
+     "Identifying and mitigating programme, data and institutional risk."),
+    ("C36", "Institutional Leadership", CompetencyType.BEHAVIOURAL,
+     "Leading an institution through transformation and building its capability."),
 ]
 
-# --- 6.3 Roles and their FRAC requirements -------------------------------
-ROLES = {
-    "JSO": (
-        "Junior Statistical Officer",
-        "Conducts and supervises survey operations, validates returns and "
-        "prepares tabulations for statistical releases.",
-        [("C01", 3, H), ("C02", 3, H), ("C03", 3, H), ("C04", 2, M),
-         ("C09", 2, M), ("C11", 2, M), ("C15", 2, M),
-         ("C16", 2, M), ("C19", 2, L), ("C22", 2, M), ("C25", 2, L)],
-    ),
-    "SI": (
-        "Statistical Investigator (Field)",
-        "Carries out field enumeration, applies classification codes and "
-        "ensures the integrity of primary data collection.",
-        [("C02", 3, H), ("C03", 2, M), ("C08", 3, H), ("C13", 2, M),
-         ("C11", 2, M), ("C15", 2, M),
-         ("C17", 2, M), ("C22", 2, L), ("C24", 2, L)],
-    ),
-    "DA": (
-        "Statistical Data Analyst",
-        "Performs analytical work on survey and administrative data and "
-        "produces indicator reporting for policy users.",
-        [("C04", 4, H), ("C09", 4, H), ("C10", 3, H), ("C07", 3, M),
-         ("C12", 2, M), ("C14", 2, M), ("C15", 3, M),
-         ("C19", 3, H), ("C20", 3, M), ("C21", 2, L), ("C26", 2, M)],
-    ),
-}
+# --- 6.3 Designations and their FRAC requirements ------------------------
+# The designation hierarchy of the Official Statistical System, from MTS to
+# Secretary, across the statistical and administrative streams. Designation is
+# what an officer actually holds, so it - not an invented job label - is what
+# the competency profile is built from.
+#
+# On the target levels: MoSPI does not publish a per-designation proficiency
+# matrix, so inventing exact numbers per competency would be dressing a guess up
+# as data. Instead each designation states the competencies expected of it (from
+# the MoSPI designation-competency mapping) and levels follow one documented
+# rule:
+#
+#   target = the designation's band, and one level lower for its secondary
+#            competencies; weight H for the first three listed, M then L after.
+#
+# Band by grade: support 2, junior professional 3, middle 3, senior 4, top 4.
+# Ordering within a designation is significant - most central competency first.
+#
+# (stream, grade, name, description, [competency ids in priority order])
+DESIGNATIONS = [
+    ("Support", 1, "MTS", "Multi-Tasking Staff",
+     "Supports office operations, records and routine administrative tasks.",
+     ["C23", "C29", "C15", "C11"]),
+    ("Support/Admin", 2, "SUB", "Other officials below JSO",
+     "Assists with data entry, office processes and record handling.",
+     ["C23", "C29", "C15", "C19", "C30"]),
+    ("Statistical", 3, "JSO", "Junior Statistical Officer",
+     "Conducts and supervises survey operations, validates returns and "
+     "prepares tabulations for statistical releases.",
+     ["C01", "C02", "C03", "C04", "C10", "C19", "C15", "C11"]),
+    ("Administration", 3, "ASO", "Assistant Section Officer",
+     "Handles noting, drafting and file work under the Manual of Office Procedure.",
+     ["C29", "C30", "C15", "C23", "C32"]),
+    ("Statistical", 4, "SSO", "Senior Statistical Officer",
+     "Leads field and processing teams and assures the quality of statistical output.",
+     ["C04", "C01", "C03", "C02", "C10", "C24", "C15"]),
+    ("Administration", 4, "SO", "Section Officer",
+     "Runs a section: establishment, financial procedure and office administration.",
+     ["C30", "C29", "C31", "C32", "C24", "C15"]),
+    ("Statistical/Officer", 5, "AD", "Assistant Director",
+     "Designs surveys, interprets results and manages statistical projects.",
+     ["C04", "C01", "C26", "C25", "C24", "C10", "C09"]),
+    ("Statistical/Officer", 6, "DD", "Deputy Director",
+     "Monitors statistical programmes and turns analysis into decisions.",
+     ["C04", "C25", "C26", "C27", "C24", "C34"]),
+    ("Statistical/Officer", 7, "JD", "Joint Director",
+     "Leads programme areas, shapes policy and manages stakeholders.",
+     ["C28", "C27", "C25", "C26", "C34", "C24"]),
+    ("Senior officer", 8, "DIR", "Director",
+     "Sets direction for a statistical programme and its policy use.",
+     ["C28", "C27", "C26", "C25", "C24", "C34"]),
+    ("Senior management", 9, "DDG", "Deputy Director General",
+     "Directs a division: strategy, evaluation and data governance.",
+     ["C28", "C27", "C11", "C26", "C25", "C36"]),
+    ("Top management", 10, "ADG", "Additional Director General",
+     "Sets organisational strategy and leads change across divisions.",
+     ["C28", "C36", "C27", "C11", "C26", "C34"]),
+    ("Senior administration", 9, "DS", "Deputy Secretary",
+     "Policy, administration and financial oversight at the ministry.",
+     ["C27", "C30", "C31", "C33", "C34", "C24"]),
+    ("Senior administration", 10, "JS", "Joint Secretary",
+     "Leads policy formulation, coordination and programme oversight.",
+     ["C27", "C28", "C34", "C25", "C31", "C24"]),
+    ("Senior administration", 11, "AS", "Additional Secretary",
+     "Strategic governance, transformation and inter-ministerial coordination.",
+     ["C28", "C36", "C34", "C35", "C27"]),
+    ("Leadership", 12, "DG", "Director General",
+     "Leads the national statistical system and its governance.",
+     ["C28", "C11", "C36", "C27", "C34", "C35"]),
+    ("Ministry leadership", 13, "SECY", "Secretary",
+     "Leads the ministry: national policy, institutions and public administration.",
+     ["C28", "C36", "C34", "C30", "C27", "C26"]),
+]
+
+
+def _band(grade: int) -> int:
+    """Proficiency band expected at a grade. See the note above DESIGNATIONS."""
+    if grade <= 2:
+        return 2
+    if grade <= 6:
+        return 3
+    return 4
+
+
+def build_roles() -> dict[str, tuple[str, str, int, str, list[tuple[str, int, float]]]]:
+    """Expand the designation table into (competency, target, weight) triples."""
+    roles = {}
+    for stream, grade, role_id, name, description, competency_ids in DESIGNATIONS:
+        band = _band(grade)
+        requirements = []
+        for position, competency_id in enumerate(competency_ids):
+            target = band if position < 3 else max(2, band - 1)
+            weight = H if position < 3 else (M if position < 5 else L)
+            requirements.append((competency_id, target, weight))
+        roles[role_id] = (name, description, grade, stream, requirements)
+    return roles
+
+
+ROLES = build_roles()
 
 # --- Demo officers --------------------------------------------------------
 # attained levels are deliberately uneven so the department heatmap has shape.
@@ -134,33 +232,26 @@ DEPT_NSO = "MoSPI - National Statistical Office"
 DEPT_FOD = "MoSPI - Field Operations Division"
 
 USERS = [
+    # Spread across both streams and up the grade ladder, so the department
+    # heatmap shows a real hierarchy rather than nine people doing one job.
     ("u-jso-anita", "Anita Deshmukh", "JSO", DEPT_NSO, False,
-     {"C01": 1, "C02": 2, "C03": 1, "C04": 2, "C09": 1, "C11": 2, "C15": 2,
-      "C16": 1, "C19": 0, "C22": 1, "C25": 1}),
+     {"C01": 1, "C02": 2, "C03": 1, "C04": 2, "C10": 1, "C19": 0, "C15": 2, "C11": 2}),
     ("u-jso-rakesh", "Rakesh Menon", "JSO", DEPT_NSO, False,
-     {"C01": 3, "C02": 3, "C03": 2, "C04": 2, "C09": 2, "C11": 2, "C15": 1,
-      "C16": 2, "C19": 1, "C22": 2, "C25": 2}),
-    ("u-jso-farah", "Farah Qureshi", "JSO", DEPT_NSO, False,
-     {"C01": 2, "C02": 1, "C03": 3, "C04": 1, "C09": 0, "C11": 2, "C15": 2,
-      "C16": 0, "C19": 1, "C22": 0, "C25": 1}),
-    ("u-si-vikram", "Vikram Rathore", "SI", DEPT_FOD, False,
-     {"C02": 2, "C03": 2, "C08": 1, "C13": 0, "C11": 1, "C15": 2,
-      "C17": 1, "C22": 0, "C24": 1}),
-    ("u-si-lalita", "Lalita Barman", "SI", DEPT_FOD, False,
-     {"C02": 3, "C03": 2, "C08": 2, "C13": 1, "C11": 2, "C15": 1,
-      "C17": 2, "C22": 1, "C24": 2}),
-    ("u-da-suresh", "Suresh Iyer", "DA", DEPT_NSO, False,
-     {"C04": 3, "C09": 2, "C10": 2, "C07": 1, "C12": 1, "C14": 0, "C15": 3,
-      "C19": 2, "C20": 1, "C21": 0, "C26": 2}),
-    ("u-da-neha", "Neha Kulkarni", "DA", DEPT_NSO, False,
-     {"C04": 4, "C09": 3, "C10": 3, "C07": 2, "C12": 2, "C14": 1, "C15": 3,
-      "C19": 3, "C20": 2, "C21": 1, "C26": 2}),
-    ("u-da-imran", "Imran Sheikh", "DA", DEPT_NSO, False,
-     {"C04": 2, "C09": 2, "C10": 1, "C07": 1, "C12": 0, "C14": 0, "C15": 2,
-      "C19": 1, "C20": 0, "C21": 0, "C26": 1}),
-    ("u-admin-meera", "Meera Nair", "DA", DEPT_NSO, True,
-     {"C04": 4, "C09": 4, "C10": 4, "C07": 3, "C12": 3, "C14": 3, "C15": 4,
-      "C19": 4, "C20": 3, "C21": 2, "C26": 3}),
+     {"C01": 3, "C02": 3, "C03": 2, "C04": 2, "C10": 2, "C19": 1, "C15": 1, "C11": 2}),
+    ("u-jso-farah", "Farah Qureshi", "ASO", DEPT_NSO, False,
+     {"C29": 2, "C30": 1, "C15": 2, "C23": 1, "C32": 0}),
+    ("u-si-vikram", "Vikram Rathore", "SUB", DEPT_FOD, False,
+     {"C23": 1, "C29": 2, "C15": 2, "C19": 1, "C30": 1}),
+    ("u-si-lalita", "Lalita Barman", "SSO", DEPT_FOD, False,
+     {"C04": 2, "C01": 3, "C03": 2, "C02": 3, "C10": 1, "C24": 2, "C15": 1}),
+    ("u-da-suresh", "Suresh Iyer", "AD", DEPT_NSO, False,
+     {"C04": 3, "C01": 2, "C26": 2, "C25": 1, "C24": 2, "C10": 2, "C09": 2}),
+    ("u-da-neha", "Neha Kulkarni", "DD", DEPT_NSO, False,
+     {"C04": 4, "C25": 2, "C26": 2, "C27": 1, "C24": 3, "C34": 1}),
+    ("u-da-imran", "Imran Sheikh", "SO", DEPT_NSO, False,
+     {"C30": 2, "C29": 1, "C31": 0, "C32": 1, "C24": 1, "C15": 2}),
+    ("u-admin-meera", "Meera Nair", "DDG", DEPT_NSO, True,
+     {"C28": 4, "C27": 4, "C11": 4, "C26": 3, "C25": 3, "C36": 3}),
 ]
 
 # Assessment history feeds the gap-closure metric.
@@ -286,8 +377,16 @@ def run() -> None:
             for cid, name, ctype, desc in COMPETENCIES
         )
 
-        for role_id, (name, description, requirements) in ROLES.items():
-            db.add(Role(id=role_id, name=name, description=description))
+        for role_id, (name, description, grade, stream, requirements) in ROLES.items():
+            db.add(
+                Role(
+                    id=role_id,
+                    name=name,
+                    description=description,
+                    grade=grade,
+                    stream=stream,
+                )
+            )
             for competency_id, target, weight in requirements:
                 db.add(
                     RoleRequirement(

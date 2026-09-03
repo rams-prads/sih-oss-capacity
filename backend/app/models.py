@@ -56,11 +56,23 @@ class Competency(Base):
 
 
 class Role(Base):
+    """A designation in the Official Statistical System.
+
+    Designation is the anchor of the competency profile: it is what an officer
+    actually holds, and what determines the competencies expected of them. The
+    stream separates the statistical ladder from the administrative one, since
+    an ASO and a JSO sit at a comparable grade but are measured on different
+    things; grade orders the whole hierarchy so career progression - the next
+    designation up - is derivable rather than hard-coded.
+    """
+
     __tablename__ = "roles"
 
     id: Mapped[str] = mapped_column(String(8), primary_key=True)
     name: Mapped[str] = mapped_column(String(200), nullable=False)
     description: Mapped[str] = mapped_column(Text, default="")
+    stream: Mapped[str] = mapped_column(String(60), default="")
+    grade: Mapped[int] = mapped_column(Integer, default=0)
 
     requirements: Mapped[list[RoleRequirement]] = relationship(
         back_populates="role", cascade="all, delete-orphan"
