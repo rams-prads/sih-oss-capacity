@@ -27,6 +27,16 @@ class Course(BaseModel):
     provider: str = "iGOT Karmayogi"
     duration_min: int = 0
 
+    # An NSSTA programme is not an iGOT course: it runs on fixed dates, seats a
+    # named cadre, and an officer is nominated onto it by their department
+    # rather than enrolling themselves. These carry that difference so the UI
+    # can ask for the right action instead of offering a misleading "Enrol".
+    source: str = "igot"          # "igot" | "nssta"
+    mode: str = ""                # Classroom / Residential / Online workshop
+    eligibility: str = ""         # which cadre may attend
+    duration_days: int = 0        # NSSTA publishes days, not minutes
+    batch_size: int = 0
+
 
 class EnrolmentRecord(BaseModel):
     user_id: str
@@ -80,6 +90,11 @@ def course_from_sunbird(node: dict[str, Any]) -> Course:
         description=node.get("description", "") or "",
         competency_ids=list(competencies),
         target_level=int(node.get("targetLevel") or 0),
-        provider=node.get("provider") or node.get("source") or "iGOT Karmayogi",
+        provider=node.get("provider") or "iGOT Karmayogi",
         duration_min=duration // 60,
+        source=node.get("source") or "igot",
+        mode=node.get("mode") or "",
+        eligibility=node.get("eligibility") or "",
+        duration_days=int(node.get("duration_days") or 0),
+        batch_size=int(node.get("batch_size") or 0),
     )

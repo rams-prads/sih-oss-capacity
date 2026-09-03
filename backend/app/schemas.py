@@ -92,6 +92,11 @@ class CourseOut(BaseModel):
     target_level: int = 0
     provider: str = "iGOT Karmayogi"
     duration_min: int = 0
+    source: str = "igot"
+    mode: str = ""
+    eligibility: str = ""
+    duration_days: int = 0
+    batch_size: int = 0
 
 
 class Recommendation(BaseModel):

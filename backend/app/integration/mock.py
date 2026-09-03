@@ -12,13 +12,22 @@ from typing import Any
 
 from app.integration.base import Course, EnrolmentRecord, course_from_sunbird, sunbird_envelope
 
-SEED_PATH = Path(__file__).resolve().parents[2] / "seed" / "igot_courses_seed.json"
+SEED_DIR = Path(__file__).resolve().parents[2] / "seed"
+SEED_PATH = SEED_DIR / "igot_courses_seed.json"
+# NSSTA's TPAC-approved programmes are a second catalogue the problem statement
+# names alongside iGOT. They are served through the same contract so the gap
+# engine ranks both together and an officer sees one list of what will help.
+TPAC_PATH = SEED_DIR / "nssta_tpac_seed.json"
 
 
 @lru_cache
 def _load_catalogue() -> list[dict[str, Any]]:
-    with SEED_PATH.open(encoding="utf-8") as fh:
-        return json.load(fh)["content"]
+    catalogue: list[dict[str, Any]] = []
+    for path in (SEED_PATH, TPAC_PATH):
+        if path.exists():
+            with path.open(encoding="utf-8") as fh:
+                catalogue.extend(json.load(fh)["content"])
+    return catalogue
 
 
 class EnrolmentStore:

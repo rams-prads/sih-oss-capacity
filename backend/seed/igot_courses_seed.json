@@ -1,5 +1,5 @@
 {
-  "_comment": "Synthetic iGOT-style catalogue used by MockKarmayogiClient. Titles are representative of MoSPI/NSSTA capacity-building offerings; identifiers follow the Sunbird do_<digits> convention. Sandbox seed data, not a copy of the live iGOT catalogue.",
+  "_comment": "Course catalogue for MockKarmayogiClient. Courses with source=igot were fetched from the live iGOT Karmayogi content search API (portal.igotkarmayogi.gov.in) by scripts/fetch_igot.py: real identifiers, titles, providers and durations, tagged by mapping each course's own Karmayogi Competency Model entries onto our competency ids. The remainder are authored courses carrying the local curriculum and question bank.",
   "content": [
     {
       "identifier": "do_3137421900011",
@@ -11,7 +11,8 @@
       "targetLevel": 2,
       "duration": 5400,
       "provider": "iGOT Karmayogi",
-      "primaryCategory": "Course"
+      "primaryCategory": "Course",
+      "source": "sandbox"
     },
     {
       "identifier": "do_3137421900012",
@@ -24,7 +25,8 @@
       "targetLevel": 3,
       "duration": 9000,
       "provider": "iGOT Karmayogi",
-      "primaryCategory": "Course"
+      "primaryCategory": "Course",
+      "source": "sandbox"
     },
     {
       "identifier": "do_3137421900013",
@@ -36,7 +38,8 @@
       "targetLevel": 3,
       "duration": 7200,
       "provider": "iGOT Karmayogi",
-      "primaryCategory": "Course"
+      "primaryCategory": "Course",
+      "source": "sandbox"
     },
     {
       "identifier": "do_3137421900014",
@@ -49,7 +52,8 @@
       "targetLevel": 2,
       "duration": 3600,
       "provider": "iGOT Karmayogi",
-      "primaryCategory": "Course"
+      "primaryCategory": "Course",
+      "source": "sandbox"
     },
     {
       "identifier": "do_3137421900015",
@@ -61,7 +65,8 @@
       "targetLevel": 3,
       "duration": 7200,
       "provider": "iGOT Karmayogi",
-      "primaryCategory": "Course"
+      "primaryCategory": "Course",
+      "source": "sandbox"
     },
     {
       "identifier": "do_3137421900016",
@@ -74,7 +79,8 @@
       "targetLevel": 3,
       "duration": 10800,
       "provider": "iGOT Karmayogi",
-      "primaryCategory": "Course"
+      "primaryCategory": "Course",
+      "source": "sandbox"
     },
     {
       "identifier": "do_3137421900017",
@@ -86,7 +92,8 @@
       "targetLevel": 2,
       "duration": 5400,
       "provider": "iGOT Karmayogi",
-      "primaryCategory": "Course"
+      "primaryCategory": "Course",
+      "source": "sandbox"
     },
     {
       "identifier": "do_3137421900018",
@@ -99,7 +106,8 @@
       "targetLevel": 4,
       "duration": 12600,
       "provider": "iGOT Karmayogi",
-      "primaryCategory": "Course"
+      "primaryCategory": "Course",
+      "source": "sandbox"
     },
     {
       "identifier": "do_3137421900019",
@@ -111,7 +119,8 @@
       "targetLevel": 3,
       "duration": 9000,
       "provider": "iGOT Karmayogi",
-      "primaryCategory": "Course"
+      "primaryCategory": "Course",
+      "source": "sandbox"
     },
     {
       "identifier": "do_3137421900020",
@@ -123,7 +132,8 @@
       "targetLevel": 3,
       "duration": 7200,
       "provider": "iGOT Karmayogi",
-      "primaryCategory": "Course"
+      "primaryCategory": "Course",
+      "source": "sandbox"
     },
     {
       "identifier": "do_3137421900021",
@@ -135,7 +145,8 @@
       "targetLevel": 3,
       "duration": 5400,
       "provider": "iGOT Karmayogi",
-      "primaryCategory": "Course"
+      "primaryCategory": "Course",
+      "source": "sandbox"
     },
     {
       "identifier": "do_3137421900022",
@@ -149,7 +160,8 @@
       "targetLevel": 3,
       "duration": 6300,
       "provider": "iGOT Karmayogi",
-      "primaryCategory": "Course"
+      "primaryCategory": "Course",
+      "source": "sandbox"
     },
     {
       "identifier": "do_3137421900023",
@@ -161,7 +173,8 @@
       "targetLevel": 3,
       "duration": 4500,
       "provider": "iGOT Karmayogi",
-      "primaryCategory": "Course"
+      "primaryCategory": "Course",
+      "source": "sandbox"
     },
     {
       "identifier": "do_3137421900024",
@@ -174,7 +187,8 @@
       "targetLevel": 2,
       "duration": 3600,
       "provider": "iGOT Karmayogi",
-      "primaryCategory": "Course"
+      "primaryCategory": "Course",
+      "source": "sandbox"
     },
     {
       "identifier": "do_3137421900036",
@@ -186,7 +200,8 @@
       "targetLevel": 2,
       "duration": 5400,
       "provider": "iGOT Karmayogi",
-      "primaryCategory": "Course"
+      "primaryCategory": "Course",
+      "source": "sandbox"
     },
     {
       "identifier": "do_3137421900025",
@@ -198,7 +213,8 @@
       "targetLevel": 3,
       "duration": 10800,
       "provider": "iGOT Karmayogi",
-      "primaryCategory": "Course"
+      "primaryCategory": "Course",
+      "source": "sandbox"
     },
     {
       "identifier": "do_3137421900026",
@@ -211,7 +227,8 @@
       "targetLevel": 4,
       "duration": 12600,
       "provider": "iGOT Karmayogi",
-      "primaryCategory": "Course"
+      "primaryCategory": "Course",
+      "source": "sandbox"
     },
     {
       "identifier": "do_3137421900027",
@@ -223,7 +240,8 @@
       "targetLevel": 3,
       "duration": 5400,
       "provider": "iGOT Karmayogi",
-      "primaryCategory": "Course"
+      "primaryCategory": "Course",
+      "source": "sandbox"
     },
     {
       "identifier": "do_3137421900028",
@@ -235,7 +253,8 @@
       "targetLevel": 2,
       "duration": 3600,
       "provider": "iGOT Karmayogi",
-      "primaryCategory": "Course"
+      "primaryCategory": "Course",
+      "source": "sandbox"
     },
     {
       "identifier": "do_3137421900029",
@@ -248,7 +267,8 @@
       "targetLevel": 3,
       "duration": 5400,
       "provider": "iGOT Karmayogi",
-      "primaryCategory": "Course"
+      "primaryCategory": "Course",
+      "source": "sandbox"
     },
     {
       "identifier": "do_3137421900030",
@@ -260,7 +280,8 @@
       "targetLevel": 2,
       "duration": 7200,
       "provider": "iGOT Karmayogi",
-      "primaryCategory": "Course"
+      "primaryCategory": "Course",
+      "source": "sandbox"
     },
     {
       "identifier": "do_3137421900031",
@@ -272,7 +293,8 @@
       "targetLevel": 2,
       "duration": 6300,
       "provider": "iGOT Karmayogi",
-      "primaryCategory": "Course"
+      "primaryCategory": "Course",
+      "source": "sandbox"
     },
     {
       "identifier": "do_3137421900032",
@@ -286,7 +308,8 @@
       "targetLevel": 3,
       "duration": 9000,
       "provider": "iGOT Karmayogi",
-      "primaryCategory": "Course"
+      "primaryCategory": "Course",
+      "source": "sandbox"
     },
     {
       "identifier": "do_3137421900033",
@@ -298,7 +321,8 @@
       "targetLevel": 2,
       "duration": 5400,
       "provider": "iGOT Karmayogi",
-      "primaryCategory": "Course"
+      "primaryCategory": "Course",
+      "source": "sandbox"
     },
     {
       "identifier": "do_3137421900034",
@@ -310,7 +334,8 @@
       "targetLevel": 3,
       "duration": 4500,
       "provider": "iGOT Karmayogi",
-      "primaryCategory": "Course"
+      "primaryCategory": "Course",
+      "source": "sandbox"
     },
     {
       "identifier": "do_3137421900035",
@@ -323,7 +348,2037 @@
       "targetLevel": 2,
       "duration": 3600,
       "provider": "iGOT Karmayogi",
-      "primaryCategory": "Course"
+      "primaryCategory": "Course",
+      "source": "sandbox"
+    },
+    {
+      "identifier": "do_11340801854713856011",
+      "name": "Basics of National Income Accounting",
+      "description": "This course offers a comprehensive introduction to the principles of national income accounting. It is designed for public officials who require a solid grasp of macroeconomic indicators to inform their work in policy-making, financial management, and economic analysis. The course begins by explaining the importance of measuring economic activity and introduces the circular flow of income model to",
+      "se_competencies": [
+        "C05"
+      ],
+      "targetLevel": 1,
+      "duration": 4044,
+      "provider": "LBSNAA",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1134128898434662401233",
+      "name": "Project Management",
+      "description": "This course on Project Management offers a comprehensive introduction to managing government schemes and interventions effectively. It begins by establishing the context of project management within public service, focusing on creating social value and achieving policy objectives. You will learn the five critical phases of the project lifecycle: initiation, planning, execution, monitoring and cont",
+      "se_competencies": [
+        "C25"
+      ],
+      "targetLevel": 2,
+      "duration": 7168,
+      "provider": "Indian Institute of Public Administration",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1134693696236748801441",
+      "name": "Right to Information Act - Part 2",
+      "description": "Building on the foundational principles of the Right to Information Act, 2005, this second part offers a detailed exploration of its operational and legal intricacies. The course is essential for government functionaries tasked with upholding the principles of transparency and accountability. It delves into the specific responsibilities and duties of Public Information Officers (PIOs) and First Ap",
+      "se_competencies": [
+        "C11"
+      ],
+      "targetLevel": 2,
+      "duration": 4920,
+      "provider": "Institute of Secretariat Training and Management",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_113693885524467712197",
+      "name": "Right to Information Act - Part 1",
+      "description": "This course, 'Foundations of the Right to Information Act, 2005 - Part 1,' serves as an essential guide for public functionaries. It delves into the core principles of the RTI Act, a pivotal tool for promoting transparency in government operations. The curriculum covers the fundamental aspects of the Act, including its scope, applicability, and the structure of the information-providing machinery,",
+      "se_competencies": [
+        "C11"
+      ],
+      "targetLevel": 2,
+      "duration": 3300,
+      "provider": "Institute of Secretariat Training and Management",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_11371798254448640012",
+      "name": "An Introduction to Science Communication",
+      "description": "In an era where scientific advancements shape our world, the ability to communicate research effectively to the public is a critical skill for every scientist. This course provides a comprehensive introduction to science communication, specifically tailored for early-career researchers and technical experts. It addresses the fundamental challenge of translating complex scientific information into ",
+      "se_competencies": [
+        "C15"
+      ],
+      "targetLevel": 1,
+      "duration": 14400,
+      "provider": "Capacity Building Commission",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1137349858229288961285",
+      "name": "Data Driven Decision Making For Government",
+      "description": "In an era where data is crucial for effective governance, this course provides a foundational understanding of Data-Driven Decision-Making (DDDM) for government professionals. It addresses the growing need for data literacy within public administration, exploring how to build a robust digital infrastructure to support anticipatory and evidence-based decisions. The curriculum delves into the core c",
+      "se_competencies": [
+        "C04",
+        "C26",
+        "C10",
+        "C03",
+        "C19"
+      ],
+      "targetLevel": 2,
+      "duration": 9001,
+      "provider": "Wadhwani Institute of Technology and Policy",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1137398646619176961156",
+      "name": "Ways of Enhancing Presentation Skills",
+      "description": "This e-learning course is designed to equip government officials and professionals with the essential skills needed to become confident and effective presenters. The program delves into the core components of successful public speaking, starting with proven strategies for managing anxiety and reframing the speaking opportunity to build a positive mindset. You will learn foundational principles suc",
+      "se_competencies": [
+        "C15"
+      ],
+      "targetLevel": 2,
+      "duration": 5158,
+      "provider": "Ministry of Mines",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_113816205741629440110",
+      "name": "Project Management",
+      "description": "This foundational course on Project Management is designed to equip government officials with the essential skills to navigate the complexities of public sector projects. In today's governance landscape, the ability to deliver projects efficiently is critical for effective public service delivery. This program provides a structured approach to managing projects from conception to completion. Key l",
+      "se_competencies": [
+        "C25"
+      ],
+      "targetLevel": 2,
+      "duration": 900,
+      "provider": "Institute of Secretariat Training and Management",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1138226371515187201420",
+      "name": "Problem Solving and Decision Making",
+      "description": "In the dynamic environment of public service, the ability to effectively solve problems and make sound decisions is paramount. This course is designed to equip government officials with a structured and reliable methodology for navigating workplace challenges. It begins by establishing a clear definition of a problem and the importance of a multi-faceted perspective. You will learn practical techn",
+      "se_competencies": [
+        "C26",
+        "C04",
+        "C15"
+      ],
+      "targetLevel": 2,
+      "duration": 6300,
+      "provider": "Department of Personnel and Training DoPT",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_113826981858230272114",
+      "name": "Leadership",
+      "description": "In the dynamic environment of public service, strong leadership is crucial for driving progress and achieving organizational goals. This course provides a comprehensive introduction to the principles of effective leadership. It begins by examining the timeless qualities of great leaders and how their vision and actions can inspire change. Learners will delve into the practical aspects of leadershi",
+      "se_competencies": [
+        "C24"
+      ],
+      "targetLevel": 2,
+      "duration": 5700,
+      "provider": "Department of Personnel and Training DoPT",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_113827558681935872125",
+      "name": "Introduction to Leveraging AI and ChatGPT",
+      "description": "Embark on a journey to unlock the potential of Artificial Intelligence in your daily work. This introductory course is designed for government officials seeking to understand and utilize generative AI to improve efficiency and effectiveness. You will be guided through the essential features of leading AI tools, including ChatGPT, Google Bard, and Bing Chat, learning how to sign up and interact wit",
+      "se_competencies": [
+        "C10",
+        "C23"
+      ],
+      "targetLevel": 1,
+      "duration": 2076,
+      "provider": "Invest India",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_113827634862047232152",
+      "name": "Team Building",
+      "description": "In any professional environment, the ability to work effectively in a team is paramount. While individual skills are valuable, collective success is achieved when team members can collaborate, communicate, and support one another. This course provides a comprehensive framework for understanding and implementing the principles of team building, which is crucial for enhancing organizational producti",
+      "se_competencies": [
+        "C24",
+        "C15"
+      ],
+      "targetLevel": 2,
+      "duration": 5100,
+      "provider": "Department of Personnel and Training DoPT",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_113828976050888704151",
+      "name": "UNDERSTANDING OF LABOUR LAW",
+      "description": "This comprehensive introductory course delves into the critical field of Indian Labour Law, a vital component for ensuring industrial harmony and economic progress. The curriculum is structured to provide a clear overview of the legal landscape governing employment in India. You will begin by exploring the historical background of labour legislation, its purpose, and its deep-rooted connection to ",
+      "se_competencies": [
+        "C18"
+      ],
+      "targetLevel": 2,
+      "duration": 2806,
+      "provider": "National Institute of Communication Finance",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1138416487704576001135",
+      "name": "Speaking Effectively",
+      "description": "In today's professional landscape, the ability to communicate clearly and persuasively is a critical skill for success. This course, \"The Art of Speaking Effectively,\" is designed to transform participants into charismatic and confident communicators. It addresses the common fear of public speaking by providing structured, actionable techniques that can be applied in any context, from team meeting",
+      "se_competencies": [
+        "C15",
+        "C24"
+      ],
+      "targetLevel": 2,
+      "duration": 18884,
+      "provider": "Harappa Education",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_113850929618542592110",
+      "name": "Right to Information (Prarambh)",
+      "description": "This foundational course delves into the critical aspects of the Right to Information (RTI) Act 2005, a landmark legislation for enhancing transparency in public administration. The content is designed to equip government officials with the necessary knowledge to handle RTI applications effectively and in accordance with the law. The course begins by establishing the context of the RTI Act, explai",
+      "se_competencies": [
+        "C11"
+      ],
+      "targetLevel": 2,
+      "duration": 2110,
+      "provider": "Department of Posts",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1138566152274821121103",
+      "name": "Right to Information (RTI)",
+      "description": "This course offers a detailed examination of the Right to Information (RTI) Act, 2005, which operationalizes the fundamental right to freedom of speech and expression. The curriculum is designed to equip learners with a thorough understanding of the Act's provisions and practical application. Key learning areas include the definition of 'information', 'public authority', and 'third party'; the ste",
+      "se_competencies": [
+        "C11"
+      ],
+      "targetLevel": 2,
+      "duration": 8100,
+      "provider": "Department of Personnel and Training DoPT",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1138608427899371521121",
+      "name": "Statistical Tools and Data Visualization",
+      "description": "In an increasingly data-driven world, the ability to understand and communicate insights from data is a critical skill for public sector professionals. This course, \"\"Statistical Tools and Data Visualization,\"\" provides a comprehensive introduction to the foundational concepts and techniques required to turn raw data into meaningful visual representations. It addresses the growing need for data li",
+      "se_competencies": [
+        "C04",
+        "C10"
+      ],
+      "targetLevel": 2,
+      "duration": 7500,
+      "provider": "Institute of Secretariat Training and Management",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1138609669314396161132",
+      "name": "Data Driven Decision Making",
+      "description": "In today's governance landscape, the ability to make decisions based on evidence is paramount. This course is designed to build foundational skills in data-driven decision-making, moving beyond intuition to rely on concrete analysis. It provides a structured overview of the entire data analysis process, starting with the fundamental principles of data collection, cleaning, and preparation to ensur",
+      "se_competencies": [
+        "C03",
+        "C19",
+        "C04",
+        "C10",
+        "C26"
+      ],
+      "targetLevel": 2,
+      "duration": 16200,
+      "provider": "Institute of Secretariat Training and Management",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_113872859998281728137",
+      "name": "Primavera Cloud Basics",
+      "description": "This course offers a comprehensive introduction to Primavera Cloud, a powerful tool for modern project portfolio management. It is designed for professionals who are new to the platform and aims to build confidence in using its fundamental features. The curriculum addresses the critical need for structured project management by guiding learners through the entire project lifecycle within the appli",
+      "se_competencies": [
+        "C25",
+        "C10",
+        "C23",
+        "C04",
+        "C21"
+      ],
+      "targetLevel": 1,
+      "duration": 7099,
+      "provider": "Oracle",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_113885048698806272197",
+      "name": "Data Analysis and Visualization",
+      "description": "In an era of data-driven governance, the ability to analyze and visualize information is a critical skill for public officials. This course is designed to equip learners with the foundational knowledge and practical tools required to turn raw data into strategic assets. The curriculum begins with the core concepts of data analysis, including data cleaning, processing, and identifying key trends an",
+      "se_competencies": [
+        "C04",
+        "C10",
+        "C26",
+        "C23"
+      ],
+      "targetLevel": 2,
+      "duration": 11969,
+      "provider": "UpGrad",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1138884164974755841152",
+      "name": "Database Design and Introduction to MySQL",
+      "description": "In an era of data-driven governance, understanding how to effectively manage and query data is a critical skill for public sector professionals. This course offers a deep dive into the world of database design and SQL, providing the foundational knowledge required to work with modern data systems. It begins by contrasting traditional file-based storage with the robust structure of Relational Datab",
+      "se_competencies": [
+        "C03",
+        "C19",
+        "C04",
+        "C10",
+        "C26",
+        "C23"
+      ],
+      "targetLevel": 1,
+      "duration": 23444,
+      "provider": "UpGrad",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1138906481328046081201",
+      "name": "Overview of Cloud Computing",
+      "description": "This course offers a detailed introduction to the world of cloud computing, designed for professionals seeking to understand its impact on technology and business operations. The curriculum begins by defining cloud computing and contrasting it with legacy on-premise infrastructure, highlighting key advantages like cost efficiency, scalability, global availability, and enhanced security. You will e",
+      "se_competencies": [
+        "C10",
+        "C23",
+        "C12",
+        "C20",
+        "C21"
+      ],
+      "targetLevel": 1,
+      "duration": 3727,
+      "provider": "Bharat Sanchar Nigam Limited(BSNL)",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_113896143955607552142",
+      "name": "Data Analysis using R",
+      "description": "Embark on a journey into data analysis with this practical course focused on leveraging the R programming language for statistical inference. Designed for professionals seeking to build foundational data science skills, this course demystifies the process of drawing meaningful conclusions from data. You will begin by learning how to import, clean, and structure data within the R environment. The c",
+      "se_competencies": [
+        "C03",
+        "C19",
+        "C04",
+        "C10",
+        "C26",
+        "C09"
+      ],
+      "targetLevel": 2,
+      "duration": 11659,
+      "provider": "UpGrad",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1138964020050739201236",
+      "name": "Change Management",
+      "description": "In an era of rapid digital transformation, the ability to manage organizational change is a crucial skill for public servants. This course provides a comprehensive introduction to the principles and practices of change management, specifically tailored for the context of e-governance projects in India. You will begin by understanding what change management is and why it is vital for the success of",
+      "se_competencies": [
+        "C26",
+        "C25"
+      ],
+      "targetLevel": 2,
+      "duration": 29700,
+      "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_11391537250983936014",
+      "name": "Advanced Concepts in SQL",
+      "description": "Take your SQL skills to the next level with this in-depth course on advanced query optimization. In today's data-driven world, the ability to write efficient queries that execute quickly is a critical skill for any data professional. This course moves beyond basic SQL to cover the tools and techniques necessary for high-performance database management. You will learn to build custom User-Defined F",
+      "se_competencies": [
+        "C03",
+        "C19",
+        "C04",
+        "C10",
+        "C23"
+      ],
+      "targetLevel": 3,
+      "duration": 4904,
+      "provider": "UpGrad",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_113918250035544064151",
+      "name": "Artificial Intelligence_L2",
+      "description": "In an era where Artificial Intelligence is poised to redefine industries, the ability to formulate a coherent AI strategy is a critical leadership skill. This course is designed for CXOs, divisional heads, and managers who are tasked with driving AI and ML initiatives within their organizations. It demystifies the process of creating a successful AI/ML solution by providing a structured, strategic",
+      "se_competencies": [
+        "C04",
+        "C26",
+        "C03",
+        "C11",
+        "C25"
+      ],
+      "targetLevel": 2,
+      "duration": 17934,
+      "provider": "UpGrad",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_11393728121764249615",
+      "name": "AI for Digital Transformation: Machine Learning and Deep Learning",
+      "description": "In an era where Artificial Intelligence (AI) is redefining the boundaries of innovation, a clear understanding of this technology is imperative for effective governance. This course serves as a pivotal introduction to AI, Machine Learning (ML), and Deep Learning (DL), specifically tailored for officials in the Government of India and State Governments. The curriculum is designed not to delve into ",
+      "se_competencies": [
+        "C20",
+        "C23",
+        "C03",
+        "C11",
+        "C04"
+      ],
+      "targetLevel": 2,
+      "duration": 5400,
+      "provider": "Wadhwani Institute of Technology and Policy",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_113945209561980928189",
+      "name": "Network and Telecom Security - Cyber Security Ecosystem",
+      "description": "In an increasingly interconnected world, understanding the architecture of cyber security is paramount for national security and effective governance. This course delves into the comprehensive cyber security ecosystem established in India. It begins by defining cyberspace and its inherent challenges, then proceeds to detail the policies, guidelines, and procedures designed to protect critical syst",
+      "se_competencies": [
+        "C23",
+        "C22"
+      ],
+      "targetLevel": 2,
+      "duration": 1800,
+      "provider": "National Telecommunications Institute for Policy Research, Innovation and Training (NTIPRIT)",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_113945281378607104191",
+      "name": "Project Management with Microsoft Project",
+      "description": "In today's results-oriented public sector, the ability to manage projects effectively is a critical skill. This course offers a practical, hands-on guide to using Microsoft Project, a leading software for project scheduling and management. The program begins with the fundamentals, teaching you how to set up a project file, establish a project calendar, and input tasks. You will then learn to struc",
+      "se_competencies": [
+        "C25"
+      ],
+      "targetLevel": 2,
+      "duration": 7038,
+      "provider": "Microsoft",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_113952147264946176170",
+      "name": "Purpose-Driven Leadership",
+      "description": "Embark on a transformative journey with 'Developing Purpose-Driven Leadership for Public Service,' a course designed to empower leaders within the Indian civil services. In an era defined by volatility, uncertainty, complexity, and ambiguity (VUCA), the need for authentic and resilient leadership has never been greater. This course addresses that need by providing a deep dive into the principles t",
+      "se_competencies": [
+        "C24"
+      ],
+      "targetLevel": 2,
+      "duration": 6936,
+      "provider": "ISB Hyderabad",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_113955620332421120130",
+      "name": "Managing and Leading Teams",
+      "description": "Unlock the potential of your team with this comprehensive course on team management and leadership. Designed for public sector professionals, this program delves into the core competencies required for successful collaboration and high performance. You will learn to navigate the natural stages of team development, applying models like Tuckman's framework to guide your team from initial formation t",
+      "se_competencies": [
+        "C24",
+        "C15"
+      ],
+      "targetLevel": 2,
+      "duration": 6018,
+      "provider": "ISB Hyderabad",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1139961868591923201133",
+      "name": "e-Ustad: Negotiation Skills",
+      "description": "In today's complex society, law enforcement officers require skills that extend beyond traditional enforcement. This course on Negotiation Skills is designed to meet that need, equipping police personnel to handle arguments, de-escalate tense situations, and collaborate with diverse communities. The program provides a structured approach to transforming officers into effective mediators and commun",
+      "se_competencies": [
+        "C24",
+        "C15",
+        "C26"
+      ],
+      "targetLevel": 2,
+      "duration": 3600,
+      "provider": "Bureau of Police Research and Development BPRD",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1139961937082368001122",
+      "name": "e-Ustad: Soft Skills and Communication Skills",
+      "description": "In today's complex society, the effectiveness of police personnel extends beyond technical proficiency to include a high degree of interpersonal skill. This course is designed to address this need by providing a comprehensive foundation in soft skills. It explores why these skills, including communication and emotional intelligence, constitute a significant portion of career success and are indisp",
+      "se_competencies": [
+        "C15",
+        "C04"
+      ],
+      "targetLevel": 2,
+      "duration": 3600,
+      "provider": "Bureau of Police Research and Development BPRD",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1140017961653534721223",
+      "name": "Developing Effective Soft Skills",
+      "description": "In today's dynamic and competitive professional landscape, technical abilities alone are not enough to ensure success. This course, 'Developing Essential Soft Skills for Workplace Success,' is designed to build the foundational interpersonal skills that are critical for career advancement and effective collaboration. It addresses why skills such as communication and teamwork are just as vital as t",
+      "se_competencies": [
+        "C15",
+        "C24"
+      ],
+      "targetLevel": 2,
+      "duration": 2399,
+      "provider": "Central Reserve Police Force (CRPF)",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1140095095932108801258",
+      "name": "Quality of Service in 5G - Part I",
+      "description": "This course, \"Fundamentals of Quality of Service (QoS) in 5G Networks,\" offers a comprehensive introduction to the mechanisms that govern data traffic and service quality in 5G systems. In an era of increasing digital demand, understanding QoS is critical for professionals in the telecommunications sector to ensure reliable and efficient network performance. The course begins by detailing the 5G c",
+      "se_competencies": [
+        "C23"
+      ],
+      "targetLevel": 2,
+      "duration": 2100,
+      "provider": "National Telecommunications Institute for Policy Research, Innovation and Training (NTIPRIT)",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1140322061367951361227",
+      "name": "Team Building and Team Management",
+      "description": "In today's collaborative work environments, the ability to build and manage effective teams is a critical skill for achieving organizational success. This course is designed to equip public sector professionals with the foundational knowledge and practical tools needed to foster teamwork and lead with confidence. It addresses the core principles of team dynamics, highlighting why cohesive teams ar",
+      "se_competencies": [
+        "C24"
+      ],
+      "targetLevel": 2,
+      "duration": 5100,
+      "provider": "Institute of Secretariat Training and Management",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1140337023419760641209",
+      "name": "Understanding Right to Information Act",
+      "description": "The Right to Information (RTI) Act is a cornerstone of transparent and accountable governance, providing a powerful tool for citizens to access information from public authorities. This course, 'Understanding the Right to Information (RTI) Act', is designed to demystify this crucial legislation for public officials and citizens alike. It establishes the context for why the RTI Act was enacted and ",
+      "se_competencies": [
+        "C11"
+      ],
+      "targetLevel": 2,
+      "duration": 1920,
+      "provider": "Indian Oil Corporation Limited (IOCL)",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1140462711133388801333",
+      "name": "Information Security - Cyber Crimes, Data Security, Data Mining",
+      "description": "In an increasingly digital world, understanding information security is crucial for all government officials. This course is designed to build foundational knowledge in protecting digital assets and mitigating cyber threats. It begins by defining cybercrime and categorizing its various forms, from hacking and data theft to more sophisticated attacks like ransomware and social engineering. You will",
+      "se_competencies": [
+        "C23",
+        "C22"
+      ],
+      "targetLevel": 2,
+      "duration": 8190,
+      "provider": "National Academy of Direct Taxes NADT",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_114083389300981760111",
+      "name": "Basics of Remote Sensing",
+      "description": "Embark on a journey to understand how we observe our planet from space with this foundational course on remote sensing. This program is designed for beginners, providing a clear overview of why this technology is crucial for modern geosciences, environmental monitoring, and resource management. You will delve into the key learning areas, starting with the physics of electromagnetic radiation and h",
+      "se_competencies": [
+        "C12",
+        "C23",
+        "C13"
+      ],
+      "targetLevel": 1,
+      "duration": 4233,
+      "provider": "Geological Survey of India (GSI)",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1141311869341614081189",
+      "name": "Data Storytelling",
+      "description": "In today's data-driven world, the ability to communicate insights effectively is a critical skill. This course, 'Effective Data Storytelling: Transforming Data into Narratives,' equips you with the essential tools to turn complex information into persuasive stories. The curriculum is structured to guide you from foundational concepts to practical application. You will begin by understanding the si",
+      "se_competencies": [
+        "C04",
+        "C10",
+        "C26"
+      ],
+      "targetLevel": 2,
+      "duration": 10189,
+      "provider": "Fractal",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1141540393136046081732",
+      "name": "Managing Change: Implementing Responsible Data Management",
+      "description": "In an era of rapid digital transformation, the ability to manage data responsibly is a critical competency for any public or social impact organization. This course provides a comprehensive guide to implementing robust and ethical data management systems. You will begin by understanding the core concepts of responsible data, including the data lifecycle, data governance, and the principles of priv",
+      "se_competencies": [
+        "C03",
+        "C11",
+        "C04",
+        "C26"
+      ],
+      "targetLevel": 2,
+      "duration": 8601,
+      "provider": "DataDotOrg",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1141808272181411841114",
+      "name": "Gender Mainstreaming and Gender Sensitization - English",
+      "description": "This course delves into the essential principles of gender mainstreaming and its application within the agricultural landscape. It begins by establishing the context of women's significant contributions to agriculture, which are frequently overlooked in official statistics and development planning. The curriculum covers key concepts such as the feminization of agriculture, gender-based division of",
+      "se_competencies": [
+        "C17"
+      ],
+      "targetLevel": 2,
+      "duration": 2809,
+      "provider": "National Institute of Agricultural Extension Management (MANAGE)",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1141836539132067841119",
+      "name": "myScheme- A Digital India Initiative",
+      "description": "This course introduces the myScheme platform, a national e-marketplace for government schemes launched as part of the Digital India mission. The program is designed to equip government functionaries with a thorough understanding of how this digital public infrastructure simplifies citizen access to welfare benefits. Participants will delve into the core objectives of myScheme, including the easy d",
+      "se_competencies": [
+        "C23"
+      ],
+      "targetLevel": 2,
+      "duration": 1293,
+      "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1142012225299906561237",
+      "name": "Cyber Security",
+      "description": "In today's interconnected world, understanding and implementing cybersecurity measures is crucial for every individual. This course offers a comprehensive introduction to the core concepts of digital safety. It begins by establishing the importance of desktop security, detailing threats such as viruses, malware, and hacking, and explaining protective measures like antivirus software, firewalls, an",
+      "se_competencies": [
+        "C12",
+        "C20",
+        "C23",
+        "C22"
+      ],
+      "targetLevel": 2,
+      "duration": 3237,
+      "provider": "Central Industrial Security Force (CISF)",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1142155590771589121413",
+      "name": "Change Management",
+      "description": "In today's dynamic environment, the ability to manage organizational change is a critical skill for public servants. This course is designed to build a strong foundational understanding of change management principles and their practical application. It begins by defining change management and its importance, particularly within large public sector organizations like the Department of Posts. The c",
+      "se_competencies": [
+        "C26"
+      ],
+      "targetLevel": 2,
+      "duration": 3697,
+      "provider": "Department of Posts",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_11422319743288115211350",
+      "name": "Overview of Pradhan Mantri Fasal Bima Yojana",
+      "description": "This course offers an in-depth understanding of the Pradhan Mantri Fasal Bima Yojana (PMFBY), a critical government initiative designed to provide a financial safety net for India's farmers. The program begins by outlining the fundamental objectives and nationwide scope of PMFBY, explaining how it protects agricultural producers against losses from non-preventable natural risks. Key learning areas",
+      "se_competencies": [
+        "C17"
+      ],
+      "targetLevel": 1,
+      "duration": 2196,
+      "provider": "Pradhan Mantri Fasal Bima Yojana PMFBY",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1142403128531599361650",
+      "name": "Data Analysis and Decision Making - I (DADM-I)",
+      "description": "Data Analysis and Decision Making – I is designed to equip participants with the initial set of necessary knowledge and tools to analyze and interpret data. In an era where data is ubiquitous, this course serves as a crucial first step for professionals seeking to leverage data for informed choices. The course begins by exploring various methods of data presentation, such as histograms, pie charts",
+      "se_competencies": [
+        "C04",
+        "C10",
+        "C26"
+      ],
+      "targetLevel": 2,
+      "duration": 4751,
+      "provider": "IIT Kanpur",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_114240382378663936170",
+      "name": "Project Management",
+      "description": "In today's complex environment, effective project management is crucial for successful outcomes. This course offers a detailed exploration of the principles and practices required to manage projects efficiently. It begins with foundational concepts, defining a project's characteristics, stages, and stakeholders, and introduces essential risk analysis techniques. The curriculum then delves into adv",
+      "se_competencies": [
+        "C25"
+      ],
+      "targetLevel": 2,
+      "duration": 5191,
+      "provider": "IIT Kanpur",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1142404112974970881702",
+      "name": "Data Analysis and Decision Making - II (DADM-II)",
+      "description": "Data Analysis and Decision Making – II delves into the sophisticated quantitative models that underpin modern decision science. This course is structured to build upon foundational analytical skills, equipping learners with advanced tools to navigate complex scenarios involving multiple, often competing, criteria. The curriculum begins with an exploration of multi-criteria decision making (MCDM) c",
+      "se_competencies": [
+        "C04",
+        "C10",
+        "C26"
+      ],
+      "targetLevel": 2,
+      "duration": 5637,
+      "provider": "IIT Kanpur",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_114240868517257216117",
+      "name": "Communication Skills",
+      "description": "In today's interconnected world, the ability to communicate effectively is a cornerstone of professional success and leadership. This course is designed to transform your communication abilities, moving beyond basic interaction to achieve genuine influence and connection. You will begin by understanding the critical difference between communication and effective communication, exploring the core c",
+      "se_competencies": [
+        "C15",
+        "C24"
+      ],
+      "targetLevel": 2,
+      "duration": 4873,
+      "provider": "IIT Kanpur",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1142432002191196161252",
+      "name": "Cybersecurity (Basic Level)",
+      "description": "In an increasingly digital world, understanding the principles of cybersecurity is crucial for protecting organizational and personal assets. This course serves as a comprehensive introduction to the fundamental concepts of cybersecurity. It begins by establishing the context of security, differentiating between computer, network, and information security. You will explore the critical protection ",
+      "se_competencies": [
+        "C12",
+        "C20",
+        "C23",
+        "C22"
+      ],
+      "targetLevel": 1,
+      "duration": 5044,
+      "provider": "Indian Institute of Technology (IIT) Madras",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_114245122200616960115",
+      "name": "Data Science for Policy Makers Part - 1",
+      "description": "This comprehensive course is designed to equip policy makers with the essential knowledge of Data Science and Artificial Intelligence. It begins by demystifying key terms like Machine Learning, Deep Learning, and Generative AI, placing them within the context of public governance. The curriculum delves into the statistical foundations necessary for effective data analysis, covering descriptive and",
+      "se_competencies": [
+        "C04",
+        "C26",
+        "C10",
+        "C03",
+        "C19",
+        "C23"
+      ],
+      "targetLevel": 2,
+      "duration": 2907,
+      "provider": "Indian Institute of Technology (IIT) Madras",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1142500543596871681178",
+      "name": "Application Security:Trends and Analysis",
+      "description": "In an era of rapid digital transformation, securing applications has become a paramount concern for national security and effective governance. This session delves into the landscape of application security, offering critical insights for CISOs and IT decision-makers. The course begins by contextualizing the importance of cybersecurity as a foundational pillar for a developed India, highlighting r",
+      "se_competencies": [
+        "C03",
+        "C11",
+        "C22",
+        "C23"
+      ],
+      "targetLevel": 2,
+      "duration": 2532,
+      "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1142539628020695041118",
+      "name": "Mastering GIS (Level - 1)",
+      "description": "Mastering GIS (Level 1) is designed to equip public sector professionals with the fundamental knowledge and skills to leverage geospatial technology. The course begins by defining GIS, Geomatics, and other key terminologies, establishing a solid theoretical base. It delves into the practical aspects of data acquisition through various modern tools like satellite imagery, aerial photography, drones",
+      "se_competencies": [
+        "C12",
+        "C23",
+        "C13"
+      ],
+      "targetLevel": 3,
+      "duration": 4070,
+      "provider": "Administrative Training Institute Mysore",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1142539978576199681111",
+      "name": "Mastering GIS (Level - 2)",
+      "description": "This intermediate course delves into the essential architecture and data structures that power Geographic Information Systems. It begins by systematically breaking down the five critical components of any successful GIS implementation, providing context on how hardware, software, data, human expertise, and methodologies interact. The curriculum then focuses on the lifeblood of GIS: data. You will ",
+      "se_competencies": [
+        "C12",
+        "C23",
+        "C13"
+      ],
+      "targetLevel": 3,
+      "duration": 3397,
+      "provider": "Administrative Training Institute Mysore",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1142592913769922561106",
+      "name": "Securing digital transformation and e-governance",
+      "description": "As India rapidly advances its digital infrastructure, securing e-governance platforms and citizen data has become a national priority. This course delves into the multifaceted world of cybersecurity, specifically tailored for the government sector. It begins by contextualizing the scale of digital transformation and the parallel growth of the cyber threat landscape, including nation-state attacks ",
+      "se_competencies": [
+        "C03",
+        "C11",
+        "C04",
+        "C26"
+      ],
+      "targetLevel": 2,
+      "duration": 3805,
+      "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1142635786619781121146",
+      "name": "AI for Presentations",
+      "description": "In today's fast-paced professional environment, the ability to communicate ideas effectively is paramount. This course provides a practical guide to using Artificial Intelligence as a powerful assistant in the presentation-making process. It addresses the common challenges of content creation, slide design, and message refinement by introducing a suite of modern AI tools and techniques. Participan",
+      "se_competencies": [
+        "C20",
+        "C23"
+      ],
+      "targetLevel": 2,
+      "duration": 2953,
+      "provider": "APNA",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1142651208034631681134",
+      "name": "CDM Cells Data Mining and Data analysis",
+      "description": "This foundational course delves into the ecosystem of corporate data managed by the Ministry of Corporate Affairs (MCA). It is designed for officials who need to understand the vast data repository generated through corporate filings under the Companies Act. The curriculum begins by outlining the types of data MCA holds, from annual financial statements and returns to event-based disclosures. Lear",
+      "se_competencies": [
+        "C05"
+      ],
+      "targetLevel": 2,
+      "duration": 1182,
+      "provider": "Ministry of Corporate Affairs",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_114268639756550144133",
+      "name": "Key Government Initiative -Capital Goods Scheme",
+      "description": "The Indian capital goods sector is a critical pillar of the nation's manufacturing ecosystem and a key driver for achieving the 'Make in India' vision. This course, 'Overview of the National Capital Goods Scheme,' offers a detailed examination of this pivotal government initiative, designed to equip public officials with a thorough understanding of its framework and strategic goals. The curriculum",
+      "se_competencies": [
+        "C18"
+      ],
+      "targetLevel": 2,
+      "duration": 2400,
+      "provider": "Ministry of Heavy Industries",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1142741707620352001291",
+      "name": "Organisational Change Management-Fundamentals",
+      "description": "This module is designed to equip government officials with the fundamental principles and practices of Organisational Change Management (OCM). The course establishes the context for why managing change is vital in the public sector, where initiatives like digital transformation, policy reforms, and departmental restructuring have a large-scale impact on citizens and employees. Learners will delve ",
+      "se_competencies": [
+        "C26"
+      ],
+      "targetLevel": 2,
+      "duration": 5472,
+      "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_114274208245915648148",
+      "name": "Organisational Change Management-Advanced",
+      "description": "In an era of rapid transformation, the ability to effectively manage organisational change is a crucial competency for public sector leaders. This advanced module provides a comprehensive framework for navigating the complexities of change within government departments. The course moves beyond foundational concepts to explore sophisticated strategies for driving sustainable transformation. Key lea",
+      "se_competencies": [
+        "C26"
+      ],
+      "targetLevel": 3,
+      "duration": 3276,
+      "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1142769973077196801271",
+      "name": "Ensuring AI Governance of India",
+      "description": "This course offers a comprehensive overview of the strategic and practical considerations for integrating Artificial Intelligence into public governance. It addresses the fundamental question of how government entities can effectively plan, implement, and manage AI projects to enhance citizen services and internal efficiency. The discussion moves beyond the hype to focus on the real-world challeng",
+      "se_competencies": [
+        "C23"
+      ],
+      "targetLevel": 2,
+      "duration": 2951,
+      "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1142778153464627201416",
+      "name": "Land Survey Emerging Technologies",
+      "description": "This course delves into the modern technologies revolutionizing the field of land surveying. It addresses the complexities of surveying large land holdings by introducing a suite of advanced tools. Participants will learn about the practical applications of Electronic Total Station (ETS), Differential Global Positioning System (DGPS), and high-resolution drone and satellite imagery. The curriculum",
+      "se_competencies": [
+        "C17"
+      ],
+      "targetLevel": 2,
+      "duration": 4261,
+      "provider": "National Institute of Defence Estates Management (NIDEM)",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_114281994479747072185",
+      "name": "Building a Psychologically Safe Workplace",
+      "description": "A thriving and innovative workplace is built on a foundation of psychological safety. This course offers a comprehensive exploration of how to cultivate an environment where every team member feels secure enough to take interpersonal risks, share ideas, and voice concerns. The curriculum delves into the core concepts of psychological safety, highlighting its direct impact on team dynamics, employe",
+      "se_competencies": [
+        "C24",
+        "C15"
+      ],
+      "targetLevel": 2,
+      "duration": 2400,
+      "provider": "Ministry of Communications- Department of Telecommunications",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1142822013501767681108",
+      "name": "Changing Negative Self-Talk for Effective Self-Leadership",
+      "description": "In the demanding environment of public service, maintaining a positive and resilient mindset is crucial for effective leadership. This course provides government officials with the essential tools to overcome the common barrier of negative self-talk. It begins by establishing the context of why self-leadership is a foundational skill for professional growth and impactful governance. Key learning a",
+      "se_competencies": [
+        "C26"
+      ],
+      "targetLevel": 2,
+      "duration": 3000,
+      "provider": "Ministry of Communications- Department of Telecommunications",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_11428343573406515212",
+      "name": "Soft Skills",
+      "description": "In today's dynamic professional landscape, soft skills are as crucial as technical expertise. This course is designed to build a strong foundation in the interpersonal attributes that foster effective collaboration and personal management. It delves into the core of what makes a professional effective, covering a wide spectrum of skills including communication, teamwork, problem-solving, emotional",
+      "se_competencies": [
+        "C15",
+        "C04",
+        "C24",
+        "C26"
+      ],
+      "targetLevel": 2,
+      "duration": 1608,
+      "provider": "Indian Railway Institute Of Transport Management (IRITM)",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1142840887061954561239",
+      "name": "General Data Protection Regulation- Digital Personal Data Protection",
+      "description": "In an increasingly interconnected digital world, understanding the legalities of cross-border data transfers is crucial for any organization. This course delves into the critical aspects of international data privacy regulations, with a primary focus on the European Union's General Data Protection Regulation (GDPR). You will gain a detailed understanding of the Transfer Impact Assessment (TIA), a ",
+      "se_competencies": [
+        "C23"
+      ],
+      "targetLevel": 2,
+      "duration": 2094,
+      "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1142933724325560321681",
+      "name": "Basics of Cloud Computing",
+      "description": "In an era of digital transformation, understanding cloud computing is essential for public service professionals. This course is designed to build a solid foundation in cloud concepts and their practical applications in governance. You will begin by learning the fundamental principles of cloud technology, including on-demand self-service, scalability, and resource pooling. The course delves into t",
+      "se_competencies": [
+        "C23",
+        "C12",
+        "C20",
+        "C21"
+      ],
+      "targetLevel": 1,
+      "duration": 3480,
+      "provider": "Ministry of Communications- Department of Telecommunications",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1142982738938019841519",
+      "name": "Ethical Artificial Intelligence in Practice",
+      "description": "As artificial intelligence becomes increasingly embedded in the public and social sectors, it is vital to develop a solid understanding of how AI works and how to use it ethically and effectively. This course provides a comprehensive overview, starting with the foundational principles of AI and its real-world applications in governance and social impact initiatives. It delves into the critical soc",
+      "se_competencies": [
+        "C03",
+        "C11",
+        "C04",
+        "C10",
+        "C23",
+        "C20"
+      ],
+      "targetLevel": 2,
+      "duration": 9300,
+      "provider": "DataDotOrg",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1143117653135523841562",
+      "name": "Data Analytics and Visualizations for Government Officers",
+      "description": "In today's governance landscape, data is the cornerstone of effective policy and planning. This course is tailored for government officers who aim to translate raw data into actionable insights. It begins with the fundamentals of data types and statistical measures, establishing a strong analytical foundation. Learners will then progress to practical application, using Microsoft Excel for data cle",
+      "se_competencies": [
+        "C04",
+        "C10",
+        "C03",
+        "C11"
+      ],
+      "targetLevel": 2,
+      "duration": 4200,
+      "provider": "Department of Expenditure",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_11431445904750182411088",
+      "name": "Remote Sensing in PMFBY: Innovations in Tech-Driven Crop Insurance",
+      "description": "Gain a comprehensive understanding of the integration of advanced technology in agricultural governance with this insightful course on remote sensing's role in the PMFBY scheme. The content, presented as an expert interview, delves into the critical importance of technology for transforming traditional crop insurance practices. You will learn about the core principles of using satellite data to mo",
+      "se_competencies": [
+        "C17",
+        "C13"
+      ],
+      "targetLevel": 2,
+      "duration": 1548,
+      "provider": "Pradhan Mantri Fasal Bima Yojana PMFBY",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1143169677790740481718",
+      "name": "Role of Aadhaar in DPI: Leveraging Digital Public Infrastructure",
+      "description": "Delve into the architecture and impact of Aadhaar, the world's largest biometric identity system. This course details Aadhaar's journey from its inception to becoming the cornerstone of India's digital transformation. You will learn about its key features, including the enrolment and authentication processes, and how it ensures uniqueness and security for every resident. The session explores Aadha",
+      "se_competencies": [
+        "C03",
+        "C11",
+        "C22"
+      ],
+      "targetLevel": 2,
+      "duration": 2072,
+      "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1143182059032002561958",
+      "name": "Digital Public Infrastructure- DigiLocker",
+      "description": "Delve into the architecture and principles of India's Digital Public Infrastructure (DPI), the backbone of the nation's digital transformation. This course explains the interconnected systems like Aadhaar, UPI, and API Setu that form the 'India Stack.' The primary focus is on DigiLocker, exploring its function as a secure, citizen-centric platform for issuing, storing, and verifying digital docume",
+      "se_competencies": [
+        "C23",
+        "C12",
+        "C20"
+      ],
+      "targetLevel": 2,
+      "duration": 4397,
+      "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_114324413093732352131",
+      "name": "Artificial Intelligence: Unlocking Potential and Securing Trust",
+      "description": "Dive into the world of Artificial Intelligence and understand its profound impact on modern governance and society. This course begins with a journey through the history of AI, from its conceptual origins to the current era of Large Language Models (LLMs) and Generative AI. You will gain clarity on fundamental concepts, distinguishing between machine learning, deep learning, and other key buzzword",
+      "se_competencies": [
+        "C20",
+        "C23",
+        "C03",
+        "C11",
+        "C04",
+        "C26"
+      ],
+      "targetLevel": 2,
+      "duration": 4020,
+      "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1143259580332113921213",
+      "name": "Change Management in Digital Transformation Project",
+      "description": "In an era of rapid technological advancement, successfully managing digital transformation is crucial for modern governance. This course delves into the practical realities of implementing large-scale IT projects within the Indian public sector. It moves beyond theory to offer a comparative analysis of landmark projects: the successful Aadhaar initiative, the challenged digital overhaul of India P",
+      "se_competencies": [
+        "C26",
+        "C25"
+      ],
+      "targetLevel": 2,
+      "duration": 4687,
+      "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1143260067865067521205",
+      "name": "Leveraging Technology in Analytics",
+      "description": "Dive into the architecture and implementation of FINnet 2.0, a landmark project in leveraging technology for national financial security. This course details the strategic shift from FINnet 1.0, addressing its challenges through the adoption of cutting-edge analytics. You will learn about the core components of the system, including its three main portals for data collection (Fingate), analysis (F",
+      "se_competencies": [
+        "C05"
+      ],
+      "targetLevel": 2,
+      "duration": 2989,
+      "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1143266902279045121328",
+      "name": "Pradhan Mantri Fasal Bima Yojana: Evolution Innovation and Impact",
+      "description": "Delve into the intricate workings of the Pradhan Mantri Fasal Bima Yojana (PMFBY), a critical instrument for protecting India's farmers against agricultural uncertainties. This course offers an expert-led exploration of the scheme's journey, from its inception to its current technologically-driven framework. You will gain a deep understanding of the context behind major policy reforms, such as mak",
+      "se_competencies": [
+        "C17"
+      ],
+      "targetLevel": 2,
+      "duration": 2499,
+      "provider": "Pradhan Mantri Fasal Bima Yojana PMFBY",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1143322855990149121796",
+      "name": "Data and Social Media Analytics for Governance",
+      "description": "In an increasingly digital world, the ability to analyze data is crucial for effective governance. This course provides a comprehensive overview of data and social media analytics tailored for public sector professionals. It begins by establishing the context of why data analytics is vital for modern government functions, including enhancing transparency, improving efficiency, and understanding pu",
+      "se_competencies": [
+        "C03",
+        "C19",
+        "C04",
+        "C10",
+        "C26",
+        "C11"
+      ],
+      "targetLevel": 2,
+      "duration": 2861,
+      "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1143323154665717761637",
+      "name": "Planning a Research Study: Data Tools Design and Variables Measurement",
+      "description": "Effective research is built on a foundation of meticulous planning and precise data collection. This course offers a comprehensive introduction to the essential methodologies required to plan a study and develop reliable data collection instruments. Participants will explore the core concepts of research design, starting with how to identify and operationalize study variables. The curriculum delve",
+      "se_competencies": [
+        "C23"
+      ],
+      "targetLevel": 2,
+      "duration": 3829,
+      "provider": "Indian Council of Medical Research (ICMR)",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_11433231918447820811058",
+      "name": "Planning a Research Study: Data Collection Management Analysis",
+      "description": "This course is designed for professionals involved in research and program implementation who need to develop robust data handling skills. It addresses the critical steps that follow the initial planning of a research study. You will learn the fundamentals of creating a comprehensive data management plan, covering everything from data entry and coding to secure storage and maintaining confidential",
+      "se_competencies": [
+        "C03",
+        "C19",
+        "C04",
+        "C10"
+      ],
+      "targetLevel": 2,
+      "duration": 4458,
+      "provider": "Indian Council of Medical Research (ICMR)",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1143414101731328001579",
+      "name": "Roles and Responsibilities in Data Protection and Privacy in Design",
+      "description": "Dive deep into the legal intricacies of India's Digital Personal Data Protection (DPDP) Act. This course is designed to provide a thorough understanding of the law's impact on data governance for public and private sector organizations. You will learn the fundamental context of why this law is crucial, exploring the balance between protecting individual privacy and fostering innovation. The curric",
+      "se_competencies": [
+        "C23"
+      ],
+      "targetLevel": 2,
+      "duration": 4168,
+      "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_11434423929951027218",
+      "name": "Digital Transformation: Effective Procurement and Project Management",
+      "description": "As India advances its digital transformation agenda, the ability to effectively procure and manage large-scale IT projects is paramount for public sector officials. This course offers a comprehensive guide to the foundational pillars of digital project execution. It begins by detailing how to craft robust Detailed Project Reports (DPRs) that establish clear scope, budget, and feasibility. The curr",
+      "se_competencies": [
+        "C25",
+        "C26"
+      ],
+      "targetLevel": 2,
+      "duration": 7478,
+      "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1143494880543784961151",
+      "name": "Role and Application of Data Analytics in the Maritime Sector",
+      "description": "Dive into the digital transformation of the maritime world with this comprehensive course on data analytics. In an industry vital to global trade, the ability to make smarter, data-driven decisions is paramount. This course provides a thorough exploration of why data analytics is a critical force for change, driven by advancements in connectivity, sensor technology, and computational power. You wi",
+      "se_competencies": [
+        "C04",
+        "C26",
+        "C10",
+        "C03",
+        "C19"
+      ],
+      "targetLevel": 2,
+      "duration": 1761,
+      "provider": "Indian Maritime University",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_114352807867662336116",
+      "name": "Roles Principles and Privacy by Design in Data Protection",
+      "description": "In an increasingly data-driven world, understanding the legal framework for data protection is crucial for public officials. This course offers a detailed examination of the Digital Personal Data Protection (DPDP) Act, 2023, establishing a strong foundation in legal compliance and ethical data management. The curriculum delves into the fundamental principles of the act, such as purpose limitation,",
+      "se_competencies": [
+        "C03",
+        "C11",
+        "C22"
+      ],
+      "targetLevel": 2,
+      "duration": 5349,
+      "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1143536066660352001213",
+      "name": "Handling Data of Annual Survey of Unincorporated Sector Enterprises",
+      "description": "Understanding the vast informal economy is crucial for effective economic governance in India. This course is designed to provide a detailed understanding of the Annual Survey of Unincorporated Sector Enterprises (ASUSE), the primary instrument used by the Ministry of Statistics & Programme Implementation (MoSPI) to measure this sector. The course explains the context and significance of ASUSE in ",
+      "se_competencies": [
+        "C01",
+        "C04",
+        "C05"
+      ],
+      "targetLevel": 2,
+      "duration": 1675,
+      "provider": "Training Division",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1143541383534837761244",
+      "name": "Building Resilient Cybersecurity Systems",
+      "description": "In an era of increasing digital threats, securing government IT infrastructure is paramount. This course is designed to equip government officials and IT professionals with the knowledge to build and maintain resilient cybersecurity systems. The curriculum delves into the core tenets of modern cybersecurity architecture, emphasizing a proactive, layered defense strategy. Key learning areas include",
+      "se_competencies": [
+        "C03",
+        "C11",
+        "C22"
+      ],
+      "targetLevel": 2,
+      "duration": 5006,
+      "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1143541584233758721253",
+      "name": "Handling Unit Level Data of Annual Survey of Industries",
+      "description": "The Annual Survey of Industries (ASI) is a critical tool for understanding the dynamics of India's organized manufacturing sector. This course offers a detailed examination of its structure and function, providing essential context for officials involved in economic governance. You will delve into the legal underpinnings of the ASI, including the Collection of Statistics (COS) Act, 2008, and under",
+      "se_competencies": [
+        "C01",
+        "C04",
+        "C05"
+      ],
+      "targetLevel": 2,
+      "duration": 1425,
+      "provider": "Training Division",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1143570598469713921396",
+      "name": "The Hunt for Benami Property: A Data-Driven Approach",
+      "description": "A retired senior civil servant, living a quiet post-service life, drew attention when the Benami Unit in Delhi spotted unusual property records. Quiet checks began—silent, precise, unnoticed. Clues pointed to hidden wealth. A secret search was planned across four cities. When the Income Tax teams struck, they uncovered a web of unreported assets and benami properties worth over ₹240 crores. Behind",
+      "se_competencies": [
+        "C04",
+        "C03",
+        "C11",
+        "C15"
+      ],
+      "targetLevel": 2,
+      "duration": 62,
+      "provider": "Capacity Building Commission",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1143571277397852161479",
+      "name": "Digital Public Infrastructure: Security by Design",
+      "description": "Dive into the foundational principles of creating secure and scalable Digital Public Infrastructure (DPI) in this insightful course. As governments worldwide accelerate their digital transformation journeys, understanding how to build secure DPIs has become paramount. This course addresses the context by explaining why a 'security by design' mindset is crucial for protecting citizen data and ensur",
+      "se_competencies": [
+        "C23",
+        "C25",
+        "C03",
+        "C11",
+        "C04"
+      ],
+      "targetLevel": 2,
+      "duration": 2741,
+      "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1143586300290744321246",
+      "name": "Transformational Leadership",
+      "description": "In today's rapidly evolving professional landscape, effective leadership is crucial for navigating complexity and driving organizational success. This course on Transformational Leadership offers an in-depth examination of a visionary leadership style that moves beyond simple management to inspire genuine change and growth. It is designed for leaders and aspiring leaders who seek to create a posit",
+      "se_competencies": [
+        "C24"
+      ],
+      "targetLevel": 2,
+      "duration": 3640,
+      "provider": "Indian Institute of Technology (Indian School of Mines) Dhanbad",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1143586301685432321454",
+      "name": "Introduction to R and Python Programming",
+      "description": "This course provides a comprehensive introduction to R and Python, two essential languages in the modern data landscape. It is specifically designed for individuals with no prior programming experience, aiming to build a solid foundation for a career in data science, analytics, or technology-driven governance. The curriculum begins by explaining the unique strengths of each language—R for its robu",
+      "se_competencies": [
+        "C04",
+        "C10",
+        "C23",
+        "C09"
+      ],
+      "targetLevel": 1,
+      "duration": 2434,
+      "provider": "Microsoft",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1143613347908812801129",
+      "name": "Mastering Feedback: A Leadership Tool",
+      "description": "In the context of public service, effective feedback is a powerful, no-cost catalyst for performance enhancement and professional development. This course, designed for government leaders and supervisors, delves into the art and science of giving and receiving feedback. It reframes feedback not as criticism, but as an act of care essential for guiding and developing teams. The curriculum addresses",
+      "se_competencies": [
+        "C24",
+        "C15"
+      ],
+      "targetLevel": 3,
+      "duration": 9419,
+      "provider": "Indian Institute of Management Ahmedabad",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_11436613676448153616",
+      "name": "Fundamentals of the Digital Public Infrastructure Approach",
+      "description": "In an era of rapid digital change, Digital Public Infrastructure (DPI) has emerged as a foundational element for effective governance and improved public service delivery. This course delves into the core principles of the DPI approach, explaining how it enables scalable, secure, and inclusive digital ecosystems. Participants will journey through the entire lifecycle of DPI implementation, from in",
+      "se_competencies": [
+        "C23",
+        "C25",
+        "C03",
+        "C11",
+        "C04"
+      ],
+      "targetLevel": 2,
+      "duration": 6108,
+      "provider": "DPI Academy by Artha Global and eGov Foundation",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_11436630529769472011719",
+      "name": "Bhashini and Digital India: Bridging Languages in Citizen Services",
+      "description": "Dive into the transformative power of language technology with this comprehensive course on Bhashini. Designed for officials in governance and technology, this program details how India’s AI language platform is revolutionizing public service delivery. The course provides context on why multilingual access is critical for an equitable Digital India and showcases Bhashini's architecture and ecosyst",
+      "se_competencies": [
+        "C23"
+      ],
+      "targetLevel": 2,
+      "duration": 4068,
+      "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_114371856382738432116",
+      "name": "Artificial Intelligence and Digital Public Infrastructure Stack",
+      "description": "This course delves into the strategic integration of Artificial Intelligence (AI) as a foundational element of India's next-generation Digital Public Infrastructure (DPI). It provides a detailed examination of India's ambition to build a resilient, scalable, and inclusive AI-first ecosystem. The content explores the core components of this vision, including the mission to democratize AI by leverag",
+      "se_competencies": [
+        "C23",
+        "C20"
+      ],
+      "targetLevel": 2,
+      "duration": 3446,
+      "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1143719391179161601174",
+      "name": "Introduction to Geospatial Mapping and Scientific Planning",
+      "description": "In an era of data-driven governance, the ability to interpret and utilize spatial information is a critical skill for public sector professionals. This course provides a foundational understanding of geospatial mapping and its application in scientific planning. It addresses the growing need for officials to leverage technology for more effective resource allocation, project monitoring, and policy",
+      "se_competencies": [
+        "C12",
+        "C23",
+        "C13"
+      ],
+      "targetLevel": 1,
+      "duration": 4020,
+      "provider": "Department of Rural Development (DRD)",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1143762137612206081142",
+      "name": "Artificial Intelligence Enabling Education Outreach",
+      "description": "This course delves into the pivotal role of Artificial Intelligence in revolutionizing education and professional development. It provides a strategic perspective on how AI is not just a technological tool but a key enabler of widespread educational transformation. The curriculum explores the application of AI in creating personalized learning platforms, AI-powered tutors, and automated assessment",
+      "se_competencies": [
+        "C23",
+        "C20"
+      ],
+      "targetLevel": 2,
+      "duration": 3793,
+      "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_114378194124914688145",
+      "name": "Enabling Excellence in Governance Processes through Quality Tools",
+      "description": "This course is designed to equip civil service officials with the foundational principles and practical tools of quality management to foster excellence in governance. It moves beyond theory to provide actionable frameworks that can be immediately applied to public sector workflows. You will explore a comprehensive toolkit, including Check Sheets for data collection, Flowcharts for process mapping",
+      "se_competencies": [
+        "C10",
+        "C23",
+        "C12",
+        "C20"
+      ],
+      "targetLevel": 2,
+      "duration": 3284,
+      "provider": "Indian Foundation For Quality Management (IFQM)",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1143981874766561281690",
+      "name": "Handling Unit Level Data of Household Consumption Expenditure Survey",
+      "description": "The Household Consumption Expenditure Survey (HCES) is a foundational component of India's official statistical system, providing deep insights into the economic well-being of households. This course is designed to equip researchers, policy analysts, and data scientists with the practical skills needed to work directly with this vital data. You will learn the complete data workflow, starting from ",
+      "se_competencies": [
+        "C01",
+        "C04",
+        "C05"
+      ],
+      "targetLevel": 2,
+      "duration": 3133,
+      "provider": "Capacity Development Division, MoSPI",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1143986971808563201749",
+      "name": "Transforming Digital India Through User Interface and User Experience",
+      "description": "In an era of digital transformation, the effectiveness of government services is increasingly judged by their usability and accessibility. This course provides a comprehensive overview of how User Interface (UI) and User Experience (UX) design can significantly enhance citizen-facing digital platforms. It delves into the core principles of user-centered design, explaining why putting the citizen a",
+      "se_competencies": [
+        "C23"
+      ],
+      "targetLevel": 2,
+      "duration": 1275,
+      "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1143988274457886721796",
+      "name": "Legal Framework for Digital Public Infrastructure",
+      "description": "Dive into the essential legal and institutional architecture that powers a modern digital state with this course on India's Digital Public Infrastructure (DPI). Moving beyond simple digitization, you will explore how a robust legal foundation is paramount for creating secure, scalable, and interoperable digital ecosystems. The curriculum provides an in-depth analysis of India's pioneering 15-year ",
+      "se_competencies": [
+        "C23"
+      ],
+      "targetLevel": 2,
+      "duration": 4026,
+      "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_11440866037320089611445",
+      "name": "Data Analytics for Effective Governance",
+      "description": "In an era of data-driven governance, the ability to interpret and present data effectively is paramount. This course provides a comprehensive introduction to the world of data visualization and Business Intelligence (BI). It is designed for public officials seeking to leverage data for improved decision-making and operational transparency. The curriculum begins by establishing the importance of vi",
+      "se_competencies": [
+        "C04",
+        "C10",
+        "C26",
+        "C23"
+      ],
+      "targetLevel": 2,
+      "duration": 2506,
+      "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1144108696203509761740",
+      "name": "Introduction to Artificial Intelligence and Machine Learning",
+      "description": "Artificial Intelligence and Machine Learning are transformative technologies reshaping governance and industry. This foundational course is designed to equip public officials with the essential knowledge to navigate this evolving landscape. The curriculum begins by demystifying AI and ML, clarifying key terminology and the core principles that drive these technologies. You will delve into the main",
+      "se_competencies": [
+        "C10",
+        "C23",
+        "C04",
+        "C26",
+        "C03",
+        "C11",
+        "C20"
+      ],
+      "targetLevel": 1,
+      "duration": 2874,
+      "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_11441226085007360011465",
+      "name": "उद्योगों का वार्षिक सर्वेक्षण",
+      "description": "यह पाठ्यक्रम 'उद्योगों के वार्षिक सर्वेक्षण' (ASI) की कार्यप्रणाली और महत्व को समझाने के लिए डिज़ाइन किया गया है। ASI भारत के औद्योगिक क्षेत्र के स्वास्थ्य का आकलन करने के लिए एक महत्वपूर्ण सांख्यिकीय उपकरण है, जिसे सांख्यिकी और कार्यक्रम कार्यान्वयन मंत्रालय (MoSPI) द्वारा संचालित किया जाता है। इस पाठ्यक्रम में, आप सीखेंगे कि कौन सी औद्योगिक इकाइयाँ फैक्ट्रीज एक्ट, 1948 के तहत कवर की जाती हैं और ",
+      "se_competencies": [
+        "C01",
+        "C04",
+        "C05"
+      ],
+      "targetLevel": 2,
+      "duration": 5772,
+      "provider": "RCVP Noronha Academy of Administration and Management (RCVPNAAM) Bhopal",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1144213690244546561493",
+      "name": "Introduction to Big Data in Governance",
+      "description": "This introductory course delves into the pivotal role of Big Data and analytics in reshaping public administration and service delivery. It establishes the context by explaining why data-driven approaches are crucial for transparent, efficient, and citizen-centric governance in the digital age. Key learning areas include the fundamental characteristics of Big Data (the 5Vs), the complete Big Data ",
+      "se_competencies": [
+        "C04",
+        "C26",
+        "C10",
+        "C03",
+        "C19",
+        "C11"
+      ],
+      "targetLevel": 1,
+      "duration": 2781,
+      "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1144314741016166401174",
+      "name": "YUVA AI for All",
+      "description": "Designed to promote nationwide AI literacy, this course offers a comprehensive introduction to the world of Artificial Intelligence. It begins by laying down the fundamental principles of AI, Machine Learning, and advanced concepts like Generative AI and Large Language Models (LLMs), all explained in a simple, actionable manner. The curriculum is structured to provide practical, hands-on experienc",
+      "se_competencies": [
+        "C20",
+        "C23"
+      ],
+      "targetLevel": 2,
+      "duration": 13807,
+      "provider": "India AI",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1144462671361884161519",
+      "name": "Best Achievable Techniques in Dyes and Dye Intermediates",
+      "description": "This course offers an in-depth understanding of the dye and dye intermediates manufacturing sector, balancing technical knowledge with crucial environmental considerations. The curriculum is structured to guide learners from foundational concepts to advanced sustainable practices. Initially, the course establishes the context by detailing the fundamentals of dyes, including their classification, n",
+      "se_competencies": [
+        "C18"
+      ],
+      "targetLevel": 2,
+      "duration": 11643,
+      "provider": "Central Pollution Control Board",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1144513046576087041748",
+      "name": "Introduction to Steel Making Process",
+      "description": "This course provides a foundational understanding of the entire steelmaking value chain, crucial for anyone involved in the industrial or heavy manufacturing sectors. It begins by exploring the geological origins of iron, identifying major iron ore minerals, and explaining their industrial significance. The curriculum then details the stages of iron ore mining and preparation, setting the context ",
+      "se_competencies": [
+        "C18"
+      ],
+      "targetLevel": 1,
+      "duration": 2100,
+      "provider": "Ministry of Steel",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1144513065470935041920",
+      "name": "Iron and Steel Sector: Statistics and Economic Indices",
+      "description": "Gain a comprehensive understanding of the economic drivers of the Indian iron and steel industry. This course provides an in-depth examination of the primary statistical tools used to measure and analyze the sector's health and performance. You will delve into the Index of Industrial Production (IIP) to learn how industrial growth is tracked, and explore the Index of Eight Core Industries (ICI) to",
+      "se_competencies": [
+        "C18"
+      ],
+      "targetLevel": 2,
+      "duration": 2100,
+      "provider": "Ministry of Steel",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1144582931607224321112",
+      "name": "Navigating DPDP: The Future of Digital Governance in India",
+      "description": "This policy-focused course delves into the practical implementation of the Digital Personal Data Protection (DPDP) Act, 2023, within government institutions. It provides a critical examination of the framework's core components, including exemptions for state functions under Section 17 and the delicate balance between citizen rights and public accountability. The discussion addresses significant o",
+      "se_competencies": [
+        "C03",
+        "C11",
+        "C22",
+        "C04"
+      ],
+      "targetLevel": 2,
+      "duration": 4058,
+      "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1144751221174108161801",
+      "name": "Artificial Intelligence for Public Governance",
+      "description": "In an era of rapid technological advancement, Artificial Intelligence (AI) presents a transformative opportunity for public administration. This course is designed to provide government professionals with the essential knowledge to harness AI for improved governance and citizen services. It addresses the critical need for AI literacy within the public sector, moving beyond theoretical concepts to ",
+      "se_competencies": [
+        "C20",
+        "C23",
+        "C04",
+        "C26"
+      ],
+      "targetLevel": 2,
+      "duration": 9737,
+      "provider": "Kyndryl",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1144916919742627841509",
+      "name": "Fundamentals of Cloud Computing and Cloud Services",
+      "description": "This skill-oriented course is designed to provide participants with foundational knowledge and practical skills in cloud computing technologies and services. The course offers a comprehensive understanding of cloud computing concepts, architectures, deployment models, and service strategies, with a strong emphasis on real-world applications and implementation. Participants will learn how cloud com",
+      "se_competencies": [
+        "C23",
+        "C21"
+      ],
+      "targetLevel": 2,
+      "duration": 4632,
+      "provider": "National Institute of Electronics and Information Technology - NIELIT (formerly DOEACC Society)",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_11451766025800908816",
+      "name": "Earth Observation with Remote Sensing Technologies",
+      "description": "This course provides a comprehensive overview of remote sensing technologies. It introduces the key requirements for effective remote sensing applications, including the necessary equipment, selection of electromagnetic spectral windows, and data processing techniques. The course also explores hyperspectral, thermal, and microwave remote sensing, highlighting their applications, advantages, and li",
+      "se_competencies": [
+        "C12",
+        "C23",
+        "C13"
+      ],
+      "targetLevel": 2,
+      "duration": 2508,
+      "provider": "Department of Space and ISRO HQ",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_114517765108858880118",
+      "name": "Cloud Computing Service Models",
+      "description": "This course introduces learners to the four major cloud platforms that dominate both global and Indian digital ecosystems: Amazon Web Services (AWS), Microsoft Azure, Google Cloud Platform (GCP), and NIC–MeghRaj Cloud, India’s national government cloud initiative. The course explains how these platforms serve diverse sectors, including enterprises, research institutions, startups, and government s",
+      "se_competencies": [
+        "C23",
+        "C21"
+      ],
+      "targetLevel": 2,
+      "duration": 3052,
+      "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1145200741172346881926",
+      "name": "Geospatial Data Analysis with LiDAR and GNSS",
+      "description": "This course provides a comprehensive understanding of LiDAR, GNSS (Global Navigation Satellite Systems), and AI/ML approaches for satellite data analysis. Participants will learn how LiDAR laser pulses are transmitted, how their reflections are received, and the type of information that can be extracted from this point-based data. The course explains how to process vast amounts of LiDAR data and g",
+      "se_competencies": [
+        "C12",
+        "C23",
+        "C13"
+      ],
+      "targetLevel": 2,
+      "duration": 2806,
+      "provider": "Department of Space and ISRO HQ",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1145204752218112001980",
+      "name": "Remote Sensing Applications in Atmospheric and Marine Sciences",
+      "description": "This course provides a comprehensive overview of remote sensing applications in agriculture, soil studies, and rural development. It explores techniques for crop mapping, crop stress detection, soil characterization, and land degradation monitoring. The course also highlights how national geospatial platforms support rural development initiatives, including watershed management, MGNREGA activities",
+      "se_competencies": [
+        "C12",
+        "C23",
+        "C13"
+      ],
+      "targetLevel": 2,
+      "duration": 2243,
+      "provider": "Department of Space and ISRO HQ",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1145205037746995201919",
+      "name": "Applied Remote Sensing for Planning and Conservation",
+      "description": "This course provides an in-depth overview of remote sensing applications in urban planning, regional corridor mapping, natural disaster management, and forest resources management. It highlights the integration of satellite data with human-tagged and field-sampled data to generate actionable insights. Learners will also gain hands-on exposure to operating the National Database of Emergency Managem",
+      "se_competencies": [
+        "C12",
+        "C23",
+        "C13"
+      ],
+      "targetLevel": 2,
+      "duration": 2443,
+      "provider": "Department of Space and ISRO HQ",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1145242891094835201284",
+      "name": "Artificial Intelligence for Karmayogis",
+      "description": "Artificial Intelligence (AI) can significantly enhance the daily work of government officials. This course introduces practical, easy-to-use AI tools that help you research faster, draft clearer communications, analyse data efficiently, and make more informed decisions. Using relatable examples from government offices, the course explains when to use search engines versus Generative AI, how to cra",
+      "se_competencies": [
+        "C20",
+        "C23"
+      ],
+      "targetLevel": 2,
+      "duration": 5667,
+      "provider": "Karmayogi Bharat",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_11452701976539955211088",
+      "name": "Cybersecurity in Cloud Computing",
+      "description": "This course has been developed as part of a sponsored project from the Ministry of Electronics and Information Technology (MeitY). As digital technologies continue to evolve, cybersecurity has become a shared responsibility among users, manufacturers, and service providers. Emerging technologies such as Cloud Computing, the Internet of Things (IoT), and Artificial Intelligence (AI) introduce new s",
+      "se_competencies": [
+        "C12",
+        "C20",
+        "C23",
+        "C21",
+        "C22"
+      ],
+      "targetLevel": 2,
+      "duration": 6284,
+      "provider": "Centre for Development of Advanced Computing (C-DAC)",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_11452980177757798411",
+      "name": "Data Foundations for Governance",
+      "description": "The Data Foundations for Governance course equips government officials with practical skills to collect, structure, validate, and effectively use data for timely decision-making. Drawing on real-world public sector examples—such as disaster response, pension delivery, transport planning, and education monitoring—the course demonstrates how clean, well-structured, and validated data can improve ser",
+      "se_competencies": [
+        "C04",
+        "C10",
+        "C03",
+        "C19",
+        "C11",
+        "C26"
+      ],
+      "targetLevel": 1,
+      "duration": 5412,
+      "provider": "Wadhwani Foundation",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1145595293860741121372",
+      "name": "Concept of Privacy and Evolution of Data Protection Rights",
+      "description": "This course introduces learners to the concept of privacy as a fundamental human right and a constitutionally protected right in India, tracing its evolution from traditional notions of personal liberty to contemporary concerns in the digital age. It examines the meaning and dimensions of privacy, including the right to be let alone, freedom from unwarranted publicity, and protection against unwar",
+      "se_competencies": [
+        "C03",
+        "C11",
+        "C04"
+      ],
+      "targetLevel": 2,
+      "duration": 4177,
+      "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1145595516780298241381",
+      "name": "Using Data for Planning and Prioritisation",
+      "description": "This course focuses on using data to enable smarter, evidence-based, and proactive decision-making in governance. It introduces three key analytical approaches: regression for predicting outcomes, classification for categorising and prioritising actions, and time series forecasting for anticipating future trends. Through practical government-focused scenarios, learners will understand how these te",
+      "se_competencies": [
+        "C04",
+        "C10",
+        "C03",
+        "C19",
+        "C26"
+      ],
+      "targetLevel": 2,
+      "duration": 3505,
+      "provider": "Wadhwani Foundation",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1145702715973632001140",
+      "name": "Data Privacy Compliance Scoping under DPDPA ISO 27001 and ISO 27701",
+      "description": "This course provides a practitioner-level guide to scoping data privacy compliance projects under ISO/IEC 27001, ISO/IEC 27701, and India’s Digital Personal Data Protection Act, 2023 (DPDPA). Using a structured 22-question scoping questionnaire, it explains how to define organisational boundaries, identify in-scope geographies, data principals, departments, applications, and third-party vendors, a",
+      "se_competencies": [
+        "C03",
+        "C11",
+        "C04",
+        "C22"
+      ],
+      "targetLevel": 2,
+      "duration": 2055,
+      "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_114570751738314752180",
+      "name": "Privacy-Enhancing Technologies and Data Protection Practices",
+      "description": "This course explores Privacy-Enhancing Technologies (PETs) from the perspective of a Data Protection Officer, with a focus on safeguarding personal data in both static and dynamic environments. It introduces the critical distinction between data at rest and data in motion, along with the corresponding technical and organizational safeguards applicable to each. The course examines advanced cryptogr",
+      "se_competencies": [
+        "C03",
+        "C11",
+        "C04"
+      ],
+      "targetLevel": 2,
+      "duration": 5133,
+      "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1145850566619545601933",
+      "name": "National Panchayat Awards: Performance and Evaluation Framework",
+      "description": "This course provides a comprehensive understanding of the National Panchayat Awards framework, including its guidelines, evaluation processes, and role in promoting excellence in grassroots governance. It highlights how Panchayati Raj Institutions (PRIs) are assessed and recognized based on their performance in governance, service delivery, and sustainable development outcomes. The course covers k",
+      "se_competencies": [
+        "C17"
+      ],
+      "targetLevel": 2,
+      "duration": 4519,
+      "provider": "Karmayogi Bharat",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1146117636021452801117",
+      "name": "Structured Problem Solving and Decision Making for Government Officers",
+      "description": "This course equips government officials with a systematic approach to analysing complex administrative and policy challenges and making evidence-based decisions. The courseintroduces a structured problem-solving cycle that covers problem identification, root cause analysis, generation of policy alternatives, objective decision-making, effective implementation, and continuous learning. Participants",
+      "se_competencies": [
+        "C26"
+      ],
+      "targetLevel": 2,
+      "duration": 6668,
+      "provider": "National Academy of Defence Production (NADP) Nagpur",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1146119610769408001204",
+      "name": "Telecom Analytics using Financial and Operational Data",
+      "description": "This course helps participants to built analytical skills in the domain of Finance that support financial planning, improves organizational performance that leads to effective decision making . The names of the companies used is for academic purposes only. All the data presented & analysed in the course has been sourced from publicly shared information such as KPI format, Annual Financial Statemen",
+      "se_competencies": [
+        "C23"
+      ],
+      "targetLevel": 2,
+      "duration": 2884,
+      "provider": "Department of Telecommunications",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1146139511458365441361",
+      "name": "Cyber Rakshak: Fundamentals of Cyber Security for Public Officials",
+      "description": "This course provides government officers with a practical understanding of cyber security in India's rapidly expanding digital governance ecosystem. It examines how Digital Public Infrastructure, cloud services, APIs, artificial intelligence, and data-driven governance have transformed public service delivery while increasing cyber risks. The course positions cyber security as a governance respons",
+      "se_competencies": [
+        "C12",
+        "C20",
+        "C23",
+        "C22"
+      ],
+      "targetLevel": 2,
+      "duration": 11181,
+      "provider": "Kyndryl",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1146141015711580161768",
+      "name": "Basics of Cloud Computing",
+      "description": "In an era of digital transformation, understanding cloud computing is essential for public service professionals. This course is designed to build a solid foundation in cloud concepts and their practical applications in governance. You will begin by learning the fundamental principles of cloud technology, including on-demand self-service, scalability, and resource pooling. The course delves into t",
+      "se_competencies": [
+        "C23",
+        "C12",
+        "C20",
+        "C21"
+      ],
+      "targetLevel": 1,
+      "duration": 1952,
+      "provider": "Ministry of Communications- Department of Telecommunications",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1146210747476623361171",
+      "name": "Understanding the Right to Information Act and Good Governance",
+      "description": "In a democratic society, transparency and accountability are cornerstones of effective public administration. This course delves into the transformative impact of the RTI Act, 2005. It is designed for public officials who need to understand their obligations under the Act and for citizens who wish to leverage it for greater governmental transparency. The course begins by outlining the fundamental ",
+      "se_competencies": [
+        "C11"
+      ],
+      "targetLevel": 2,
+      "duration": 2818,
+      "provider": "National Academy of Defence Production (NADP) Nagpur",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1146211630705623041525",
+      "name": "Data Analysis and Visualization Using Microsoft Excel",
+      "description": "This course provides a practical introduction to data analysis using Microsoft Excel, designed specifically for government officials. It focuses on applying everyday data science techniques to real-world government datasets, including data from schemes such as MGNREGA and PMGSY. Learners will develop skills in data cleaning, preparation, analysis, visualization, and interpretation using Excel. The",
+      "se_competencies": [
+        "C10",
+        "C23"
+      ],
+      "targetLevel": 2,
+      "duration": 19473,
+      "provider": "Department of Rural Development (DRD)",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_11463968851905740812373",
+      "name": "পঞ্চায়ত উন্নয়ন সূচকৰ জৰিয়তে তথ্য-ভিত্তিক গ্ৰাম পঞ্চায়ত পৰিকল্পনা",
+      "description": "পঞ্চায়ত উন্নয়ন সূচক (PDI) ভাৰত চৰকাৰৰ পঞ্চায়তী ৰাজ মন্ত্ৰালয়ৰ দ্বাৰা বিকশিত এক বিস্তৃত কাঠামো, যাৰ উদ্দেশ্য হৈছে দেশৰ সকলো গ্ৰাম পঞ্চায়তৰ সামগ্ৰিক কাৰ্যক্ষমতা আৰু উন্নয়নৰ অৱস্থা মূল্যায়ন কৰা। ই পঞ্চায়তসমূহক গুৰুত্বপূৰ্ণ উন্নয়ন সূচকৰ আধাৰত নিজৰ অগ্ৰগতি পৰিমাপ কৰিবলৈ, উন্নয়নৰ ঘাটি চিনাক্ত কৰিবলৈ, অগ্ৰাধিকাৰ নিৰ্ধাৰণ কৰিবলৈ আৰু তথ্য-ভিত্তিক গ্ৰাম পঞ্চায়ত উন্নয়ন পৰিকল্পনা (GPDP) প্ৰস্তুত ক",
+      "se_competencies": [
+        "C17"
+      ],
+      "targetLevel": 2,
+      "duration": 1231,
+      "provider": "Capacity Building Commission",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1146437555661946881212",
+      "name": "Team Building and Collaboration",
+      "description": "In any professional environment, the ability to work effectively in a team is paramount. While individual skills are valuable, collective success is achieved when team members can collaborate, communicate, and support one another. This course provides a comprehensive framework for understanding and implementing the principles of team building, which is crucial for enhancing organizational producti",
+      "se_competencies": [
+        "C24",
+        "C15"
+      ],
+      "targetLevel": 2,
+      "duration": 2370,
+      "provider": "Department of Personnel and Training DoPT",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1146437829914705921237",
+      "name": "Introduction to Statistical Tools and Data Analysis",
+      "description": "In an increasingly data-driven world, the ability to understand and communicate insights from data is a critical skill for public sector professionals. This course, \"\"Statistical Tools and Data Visualization,\"\" provides a comprehensive introduction to the foundational concepts and techniques required to turn raw data into meaningful visual representations. It addresses the growing need for data li",
+      "se_competencies": [
+        "C04",
+        "C10"
+      ],
+      "targetLevel": 1,
+      "duration": 3409,
+      "provider": "Institute of Secretariat Training and Management",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1146437833294397441116",
+      "name": "Introduction to Statistical Tools for Data-Driven Decision-Making",
+      "description": "In today's governance landscape, the ability to make decisions based on evidence is paramount. This course is designed to build foundational skills in data-driven decision-making, moving beyond intuition to rely on concrete analysis. It provides a structured overview of the entire data analysis process, starting with the fundamental principles of data collection, cleaning, and preparation to ensur",
+      "se_competencies": [
+        "C04",
+        "C10",
+        "C26",
+        "C03",
+        "C19"
+      ],
+      "targetLevel": 1,
+      "duration": 7383,
+      "provider": "Institute of Secretariat Training and Management",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1146458614010593281426",
+      "name": "AI for Digital Transformation with Machine Learning and Deep Learning",
+      "description": "In an era where Artificial Intelligence (AI) is redefining the boundaries of innovation, a clear understanding of this technology is imperative for effective governance. This course serves as a pivotal introduction to AI, Machine Learning (ML), and Deep Learning (DL), specifically tailored for officials in the Government of India and State Governments. The curriculum is designed not to delve into ",
+      "se_competencies": [
+        "C20",
+        "C23",
+        "C03",
+        "C11",
+        "C04"
+      ],
+      "targetLevel": 2,
+      "duration": 5195,
+      "provider": "Wadhwani Foundation",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_11465004550475776015",
+      "name": "Data-Driven Decision-Making for Government",
+      "description": "In an era where data is crucial for effective governance, this course provides a foundational understanding of Data-Driven Decision-Making (DDDM) for government professionals. It addresses the growing need for data literacy within public administration, exploring how to build a robust digital infrastructure to support anticipatory and evidence-based decisions. The curriculum delves into the core c",
+      "se_competencies": [
+        "C04",
+        "C26",
+        "C10",
+        "C03",
+        "C19"
+      ],
+      "targetLevel": 2,
+      "duration": 6201,
+      "provider": "Wadhwani Foundation",
+      "primaryCategory": "Course",
+      "source": "igot"
+    },
+    {
+      "identifier": "do_1146501155938467841399",
+      "name": "Team Building and Team Management",
+      "description": "In today's collaborative work environments, the ability to build and manage effective teams is a critical skill for achieving organizational success. This course is designed to equip public sector professionals with the foundational knowledge and practical tools needed to foster teamwork and lead with confidence. It addresses the core principles of team dynamics, highlighting why cohesive teams ar",
+      "se_competencies": [
+        "C24"
+      ],
+      "targetLevel": 2,
+      "duration": 3364,
+      "provider": "Institute of Secretariat Training and Management",
+      "primaryCategory": "Course",
+      "source": "igot"
     }
   ]
 }

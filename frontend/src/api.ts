@@ -53,6 +53,12 @@ export interface Course {
   target_level: number;
   provider: string;
   duration_min: number;
+  /** "igot" = self-paced online course; "nssta" = TPAC-approved NSSTA programme. */
+  source: string;
+  mode: string;
+  eligibility: string;
+  duration_days: number;
+  batch_size: number;
 }
 
 export interface Recommendation {

@@ -69,6 +69,34 @@ COMPETENCIES = [
     ("C15", "Analytical Thinking & Communication of Results",
      CompetencyType.BEHAVIOURAL,
      "Structuring analysis and communicating findings to decision-makers."),
+
+    # C16-C26 complete the four competency domains the problem statement names.
+    # C01-C15 covered statistical work well but left the technical stack, digital
+    # governance and the behavioural/managerial domain almost empty - and those
+    # are precisely what NSSTA's own calendar trains (ML with Python, leadership,
+    # agricultural and labour statistics).
+    ("C16", "Labour Force & Employment Statistics", CompetencyType.DOMAIN,
+     "PLFS concepts, employment-unemployment estimation and labour indicators."),
+    ("C17", "Agricultural & Allied Statistics", CompetencyType.DOMAIN,
+     "Crop area and yield estimation, agricultural censuses and allied surveys."),
+    ("C18", "Industrial Statistics (ASI)", CompetencyType.DOMAIN,
+     "Annual Survey of Industries frame, returns and unit-level data handling."),
+    ("C19", "SQL & Database Management", CompetencyType.FUNCTIONAL,
+     "Relational querying, joins and management of unit-level data stores."),
+    ("C20", "Artificial Intelligence & Machine Learning", CompetencyType.FUNCTIONAL,
+     "Supervised and unsupervised methods applied to official statistics."),
+    ("C21", "Cloud Computing & Government Cloud", CompetencyType.FUNCTIONAL,
+     "Cloud service models and deployment on MeghRaj/government infrastructure."),
+    ("C22", "Cybersecurity & Data Privacy", CompetencyType.FUNCTIONAL,
+     "Information security practice, DPDP Act duties and secure data exchange."),
+    ("C23", "Digital Public Infrastructure & e-Governance", CompetencyType.FUNCTIONAL,
+     "DPI building blocks, digital service design and interoperable APIs."),
+    ("C24", "Leadership & Team Management", CompetencyType.BEHAVIOURAL,
+     "Leading statistical teams, mentoring and building field cadre capability."),
+    ("C25", "Project Management", CompetencyType.BEHAVIOURAL,
+     "Planning, monitoring and evaluating survey and statistical programmes."),
+    ("C26", "Decision Making & Change Management", CompetencyType.BEHAVIOURAL,
+     "Evidence-based judgement and leading adoption of new methods and systems."),
 ]
 
 # --- 6.3 Roles and their FRAC requirements -------------------------------
@@ -78,21 +106,24 @@ ROLES = {
         "Conducts and supervises survey operations, validates returns and "
         "prepares tabulations for statistical releases.",
         [("C01", 3, H), ("C02", 3, H), ("C03", 3, H), ("C04", 2, M),
-         ("C09", 2, M), ("C11", 2, M), ("C15", 2, M)],
+         ("C09", 2, M), ("C11", 2, M), ("C15", 2, M),
+         ("C16", 2, M), ("C19", 2, L), ("C22", 2, M), ("C25", 2, L)],
     ),
     "SI": (
         "Statistical Investigator (Field)",
         "Carries out field enumeration, applies classification codes and "
         "ensures the integrity of primary data collection.",
         [("C02", 3, H), ("C03", 2, M), ("C08", 3, H), ("C13", 2, M),
-         ("C11", 2, M), ("C15", 2, M)],
+         ("C11", 2, M), ("C15", 2, M),
+         ("C17", 2, M), ("C22", 2, L), ("C24", 2, L)],
     ),
     "DA": (
         "Statistical Data Analyst",
         "Performs analytical work on survey and administrative data and "
         "produces indicator reporting for policy users.",
         [("C04", 4, H), ("C09", 4, H), ("C10", 3, H), ("C07", 3, M),
-         ("C12", 2, M), ("C14", 2, M), ("C15", 3, M)],
+         ("C12", 2, M), ("C14", 2, M), ("C15", 3, M),
+         ("C19", 3, H), ("C20", 3, M), ("C21", 2, L), ("C26", 2, M)],
     ),
 }
 
@@ -104,23 +135,32 @@ DEPT_FOD = "MoSPI - Field Operations Division"
 
 USERS = [
     ("u-jso-anita", "Anita Deshmukh", "JSO", DEPT_NSO, False,
-     {"C01": 1, "C02": 2, "C03": 1, "C04": 2, "C09": 1, "C11": 2, "C15": 2}),
+     {"C01": 1, "C02": 2, "C03": 1, "C04": 2, "C09": 1, "C11": 2, "C15": 2,
+      "C16": 1, "C19": 0, "C22": 1, "C25": 1}),
     ("u-jso-rakesh", "Rakesh Menon", "JSO", DEPT_NSO, False,
-     {"C01": 3, "C02": 3, "C03": 2, "C04": 2, "C09": 2, "C11": 2, "C15": 1}),
+     {"C01": 3, "C02": 3, "C03": 2, "C04": 2, "C09": 2, "C11": 2, "C15": 1,
+      "C16": 2, "C19": 1, "C22": 2, "C25": 2}),
     ("u-jso-farah", "Farah Qureshi", "JSO", DEPT_NSO, False,
-     {"C01": 2, "C02": 1, "C03": 3, "C04": 1, "C09": 0, "C11": 2, "C15": 2}),
+     {"C01": 2, "C02": 1, "C03": 3, "C04": 1, "C09": 0, "C11": 2, "C15": 2,
+      "C16": 0, "C19": 1, "C22": 0, "C25": 1}),
     ("u-si-vikram", "Vikram Rathore", "SI", DEPT_FOD, False,
-     {"C02": 2, "C03": 2, "C08": 1, "C13": 0, "C11": 1, "C15": 2}),
+     {"C02": 2, "C03": 2, "C08": 1, "C13": 0, "C11": 1, "C15": 2,
+      "C17": 1, "C22": 0, "C24": 1}),
     ("u-si-lalita", "Lalita Barman", "SI", DEPT_FOD, False,
-     {"C02": 3, "C03": 2, "C08": 2, "C13": 1, "C11": 2, "C15": 1}),
+     {"C02": 3, "C03": 2, "C08": 2, "C13": 1, "C11": 2, "C15": 1,
+      "C17": 2, "C22": 1, "C24": 2}),
     ("u-da-suresh", "Suresh Iyer", "DA", DEPT_NSO, False,
-     {"C04": 3, "C09": 2, "C10": 2, "C07": 1, "C12": 1, "C14": 0, "C15": 3}),
+     {"C04": 3, "C09": 2, "C10": 2, "C07": 1, "C12": 1, "C14": 0, "C15": 3,
+      "C19": 2, "C20": 1, "C21": 0, "C26": 2}),
     ("u-da-neha", "Neha Kulkarni", "DA", DEPT_NSO, False,
-     {"C04": 4, "C09": 3, "C10": 3, "C07": 2, "C12": 2, "C14": 1, "C15": 3}),
+     {"C04": 4, "C09": 3, "C10": 3, "C07": 2, "C12": 2, "C14": 1, "C15": 3,
+      "C19": 3, "C20": 2, "C21": 1, "C26": 2}),
     ("u-da-imran", "Imran Sheikh", "DA", DEPT_NSO, False,
-     {"C04": 2, "C09": 2, "C10": 1, "C07": 1, "C12": 0, "C14": 0, "C15": 2}),
+     {"C04": 2, "C09": 2, "C10": 1, "C07": 1, "C12": 0, "C14": 0, "C15": 2,
+      "C19": 1, "C20": 0, "C21": 0, "C26": 1}),
     ("u-admin-meera", "Meera Nair", "DA", DEPT_NSO, True,
-     {"C04": 4, "C09": 4, "C10": 4, "C07": 3, "C12": 3, "C14": 3, "C15": 4}),
+     {"C04": 4, "C09": 4, "C10": 4, "C07": 3, "C12": 3, "C14": 3, "C15": 4,
+      "C19": 4, "C20": 3, "C21": 2, "C26": 3}),
 ]
 
 # Assessment history feeds the gap-closure metric.

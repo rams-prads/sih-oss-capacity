@@ -34,13 +34,14 @@ def test_health_reports_the_active_backends(client):
 
 def test_taxonomy_endpoints(client):
     competencies = client.get("/api/competencies").json()
-    assert len(competencies) == 15
-    assert {c["id"] for c in competencies} >= {"C01", "C15"}
+    assert len(competencies) == 26
+    # Every competency domain the problem statement names has to be present.
+    assert {c["id"] for c in competencies} >= {"C01", "C15", "C20", "C22", "C24"}
 
     roles = client.get("/api/roles").json()
     assert {r["id"] for r in roles} == {"JSO", "SI", "DA"}
     jso = next(r for r in roles if r["id"] == "JSO")
-    assert len(jso["requirements"]) == 7
+    assert len(jso["requirements"]) == 11
 
 
 def test_login_and_authenticated_identity(client):
@@ -203,9 +204,10 @@ def test_admin_overview_and_metrics(client):
     assert scoped["officer_count"] == 2
 
     metrics = client.get("/api/admin/metrics", headers=headers).json()
-    assert metrics["competencies"] == 15
+    assert metrics["competencies"] == 26
     assert metrics["roles"] == 3
-    assert metrics["catalogue_size"] == 26
+    # The catalogue is refreshed from the live iGOT API, so its exact size moves.
+    assert metrics["catalogue_size"] > 100
     # No generated quizzes yet, so the validity rate has nothing to report on.
     assert metrics["mcq_validity_rate_pct"] == 0.0
 

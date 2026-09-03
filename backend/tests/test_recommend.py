@@ -16,6 +16,22 @@ def test_every_top_gap_yields_at_least_one_course(db):
         assert gap.competency_id in covered, f"no course for {gap.competency_id}"
 
 
+def test_top_gaps_stay_covered_at_the_default_limit(db):
+    """AC 8.2 again, with no spare room.
+
+    The catalogue is large enough that courses covering one popular competency
+    can fill the whole list, so every rescued gap has to survive the trim - not
+    just the last one rescued.
+    """
+    client = MockKarmayogiClient()
+    report = compute_gaps(db, "u-jso-anita")
+    recommendations = recommend_courses(client, report.items)  # default limit
+
+    covered = {cid for r in recommendations for cid in r.covers_gap_competencies}
+    for gap in top_gaps(report, 5):
+        assert gap.competency_id in covered, f"no course for {gap.competency_id}"
+
+
 def test_multi_gap_course_outranks_single_gap_course(db):
     """AC 8.2, second half: coverage breadth wins."""
     client = MockKarmayogiClient()
@@ -23,8 +39,11 @@ def test_multi_gap_course_outranks_single_gap_course(db):
     recommendations = recommend_courses(client, report.items, limit=20)
 
     top = recommendations[0]
-    assert top.covers_count == 2
-    assert top.course.identifier == "do_3137421900016"  # C03 + C09
+    assert top.covers_count >= 2
+    # Pinning an identifier here would break every time the catalogue is
+    # refreshed from iGOT; the acceptance criterion is that breadth wins.
+    single_gap = [r for r in recommendations if r.covers_count == 1]
+    assert not single_gap or top.score > single_gap[0].score
 
 
 def test_officer_meeting_every_target_gets_no_recommendations(db):

@@ -80,7 +80,43 @@ def recommend_courses(
         )
 
     recommendations.sort(key=lambda r: (-r.score, -r.covers_count, r.course.identifier))
-    return recommendations[:limit]
+    return _guarantee_cover(recommendations, open_gaps, limit)
+
+
+def _guarantee_cover(
+    ranked: list[Recommendation], open_gaps: list[GapItem], limit: int
+) -> list[Recommendation]:
+    """Make sure every open gap keeps a route, not just the best-scoring ones.
+
+    Ranking alone is enough on a small catalogue, but once the real iGOT
+    catalogue is loaded a competency with many courses fills the whole list and
+    a lower-priority gap can end up with nothing at all - the officer sees a gap
+    the platform never offers a way to close. So take the top by score, then for
+    any gap still uncovered swap in its best course for the weakest one held.
+    """
+    selected = ranked[:limit]
+    covered = {cid for r in selected for cid in r.covers_gap_competencies}
+
+    # Collect every rescue first, then make room once. Dropping the weakest entry
+    # inside the loop would evict a course added moments earlier for an earlier
+    # gap, and that gap would silently lose its route again.
+    additions: list[Recommendation] = []
+    for gap in open_gaps:
+        if gap.competency_id in covered:
+            continue
+        best = next(
+            (r for r in ranked if gap.competency_id in r.covers_gap_competencies), None
+        )
+        if best is None:  # nothing in the catalogue touches this competency
+            continue
+        additions.append(best)
+        covered.update(best.covers_gap_competencies)
+
+    if additions:
+        selected = selected[: max(0, limit - len(additions))] + additions
+
+    selected.sort(key=lambda r: (-r.score, -r.covers_count, r.course.identifier))
+    return selected
 
 
 def catalogue_coverage(client: KarmayogiClient, required_competency_ids: set[str]) -> float:
