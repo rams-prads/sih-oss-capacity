@@ -32,6 +32,28 @@ def test_top_gaps_stay_covered_at_the_default_limit(db):
         assert gap.competency_id in covered, f"no course for {gap.competency_id}"
 
 
+def test_no_single_competency_floods_the_list(db):
+    """A lopsided catalogue must not crowd out the officer's other gaps.
+
+    iGOT carries dozens of data-quality and SQL courses and only a handful on
+    sampling, so ranking by score alone handed a JSO six ways to learn SQL and
+    one way to learn sampling - her largest gap.
+    """
+    from collections import Counter
+
+    from app.engines.recommend import PER_COMPETENCY
+
+    client = MockKarmayogiClient()
+    report = compute_gaps(db, "u-jso-anita")
+    recommendations = recommend_courses(client, report.items)
+
+    per_competency = Counter(r.primary_competency_id for r in recommendations)
+    assert max(per_competency.values()) <= PER_COMPETENCY
+    # The biggest gap must get at least as many routes as anything else.
+    biggest = top_gaps(report, 1)[0].competency_id
+    assert per_competency[biggest] == max(per_competency.values())
+
+
 def test_multi_gap_course_outranks_single_gap_course(db):
     """AC 8.2, second half: coverage breadth wins."""
     client = MockKarmayogiClient()

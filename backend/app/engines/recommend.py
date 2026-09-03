@@ -15,6 +15,8 @@ from app.schemas import CourseOut, GapItem, Recommendation
 
 COVERAGE_BONUS = 0.6
 LEVEL_PENALTY = 0.35
+# Most courses shown for any one competency before other gaps get a turn.
+PER_COMPETENCY = 2
 
 
 def _to_out(course: Course) -> CourseOut:
@@ -80,11 +82,48 @@ def recommend_courses(
         )
 
     recommendations.sort(key=lambda r: (-r.score, -r.covers_count, r.course.identifier))
-    return _guarantee_cover(recommendations, open_gaps, limit)
+    spread = _spread_across_gaps(recommendations, limit)
+    # Rescues are looked up in the full ranking, not the spread list: a gap whose
+    # only course was capped out has to remain reachable.
+    return _guarantee_cover(spread, recommendations, open_gaps, limit)
+
+
+def _spread_across_gaps(
+    ranked: list[Recommendation], limit: int, per_competency: int = PER_COMPETENCY
+) -> list[Recommendation]:
+    """Stop the deepest competency in the catalogue from filling the whole list.
+
+    Score alone was fine against 26 hand-written courses, one per competency.
+    Against the real iGOT catalogue it is not: data quality and SQL have dozens
+    of courses each and sampling has a handful, so a JSO whose largest gap is
+    sampling was offered six ways to learn SQL and one way to learn sampling.
+    Ranking was working correctly - the catalogue is simply lopsided.
+
+    So take at most `per_competency` courses per primary competency on the first
+    pass, then backfill by score. A learning path should spread over what the
+    officer is missing, not pile onto whichever subject happens to be popular.
+    """
+    picked: list[Recommendation] = []
+    counts: dict[str, int] = {}
+    for rec in ranked:
+        if counts.get(rec.primary_competency_id, 0) >= per_competency:
+            continue
+        counts[rec.primary_competency_id] = counts.get(rec.primary_competency_id, 0) + 1
+        picked.append(rec)
+        if len(picked) == limit:
+            return picked
+
+    # Fewer distinct competencies than slots: fill the rest by score.
+    held = {r.course.identifier for r in picked}
+    picked.extend(r for r in ranked if r.course.identifier not in held)
+    return picked[:limit]
 
 
 def _guarantee_cover(
-    ranked: list[Recommendation], open_gaps: list[GapItem], limit: int
+    selected_in: list[Recommendation],
+    ranked: list[Recommendation],
+    open_gaps: list[GapItem],
+    limit: int,
 ) -> list[Recommendation]:
     """Make sure every open gap keeps a route, not just the best-scoring ones.
 
@@ -94,7 +133,7 @@ def _guarantee_cover(
     the platform never offers a way to close. So take the top by score, then for
     any gap still uncovered swap in its best course for the weakest one held.
     """
-    selected = ranked[:limit]
+    selected = selected_in[:limit]
     covered = {cid for r in selected for cid in r.covers_gap_competencies}
 
     # Collect every rescue first, then make room once. Dropping the weakest entry
