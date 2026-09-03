@@ -258,6 +258,10 @@ export interface LearningCourse {
   avg_checkpoint_score: number | null;
   next_action: NextAction | null;
   modules: ModuleItem[];
+  /** Module titles from iGOT, for courses taken on the portal rather than here. */
+  outline: string[];
+  url: string;
+  source: string;
 }
 
 export interface TopicMastery {

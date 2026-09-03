@@ -21,6 +21,9 @@ function makeCourse(overrides: Partial<LearningCourse> = {}): LearningCourse {
     expires_at: null,
     days_remaining: null,
     avg_checkpoint_score: 75,
+    outline: [],
+    url: "",
+    source: "sandbox",
     next_action: { kind: "lesson", label: "Stratification", lesson_id: 5, checkpoint_id: null },
     modules: [
       {
@@ -115,13 +118,41 @@ describe("CourseProgressCard", () => {
     expect(screen.getByText(/All videos watched and all checkpoints passed/)).toBeInTheDocument();
   });
 
-  it("says plainly when a course has no curriculum instead of showing a stuck bar", () => {
-    const course = makeCourse({ lessons_total: 0, checkpoints_total: 0, modules: [], progress_pct: 0 });
+  it("shows what an iGOT course covers instead of a stuck progress bar", () => {
+    const course = makeCourse({
+      lessons_total: 0,
+      checkpoints_total: 0,
+      modules: [],
+      progress_pct: 0,
+      outline: ["Measuring GDP", "Economic Models"],
+      url: "https://portal.igotkarmayogi.gov.in/public/toc/do_123/overview",
+    });
     render(
       <CourseProgressCard course={course} busyLessonId={null} onWatch={noop} onCheckpoint={noop} />,
     );
-    expect(screen.getByText(/Course contents are not yet loaded/)).toBeInTheDocument();
+    expect(screen.getByText("Measuring GDP")).toBeInTheDocument();
+    expect(screen.getByText(/tracked there, not/)).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /Open on iGOT/ })).toHaveAttribute(
+      "href",
+      "https://portal.igotkarmayogi.gov.in/public/toc/do_123/overview",
+    );
     expect(screen.queryByRole("progressbar")).not.toBeInTheDocument();
+  });
+
+  it("says so plainly when a course publishes no outline", () => {
+    const course = makeCourse({
+      lessons_total: 0,
+      checkpoints_total: 0,
+      modules: [],
+      progress_pct: 0,
+      outline: [],
+      url: "",
+    });
+    render(
+      <CourseProgressCard course={course} busyLessonId={null} onWatch={noop} onCheckpoint={noop} />,
+    );
+    expect(screen.getByText(/publishes no module outline/)).toBeInTheDocument();
+    expect(screen.queryByRole("link", { name: /Open on iGOT/ })).not.toBeInTheDocument();
   });
 
   it("marks a locked checkpoint as locked when its videos are unwatched", async () => {

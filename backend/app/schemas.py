@@ -335,6 +335,11 @@ class LearningCourse(BaseModel):
     avg_checkpoint_score: float | None = None
     next_action: NextAction | None = None
     modules: list[ModuleOut] = []
+    # Present for real iGOT courses, which are taken on the portal rather than
+    # here: the module titles say what the course covers, and the link opens it.
+    outline: list[str] = []
+    url: str = ""
+    source: str = "igot"
 
 
 class TopicMastery(BaseModel):

@@ -49,10 +49,44 @@ export function CourseProgressCard({
         </div>
 
         {!hasCurriculum ? (
-          <p className="mt-3.5 rounded-lg border border-dashed border-slate-300 bg-slate-50 px-3 py-2.5 text-xs text-slate-500">
-            Course contents are not yet loaded for this title, so progress cannot be
-            tracked here. Enrolment is recorded and the course opens in iGOT Karmayogi.
-          </p>
+          // A real iGOT course is taken on the portal, so there are no lessons to
+          // tick off here. Show what it covers and a way through to it rather than
+          // a bare apology, and be plain that progress lives on iGOT.
+          <div className="mt-3.5 rounded-lg border border-dashed border-slate-300 bg-slate-50 px-3 py-2.5">
+            {course.outline.length > 0 ? (
+              <>
+                <p className="text-xs font-medium text-slate-700">
+                  What it covers
+                  <span className="ml-1 font-normal text-slate-400">
+                    ({course.outline.length} module{course.outline.length > 1 ? "s" : ""})
+                  </span>
+                </p>
+                <ol className="mt-1.5 list-decimal space-y-0.5 pl-5 text-xs leading-relaxed text-slate-600">
+                  {course.outline.map((module, index) => (
+                    <li key={`${index}-${module}`}>{module}</li>
+                  ))}
+                </ol>
+              </>
+            ) : (
+              <p className="text-xs text-slate-500">
+                This course publishes no module outline.
+              </p>
+            )}
+            <p className="mt-2.5 border-t border-slate-200 pt-2 text-xs text-slate-500">
+              This course is taken on iGOT Karmayogi, so progress is tracked there, not
+              here. Your enrolment is recorded.
+              {course.url && (
+                <a
+                  href={course.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="ml-1 font-medium text-blue-700 underline underline-offset-2 hover:text-blue-900"
+                >
+                  Open on iGOT &rarr;
+                </a>
+              )}
+            </p>
+          </div>
         ) : (
         <div className="mt-3.5">
           <div className="mb-1.5 flex items-baseline justify-between text-xs">
