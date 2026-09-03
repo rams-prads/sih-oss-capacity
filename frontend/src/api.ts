@@ -61,6 +61,8 @@ export interface Course {
   batch_size: number;
   /** The course on the iGOT portal. Empty for NSSTA programmes and sandbox courses. */
   url: string;
+  /** Module titles from iGOT. Empty when the course publishes none worth showing. */
+  outline: string[];
 }
 
 export interface Recommendation {

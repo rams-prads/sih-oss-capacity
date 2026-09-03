@@ -362,7 +362,12 @@
       "duration": 4044,
       "provider": "LBSNAA",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Measuring GDP",
+        "Economic Models",
+        "Basics of National Income Accounting"
+      ]
     },
     {
       "identifier": "do_1134128898434662401233",
@@ -375,7 +380,14 @@
       "duration": 7168,
       "provider": "Indian Institute of Public Administration",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Introduction to Project Management",
+        "Return on Investment (RoI)",
+        "Social Return on Investment (SROI)",
+        "Randomized Controlled Trial (RCT)",
+        "Comprehensive Assessment"
+      ]
     },
     {
       "identifier": "do_1134149423736668161390",
@@ -391,7 +403,17 @@
       "duration": 4914,
       "provider": "Ministry of Power",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Environmental Social and Governance Framework",
+        "Module - I Assessment",
+        "Index related institutions",
+        "Module - II Assessment",
+        "Science and Reality Intertwined",
+        "Module - III Assessment",
+        "Industry Initiatives Inspire confidence of transitions.",
+        "Module - IV Assessment"
+      ]
     },
     {
       "identifier": "do_1134354826750771201203",
@@ -404,7 +426,21 @@
       "duration": 7621,
       "provider": "Indian Institute of Public Administration",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Introduction",
+        "Significance",
+        "Lasswell on Policy Science",
+        "State Intervention",
+        "PPT on State Intervention",
+        "Role of the State",
+        "Assessment",
+        "What is VUCA",
+        "The New Normal",
+        "PPT on New Normal",
+        "Changing nature of work",
+        "Wicked Problems"
+      ]
     },
     {
       "identifier": "do_1134673512329707521163",
@@ -431,7 +467,10 @@
       "duration": 4920,
       "provider": "Institute of Secretariat Training and Management",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Right to Information Act, 2005 - Part 2"
+      ]
     },
     {
       "identifier": "do_1134970386480578561102",
@@ -444,7 +483,10 @@
       "duration": 6900,
       "provider": "Department of Expenditure",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Module 1 - General System For Financial Management"
+      ]
     },
     {
       "identifier": "do_1134971137511260161111",
@@ -458,7 +500,10 @@
       "duration": 13800,
       "provider": "Department of Expenditure",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "FRSR PART III (Leave Rules)"
+      ]
     },
     {
       "identifier": "do_113555204227244032132",
@@ -484,7 +529,11 @@
       "duration": 6420,
       "provider": "Institute of Secretariat Training and Management",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Stakeholders in Governance (Hindi)",
+        "शासन प्रणाली में हितधारक"
+      ]
     },
     {
       "identifier": "do_1135947505370890241121",
@@ -498,7 +547,13 @@
       "duration": 7200,
       "provider": "Institute of Secretariat Training and Management",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Watch Module",
+        "Think & Do Module",
+        "Explore Module",
+        "Test"
+      ]
     },
     {
       "identifier": "do_1135948071783301121144",
@@ -511,7 +566,11 @@
       "duration": 7200,
       "provider": "Institute of Secretariat Training and Management",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Module 1: Noting",
+        "Module 2: Drafting"
+      ]
     },
     {
       "identifier": "do_1135948534007070721153",
@@ -524,7 +583,11 @@
       "duration": 8220,
       "provider": "Institute of Secretariat Training and Management",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Office Procedure",
+        "Test"
+      ]
     },
     {
       "identifier": "do_1136308144723640321761",
@@ -537,7 +600,11 @@
       "duration": 4500,
       "provider": "Institute of Secretariat Training and Management",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Formulation of Public Policies",
+        "Final Assessment Questions"
+      ]
     },
     {
       "identifier": "do_113660472598454272132",
@@ -550,7 +617,11 @@
       "duration": 20460,
       "provider": "Institute of Secretariat Training and Management",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Parliament at Work",
+        "Self Assessment"
+      ]
     },
     {
       "identifier": "do_113669696891633664186",
@@ -563,7 +634,11 @@
       "duration": 4200,
       "provider": "Institute of Secretariat Training and Management",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Central Government Health Scheme CGHS and Central Services MA Rules",
+        "Assessment"
+      ]
     },
     {
       "identifier": "do_113690425123274752141",
@@ -576,7 +651,18 @@
       "duration": 2981,
       "provider": "National Academy Of Defence Financial Management (NADFM)",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Overview on the course on Budgetary System in Government",
+        "Budgetary Control",
+        "Demands for Grants MoD",
+        "Financial Control",
+        "Re-appropriation",
+        "Role of Audit",
+        "Role of Finance",
+        "Resource materials",
+        "Assessment on Budgetary System in Government"
+      ]
     },
     {
       "identifier": "do_113692513327054848156",
@@ -592,7 +678,11 @@
       "duration": 4500,
       "provider": "Institute of Secretariat Training and Management",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Public Administration",
+        "Assessment"
+      ]
     },
     {
       "identifier": "do_1136930414558986241114",
@@ -605,7 +695,16 @@
       "duration": 4962,
       "provider": "National Academy Of Defence Financial Management (NADFM)",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Basics on Bill processing and payment",
+        "Processing of pay bills and Personal claims",
+        "Processing of third party bills",
+        "Release of Payments Through SBI CMP",
+        "Letter of Credit and Direct Bank Transfer",
+        "Compilation reports",
+        "Assessment"
+      ]
     },
     {
       "identifier": "do_113693885524467712197",
@@ -619,7 +718,11 @@
       "duration": 3300,
       "provider": "Institute of Secretariat Training and Management",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Right to Information Act - Part 1",
+        "Assessment"
+      ]
     },
     {
       "identifier": "do_113700280213667840163",
@@ -635,7 +738,11 @@
       "duration": 1920,
       "provider": "Institute of Secretariat Training and Management",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Central Secretariat Functionaries - Role of an ASO",
+        "Assessment"
+      ]
     },
     {
       "identifier": "do_11371798254448640012",
@@ -648,7 +755,11 @@
       "duration": 14400,
       "provider": "Capacity Building Commission",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Fundamentals of Science Communication",
+        "Getting started in Science Communication"
+      ]
     },
     {
       "identifier": "do_11372351094117171211",
@@ -661,7 +772,14 @@
       "duration": 2892,
       "provider": "National Institute of Communication Finance",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "MODULE 1:OPERATIONALIZING TQM",
+        "MODULE 2:QUALITY IMPROVEMENT PROCESS",
+        "MODULE 3:ESSENTIAL REQUIREMENTS",
+        "MODULE 4:DESTRUCTIVE POTENTIAL",
+        "OVERALL ASSESSMENT"
+      ]
     },
     {
       "identifier": "do_1137349858229288961285",
@@ -678,7 +796,16 @@
       "duration": 9001,
       "provider": "Wadhwani Institute of Technology and Policy",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "FAQ- Course",
+        "Data Analytics",
+        "Common Tools for Visualization",
+        "Process Model Through Case study",
+        "Filters Pages Dashboard",
+        "Analytics Maturity Model",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1137398646619176961156",
@@ -691,7 +818,14 @@
       "duration": 5158,
       "provider": "Ministry of Mines",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Course Introduction",
+        "Module 1: Manage Anxiety while Presenting",
+        "Module 2: Ground Rules for Presenting Better",
+        "Module 3: Perfect the Planned Presentation",
+        "Course-end assessment"
+      ]
     },
     {
       "identifier": "do_11375886215862681612",
@@ -704,7 +838,11 @@
       "duration": 2400,
       "provider": "RAKNPA",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Course Video",
+        "Post Assessment"
+      ]
     },
     {
       "identifier": "do_113797117911187456164",
@@ -719,7 +857,13 @@
       "duration": 2761,
       "provider": "National Academy Of Defence Financial Management (NADFM)",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "An overview of CCS Conduct Rules",
+        "Case Study on CCS Conduct Rule 1964",
+        "CCS Conduct Rules 1964",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_113800049844387840176",
@@ -732,7 +876,13 @@
       "duration": 19595,
       "provider": "Department of Posts",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Introduction",
+        "Parcel Sales Manual",
+        "Parcel Products",
+        "Parcel Deep Final Quiz"
+      ]
     },
     {
       "identifier": "do_113816205741629440110",
@@ -760,7 +910,16 @@
       "duration": 6300,
       "provider": "Department of Personnel and Training DoPT",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Need for Problem Solving",
+        "Define the Problem",
+        "Different Perspectives to a Problem",
+        "Analysing the Basic Cause of a Problem",
+        "Divergent Thinking",
+        "Structured Steps to Solve a Problem",
+        "Problem Solving and Decision Making"
+      ]
     },
     {
       "identifier": "do_113826981858230272114",
@@ -774,7 +933,15 @@
       "duration": 5700,
       "provider": "Department of Personnel and Training DoPT",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Define Leadership",
+        "Alignment of Leader with Team Members",
+        "Allocation of Tasks by the Leader to Team Members",
+        "Motivating your Team as a Leader",
+        "Lead Yourself",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_113827558681935872125",
@@ -788,7 +955,13 @@
       "duration": 2076,
       "provider": "Invest India",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Introduction to the AI Ecosystem",
+        "Communicating with AI",
+        "Way Forward",
+        "Introduction to leveraging AI and ChatGPT"
+      ]
     },
     {
       "identifier": "do_113827634862047232152",
@@ -803,7 +976,15 @@
       "duration": 5100,
       "provider": "Department of Personnel and Training DoPT",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "High Performance Team",
+        "Commitment from the Entire Team",
+        "Team Members Contribution",
+        "Communicating with the Team",
+        "Cooperation Among Team Members",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_113828976050888704151",
@@ -816,7 +997,12 @@
       "duration": 2806,
       "provider": "National Institute of Communication Finance",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "INTRODUCTION TO LABOUR LAW",
+        "CONSTITUTIONAL PROVISIONS",
+        "OVERALL ASSESSMENT"
+      ]
     },
     {
       "identifier": "do_113829161015566336171",
@@ -831,7 +1017,21 @@
       "duration": 19170,
       "provider": "Indian School of Business",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Introduction to the course",
+        "Pattern and Process",
+        "TED Talk: Chimamanda Ngozi Adichie",
+        "Significance of Stories",
+        "TED Talk: Hans Rosling",
+        "Data Visualisation: Comparative Statics",
+        "Problems With Data",
+        "Example Of How Ecological Fallacy Prevents Us from Seeing Certain Dyna",
+        "Data and Its Collection in India",
+        "Distribution, Median and Scale",
+        "The Problem of Scale",
+        "Regression to the Mean"
+      ]
     },
     {
       "identifier": "do_1138319085802127361122",
@@ -845,7 +1045,12 @@
       "duration": 2836,
       "provider": "National Academy Of Defence Financial Management (NADFM)",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Study Material on CCS LTC Rules",
+        "CCS LTC Rules 1988 at a Glance",
+        "Assessment"
+      ]
     },
     {
       "identifier": "do_11383258376188723213",
@@ -858,7 +1063,11 @@
       "duration": 12033,
       "provider": "Indian Institute of Public Administration",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Ethos : The First Pillar",
+        "Competency Framework"
+      ]
     },
     {
       "identifier": "do_113836739863207936151",
@@ -872,7 +1081,15 @@
       "duration": 5700,
       "provider": "Department of Personnel and Training DoPT",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Conflict Resolution",
+        "Steps to Conflict Resolution",
+        "Conflict Resolution Skills",
+        "Try for a Win Win in Negotiation",
+        "Skills for Good Negotiation",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1138416470129704961134",
@@ -886,7 +1103,18 @@
       "duration": 19341,
       "provider": "Harappa Education",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Module 1: The Leadership Equation",
+        "Module 2: Leading People",
+        "Module 3: Purpose And Culture",
+        "Module 4: Managing Conflict And Change",
+        "Module 5: Feedback And Coaching",
+        "Module 6: Personal Leadership",
+        "Module 7: Conclusion",
+        "Module 8: Reading Room",
+        "Touchstone"
+      ]
     },
     {
       "identifier": "do_1138416487704576001135",
@@ -903,7 +1131,19 @@
       "duration": 18884,
       "provider": "Harappa Education",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Module 1: Craft The Message",
+        "Module 2: The Three Appeals",
+        "Module 3: Verbal Communication",
+        "Module 4: Nonverbal Communication",
+        "Module 5: Difficult Conversations",
+        "Module 6: Practicing In Real-Life Situations",
+        "Module 7: Speaking Virtually",
+        "Module 8: Conclusion",
+        "Module 9: Reading Room",
+        "Touchstone"
+      ]
     },
     {
       "identifier": "do_113850929618542592110",
@@ -917,7 +1157,12 @@
       "duration": 2110,
       "provider": "Department of Posts",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "RTI ACT 2005",
+        "RTI Rules 2012",
+        "RTI Final Assessment"
+      ]
     },
     {
       "identifier": "do_113853845439004672151",
@@ -930,7 +1175,16 @@
       "duration": 5700,
       "provider": "Department of Personnel and Training DoPT",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Office and Office System",
+        "Dak Tappal System",
+        "File Management",
+        "Noting",
+        "Types of Communications Letters",
+        "Record Management",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1138566152274821121103",
@@ -944,7 +1198,17 @@
       "duration": 8100,
       "provider": "Department of Personnel and Training DoPT",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "RTI Act Purpose",
+        "RTI Act Common Terms",
+        "RTI Act Process to File a Request",
+        "RTI Act Process to Dispose a Request",
+        "RTI Act Exemptions from Disclosure",
+        "RTI Act Process of Appeal",
+        "RTI Act Penalties",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1138608427899371521121",
@@ -1005,7 +1269,17 @@
       "duration": 7099,
       "provider": "Oracle",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Getting Started",
+        "Basic Tasks",
+        "Dashboards",
+        "Reports",
+        "Files",
+        "Workflows and Forms",
+        "Tips and Tricks",
+        "Assessment: Primavera Cloud Basics"
+      ]
     },
     {
       "identifier": "do_113885048698806272197",
@@ -1021,7 +1295,13 @@
       "duration": 11969,
       "provider": "UpGrad",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Data Visualization",
+        "Common Chart Types - 1",
+        "Common Chart Types - 2",
+        "Tableau Final Assessment"
+      ]
     },
     {
       "identifier": "do_1138884164974755841152",
@@ -1039,7 +1319,16 @@
       "duration": 23444,
       "provider": "UpGrad",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Welcome to Database",
+        "Business Intelligence Process",
+        "RDBMS and Its Features",
+        "Basic SQL Querying",
+        "Advanced Queries - Joins",
+        "Module Summary: Database Design and SQL",
+        "SQL Assessments"
+      ]
     },
     {
       "identifier": "do_1138905379910615041195",
@@ -1052,7 +1341,19 @@
       "duration": 7644,
       "provider": "National Telecommunications Institute for Policy Research, Innovation and Training (NTIPRIT)",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Learning Objective",
+        "01_Street Canyon Scenario (UMi) and Urban Macro Scenario (UMa)",
+        "02_Path Loss in Urban Macro Scenario",
+        "03_Link Budget for Uplink (R Ma)",
+        "04_Link Budget for Downlink (R Ma)",
+        "05_Urban Micro Street Canyon",
+        "06_ Indoor -office_Indoor Factory_Indoor Hotspot",
+        "07_Link Budget for Outdoor Deployment at 28 GHz Band",
+        "Link Budget part1 and part 2 PDF",
+        "Final assessment"
+      ]
     },
     {
       "identifier": "do_1138906481328046081201",
@@ -1069,7 +1370,12 @@
       "duration": 3727,
       "provider": "Bharat Sanchar Nigam Limited(BSNL)",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Video on Overview of Cloud Computing",
+        "PDF on Overview of Cloud Computing",
+        "Questions on Overview of Cloud Computing"
+      ]
     },
     {
       "identifier": "do_113896143955607552142",
@@ -1087,7 +1393,15 @@
       "duration": 11659,
       "provider": "UpGrad",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Case Study Introduction",
+        "Sampling and Statistical Inferencing",
+        "Inferences using Probability Distributions",
+        "One and Two-Sample Tests With z and t-Statistics",
+        "One and Two Sample Tests - Binomial Distribution",
+        "Final Assessments"
+      ]
     },
     {
       "identifier": "do_1138964020050739201236",
@@ -1101,7 +1415,12 @@
       "duration": 29700,
       "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Change Management Level1",
+        "Change Management Level2",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1138969498504314881388",
@@ -1117,7 +1436,15 @@
       "duration": 19200,
       "provider": "Department of Expenditure",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "1.1 Watch - Flip Book",
+        "1.2.1 Think - Reflect on these Qs",
+        "1.2.2 Think - Reflect on these Qs",
+        "1.3 Do - Interactive case simulation",
+        "1.4 Explore - Links Manuals Books",
+        "1.5 Test - Take an assessment"
+      ]
     },
     {
       "identifier": "do_1138969994154803201401",
@@ -1130,7 +1457,11 @@
       "duration": 2165,
       "provider": "Department of Posts",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Fraud Risk Management in India Post",
+        "Final Quiz"
+      ]
     },
     {
       "identifier": "do_1138978296865259521417",
@@ -1145,7 +1476,13 @@
       "duration": 54900,
       "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "eGovernance Life Cycle Level 1",
+        "eGovernance Life Cycle Level 2",
+        "eGovernance Life Cycle Level 3",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_113899188449886208113",
@@ -1158,7 +1495,13 @@
       "duration": 2836,
       "provider": "Department of Posts",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "1 Introduction to Office Procedure",
+        "2 Dak and Dak Receipt",
+        "3 Managements of Dak Receipt",
+        "4 Action Taken By Section On Dak Receipt"
+      ]
     },
     {
       "identifier": "do_113913394375778304186",
@@ -1171,7 +1514,16 @@
       "duration": 2503,
       "provider": "Defence Accounts Department (DAD)",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Course module and overview of the course",
+        "Basic facts of financial management",
+        "Standards of financial propriety",
+        "Rules related to sanctions",
+        "Rules related to Losses",
+        "Resource material",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_11391537250983936014",
@@ -1188,7 +1540,10 @@
       "duration": 4904,
       "provider": "UpGrad",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Advanced SQL Assessments"
+      ]
     },
     {
       "identifier": "do_113918250035544064151",
@@ -1205,7 +1560,14 @@
       "duration": 17934,
       "provider": "UpGrad",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "AI/ML Initiative: Background",
+        "Pillars of AI/ML Initiative",
+        "Pillars of AI/ML Initiatives",
+        "Case Studies for AI/ML Initiatives",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_11393728121764249615",
@@ -1222,7 +1584,15 @@
       "duration": 5400,
       "provider": "Wadhwani Institute of Technology and Policy",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "AI for Digital Transformation: ML and DL Course FAQs",
+        "Introduction to AI and it's applications",
+        "ML and DL Fundamentals",
+        "AI use cases in Governance",
+        "Responsible AI practices and ethical considerations",
+        "Conclusion"
+      ]
     },
     {
       "identifier": "do_113945209561980928189",
@@ -1236,7 +1606,11 @@
       "duration": 1800,
       "provider": "National Telecommunications Institute for Policy Research, Innovation and Training (NTIPRIT)",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Network and Telecom Security - Cyber Security Ecosystem",
+        "Resource"
+      ]
     },
     {
       "identifier": "do_113945281378607104191",
@@ -1249,7 +1623,16 @@
       "duration": 7038,
       "provider": "Microsoft",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "01. Introduction",
+        "02. Get Started",
+        "03. Create and Modify Tasks",
+        "04. Assign Resources",
+        "05. Communicate your Plan",
+        "06. Conclusion",
+        "Final Assignment"
+      ]
     },
     {
       "identifier": "do_113952147264946176170",
@@ -1265,7 +1648,20 @@
       "duration": 6936,
       "provider": "ISB Hyderabad",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Operating Principles",
+        "Level 5 Purpose-Driven Leader",
+        "Operating Context",
+        "Developing Learning Agility - Part I",
+        "Developing Learning Agility - Part II",
+        "Purpose-Driven Leader Framework - Part I",
+        "Purpose-Driven Leader Framework - Part II",
+        "Purpose-Driven Leader Framework - Part III",
+        "Obstacles in Purpose-Driven Leadership",
+        "Driving Change Successfully",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_113955620332421120130",
@@ -1280,7 +1676,18 @@
       "duration": 6018,
       "provider": "ISB Hyderabad",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Dynamics of Team Development",
+        "Benefits of Working in Teams",
+        "Team Performance and Happiness",
+        "Personality Traits Within a Team",
+        "Five Dysfunctions of Teams",
+        "Managing Conflicts",
+        "Core Capabilities of Teamwork",
+        "Nurturing Subordinate Development",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_113956414673690624149",
@@ -1294,7 +1701,19 @@
       "duration": 3516,
       "provider": "ISB Hyderabad",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Introduction to Monitoring and Evaluation",
+        "Overview of Effective Governments",
+        "Common Problems in Government Management",
+        "Habits of Effective Government - Part I",
+        "Habits of Effective Government - Part II",
+        "Habits of Effective Government - Part III",
+        "Habits of Effective Government - Part IV",
+        "Government Performance Management System",
+        "Best Books on Government Performance Managemen",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_113970533764923392148",
@@ -1309,7 +1728,11 @@
       "duration": 5400,
       "provider": "Quality Council of India",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Detailed Project Report (part 1)",
+        "Detailed Project Report: Assessment"
+      ]
     },
     {
       "identifier": "do_1139961868591923201133",
@@ -1325,7 +1748,15 @@
       "duration": 3600,
       "provider": "Bureau of Police Research and Development BPRD",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Module 1: Introduction to Negotiation",
+        "Module 2: Effective Communication",
+        "Module 3: Active Listening and Communication",
+        "Module 4: Emotional Intelligence and Negotiations Strategy",
+        "Module 5: Conflict Resolution and Crisis Negotiation Leadership",
+        "Module 6: Police Negotiation - De-escalation Strategies"
+      ]
     },
     {
       "identifier": "do_1139961937082368001122",
@@ -1340,7 +1771,39 @@
       "duration": 3600,
       "provider": "Bureau of Police Research and Development BPRD",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Module 1: Soft Skills and Its Importance",
+        "Module 2: Communication Skills",
+        "Module 3: Emotional Intelligence",
+        "Module 4: Time Management",
+        "Module 5: Stress Management",
+        "Module 6: Work-Life Balance"
+      ]
+    },
+    {
+      "identifier": "do_1140017961653534721223",
+      "name": "Developing Effective Soft Skills",
+      "description": "In today's dynamic and competitive professional landscape, technical abilities alone are not enough to ensure success. This course, 'Developing Essential Soft Skills for Workplace Success,' is designed to build the foundational interpersonal skills that are critical for career advancement and effective collaboration. It addresses why skills such as communication and teamwork are just as vital as t",
+      "se_competencies": [
+        "C15",
+        "C29",
+        "C34",
+        "C24"
+      ],
+      "targetLevel": 2,
+      "duration": 2399,
+      "provider": "Central Reserve Police Force (CRPF)",
+      "primaryCategory": "Course",
+      "source": "igot",
+      "outline": [
+        "Introduction to Soft Skills",
+        "Communication",
+        "Time Management",
+        "Team Work",
+        "Leadership",
+        "Developing Effective Soft Skills"
+      ]
     },
     {
       "identifier": "do_1140095095932108801258",
@@ -1353,7 +1816,11 @@
       "duration": 2100,
       "provider": "National Telecommunications Institute for Policy Research, Innovation and Training (NTIPRIT)",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Quality of Service in 5G - Part I",
+        "Resources"
+      ]
     },
     {
       "identifier": "do_114017409019920384165",
@@ -1366,7 +1833,19 @@
       "duration": 10380,
       "provider": "National Academy of Direct Taxes NADT",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Course Brief - General Financial Rule",
+        "M_01 General System of Financial Management (Part 1)",
+        "M_02 General System of Financial Management and Government Accounts",
+        "M_03 Management of Original, Minor and Repair works",
+        "M_04 Procurement of goods Part 01",
+        "M_05 Procurement of goods Part 02",
+        "M_06 Procurement of Services",
+        "M_07 Inventory Management",
+        "M_08 Contract Management",
+        "Final Assessment - General Financial Rules"
+      ]
     },
     {
       "identifier": "do_1140322061367951361227",
@@ -1408,7 +1887,11 @@
       "duration": 1380,
       "provider": "Department of Social Justice and Empowerment",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Matters handled by Administration and Establishment Division",
+        "Take an Assessment"
+      ]
     },
     {
       "identifier": "do_1140462711133388801333",
@@ -1422,7 +1905,18 @@
       "duration": 8190,
       "provider": "National Academy of Direct Taxes NADT",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Course Brief - Information Security- Cyber Crimes, Data Security",
+        "M_01 Categories of cybercrime and Weapons of Cybercrime",
+        "M_02 Weapons of cybercrime (Part 1 )",
+        "M_03 Weapons of cybercrime (Part 2)",
+        "M_04 Law and Punishment under Information Technology Act, 2000",
+        "M_05 Data Security and Measures to secure data",
+        "M_06 Measures to secure the computer systems",
+        "M_07 Data mining",
+        "Final Assessment-Information Security-Cyber Crimes"
+      ]
     },
     {
       "identifier": "do_114083389300981760111",
@@ -1437,7 +1931,13 @@
       "duration": 4233,
       "provider": "Geological Survey of India (GSI)",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Module-1: Introduction to Remote Sensing",
+        "Module-2: Platforms and Orbits in Remote Sensing",
+        "Module-3: Sensor and Data Products",
+        "Course end assessment"
+      ]
     },
     {
       "identifier": "do_114094349353377792144",
@@ -1452,7 +1952,11 @@
       "duration": 5280,
       "provider": "Administrative Staff College of India",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Using Data to Monitor and Improve Public Procurement",
+        "Take an Assessment"
+      ]
     },
     {
       "identifier": "do_1141135055139635201377",
@@ -1480,7 +1984,14 @@
       "duration": 10189,
       "provider": "Fractal",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Introduction to Data Storytelling",
+        "Role of Data in Data Storytelling",
+        "Visualization and Data Storytelling",
+        "Narrative in Data Storytelling",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1141365038534410241285",
@@ -1493,7 +2004,13 @@
       "duration": 2256,
       "provider": "RAKNPA",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "BO Visit Module 1",
+        "BO Visit Module 2",
+        "BO Visit Module 3",
+        "BO Visit Final Quiz"
+      ]
     },
     {
       "identifier": "do_1141496571754577921594",
@@ -1545,7 +2062,15 @@
       "duration": 10800,
       "provider": "World Bank",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "About The Course",
+        "Course Overview",
+        "Global State of Water Quality",
+        "Type, Sources and Fate of Pollutants",
+        "Treatment Mechanisms and Regulations",
+        "Emerging Water Quality Issues"
+      ]
     },
     {
       "identifier": "do_1141538206410752001665",
@@ -1591,7 +2116,17 @@
       "duration": 8601,
       "provider": "DataDotOrg",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Introduction Video",
+        "Course introduction",
+        "Course Outline",
+        "Responsible data practices",
+        "Implementing responsible data in your organization",
+        "Successful change management examples",
+        "Test your knowledge",
+        "Final note"
+      ]
     },
     {
       "identifier": "do_1141808272181411841114",
@@ -1604,7 +2139,11 @@
       "duration": 2809,
       "provider": "National Institute of Agricultural Extension Management (MANAGE)",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Gender Mainstreaming and Gender Sensitization - English",
+        "Gender Mainstreaming and Gender Sensitization"
+      ]
     },
     {
       "identifier": "do_1141836539132067841119",
@@ -1617,7 +2156,11 @@
       "duration": 1293,
       "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "myScheme- A Digital India Initiative",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_11419374723747840017",
@@ -1632,7 +2175,16 @@
       "duration": 13013,
       "provider": "Bharat Sanchar Nigam Limited(BSNL)",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "CPGRAMS BSNL",
+        "Executive Promotion Policy",
+        "BSNL Medical Reimbursement Scheme",
+        "BSNL Transfer Policy.",
+        "Prevention of Sexual Harassment (PoSH)",
+        "DPC Processes",
+        "Final Assessment on BSNL Admn, HR and Establishment Course."
+      ]
     },
     {
       "identifier": "do_114195197456596992127",
@@ -1647,7 +2199,11 @@
       "duration": 1975,
       "provider": "RAKNPA",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Introduction to Scenario Planning and Analysis",
+        "ISPA Quiz"
+      ]
     },
     {
       "identifier": "do_1141956337116200961150",
@@ -1678,7 +2234,11 @@
       "duration": 1865,
       "provider": "Autodesk",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Managing Files in AutoCAD",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1141998653921116161150",
@@ -1691,7 +2251,12 @@
       "duration": 3960,
       "provider": "Capacity Building Commission",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Jeevika - Didi Ki Rasoi",
+        "Jeevika - Didi Ki Rasoi- Infographics",
+        "Additional Readings- Jeevika"
+      ]
     },
     {
       "identifier": "do_1142005267329024001201",
@@ -1707,7 +2272,12 @@
       "duration": 7320,
       "provider": "Capacity Building Commission",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Operation Parivartan: Societal change through transformational leaders",
+        "Operation Parivartan: Infographic",
+        "Operations Parivartan - Learning Resource"
+      ]
     },
     {
       "identifier": "do_1142012225299906561237",
@@ -1723,7 +2293,13 @@
       "duration": 3237,
       "provider": "Central Industrial Security Force (CISF)",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Desktop Security",
+        "Financial Frauds",
+        "Social Media Security",
+        "Final Assesment"
+      ]
     },
     {
       "identifier": "do_1142084509889495041557",
@@ -1749,7 +2325,16 @@
       "duration": 2922,
       "provider": "Defence Accounts Department (DAD)",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Overview of the course",
+        "Introduction to Receipt and Payment Rules",
+        "Credit to Government Accounts",
+        "Rules for Handling Cash",
+        "Withdrawal of money from Government Account",
+        "Rules Governing Withdrawal from Government Account",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1142154036471152641871",
@@ -1775,7 +2360,10 @@
       "duration": 3697,
       "provider": "Department of Posts",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Final Quiz on Change Management"
+      ]
     },
     {
       "identifier": "do_1142225522181324801349",
@@ -1788,7 +2376,11 @@
       "duration": 1638,
       "provider": "Indian Railway Institute Of Transport Management (IRITM)",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Fundamentals of Government Office Procedures and Communication",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_11422319743288115211350",
@@ -1801,7 +2393,10 @@
       "duration": 2196,
       "provider": "Pradhan Mantri Fasal Bima Yojana PMFBY",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Pradhan Mantri Fasal Bima Yojana (PMFBY)"
+      ]
     },
     {
       "identifier": "do_114234627750100992133",
@@ -1814,7 +2409,11 @@
       "duration": 1710,
       "provider": "Ministry of Parliamentary Affairs",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Module 1 - Overview of the Parliament",
+        "Ministry of Parliament Affairs Module 1 Assessment"
+      ]
     },
     {
       "identifier": "do_1142403128531599361650",
@@ -1829,7 +2428,14 @@
       "duration": 4751,
       "provider": "IIT Kanpur",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Methods of Data Presentation: Steam Leaf Diagram, Box-Whisker Plot",
+        "Measure of Central Tendency (AM, GM, HM, Mode, Median), Measure of D",
+        "Continuous Distribution (Exponential, Normal), Normal tables",
+        "Forecasting Methods",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_114240382378663936170",
@@ -1842,7 +2448,14 @@
       "duration": 5191,
       "provider": "IIT Kanpur",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Definition, Concepts, Methods, Techniques",
+        "Decision Trees, Utility Analysis, Expected Value, Risk Analysis",
+        "Activity, Event, Nodes , GANTT Chart, Precedence Diagram, AoN, AoA",
+        "Project Controlling techniques, Earned Value Concept, Planned Value",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1142404112974970881702",
@@ -1857,7 +2470,14 @@
       "duration": 5637,
       "provider": "IIT Kanpur",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Module 1: Introduction of MCDM with examples , Condorcet Paradox",
+        "Module 2: Utility Function, Properties, Risk aversion/neutrality",
+        "Module 3: Geometric mean return, Safety first criteria",
+        "Module 4: Goal Programming, Examples ,AHP, TOPSIS, ELECTRE, VIKOR",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_114240868517257216117",
@@ -1871,7 +2491,14 @@
       "duration": 4873,
       "provider": "IIT Kanpur",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "The Need for Effective Communication",
+        "Types and Components of Communication",
+        "Active Listening Skills",
+        "Public Speaking Skills",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1142432002191196161252",
@@ -1887,7 +2514,11 @@
       "duration": 5044,
       "provider": "Indian Institute of Technology (IIT) Madras",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Cybersecurity (Basic Level)",
+        "Cyber Security - Basic Level"
+      ]
     },
     {
       "identifier": "do_114245122200616960115",
@@ -1921,7 +2552,11 @@
       "duration": 2532,
       "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Application Security: Trends and Analysis",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_11425303493053644813",
@@ -1934,7 +2569,21 @@
       "duration": 8310,
       "provider": "Indian Institute Of Management Bangalore",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Introduction to Raja-dharma",
+        "Arthasastra: A Historical Perspective",
+        "Elements of Kautilyan State",
+        "The King and Amatya",
+        "Janapada and Durga",
+        "Treasury and State Economy (Kosa)",
+        "Danda: The Army",
+        "Mitra: The Ally",
+        "The Administrative Setup",
+        "Relevance of Arthasastra",
+        "Public Administration in Epics",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1142538549116600321101",
@@ -1947,7 +2596,11 @@
       "duration": 1078,
       "provider": "Administrative Training Institute Mysore",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Leadership in Project Management",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1142539628020695041118",
@@ -1962,7 +2615,13 @@
       "duration": 4070,
       "provider": "Administrative Training Institute Mysore",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Introduction to GIS",
+        "Geospatial Science and Technology Part - 1",
+        "Geospatial Science and Technology Part - 2",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1142539978576199681111",
@@ -1977,7 +2636,12 @@
       "duration": 3397,
       "provider": "Administrative Training Institute Mysore",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Components of GIS",
+        "Understanding Data in GIS",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1142592913769922561106",
@@ -1993,7 +2657,11 @@
       "duration": 3805,
       "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Securing digital transformation and e-governance",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1142601429582315521201",
@@ -2009,7 +2677,11 @@
       "duration": 7067,
       "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Risk Management",
+        "Assessment"
+      ]
     },
     {
       "identifier": "do_1142635786619781121146",
@@ -2023,7 +2695,16 @@
       "duration": 2953,
       "provider": "APNA",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Enhancing Presentations with AI: Generating Content Effortlessly",
+        "Enhancing Presentation Content with AI: Refining Existing Slides",
+        "Automating Slide Refinement with AI",
+        "Transforming Wordy Slides into Clear, Bullet-Pointed Presentations",
+        "Creating Slides Instantly with AI in Google Slides",
+        "AI-Generated Presentations: Customizing and Refining Content",
+        "Final Assesment"
+      ]
     },
     {
       "identifier": "do_1142651208034631681134",
@@ -2036,7 +2717,11 @@
       "duration": 1182,
       "provider": "Ministry of Corporate Affairs",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "CDM Cells Data Mining and Data analysis",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_114268639756550144133",
@@ -2049,7 +2734,11 @@
       "duration": 2400,
       "provider": "Ministry of Heavy Industries",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "National Capital Goods Policy",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1142741707620352001291",
@@ -2062,7 +2751,11 @@
       "duration": 5472,
       "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Organisational Change Management-Fundamentals",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_114274208245915648148",
@@ -2075,7 +2768,11 @@
       "duration": 3276,
       "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Organisational Change Management-Advanced",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1142742378770677761284",
@@ -2088,7 +2785,12 @@
       "duration": 2400,
       "provider": "Ministry of Communications- Department of Telecommunications",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Monetary Policy in India",
+        "Monetary Policy and the Indian Telecom Sector",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1142748906596843521455",
@@ -2106,7 +2808,11 @@
       "duration": 5471,
       "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "AI Policies and Governance in India",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1142749125629296641463",
@@ -2119,7 +2825,11 @@
       "duration": 2100,
       "provider": "Ministry of Communications- Department of Telecommunications",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Fiscal Policy: Impact and Significance in the Indian Telecom Sector",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1142769973077196801271",
@@ -2132,7 +2842,11 @@
       "duration": 2951,
       "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Data Privacy and Technology",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1142778153464627201416",
@@ -2145,7 +2859,11 @@
       "duration": 4261,
       "provider": "National Institute of Defence Estates Management (NIDEM)",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Land Survey UsingEmerging Technologies",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_114281994479747072185",
@@ -2160,7 +2878,12 @@
       "duration": 2400,
       "provider": "Ministry of Communications- Department of Telecommunications",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Understanding the Concept of Psychological Safety",
+        "Developing a Psychologically Safe Work Environment",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1142822013501767681108",
@@ -2173,7 +2896,13 @@
       "duration": 3000,
       "provider": "Ministry of Communications- Department of Telecommunications",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Introduction to Thought-Focused Self-Leadership Strategies",
+        "Developing Positive Self-Talk",
+        "Evaluating Faulty Assumptions and Beliefs",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_11428343573406515212",
@@ -2190,7 +2919,13 @@
       "duration": 1608,
       "provider": "Indian Railway Institute Of Transport Management (IRITM)",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Introduction",
+        "Soft Skills Part-I",
+        "Soft Skills Part II",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1142840887061954561239",
@@ -2203,7 +2938,11 @@
       "duration": 2094,
       "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "GDPR Transfer Impact Assessment Framework and DPDP Act Insights",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1142933724325560321681",
@@ -2219,7 +2958,11 @@
       "duration": 3480,
       "provider": "Ministry of Communications- Department of Telecommunications",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Basics of Cloud Computing",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1142968930893250561338",
@@ -2232,7 +2975,11 @@
       "duration": 2220,
       "provider": "Ministry of Parliamentary Affairs",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Monitoring of Assurances by Ministry of Parliamentary Affairs",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_114296949478375424123",
@@ -2245,7 +2992,11 @@
       "duration": 3360,
       "provider": "Ministry of Parliamentary Affairs",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Ministry of Parliamentary Affairs- Overview of Consultative Committees",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1142982738938019841519",
@@ -2263,7 +3014,17 @@
       "duration": 9300,
       "provider": "DataDotOrg",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Introduction",
+        "Artificial Intelligence for Social Impact",
+        "Risks and Harms Associated with Artificial Intelligence",
+        "Artificial Intelligence Governance and Society",
+        "Wrapping Up",
+        "Course Assignment",
+        "Final Assessment",
+        "Final Note"
+      ]
     },
     {
       "identifier": "do_1143019200097730561130",
@@ -2276,7 +3037,14 @@
       "duration": 6860,
       "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Message from COO NeGD",
+        "Digital Forensic",
+        "Handling Digital Evidence",
+        "SOP and CoC",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1143117653135523841562",
@@ -2292,7 +3060,11 @@
       "duration": 4200,
       "provider": "Department of Expenditure",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Data Analytics and Visualizations for Government Officers",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_11431445904750182411088",
@@ -2306,7 +3078,11 @@
       "duration": 1548,
       "provider": "Pradhan Mantri Fasal Bima Yojana PMFBY",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Remote Sensing and YES-TECH in Crop Insurance",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1143169677790740481718",
@@ -2321,7 +3097,11 @@
       "duration": 2072,
       "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Role of Aadhaar in DPI: Leveraging Digital Public Infrastructure",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_11431736995744972811263",
@@ -2334,7 +3114,11 @@
       "duration": 4918,
       "provider": "Indian Institute of Technology (IIT) Guwahati",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Office Ergonomics and Workplace Wellbeing",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_11431810354823987211313",
@@ -2349,7 +3133,12 @@
       "duration": 3928,
       "provider": "Armed Forces Medical College",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Introduction and Stage of Negotiation",
+        "Process and Strategy for Negotiation",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1143182059032002561958",
@@ -2364,7 +3153,11 @@
       "duration": 4397,
       "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Digital Public Infrastructure- DigiLocker",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1143238969641205761148",
@@ -2377,7 +3170,16 @@
       "duration": 12114,
       "provider": "Karmayogi Bharat",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "What is Public Policy and Why Public Policies",
+        "Rationale for Public Policies (Part 1)",
+        "Rationale for Public Policy (Part 2)",
+        "Policy Instruments",
+        "Policy Process and Policy Cycle",
+        "Policy Typologies and Politics",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_114324413093732352131",
@@ -2396,7 +3198,11 @@
       "duration": 4020,
       "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Artificial Intelligence: Unlocking Potential and Securing Trust",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1143259580332113921213",
@@ -2410,7 +3216,12 @@
       "duration": 4687,
       "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Change Management in Digital Transformation Project Part I",
+        "Change Management in Digital Transformation Project part II",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1143260067865067521205",
@@ -2423,7 +3234,11 @@
       "duration": 2989,
       "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Leveraging Technology in Analytics",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1143266902279045121328",
@@ -2436,7 +3251,13 @@
       "duration": 2499,
       "provider": "Pradhan Mantri Fasal Bima Yojana PMFBY",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "The Journey of PMFBY - From Inception to Reform",
+        "Technology Integration and Operational Transformation",
+        "Empowering Farmers: Engagement Feedback and Future Readiness",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1143280309065646081602",
@@ -2449,7 +3270,14 @@
       "duration": 9781,
       "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Ideation to Lead Implementation",
+        "Concept Note",
+        "Stakeholder Management Data Maturity",
+        "Obsolescence Scalability Ethical Contract Management",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1143322855990149121796",
@@ -2468,7 +3296,13 @@
       "duration": 2861,
       "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Introduction to Data Analytics",
+        "Social Media Analytics",
+        "Tools and Technologies",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1143323154665717761637",
@@ -2481,7 +3315,12 @@
       "duration": 3829,
       "provider": "Indian Council of Medical Research (ICMR)",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Measurement of Study Variables",
+        "Designing Data Collection Tools",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_11433231918447820811058",
@@ -2498,7 +3337,13 @@
       "duration": 4458,
       "provider": "Indian Council of Medical Research (ICMR)",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Principles of Data Collection",
+        "Data Management",
+        "Overview of Data Analysis",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_11433441715024691211185",
@@ -2511,7 +3356,12 @@
       "duration": 5345,
       "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Data Breach Protocols GDPR",
+        "Data Breach Protocols GDPR and DPDP",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1143414101731328001579",
@@ -2524,7 +3374,11 @@
       "duration": 4168,
       "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Roles and Responsibilities in Data Protection and Privacy in Design",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_11434365818569523211240",
@@ -2538,7 +3392,14 @@
       "duration": 2059,
       "provider": "Indian Institute of Public Administration",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Design Thinking",
+        "Design Thinking - Principles",
+        "Design Thinking - Stages",
+        "Applying Design Thinking in the Context of India",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_11434423929951027218",
@@ -2553,7 +3414,12 @@
       "duration": 7478,
       "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Digital Transformation",
+        "Procurement and Project Management",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1143486649654968321408",
@@ -2566,7 +3432,16 @@
       "duration": 8220,
       "provider": "Bureau of Police Research and Development BPRD",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Understanding Media Relations in Policing",
+        "Communication Strategies",
+        "Community Engagement through Media",
+        "Digital Evidence and the Media",
+        "Legal and Ethical Considerations",
+        "Emerging Technologies and Future Trends",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1143493505487093761972",
@@ -2583,7 +3458,13 @@
       "duration": 4793,
       "provider": "Western Railway (WR)",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "HRMS Login and Access",
+        "HRMS Leave Management System",
+        "ESS and PF Loan Management",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1143494880543784961151",
@@ -2600,7 +3481,11 @@
       "duration": 1761,
       "provider": "Indian Maritime University",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Role and Application of Data Analytics in Maritime Systems",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1143514675313541121211",
@@ -2613,7 +3498,13 @@
       "duration": 6369,
       "provider": "Department of Telecommunications",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Understanding Values and Ethics",
+        "Enduring Values from Ancient Roots",
+        "Governance Competencies Rooted in Indian Values",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_114352807867662336116",
@@ -2628,7 +3519,11 @@
       "duration": 5349,
       "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Roles Principles and Privacy by Design in Data Protection",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1143536066660352001213",
@@ -2643,7 +3538,11 @@
       "duration": 1675,
       "provider": "Training Division",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Annual Survey of Unincorporated Sector Enterprises (ASUSE)",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1143541383534837761244",
@@ -2658,7 +3557,11 @@
       "duration": 5006,
       "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Building Resilient Cybersecurity Systems",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1143541584233758721253",
@@ -2673,7 +3576,11 @@
       "duration": 1425,
       "provider": "Training Division",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Enterprise Survey : Annual Survey of Industries (ASI)",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1143570598469713921396",
@@ -2708,7 +3615,11 @@
       "duration": 2741,
       "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Digital Public Infrastructure: Security by Design",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1143571555962634241501",
@@ -2737,7 +3648,11 @@
       "duration": 3640,
       "provider": "Indian Institute of Technology (Indian School of Mines) Dhanbad",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Transformational Leadership",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1143586301685432321454",
@@ -2753,7 +3668,13 @@
       "duration": 2434,
       "provider": "Microsoft",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Introduction to R",
+        "Basics of Python",
+        "Variables in Python",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1143613347908812801129",
@@ -2767,7 +3688,14 @@
       "duration": 9419,
       "provider": "Indian Institute of Management Ahmedabad",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Feedback Exchange: The Why",
+        "Effective Feedback: The What",
+        "Giving Feedback: The How",
+        "Receiving Feedback: The How",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_114361967667879936169",
@@ -2781,7 +3709,11 @@
       "duration": 3167,
       "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "The Role of Bhamashah State Data Centre in Rajasthan e-Governance",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_11436203641637273611064",
@@ -2811,23 +3743,15 @@
       "duration": 5940,
       "provider": "National Academy of Defence Production (NADP) Nagpur",
       "primaryCategory": "Course",
-      "source": "igot"
-    },
-    {
-      "identifier": "do_114364883411607552114",
-      "name": "क्वांटम जियोग्राफिक इन्फॉर्मेशन सिस्टम का परिचय",
-      "description": "प्रशासन और शासन के बढ़ते डिजिटलीकरण के युग में, भू-स्थानिक डेटा एक महत्वपूर्ण संपत्ति बन गया है। यह पाठ्यक्रम क्वांटम जीआईएस (QGIS) के उपयोग के माध्यम से भू-स्थानिक डेटा की क्षमता को उजागर करने के लिए एक व्यापक मार्गदर्शिका प्रदान करता है। प्रतिभागियों को QGIS इंटरफ़ेस, इसकी मुख्य विशेषताओं और विभिन्न डेटा प्रकारों (वेक्टर, रास्टर, और CSV) को संभालने की प्रक्रिया से परिचित कराया जाएगा। पाठ्यक्रम म",
-      "se_competencies": [
-        "C04",
-        "C10",
-        "C26",
-        "C23"
-      ],
-      "targetLevel": 2,
-      "duration": 3981,
-      "provider": "RCVP Noronha Academy of Administration and Management (RCVPNAAM) Bhopal",
-      "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Colonial Administrative Traditions And Rituals",
+        "Over-centralization of Administration",
+        "Sanskriti And Riti",
+        "Chaturvarnya as Varna by Guna And Karma",
+        "Colonial Rigid Classification Of Bureaucracy",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1143661213763420161686",
@@ -2840,7 +3764,18 @@
       "duration": 7643,
       "provider": "National Institute of Securities Markets (NISM)",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Introduction",
+        "Financial Planning",
+        "Investment Instruments",
+        "Taxation in Investments",
+        "Macroeconomic Factors and Global Trends",
+        "Behavioural Finance and Decision-Making",
+        "Tools and Resources",
+        "Conclusion",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_11436613676448153616",
@@ -2858,7 +3793,17 @@
       "duration": 6108,
       "provider": "DPI Academy by Artha Global and eGov Foundation",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Overview of Digital Public Infrastructure",
+        "Introduction to DPI",
+        "DPI Attributes and Principles",
+        "DPI for Digital Transformation",
+        "DPI Implementation and Challenges",
+        "Deep Dive - UPYOG",
+        "DPI Safeguards",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_11436630529769472011719",
@@ -2871,7 +3816,11 @@
       "duration": 4068,
       "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Bhashini and Digital India: Bridging Languages in Citizen Services",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_114371856382738432116",
@@ -2885,7 +3834,11 @@
       "duration": 3446,
       "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Artificial Intelligence and Digital Public Infrastructure Stack",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1143719391179161601174",
@@ -2900,7 +3853,11 @@
       "duration": 4020,
       "provider": "Department of Rural Development (DRD)",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "GIS-Based Planning : Concepts and Applications",
+        "Final Asessment"
+      ]
     },
     {
       "identifier": "do_1143762137612206081142",
@@ -2914,7 +3871,11 @@
       "duration": 3793,
       "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Artificial Intelligence Enabling Education Outreach",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_114378194124914688145",
@@ -2930,7 +3891,14 @@
       "duration": 3284,
       "provider": "Indian Foundation For Quality Management (IFQM)",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Introduction",
+        "Quality Control Tools",
+        "Human Centric Tools",
+        "Course Summary",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_11439315669078016011237",
@@ -2960,7 +3928,17 @@
       "duration": 5349,
       "provider": "Indian Institute of Management Ahmedabad",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Introduction",
+        "What is Business Strategy",
+        "Strategic Decision: Arena",
+        "Strategic Decision: Vehicle",
+        "Strategic Decision: Differentiator",
+        "Strategic Decisions: Staging and Sequencing Economic Logic",
+        "Conclusion",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1143981874766561281690",
@@ -2975,7 +3953,13 @@
       "duration": 3133,
       "provider": "Capacity Development Division, MoSPI",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Accessing and Utilizing Unit Level Data",
+        "Structure of Unit Level Data",
+        "Extracting and Analyzing Unit Level Data",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1143986971808563201749",
@@ -2988,7 +3972,11 @@
       "duration": 1275,
       "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Transforming Digital India with UI/UX",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1143988274457886721796",
@@ -3001,21 +3989,16 @@
       "duration": 4026,
       "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
       "primaryCategory": "Course",
-      "source": "igot"
-    },
-    {
-      "identifier": "do_1144029868250316801124",
-      "name": "Gramin Dak Sevak Customer Service Skills and Interpersonal Skills",
-      "description": "As the primary point of contact for India Post in rural areas, Gramin Dak Sevaks play a crucial role in shaping public perception. This course provides practical guidance to help them excel in this role. The curriculum is designed to build confidence in customer interactions, focusing on clear and respectful communication, active listening, and empathy. Key learning areas include understanding the",
-      "se_competencies": [
-        "C15",
-        "C34"
-      ],
-      "targetLevel": 2,
-      "duration": 2715,
-      "provider": "Department of Posts",
-      "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Legal Foundations and DPI Approach",
+        "India's Legal Journey - Identity Layer",
+        "India's Payments Layer Legal Framework",
+        "Data Exchange Legal Architecture",
+        "Implementation Framework and Risk Management",
+        "Implementation Checklist and Global Model",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_11440300281230950411024",
@@ -3028,7 +4011,11 @@
       "duration": 4171,
       "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Future of Digital Governance",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1144074211488481281581",
@@ -3043,7 +4030,15 @@
       "duration": 3600,
       "provider": "Haryana Institute of Public Administration",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "General Provisions",
+        "General Rules",
+        "Subscription to GPF Account",
+        "Overdraft and Advance",
+        "Withdrawal and Final Payment",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1144074415439953921416",
@@ -3057,7 +4052,14 @@
       "duration": 5400,
       "provider": "Haryana Institute of Public Administration",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "General Provisions",
+        "General Rules",
+        "Specific Provisions",
+        "Rules for Compassionate Appointment",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_11440866037320089611445",
@@ -3073,7 +4075,11 @@
       "duration": 2506,
       "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Unlocking the Power of Data: Hands-on Analytics for Governance",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1144108696203509761740",
@@ -3092,7 +4098,11 @@
       "duration": 2874,
       "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Introduction to Artificial Intelligence and Machine Learning",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_11441226085007360011465",
@@ -3107,7 +4117,21 @@
       "duration": 5772,
       "provider": "RCVP Noronha Academy of Administration and Management (RCVPNAAM) Bhopal",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "परिचय",
+        "फ्रेम अद्यतन एनुअल सर्वे ऑफ इंडस्ट्रीज",
+        "एनुअल सर्वे ऑफ इंडस्ट्रीज का ढांचा",
+        "एनुअल सर्वे ऑफ इंडस्ट्रीज: फ्रेम अद्यतन एनुअल सर्वे ऑफ इंडस्ट्रीज",
+        "एनुअल सर्वे ऑफ इंडस्ट्रीज: आवश्यकताएँ और महत्व",
+        "एनुअल सर्वे ऑफ इंडस्ट्रीज: अनुसूची की संरचना और विवरण",
+        "एनुअल सर्वे ऑफ इंडस्ट्रीज: बैलेंस शीट से संबंधित जानकारी",
+        "एनुअल सर्वे ऑफ इंडस्ट्रीज: कर्मचारी से संबंधित जानकारी",
+        "पी एंड एल खाता",
+        "एनुअल सर्वे ऑफ इंडस्ट्रीज डेटा से अनुमानित",
+        "मैक्रो पैरामीटर",
+        "निष्कर्ष"
+      ]
     },
     {
       "identifier": "do_1144171709702471681266",
@@ -3123,7 +4147,11 @@
       "duration": 3288,
       "provider": "Mahatma Gandhi State Institute of Public Administration Punjab",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Understanding Transformational Leadership",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1144213690244546561493",
@@ -3141,7 +4169,11 @@
       "duration": 2781,
       "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Introduction to Big Data in Governance",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_11442291495752499211077",
@@ -3160,7 +4192,15 @@
       "duration": 4175,
       "provider": "National Academy of Defence Production (NADP) Nagpur",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Ansoff Matrix",
+        "Product And Technology Life Cycle",
+        "Core Competency Analysis",
+        "Decision Trees",
+        "Vertical and Horizontal Integration",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1144243454102241281533",
@@ -3173,7 +4213,12 @@
       "duration": 3232,
       "provider": "Meghalaya Administrative Training Institute",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Understanding the Policy Cycle",
+        "Bardach's Eightfold Policy Method",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_11442520276230963211126",
@@ -3186,7 +4231,13 @@
       "duration": 2572,
       "provider": "Meghalaya Administrative Training Institute",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "GRB Fundamentals",
+        "GRB in Practice",
+        "Advanced GRB Tools",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1144314741016166401174",
@@ -3200,7 +4251,16 @@
       "duration": 13807,
       "provider": "India AI",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "What is Artificial Intelligence",
+        "The Technology Behind Artificial Intelligence",
+        "Using Artificial Intelligence to Learn and Create",
+        "Using Artificial Intelligence to Think and Plan",
+        "Artificial Intelligence Ethics",
+        "The Future of Artificial Intelligence",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_114433542568116224135",
@@ -3217,7 +4277,11 @@
       "duration": 3372,
       "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Understanding Cyber Threats for MSMEs",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1144376674713845761177",
@@ -3234,21 +4298,6 @@
       "source": "igot"
     },
     {
-      "identifier": "do_1144412064345702401464",
-      "name": "राज्य स्तरीय औद्योगिक उत्पादन सूचकांक का संकलन",
-      "description": "यह पाठ्यक्रम 'राज्य स्तरीय औद्योगिक उत्पादन सूचकांक (IIP) का संकलन' पर एक विस्तृत मार्गदर्शिका प्रदान करता है, जो आर्थिक विकास का एक महत्वपूर्ण संकेतक है। इस पाठ्यक्रम का उद्देश्य शिक्षार्थियों को IIP की अवधारणा, इसके घटकों और इसके संकलन में शामिल कार्यप्रणाली से परिचित कराना है। इसमें बताया गया है कि कैसे IIP समय के साथ औद्योगिक उत्पादन में होने वाले बदलावों को मापता है, जिसमें आधार वर्ष 2011-12 ",
-      "se_competencies": [
-        "C01",
-        "C04",
-        "C05"
-      ],
-      "targetLevel": 2,
-      "duration": 4012,
-      "provider": "RCVP Noronha Academy of Administration and Management (RCVPNAAM) Bhopal",
-      "primaryCategory": "Course",
-      "source": "igot"
-    },
-    {
       "identifier": "do_1144412158218076161291",
       "name": "Foundations of Management and Organisational Behaviour",
       "description": "Designed for current and aspiring healthcare leaders, this course delves into the core principles of effective management and organizational dynamics. It begins by tracing the historical evolution of management theories, including the contributions of Taylor, Fayol, and the Human Relations Movement, providing context for today's practices. The curriculum emphasizes the application of these theorie",
@@ -3261,7 +4310,18 @@
       "duration": 12422,
       "provider": "Armed Forces Medical College",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Evolution of Management Theories",
+        "Styles and Functions of Management",
+        "Motivation",
+        "Group Dynamics",
+        "Leadership - 1",
+        "Leadership - 2",
+        "Conflict management",
+        "Systemic Approach to Hospital Management",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1144462671361884161519",
@@ -3274,7 +4334,13 @@
       "duration": 11643,
       "provider": "Central Pollution Control Board",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Dyes and Dye Intermediates: An Introduction",
+        "Envt. Issues Associated with Dyes and Dye Intermediates Manufacturing",
+        "Best Achievable Techniques in Dyes and Dye Intermediates Manufacturing",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1144513046576087041748",
@@ -3287,7 +4353,12 @@
       "duration": 2100,
       "provider": "Ministry of Steel",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Iron Ore Mining and Processing",
+        "Steel Manufacturing and Products",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1144513065470935041920",
@@ -3300,7 +4371,11 @@
       "duration": 2100,
       "provider": "Ministry of Steel",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Industrial and Price Indicators in Economic Analysis",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1144518503192330241784",
@@ -3314,7 +4389,11 @@
       "duration": 1500,
       "provider": "Institute of Secretariat Training and Management",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Navigating Parliamentary Questions",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1144526169355960321983",
@@ -3328,7 +4407,11 @@
       "duration": 1500,
       "provider": "Institute of Secretariat Training and Management",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "संसदीय प्रश्नों से परिचय",
+        "अंतिम मूल्यांकन"
+      ]
     },
     {
       "identifier": "do_11445339283518259211095",
@@ -3343,7 +4426,14 @@
       "duration": 3600,
       "provider": "Haryana Institute of Public Administration",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Course Introduction",
+        "Misconduct and Prohibitions",
+        "Financial and Property Regulations",
+        "Professional Conduct and Responsibilities",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_11445537356084019211140",
@@ -3359,7 +4449,17 @@
       "duration": 2354,
       "provider": "Administrative Staff College of India",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Introduction to Industry 4.0",
+        "IoT and Cloud Computing",
+        "Artificial Intelligence (AI)",
+        "BI - AR and VR",
+        "Robotic Process Automation (RPA)",
+        "Cybersecurity",
+        "Conclusion and QnA",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1144582931607224321112",
@@ -3376,7 +4476,11 @@
       "duration": 4058,
       "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Navigating DPDP The Future of Digital Governance in India",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_11446742573732659212",
@@ -3390,7 +4494,16 @@
       "duration": 3133,
       "provider": "Administrative Staff College of India",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Introduction",
+        "Public Procurement",
+        "ISO 20400-Standard for Sustainable Procurement",
+        "Sustainable Public Procurement in India",
+        "Paradigm Shift for Making Sustainable Choices",
+        "Summary",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1144681850917355521938",
@@ -3406,7 +4519,17 @@
       "duration": 7778,
       "provider": "Manipal University Jaipur",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Introduction",
+        "Introduction to Leadership",
+        "Role of Leadership in the Contemporary World",
+        "Theories of Leadership",
+        "Contingency Theories of Leadership",
+        "Modern Leadership Theories",
+        "Leadership Lessons",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1144681871632302081973",
@@ -3419,7 +4542,16 @@
       "duration": 15647,
       "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Cybersecurity Foundations",
+        "Emerging Threat Landscape",
+        "Policies and Standards",
+        "Security Control Layers",
+        "Organizational Preparedness",
+        "National Legal Frameworks",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1144751221174108161801",
@@ -3435,7 +4567,15 @@
       "duration": 9737,
       "provider": "Kyndryl",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Introduction",
+        "Human Intelligence and Evolution of Generative AI",
+        "AI Until Now and From Now",
+        "How AI Models Work",
+        "Philosophize AI - Foundational Understanding Section",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_11448190861105561611419",
@@ -3448,7 +4588,16 @@
       "duration": 3644,
       "provider": "Indian Railways Institute of Electrical Engineering (IRIEEN)",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Purchase vs Procurement",
+        "Constitutional Principles and Socio-Economic Objectives",
+        "Public Procurement Principles and Judicial Review",
+        "Classification of Requirements in Railway Procurement",
+        "Tendering Methods and Procurement Platforms",
+        "GeM-Purchase Acceptance and Payment",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1144916919742627841509",
@@ -3462,7 +4611,13 @@
       "duration": 4632,
       "provider": "National Institute of Electronics and Information Technology - NIELIT (formerly DOEACC Society)",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Introduction to Cloud Computing",
+        "Industry Trends for Cloud Computing",
+        "Technology Roadmap of Cloud Computing",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_114514842690207744143",
@@ -3475,7 +4630,13 @@
       "duration": 3495,
       "provider": "National Academy of Defence Production (NADP) Nagpur",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Fraud Motivations - The M.I.C.E. Framework",
+        "Predator Fraudsters and the Fraud Diamond",
+        "White-Collar Fraudsters and Advanced Models",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_11451766025800908816",
@@ -3490,7 +4651,11 @@
       "duration": 2508,
       "provider": "Department of Space and ISRO HQ",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Earth Observation with Remote Sensing Technologies",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_114517765108858880118",
@@ -3504,7 +4669,11 @@
       "duration": 3052,
       "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Cloud Service Models",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1145200741172346881926",
@@ -3519,7 +4688,11 @@
       "duration": 2806,
       "provider": "Department of Space and ISRO HQ",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Geospatial Data Analysis with LiDAR and GNSS",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1145204752218112001980",
@@ -3534,7 +4707,11 @@
       "duration": 2243,
       "provider": "Department of Space and ISRO HQ",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Remote Sensing Applications in Atmospheric and Marine Sciences",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1145205037746995201919",
@@ -3549,7 +4726,11 @@
       "duration": 2443,
       "provider": "Department of Space and ISRO HQ",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Applied Remote Sensing for Planning and Conservation",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1145242891094835201284",
@@ -3563,7 +4744,15 @@
       "duration": 5667,
       "provider": "Karmayogi Bharat",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Introduction: Artificial Intelligence for Karmayogis",
+        "When to Use Search Engine or Generative AI",
+        "What are Prompts",
+        "Artificial Intelligence and You",
+        "Conclusion and Congratulations: Artificial Intelligence for Karmayogis",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_11452701976539955211088",
@@ -3580,7 +4769,15 @@
       "duration": 6284,
       "provider": "Centre for Development of Advanced Computing (C-DAC)",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Course Overview",
+        "Threat 1: Cloud Misconfiguration",
+        "Threat 2: Insecure Interfaces and APIs in Cloud",
+        "Threat 3: Insider Threats in Cloud",
+        "Threat 4: Identity and Access Management",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_11452980177757798411",
@@ -3598,7 +4795,15 @@
       "duration": 5412,
       "provider": "Wadhwani Foundation",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Introduction",
+        "Data Structure and Common Data Issues",
+        "Data Validation in Public Schemes",
+        "Preventing Data Quality Issues",
+        "Data Governance: Privacy and Ethical Use",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_11454111360806092816",
@@ -3611,7 +4816,12 @@
       "duration": 4540,
       "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Module Introduction",
+        "Application Security",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1145595293860741121372",
@@ -3626,7 +4836,12 @@
       "duration": 4177,
       "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Concept of Privacy Evolution",
+        "Evolution of Data Protection Rights",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1145595516780298241381",
@@ -3643,7 +4858,14 @@
       "duration": 3505,
       "provider": "Wadhwani Foundation",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Introduction",
+        "Predictive Thinking and Regressions",
+        "Classifying to Act (Classification)",
+        "Seeing Ahead: with Forecasting using Time Series",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1145702715973632001140",
@@ -3659,7 +4881,11 @@
       "duration": 2055,
       "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Data Privacy Compliance Scoping under DPDPA ISO 27001 and ISO 27701",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_114570751738314752180",
@@ -3674,7 +4900,12 @@
       "duration": 5133,
       "provider": "National E-Governance Division (NEGD) MeitY Govt of India",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Data at Rest and Data in Motion",
+        "Cryptographic PET and Case studies",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1145794893939752961688",
@@ -3687,7 +4918,12 @@
       "duration": 4748,
       "provider": "National institute of Health and Family Welfare",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Medical Attendance Rules Overview",
+        "Approval and Reimbursement Procedures",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1145807719107051521722",
@@ -3700,7 +4936,14 @@
       "duration": 8159,
       "provider": "Department of Rural Development (DRD)",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Financial Allocation and Fund Flow Structure under PMAY-G",
+        "Budgeting and Allocation",
+        "Financial Monitoring",
+        "Accountability and Audit",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1145850566619545601933",
@@ -3713,7 +4956,13 @@
       "duration": 4519,
       "provider": "Karmayogi Bharat",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Revamped structure of National Panchayat Awards",
+        "Block Level Performance Committee",
+        "Vision 2047 The Strategic Roadmap",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1145942323706183681163",
@@ -3727,7 +4976,14 @@
       "duration": 2929,
       "provider": "Department of Personnel and Training DoPT",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Introduction",
+        "Legal Frame and Grounds for Suspension of AIS Officers",
+        "Financial Implications and Pay during Suspension of AIS Officers",
+        "Time Limits and Extension and Procedural Safeguards",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1145996983269457921270",
@@ -3740,7 +4996,12 @@
       "duration": 2967,
       "provider": "Department of Telecommunications",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Understanding Social Media Offences",
+        "Safeguarding Against Social Media Offences",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1145997648112025601167",
@@ -3754,7 +5015,14 @@
       "duration": 8425,
       "provider": "Fractal",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "How AI generates responses and potential pitfalls",
+        "Ensuring AI Reliability in HR",
+        "Mastering AI Prompting for HR Functions",
+        "AI Tools and Practical Implementation",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_11460696253553049618",
@@ -3767,7 +5035,13 @@
       "duration": 4716,
       "provider": "Department of Telecommunications",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Foundations of Enterprise Risk Management",
+        "Implementing ERM in Government Organisations",
+        "Monitoring Reporting and Evolving for Organizational Resilience",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1146112160332431361411",
@@ -3794,7 +5068,16 @@
       "duration": 6668,
       "provider": "National Academy of Defence Production (NADP) Nagpur",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Recognizing and Framing Government Problems",
+        "Structuring and Diagnosing the Problem",
+        "Generating Policy and Administrative Options",
+        "Decision Making in Government",
+        "Implementation and Learning from Decisions",
+        "Case study_ Applying the Structured",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1146119610769408001204",
@@ -3807,7 +5090,12 @@
       "duration": 2884,
       "provider": "Department of Telecommunications",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Industry Analysis Using Telecom Metrics",
+        "Industry Analysis Using Financial Metrics",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1146141015711580161768",
@@ -3823,7 +5111,11 @@
       "duration": 1952,
       "provider": "Ministry of Communications- Department of Telecommunications",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Basics of Cloud Computing",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1146145957509693441504",
@@ -3836,7 +5128,11 @@
       "duration": 2079,
       "provider": "Department of Expenditure",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Budget Documents Presentation and Passing of Budget",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1146146229237760001525",
@@ -3849,7 +5145,11 @@
       "duration": 1859,
       "provider": "Department of Expenditure",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Budget formulation in Government of India",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_11461621857989427211142",
@@ -3862,7 +5162,11 @@
       "duration": 2067,
       "provider": "Coal India Limited (CIL)",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Procurement in GeM",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1146210747476623361171",
@@ -3878,7 +5182,13 @@
       "duration": 2818,
       "provider": "National Academy of Defence Production (NADP) Nagpur",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "RTI And Good Governance",
+        "Impact of RTI and Transparency Regime on Good Governance",
+        "The Journey of RTI: Progress and Challenges",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_11462110275386572811416",
@@ -3891,7 +5201,16 @@
       "duration": 8197,
       "provider": "Bureau of Police Research and Development BPRD",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Understanding Media Relations in Policing",
+        "Communication Strategies",
+        "Community Engagement through Media",
+        "Digital Evidence and the Media",
+        "Legal and Ethical Considerations",
+        "Emerging Technologies and Future Trends",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1146211630705623041525",
@@ -3905,7 +5224,11 @@
       "duration": 19473,
       "provider": "Department of Rural Development (DRD)",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Basics of cleaning MIS data",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1146211777479475201308",
@@ -3918,7 +5241,16 @@
       "duration": 5112,
       "provider": "National Academy of Defence Production (NADP) Nagpur",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Introduction to Industry 4.0",
+        "Key Technologies Driving Industry 4.0",
+        "Opportunities Challenges and Implementation Strategies",
+        "Data Analytics as A Cornerstone of Industry 4.0",
+        "The Human Factor in Industry 4.0",
+        "Case Studies and Real-world Applications",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1146330561006059521377",
@@ -3932,7 +5264,19 @@
       "duration": 8872,
       "provider": "Kautilya School of Public Policy",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Why Learn Negotiation",
+        "Human Biases and their Impact on Decision Making (Part I)",
+        "Human Biases and their Impact on Decision Making (Part II)",
+        "Managing Group Decision Making in Negotiations (Part I)",
+        "Managing Group Decision Making in Negotiations (Part II)",
+        "Emotions and their Role in Negotiations",
+        "Emotional Intelligence and its Relevance in Negotiations",
+        "Using Emotional Intelligence in Negotiations",
+        "Creating a Win-Win Negotiation",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_11463968851905740812373",
@@ -3945,7 +5289,11 @@
       "duration": 1231,
       "provider": "Capacity Building Commission",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "পঞ্চায়ত উন্নয়ন সূচক (Panchayat Advancement Index)",
+        "চূড়ান্ত মূল্যায়ন"
+      ]
     },
     {
       "identifier": "do_1146437555661946881212",
@@ -3960,7 +5308,15 @@
       "duration": 2370,
       "provider": "Department of Personnel and Training DoPT",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "High Performance Team",
+        "Commitment from the Entire Team",
+        "Team Members Contribution",
+        "Communicating with the Team",
+        "Cooperation Among Team Members",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1146437741638696961260",
@@ -3991,7 +5347,13 @@
       "duration": 3409,
       "provider": "Institute of Secretariat Training and Management",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Statistical Tools and Their Applications",
+        "Measures of Central Tendency",
+        "Measures of Variation Standard Deviation and Variance",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1146437833294397441116",
@@ -4008,7 +5370,21 @@
       "duration": 7383,
       "provider": "Institute of Secretariat Training and Management",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Basic Concept of Data Analysis",
+        "Effective Techniques of Data Interpretation",
+        "Sampling",
+        "Basic Concept of Hypothesis Testing",
+        "Classification of Hypothesis Testing",
+        "Relevance of Confidence Interval",
+        "Categories of Student T-Test",
+        "Applications of Chi-Square Test",
+        "Different Methods of Calculating Index Numbers",
+        "An Overview of Time Series Data",
+        "Logistic Curve and its Application",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1146437836292505601229",
@@ -4021,7 +5397,14 @@
       "duration": 4015,
       "provider": "Institute of Secretariat Training and Management",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "File Management System",
+        "Information Process in File",
+        "Decision Making In Government",
+        "Communication : Forms Channels and Procedures",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1146444822851174401192",
@@ -4035,7 +5418,11 @@
       "duration": 2346,
       "provider": "Department of Personnel and Training DoPT",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Conflict Resolution and Negotiation",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1146458614010593281426",
@@ -4052,7 +5439,16 @@
       "duration": 5195,
       "provider": "Wadhwani Foundation",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Introduction to AI and it's applications",
+        "Machine Learning [ML] and Deep Learning [DL] Fundamentals",
+        "Fundamental Concepts principles Machine Learning and Deep Learning",
+        "AI use cases in Governance",
+        "Responsible AI Practices and Ethical Considerations",
+        "Conclusion",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_114648673993457664181",
@@ -4065,7 +5461,12 @@
       "duration": 5964,
       "provider": "Institute of Secretariat Training and Management",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Noting",
+        "Drafting",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1146492834344140801196",
@@ -4078,7 +5479,16 @@
       "duration": 9112,
       "provider": "Institute of Secretariat Training and Management",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Learning Objective and Organisational Structure of Government of India",
+        "Functionaries and Functions",
+        "Management of Dak",
+        "File Management System",
+        "Aids to Processing and Decision Making in Government",
+        "Checks on Delays and Records Management",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1146492969644113921128",
@@ -4092,7 +5502,13 @@
       "duration": 1990,
       "provider": "Institute of Secretariat Training and Management",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Overview of Leaves",
+        "Debitable Leaves",
+        "Non-Debitable Leaves",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1146494589414932481279",
@@ -4105,7 +5521,13 @@
       "duration": 2269,
       "provider": "Department of Expenditure",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Public Procurement of Works",
+        "Process of Undertaking Works",
+        "Simulation",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1146500320965754881197",
@@ -4118,7 +5540,14 @@
       "duration": 4635,
       "provider": "Institute of Secretariat Training and Management",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Risks in Infrastructure Projects",
+        "ERM : Planning Designing and Procurement",
+        "ERM : Construction Delivery and Asset Operation",
+        "Implementing ERM",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_11465004550475776015",
@@ -4135,7 +5564,20 @@
       "duration": 6201,
       "provider": "Wadhwani Foundation",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Data Analytics",
+        "How can Data Analytics Help Government Bodies",
+        "Common Tools for Visualization",
+        "Process Model Through Case study",
+        "Data Preparation",
+        "Creating Charts in Tableau",
+        "Scatter Plot",
+        "Filters Pages Dashboard",
+        "Dashboards",
+        "Analytics Maturity Model",
+        "Final Assessment"
+      ]
     },
     {
       "identifier": "do_1146501155938467841399",
@@ -4149,7 +5591,13 @@
       "duration": 3364,
       "provider": "Institute of Secretariat Training and Management",
       "primaryCategory": "Course",
-      "source": "igot"
+      "source": "igot",
+      "outline": [
+        "Team Work",
+        "Biggest Challenges in Team Building",
+        "Skills for Teamwork",
+        "Final Assessment"
+      ]
     }
   ]
 }

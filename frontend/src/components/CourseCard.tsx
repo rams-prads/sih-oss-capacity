@@ -59,6 +59,24 @@ export function CourseCard({
         <span>takes you to {PROFICIENCY[course.target_level]}</span>
       </div>
 
+      {course.outline.length > 0 && (
+        <details className="mt-2.5 group">
+          <summary className="cursor-pointer list-none text-xs font-medium text-slate-600 hover:text-slate-900">
+            <span className="underline decoration-dotted underline-offset-2">
+              What it covers
+            </span>
+            <span className="ml-1 text-slate-400">
+              ({course.outline.length} module{course.outline.length > 1 ? "s" : ""})
+            </span>
+          </summary>
+          <ol className="mt-1.5 list-decimal space-y-0.5 pl-5 text-xs leading-relaxed text-slate-500">
+            {course.outline.map((module, index) => (
+              <li key={`${index}-${module}`}>{module}</li>
+            ))}
+          </ol>
+        </details>
+      )}
+
       {isProgramme && course.eligibility && (
         <p className="mt-2 rounded-lg bg-amber-50 px-2.5 py-1.5 text-xs text-amber-900">
           Open to {course.eligibility}

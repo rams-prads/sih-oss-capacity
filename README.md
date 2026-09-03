@@ -31,13 +31,13 @@ Competencies) as used by Mission Karmayogi and the Karmayogi Qualification Frame
 
 ## Data sources
 
-The catalogue is **289 courses from two real sources**, plus a small authored set that
+The catalogue is **287 courses from two real sources**, plus a small authored set that
 carries this app's own lessons and quizzes. Every course states which it came from, and
 the UI badges them apart.
 
 | Source | Count | What it is |
 |---|---|---|
-| **iGOT Karmayogi** | 243 | Fetched from the live iGOT content search API. Real identifiers, titles, providers and durations — NEGD MeitY, ISTM, DoPT, ISRO, IIT Kanpur, UpGrad, and MoSPI's own Capacity Development Division. |
+| **iGOT Karmayogi** | 261 | Fetched from the live iGOT content search API. Real identifiers, titles, providers and durations — NEGD MeitY, ISTM, DoPT, ISRO, IIT Kanpur, UpGrad, and MoSPI's own Capacity Development Division. |
 | **NSSTA (TPAC-approved)** | 20 | Programmes from the published NSSTA Advance Training Calendar FY 2025-26, approved by the Training Programme Approval Committee. Real venues, cadres, durations and batch sizes. |
 | **Sandbox** | 26 | Authored courses that carry the curriculum, videos and checkpoint question bank the *My Courses* screen runs on. Clearly labelled; not presented as real catalogue content. |
 
@@ -63,6 +63,19 @@ python -m scripts.fetch_igot              # write the seed
 
 Ingesting rather than calling live at request time is deliberate: the demo then runs
 offline at full speed and does not depend on venue wifi or the portal being up.
+
+**Course pages and outlines.** Every real course links to its page on the portal
+(`/public/toc/{identifier}/overview`), derived from the identifier rather than stored, so
+it stays correct across refreshes. The Sunbird course hierarchy endpoint is public on the
+same terms as search, so the ingest also pulls each course's **module titles** — 236 of
+the 261 real courses carry an outline, shown under *What it covers*.
+
+Modules only, deliberately. Lesson titles come back around half useful: *Database Design
+and Introduction to MySQL* names all 68 of its lessons `SQL_Resource1`…`SQL_Resource68`,
+while module titles are consistently real — *Measuring GDP*, *Randomized Controlled Trial
+(RCT)*, *Creating Charts in Tableau*. Anything matching a placeholder pattern is dropped,
+and an outline that only repeats the course title is dropped whole rather than rendered as
+a one-line contents page.
 
 **How courses are tagged.** Every iGOT course carries `competencies_v6` — the Karmayogi
 Competency Model, with a competency *area* (Domain / Functional / Behavioural, the same
@@ -131,7 +144,7 @@ cd backend
 python -m venv .venv
 .venv/Scripts/activate          # Windows;  source .venv/bin/activate on macOS/Linux
 pip install -r requirements.txt
-python -m seed.seed             # 36 competencies, 17 designations, 9 officers, 289 courses
+python -m seed.seed             # 36 competencies, 17 designations, 9 officers, 287 courses
 uvicorn app.main:app --reload --port 8000
 ```
 
@@ -433,7 +446,7 @@ backend/
     routers/     users · gaps · quiz · admin · mock_sunbird
     engines/     progress.py                              ← derived progress
   scripts/       fetch_igot.py                            ← live iGOT ingest
-  seed/          seed.py · igot_courses_seed.json (26 sandbox + 243 iGOT)
+  seed/          seed.py · igot_courses_seed.json (26 sandbox + 261 iGOT)
                  nssta_tpac_seed.json (20 TPAC programmes)
                  curriculum.json · question_bank.json (180 items)
   tests/         93 tests

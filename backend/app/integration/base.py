@@ -37,6 +37,7 @@ class Course(BaseModel):
     duration_days: int = 0        # NSSTA publishes days, not minutes
     batch_size: int = 0
     url: str = ""                 # the course on the iGOT portal
+    outline: list[str] = []       # module titles, from the Sunbird hierarchy
 
 
 class EnrolmentRecord(BaseModel):
@@ -116,4 +117,5 @@ def course_from_sunbird(node: dict[str, Any]) -> Course:
         duration_days=int(node.get("duration_days") or 0),
         batch_size=int(node.get("batch_size") or 0),
         url=course_url(node.get("identifier", ""), node.get("source") or "igot"),
+        outline=list(node.get("outline") or []),
     )

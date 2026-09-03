@@ -100,6 +100,7 @@ class CourseOut(BaseModel):
     duration_days: int = 0
     batch_size: int = 0
     url: str = ""
+    outline: list[str] = []
 
 
 class Recommendation(BaseModel):

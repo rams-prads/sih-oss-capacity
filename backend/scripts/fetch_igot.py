@@ -42,7 +42,9 @@ from pathlib import Path
 
 import httpx
 
-SEARCH_URL = "https://portal.igotkarmayogi.gov.in/api/content/v1/search"
+PORTAL = "https://portal.igotkarmayogi.gov.in"
+SEARCH_URL = f"{PORTAL}/api/content/v1/search"
+HIERARCHY_URL = PORTAL + "/api/course/v1/hierarchy/{identifier}"
 SEED_PATH = Path(__file__).resolve().parents[1] / "seed" / "igot_courses_seed.json"
 
 # Search terms used only to surface candidates - the words officers actually use,
@@ -195,6 +197,46 @@ def infer_target_level(name: str) -> int:
     return 2
 
 
+# Lesson titles are frequently placeholders - "Database Design and Introduction
+# to MySQL" names all 68 of its lessons SQL_Resource1..68 - and module titles
+# occasionally are too. Anything matching this is not worth showing an officer.
+# Anchoring on the end of the string is too strict: "SQL2_Resource8." slips past
+# a $ anchor on its trailing full stop.
+PLACEHOLDER = re.compile(
+    r"(resource\s*\d+\W*$|_\d+\W*$|^untitled|^module\s*\d+\W*$|^video\s*\d+\W*$)", re.I
+)
+
+
+def fetch_outline(client: httpx.Client, identifier: str, course_name: str) -> list[str]:
+    """The course's module titles, from the public Sunbird hierarchy endpoint.
+
+    Only modules. Lesson titles come back roughly half useful, and showing an
+    officer "SQL_Resource37" is worse than showing nothing; module titles are
+    consistently real ("Module 1: Manage Anxiety while Presenting").
+
+    An outline that only repeats the course name tells the reader nothing, so it
+    is dropped rather than rendered as a one-line contents page.
+    """
+    try:
+        response = client.get(HIERARCHY_URL.format(identifier=identifier), timeout=TIMEOUT)
+        response.raise_for_status()
+        node = response.json().get("result", {}).get("content") or {}
+    except Exception:
+        return []
+
+    titles: list[str] = []
+    for module in node.get("children") or []:
+        name = clean(module.get("name"))
+        if not name or PLACEHOLDER.search(name):
+            continue
+        if name not in titles:
+            titles.append(name)
+
+    if len(titles) < 2 and all(t.lower() == course_name.lower() for t in titles):
+        return []
+    return titles[:12]
+
+
 def clean(text: str | None) -> str:
     """iGOT descriptions carry HTML and entities; the UI renders plain text."""
     if not text:
@@ -312,6 +354,20 @@ def fetch_all() -> tuple[dict[str, dict], int]:
                         "source": "igot",
                     }
             print(f"  {competency_id}: catalogue now {len(found)} real courses")
+
+        # One hierarchy call per kept course. Slow but one-off, and a failure
+        # here must not cost us the course itself - it simply has no outline.
+        print(f"Fetching module outlines for {len(found)} courses...")
+        with_outline = 0
+        for position, (identifier, course) in enumerate(found.items(), 1):
+            outline = fetch_outline(client, identifier, course["name"])
+            if outline:
+                course["outline"] = outline
+                with_outline += 1
+            if position % 40 == 0:
+                print(f"  outlines {position}/{len(found)} ({with_outline} found)")
+        print(f"Outlines found for {with_outline}/{len(found)} courses")
+
     return found, len(seen) - len(found)
 
 
