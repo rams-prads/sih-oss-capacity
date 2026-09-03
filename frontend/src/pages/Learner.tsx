@@ -1,7 +1,14 @@
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { enrol, getEnrolments, getGaps, getRecommendations } from "../api";
-import type { Enrolment, GapItem, GapReport, Recommendation, User } from "../api";
+import { enrol, getEnrolments, getGaps, getProgression, getRecommendations } from "../api";
+import type {
+  Enrolment,
+  GapItem,
+  GapReport,
+  Progression,
+  Recommendation,
+  User,
+} from "../api";
 import { CourseCard } from "../components/CourseCard";
 import { GapList } from "../components/GapList";
 import { CompetencyRadar } from "../components/Radar";
@@ -13,6 +20,7 @@ export default function Learner({ userId, user }: { userId: string; user?: User 
   const [recs, setRecs] = useState<Recommendation[]>([]);
   const [source, setSource] = useState("");
   const [enrolments, setEnrolments] = useState<Enrolment[]>([]);
+  const [progression, setProgression] = useState<Progression | null>(null);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
 
@@ -20,15 +28,17 @@ export default function Learner({ userId, user }: { userId: string; user?: User 
     setLoading(true);
     setError("");
     try {
-      const [gaps, recommendations, enrolled] = await Promise.all([
+      const [gaps, recommendations, enrolled, ahead] = await Promise.all([
         getGaps(userId),
         getRecommendations(userId),
         getEnrolments(userId),
+        getProgression(userId),
       ]);
       setReport(gaps);
       setRecs(recommendations.recommendations);
       setSource(recommendations.source);
       setEnrolments(enrolled);
+      setProgression(ahead);
     } catch {
       setError("Could not reach the platform API. Is the backend running on port 8000?");
     } finally {
@@ -119,6 +129,50 @@ export default function Learner({ userId, user }: { userId: string; user?: User 
         )}
       </Card>
 
+      {progression && !progression.at_top_of_ladder && progression.items.length > 0 && (
+        <Card
+          title={`Preparing for ${progression.next_role_name}`}
+          subtitle={
+            `The designation above ${progression.current_role_name}. These competencies are ` +
+            `not required of you today, so they do not count against your readiness - they are ` +
+            `what the step up will ask for.`
+          }
+          right={
+            <span className="rounded-full bg-blue-50 px-2.5 py-1 text-xs font-medium text-blue-800">
+              career progression
+            </span>
+          }
+        >
+          <ul className="mb-4 flex flex-wrap gap-2">
+            {progression.items.map((item) => (
+              <li
+                key={item.competency_id}
+                className="rounded-lg border border-slate-200 px-2.5 py-1 text-xs text-slate-700"
+              >
+                {item.competency_name}
+                <span className="ml-1.5 text-slate-400">
+                  {item.attained_level} &rarr; {item.target_level}
+                </span>
+              </li>
+            ))}
+          </ul>
+
+          {progression.recommendations.length === 0 ? (
+            <Empty>No training in the catalogue matches this step up yet.</Empty>
+          ) : (
+            <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+              {progression.recommendations.map((rec) => (
+                <CourseCard
+                  key={rec.course.identifier}
+                  rec={rec}
+                  enrolled={enrolledIds.has(rec.course.identifier)}
+                  onEnrol={handleEnrol}
+                />
+              ))}
+            </div>
+          )}
+        </Card>
+      )}
     </div>
   );
 }

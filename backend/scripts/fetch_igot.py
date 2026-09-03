@@ -49,7 +49,8 @@ SEED_PATH = Path(__file__).resolve().parents[1] / "seed" / "igot_courses_seed.js
 # not our competency names ("Classification Standards (NIC / NCO)" finds nothing).
 QUERIES: dict[str, list[str]] = {
     "C01": ["survey design sampling", "sample survey methodology"],
-    "C02": ["questionnaire design", "data collection field survey"],
+    "C02": ["questionnaire design", "data collection field survey",
+            "census enumeration", "field investigation survey"],
     "C03": ["data quality", "data validation editing"],
     "C04": ["statistics data analysis", "statistical tools"],
     "C05": ["national accounts GDP", "macroeconomic statistics"],
@@ -75,7 +76,8 @@ QUERIES: dict[str, list[str]] = {
     "C25": ["project management"],
     "C26": ["decision making", "change management"],
     "C27": ["policy analysis", "policy formulation"],
-    "C28": ["strategic planning", "strategic management"],
+    "C28": ["strategic planning", "strategic management", "vision and strategy",
+            "outcome budgeting", "governance strategy", "forward thinking"],
     "C29": ["noting and drafting", "office procedure", "file management"],
     "C30": ["public administration", "government service rules"],
     "C31": ["general financial rules", "public procurement", "budget government"],
@@ -83,7 +85,9 @@ QUERIES: dict[str, list[str]] = {
     "C33": ["parliament procedure", "parliamentary questions"],
     "C34": ["stakeholder management", "negotiation skills"],
     "C35": ["risk management"],
-    "C36": ["organizational transformation", "institutional leadership"],
+    "C36": ["organizational transformation", "institutional leadership",
+            "transformational leadership", "organisational development",
+            "leading change", "capacity building institution"],
 }
 
 # KCM sub-theme -> our competencies. Checked first: a sub-theme is specific

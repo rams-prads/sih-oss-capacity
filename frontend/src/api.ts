@@ -176,6 +176,23 @@ export const getRecommendations = (id: string) =>
     .then((r) => r.data);
 export const getEnrolments = (id: string) =>
   api.get<Enrolment[]>(`/users/${id}/enrolments`).then((r) => r.data);
+
+/** Training for the designation above the one an officer holds. */
+export interface Progression {
+  user_id: string;
+  current_role_id: string;
+  current_role_name: string;
+  next_role_id: string;
+  next_role_name: string;
+  next_role_stream: string;
+  next_role_grade: number;
+  at_top_of_ladder: boolean;
+  items: GapItem[];
+  recommendations: Recommendation[];
+}
+
+export const getProgression = (id: string) =>
+  api.get<Progression>(`/progression/${id}`).then((r) => r.data);
 export const enrol = (id: string, course_identifier: string) =>
   api.post(`/users/${id}/enrolments`, { course_identifier }).then((r) => r.data);
 export const getCompetencies = () => api.get<Competency[]>("/competencies").then((r) => r.data);

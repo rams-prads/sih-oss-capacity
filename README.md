@@ -20,6 +20,7 @@ Competencies) as used by Mission Karmayogi and the Karmayogi Qualification Frame
 |---|---|
 | **Gap engine** | Ranks each officer's shortfall per competency, weighted by how critical that competency is to their role. |
 | **Recommendation engine** | Matches gap competencies to real iGOT courses and NSSTA TPAC programmes through the Sunbird API contract, favouring courses that close several gaps at once and spreading the list across an officer's gaps rather than the catalogue's deepest subject. |
+| **Career progression** | Training for the designation *above* the one held — derived from the stream and grade ladder, counting only what the step up newly demands. |
 | **Assessment loop** | Upload a PDF or text file, generate MCQs tagged to a competency, take the quiz, and watch attained proficiency — and the gap — update. |
 | **Learner dashboard** | Target vs attained radar, ranked gaps, recommended courses and enrolment. Tabs: My Dashboard · My Courses · Quiz Generator · Admin Dashboard. |
 | **My Courses** | Every enrolled, completed and expired course, with progress derived from videos watched and checkpoints passed, plus a topic-by-topic record of what the officer gets right and wrong. |
@@ -30,13 +31,13 @@ Competencies) as used by Mission Karmayogi and the Karmayogi Qualification Frame
 
 ## Data sources
 
-The catalogue is **282 courses from two real sources**, plus a small authored set that
+The catalogue is **289 courses from two real sources**, plus a small authored set that
 carries this app's own lessons and quizzes. Every course states which it came from, and
 the UI badges them apart.
 
 | Source | Count | What it is |
 |---|---|---|
-| **iGOT Karmayogi** | 236 | Fetched from the live iGOT content search API. Real identifiers, titles, providers and durations — NEGD MeitY, ISTM, DoPT, ISRO, IIT Kanpur, UpGrad, and MoSPI's own Capacity Development Division. |
+| **iGOT Karmayogi** | 243 | Fetched from the live iGOT content search API. Real identifiers, titles, providers and durations — NEGD MeitY, ISTM, DoPT, ISRO, IIT Kanpur, UpGrad, and MoSPI's own Capacity Development Division. |
 | **NSSTA (TPAC-approved)** | 20 | Programmes from the published NSSTA Advance Training Calendar FY 2025-26, approved by the Training Programme Approval Committee. Real venues, cadres, durations and batch sizes. |
 | **Sandbox** | 26 | Authored courses that carry the curriculum, videos and checkpoint question bank the *My Courses* screen runs on. Clearly labelled; not presented as real catalogue content. |
 
@@ -130,7 +131,7 @@ cd backend
 python -m venv .venv
 .venv/Scripts/activate          # Windows;  source .venv/bin/activate on macOS/Linux
 pip install -r requirements.txt
-python -m seed.seed             # 36 competencies, 17 designations, 9 officers, 282 courses
+python -m seed.seed             # 36 competencies, 17 designations, 9 officers, 289 courses
 uvicorn app.main:app --reload --port 8000
 ```
 
@@ -145,7 +146,7 @@ npm run dev                     # http://localhost:5173
 **Tests**
 
 ```bash
-cd backend && python -m pytest      # 87 tests
+cd backend && python -m pytest      # 93 tests
 cd frontend && npm test             # 31 component tests
 ```
 
@@ -256,6 +257,34 @@ data. Levels are instead expanded from one documented rule: the designation's ba
 (support 2, junior/middle 3, senior 4), one level lower for secondary competencies,
 weight H for the first three listed and M then L after. The competency *lists* are real;
 the *numbers* follow a stated rule. See `DESIGNATIONS` in `backend/seed/seed.py`.
+
+### Career progression
+
+The gap report answers *"am I ready for the job I hold"*. The problem statement also asks
+for recommendations against **future job requirements and career progression**, which is a
+different question — an officer who fully meets their designation has no gaps at all and
+would otherwise be shown nothing.
+
+`/api/progression/{user_id}` answers it. The next designation is **derived, not
+configured**: the lowest grade above the officer's, within the same stream. An Assistant
+Section Officer progresses to Section Officer, not to Senior Statistical Officer. Where a
+stream runs out, so does the ladder — Secretary has no next step, and that is reported as
+an answer rather than an error.
+
+Only what the step up *newly* demands is listed. A competency already required today is a
+present-day gap and belongs on the main dashboard; repeating it would double-count it and
+make the step look larger than it is. These competencies deliberately do **not** count
+against current readiness.
+
+```
+Anita Deshmukh, JSO  →  Senior Statistical Officer
+  needs: Statistical Analysis 2→3, Leadership & Team Management 0→2
+  offers: NSSTA Survey Methodology and Data Analysis; NSSTA Team Building and Leadership
+
+Farah Qureshi, ASO   →  Section Officer
+  needs: Financial Management & GFR 0→3, Leadership 0→2
+  offers: Budget; Public Procurement Framework of GOI; Budgetary System in Government
+```
 
 The **36 competencies** cover the four domains the problem statement names, plus the
 administrative ladder the OSS actually runs on:
@@ -377,6 +406,7 @@ just no longer carries the weight of measuring topic mastery.
 | `GET` | `/api/users`, `/api/users/{id}` | Officers and their proficiencies |
 | `GET` | `/api/gaps/{user_id}` | **Ranked competency gaps** |
 | `GET` | `/api/recommendations/{user_id}` | **Courses matched to gaps** |
+| `GET` | `/api/progression/{user_id}` | **Training for the next designation up** |
 | `GET` | `/api/courses` | Catalogue search by competency |
 | `POST` | `/api/users/{id}/enrolments` | Enrol |
 | `POST` | `/api/materials` | Upload PDF/TXT |
@@ -396,16 +426,17 @@ Interactive docs at `http://localhost:8000/docs`.
 backend/
   app/
     engines/     gap.py · recommend.py · assessment.py     ← the core
+                 progression.py                            ← the next designation
     integration/ base.py · mock.py · sunbird.py            ← the Sunbird seam
     llm/         base.py · providers.py                    ← swappable generation
     quiz/        service.py                                ← extract, chunk, validate
     routers/     users · gaps · quiz · admin · mock_sunbird
     engines/     progress.py                              ← derived progress
   scripts/       fetch_igot.py                            ← live iGOT ingest
-  seed/          seed.py · igot_courses_seed.json (26 sandbox + 236 iGOT)
+  seed/          seed.py · igot_courses_seed.json (26 sandbox + 243 iGOT)
                  nssta_tpac_seed.json (20 TPAC programmes)
                  curriculum.json · question_bank.json (180 items)
-  tests/         87 tests
+  tests/         93 tests
 frontend/
   src/pages/     Learner.tsx · MyLearning.tsx · Upload.tsx · Admin.tsx
   src/components/Radar · Heatmap · GapList · CourseCard · Progress

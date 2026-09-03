@@ -117,6 +117,21 @@ class RecommendationResponse(BaseModel):
     recommendations: list[Recommendation]
 
 
+class ProgressionResponse(BaseModel):
+    """Training for the designation above, not the one currently held."""
+
+    user_id: str
+    current_role_id: str
+    current_role_name: str
+    next_role_id: str = ""
+    next_role_name: str = ""
+    next_role_stream: str = ""
+    next_role_grade: int = 0
+    at_top_of_ladder: bool = False
+    items: list[GapItem] = []
+    recommendations: list[Recommendation] = []
+
+
 class EnrolRequest(BaseModel):
     course_identifier: str
 
