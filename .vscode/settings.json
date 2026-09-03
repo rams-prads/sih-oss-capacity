@@ -1,0 +1,13 @@
+{
+  // Fetch the remote every 3 minutes so a teammate's push shows up in the
+  // status bar as incoming changes. Fetch only - it never touches your files.
+  "git.autofetch": true,
+  "git.autofetchPeriod": 180,
+
+  // Pull with rebase so a sync does not litter history with merge commits.
+  "git.rebaseWhenSync": true,
+
+  // Warn instead of silently doing the wrong thing when both sides moved.
+  "git.confirmSync": false,
+  "git.pruneOnFetch": true
+}
