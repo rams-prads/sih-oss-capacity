@@ -231,8 +231,13 @@ class Lesson(Base):
     position: Mapped[int] = mapped_column(Integer, nullable=False)
     module_index: Mapped[int] = mapped_column(Integer, default=0)
     title: Mapped[str] = mapped_column(String(300), nullable=False)
-    topic_id: Mapped[str] = mapped_column(ForeignKey("topics.id"), nullable=False)
+    # Authored sandbox lessons belong to a topic; a video ingested from iGOT does
+    # not, and forcing one on it would pollute the topic mastery record.
+    topic_id: Mapped[str | None] = mapped_column(ForeignKey("topics.id"), nullable=True)
     duration_min: Mapped[int] = mapped_column(Integer, default=10)
+    # Present for iGOT lessons: the mp4 the portal serves, played in place here so
+    # the watch record is ours rather than one we cannot read back from iGOT.
+    video_url: Mapped[str] = mapped_column(String(600), default="")
 
 
 class Checkpoint(Base):

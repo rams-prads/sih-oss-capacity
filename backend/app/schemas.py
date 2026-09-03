@@ -292,15 +292,18 @@ class LessonOut(BaseModel):
     title: str
     duration_min: int
     completed: bool
+    video_url: str = ""
 
 
 class ModuleOut(BaseModel):
     module_index: int
     title: str
-    topic_id: str
-    topic_name: str
-    checkpoint_id: int
-    pass_pct: int
+    topic_id: str = ""
+    topic_name: str = ""
+    # None for an ingested iGOT module: its videos carry no quiz of their own,
+    # the course has a single assessment at the end.
+    checkpoint_id: int | None = None
+    pass_pct: int = 0
     lessons: list[LessonOut]
     lessons_completed: int
     lessons_total: int

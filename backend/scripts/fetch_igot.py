@@ -207,34 +207,79 @@ PLACEHOLDER = re.compile(
 )
 
 
-def fetch_outline(client: httpx.Client, identifier: str, course_name: str) -> list[str]:
-    """The course's module titles, from the public Sunbird hierarchy endpoint.
+def _leaf_videos(node: dict) -> list[dict]:
+    """Playable mp4 leaves under a node, in order."""
+    videos = []
+    for child in node.get("children") or []:
+        if child.get("children"):
+            videos.extend(_leaf_videos(child))
+            continue
+        if child.get("mimeType") != "video/mp4":
+            continue  # the other leaf type is a Sunbird questionset, which is auth-gated
+        url = child.get("artifactUrl") or child.get("previewUrl") or ""
+        if not url:
+            continue
+        seconds = 0
+        try:
+            seconds = int(float(child.get("duration") or 0))
+        except (TypeError, ValueError):
+            seconds = 0
+        title = clean(child.get("name"))
+        videos.append(
+            {
+                "title": "" if (not title or PLACEHOLDER.search(title)) else title,
+                "duration_min": max(1, round(seconds / 60)) if seconds else 5,
+                "url": url,
+            }
+        )
+    return videos
 
-    Only modules. Lesson titles come back roughly half useful, and showing an
-    officer "SQL_Resource37" is worse than showing nothing; module titles are
-    consistently real ("Module 1: Manage Anxiety while Presenting").
 
-    An outline that only repeats the course name tells the reader nothing, so it
-    is dropped rather than rendered as a one-line contents page.
+def fetch_curriculum(client: httpx.Client, identifier: str, course_name: str) -> dict:
+    """The course's modules and the mp4s inside them, from the public hierarchy.
+
+    iGOT's user-progress endpoints are auth-gated (401 without a Keycloak user
+    token), so what an officer watched on the portal cannot be read back. The
+    media itself is public and range-served, so the videos play here instead and
+    the watch record is ours - the same mechanism the authored courses use.
+
+    Placeholder lesson titles are common ("Database Design and Introduction to
+    MySQL" names all 68 of its lessons SQL_Resource1..68). Those become "Video n"
+    with a real duration rather than a meaningless string.
     """
     try:
         response = client.get(HIERARCHY_URL.format(identifier=identifier), timeout=TIMEOUT)
         response.raise_for_status()
         node = response.json().get("result", {}).get("content") or {}
     except Exception:
-        return []
+        return {}
 
-    titles: list[str] = []
-    for module in node.get("children") or []:
-        name = clean(module.get("name"))
-        if not name or PLACEHOLDER.search(name):
+    modules = []
+    position = 0
+    for child in node.get("children") or []:
+        videos = _leaf_videos(child) if child.get("children") else []
+        if not videos and child.get("mimeType") == "video/mp4":
+            videos = _leaf_videos({"children": [child]})
+        if not videos:
             continue
-        if name not in titles:
-            titles.append(name)
+        for video in videos:
+            position += 1
+            if not video["title"]:
+                video["title"] = f"Video {position}"
+        title = clean(child.get("name"))
+        if not title or PLACEHOLDER.search(title):
+            title = f"Module {len(modules) + 1}"
+        modules.append({"title": title, "lessons": videos})
 
-    if len(titles) < 2 and all(t.lower() == course_name.lower() for t in titles):
-        return []
-    return titles[:12]
+    if not modules:
+        return {}
+
+    outline = [m["title"] for m in modules]
+    # An outline that only repeats the course title is not a contents page.
+    if len(outline) < 2 and all(t.lower() == course_name.lower() for t in outline):
+        outline = []
+
+    return {"modules": modules[:12], "outline": outline[:12]}
 
 
 def clean(text: str | None) -> str:
@@ -357,16 +402,19 @@ def fetch_all() -> tuple[dict[str, dict], int]:
 
         # One hierarchy call per kept course. Slow but one-off, and a failure
         # here must not cost us the course itself - it simply has no outline.
-        print(f"Fetching module outlines for {len(found)} courses...")
-        with_outline = 0
+        print(f"Fetching curricula for {len(found)} courses...")
+        with_video = lessons_total = 0
         for position, (identifier, course) in enumerate(found.items(), 1):
-            outline = fetch_outline(client, identifier, course["name"])
-            if outline:
-                course["outline"] = outline
-                with_outline += 1
+            curriculum = fetch_curriculum(client, identifier, course["name"])
+            if curriculum:
+                course["modules"] = curriculum["modules"]
+                if curriculum["outline"]:
+                    course["outline"] = curriculum["outline"]
+                with_video += 1
+                lessons_total += sum(len(m["lessons"]) for m in curriculum["modules"])
             if position % 40 == 0:
-                print(f"  outlines {position}/{len(found)} ({with_outline} found)")
-        print(f"Outlines found for {with_outline}/{len(found)} courses")
+                print(f"  {position}/{len(found)} ({with_video} with playable video)")
+        print(f"Playable video for {with_video}/{len(found)} courses, {lessons_total} lessons")
 
     return found, len(seen) - len(found)
 

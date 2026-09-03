@@ -64,6 +64,21 @@ python -m scripts.fetch_igot              # write the seed
 Ingesting rather than calling live at request time is deliberate: the demo then runs
 offline at full speed and does not depend on venue wifi or the portal being up.
 
+**Video, and why progress is tracked here.** iGOT's *user* endpoints are
+authenticated - `/course/v1/user/enrollment/list` and `/course/v1/content/state/read`
+both answer `401` without a Keycloak user token - so what an officer watched on the
+portal cannot be read back. The media itself is not: leaf nodes carry an `artifactUrl`
+serving `video/mp4` with range requests. So the videos **play inside this app**, and
+finishing one is what marks it watched. **174 of 262** real courses carry playable video,
+**1,103 lessons** in total, running through exactly the same progress machinery the
+authored courses use.
+
+Each ingested course ends in **one final assessment** rather than a quiz per module. The
+videos come from iGOT; the questions come from our own authored bank, so a course can only
+be assessed on a competency we hold questions for - 86 courses qualify. The rest carry
+video progress and no quiz, which is honest and better than generating filler. iGOT's own
+quiz leaf is a Sunbird `questionset` and is auth-gated, so it cannot be ingested.
+
 **Course pages and outlines.** Every real course links to its page on the portal
 (`/public/toc/{identifier}/overview`), derived from the identifier rather than stored, so
 it stays correct across refreshes. The Sunbird course hierarchy endpoint is public on the

@@ -126,3 +126,79 @@ def test_learner_with_no_attempts_has_no_topic_record(db):
 )
 def test_verdict_boundaries(accuracy, expected):
     assert classify(accuracy) == expected
+
+
+def _igot_course_with_video(db):
+    """A real ingested course: modules of video, one assessment at the end."""
+    from sqlalchemy import select
+
+    from app.models import Checkpoint, Lesson
+
+    video_courses = sorted(
+        {
+            c
+            for (c,) in db.execute(
+                select(Lesson.course_identifier).where(Lesson.video_url != "").distinct()
+            )
+        }
+    )
+    for course_id in video_courses:
+        checkpoints = db.scalars(
+            select(Checkpoint).where(Checkpoint.course_identifier == course_id)
+        ).all()
+        if len(checkpoints) == 1:
+            return course_id
+    return None
+
+
+def test_igot_modules_are_visible_and_gated_on_the_whole_course(db):
+    """Modules must come from lessons, not only from checkpoints.
+
+    An ingested iGOT course carries modules of video and a single assessment at
+    the end. Building the module view from checkpoints alone hid every one of its
+    lessons and left that assessment permanently locked.
+    """
+    from sqlalchemy import select
+
+    from app.models import Lesson, LessonProgress
+
+    course_id = _igot_course_with_video(db)
+    assert course_id, "expected at least one ingested course with video"
+
+    progress = course_progress(db, "u-jso-anita", course_id)
+    assert progress["lessons_total"] > 0
+    # Every lesson is reachable through some module, not orphaned.
+    shown = sum(len(m["lessons"]) for m in progress["modules"])
+    assert shown == progress["lessons_total"]
+
+    final = [m for m in progress["modules"] if m["lessons_total"] == 0]
+    assert len(final) == 1, "expected exactly one course-level final assessment"
+    assert final[0]["checkpoint_id"] is not None
+    assert final[0]["checkpoint_unlocked"] is False, "locked before anything is watched"
+
+    # Watch the lot; the final assessment then opens.
+    for lesson in db.scalars(
+        select(Lesson).where(Lesson.course_identifier == course_id)
+    ).all():
+        db.add(
+            LessonProgress(
+                user_id="u-jso-anita",
+                lesson_id=lesson.id,
+                course_identifier=course_id,
+            )
+        )
+    db.flush()
+
+    after = course_progress(db, "u-jso-anita", course_id)
+    final_after = [m for m in after["modules"] if m["lessons_total"] == 0][0]
+    assert final_after["checkpoint_unlocked"] is True
+
+
+def test_a_video_module_without_a_quiz_offers_no_checkpoint_action(db):
+    """next_action must not hand back a null checkpoint id."""
+    course_id = _igot_course_with_video(db)
+    progress = course_progress(db, "u-jso-anita", course_id)
+    action = next_action(progress, IN_PROGRESS)
+    assert action is not None
+    if action["kind"] == "checkpoint":
+        assert action["checkpoint_id"] is not None

@@ -366,6 +366,82 @@ def load_curriculum(db, now):
     return lesson_count, question_count
 
 
+def load_igot_curriculum(db) -> tuple[int, int]:
+    """Lessons for real iGOT courses, from the videos the portal serves publicly.
+
+    iGOT's progress endpoints are auth-gated - reading what an officer watched on
+    the portal needs a Keycloak user token this repository does not ship - but the
+    media itself is public and range-served. So the videos play here and the watch
+    record is ours, through exactly the same lessons/progress machinery the
+    authored courses use.
+
+    Each course ends in one assessment rather than a quiz per module. The videos
+    come from iGOT; the questions come from our own authored bank, so a course can
+    only be assessed on a competency we actually hold questions for. Where we hold
+    none, the course carries video progress and no quiz - which is honest, and
+    better than generating filler.
+    """
+    here = Path(__file__).resolve().parent
+    catalogue = json.loads(
+        (here / "igot_courses_seed.json").read_text(encoding="utf-8")
+    )["content"]
+    curriculum = json.loads((here / "curriculum.json").read_text(encoding="utf-8"))
+    bank = json.loads((here / "question_bank.json").read_text(encoding="utf-8"))
+
+    # Which authored topic can assess a given competency.
+    topic_for_competency: dict[str, str] = {}
+    for topic_id, meta in curriculum["topics"].items():
+        topic_for_competency.setdefault(meta["competency_id"], topic_id)
+    has_questions = {t for t in bank if not t.startswith("_")}
+
+    lesson_count = quiz_count = 0
+    for course in catalogue:
+        modules = course.get("modules") or []
+        if course.get("source") != "igot" or not modules:
+            continue
+
+        course_id = course["identifier"]
+        position = 0
+        for module_index, module in enumerate(modules):
+            for lesson in module["lessons"]:
+                db.add(
+                    Lesson(
+                        course_identifier=course_id,
+                        position=position,
+                        module_index=module_index,
+                        title=lesson["title"],
+                        topic_id=None,
+                        duration_min=lesson.get("duration_min", 5),
+                        video_url=lesson.get("url", ""),
+                    )
+                )
+                position += 1
+                lesson_count += 1
+
+        assessable = next(
+            (
+                topic_for_competency[cid]
+                for cid in course.get("se_competencies", [])
+                if topic_for_competency.get(cid) in has_questions
+            ),
+            None,
+        )
+        if assessable:
+            db.add(
+                Checkpoint(
+                    course_identifier=course_id,
+                    module_index=len(modules),  # after every module, not gating one
+                    title="Final assessment",
+                    topic_id=assessable,
+                    pass_pct=60,
+                )
+            )
+            quiz_count += 1
+
+    db.flush()
+    return lesson_count, quiz_count
+
+
 def run() -> None:
     Base.metadata.drop_all(bind=engine)
     Base.metadata.create_all(bind=engine)
@@ -423,6 +499,7 @@ def run() -> None:
                 )
 
         lesson_count, question_count = load_curriculum(db, now)
+        igot_lessons, igot_quizzes = load_igot_curriculum(db)
 
         catalogue = json.loads(
             (Path(__file__).resolve().parent / "igot_courses_seed.json").read_text(
@@ -524,7 +601,9 @@ def run() -> None:
     print(
         f"Seeded {len(COMPETENCIES)} competencies, {len(ROLES)} roles, "
         f"{len(USERS)} officers, {len(LEARNING)} enrolments with curriculum "
-        f"({lesson_count} lessons, {question_count} bank questions)."
+        f"({lesson_count} lessons, {question_count} bank questions). "
+        f"iGOT video curricula: {igot_lessons} lessons across real courses, "
+        f"{igot_quizzes} final assessments."
     )
 
 

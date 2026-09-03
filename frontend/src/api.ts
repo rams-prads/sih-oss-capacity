@@ -215,6 +215,8 @@ export interface LessonItem {
   title: string;
   duration_min: number;
   completed: boolean;
+  /** The mp4 iGOT serves, played in place. Empty for authored sandbox lessons. */
+  video_url: string;
 }
 
 export interface ModuleItem {
@@ -222,7 +224,8 @@ export interface ModuleItem {
   title: string;
   topic_id: string;
   topic_name: string;
-  checkpoint_id: number;
+  /** null for an ingested iGOT module: the course is assessed once, at the end. */
+  checkpoint_id: number | null;
   pass_pct: number;
   lessons: LessonItem[];
   lessons_completed: number;
