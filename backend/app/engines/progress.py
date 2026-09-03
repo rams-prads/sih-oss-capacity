@@ -124,6 +124,7 @@ def course_progress(db: Session, user_id: str, course_identifier: str) -> dict:
                         "title": lesson.title,
                         "duration_min": lesson.duration_min,
                         "completed": lesson.id in done_lesson_ids,
+                        "video_url": lesson.video_url,
                     }
                     for lesson in module_lessons
                 ],

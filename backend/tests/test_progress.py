@@ -171,6 +171,15 @@ def test_igot_modules_are_visible_and_gated_on_the_whole_course(db):
     shown = sum(len(m["lessons"]) for m in progress["modules"])
     assert shown == progress["lessons_total"]
 
+    # The url has to survive serialisation, or the player never appears.
+    played = [
+        lesson
+        for module in progress["modules"]
+        for lesson in module["lessons"]
+        if lesson["video_url"]
+    ]
+    assert played, "ingested lessons must carry the mp4 url through to the client"
+
     final = [m for m in progress["modules"] if m["lessons_total"] == 0]
     assert len(final) == 1, "expected exactly one course-level final assessment"
     assert final[0]["checkpoint_id"] is not None
