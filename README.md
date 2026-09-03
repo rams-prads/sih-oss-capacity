@@ -5,8 +5,9 @@ Ministry of Statistics & Programme Implementation (MoSPI)
 
 An AI-enabled capacity-building platform that identifies the **competency gaps** of
 officers in the Official Statistical System against the requirements of their role,
-recommends **personalised training** from the iGOT Karmayogi catalogue, and generates
-**assessments from learning material** to continuously re-estimate proficiency.
+recommends **personalised training** from both the live iGOT Karmayogi catalogue and
+NSSTA's TPAC-approved training calendar, and generates **assessments from learning
+material** to continuously re-estimate proficiency.
 
 The competency model is grounded in **FRAC** (Framework of Roles, Activities and
 Competencies) as used by Mission Karmayogi and the Karmayogi Qualification Framework.
@@ -18,30 +19,64 @@ Competencies) as used by Mission Karmayogi and the Karmayogi Qualification Frame
 | | |
 |---|---|
 | **Gap engine** | Ranks each officer's shortfall per competency, weighted by how critical that competency is to their role. |
-| **Recommendation engine** | Matches gap competencies to catalogue courses through the Sunbird API contract, favouring courses that close several gaps at once. |
+| **Recommendation engine** | Matches gap competencies to real iGOT courses and NSSTA TPAC programmes through the Sunbird API contract, favouring courses that close several gaps at once and spreading the list across an officer's gaps rather than the catalogue's deepest subject. |
 | **Assessment loop** | Upload a PDF or text file, generate MCQs tagged to a competency, take the quiz, and watch attained proficiency — and the gap — update. |
-| **Learner dashboard** | Target vs attained radar, ranked gaps, recommended courses and enrolment. |
-| **My learning** | Every enrolled, completed and expired course, with progress derived from videos watched and checkpoints passed, plus a topic-by-topic record of what the officer gets right and wrong. |
+| **Learner dashboard** | Target vs attained radar, ranked gaps, recommended courses and enrolment. Tabs: My Dashboard · My Courses · Quiz Generator · Admin Dashboard. |
+| **My Courses** | Every enrolled, completed and expired course, with progress derived from videos watched and checkpoints passed, plus a topic-by-topic record of what the officer gets right and wrong. |
 | **Admin analytics** | Department-wide competency heatmap, top capacity gaps, and cohort training recommendations. |
 | **Department training view** | Weakest topics across the cadre, courses that stall, and enrolments about to lapse. Requires an administrator sign-in. |
 
 ---
 
-## A note on iGOT integration
+## Data sources
 
-iGOT Karmayogi is engineered on the open-source **Sunbird** stack. This project codes
-against the Sunbird REST contract — content search, content read, course hierarchy,
-enrolment, and enrolment listing — behind a single interface with two implementations:
+The catalogue is **184 courses from two real sources**, plus a small authored set that
+carries this app's own lessons and quizzes. Every course states which it came from, and
+the UI badges them apart.
 
-- `MockKarmayogiClient` — serves the seeded catalogue in the exact Sunbird response
-  envelope. This is the default, and it makes **no external network calls**.
-- `SunbirdKarmayogiClient` — the real client, wired to Sunbird endpoints and ready for
-  a gateway key plus a Keycloak user token.
+| Source | Count | What it is |
+|---|---|---|
+| **iGOT Karmayogi** | 138 | Fetched from the live iGOT content search API. Real identifiers, titles, providers and durations — NEGD MeitY, ISTM, DoPT, ISRO, IIT Kanpur, UpGrad, and MoSPI's own Capacity Development Division. |
+| **NSSTA (TPAC-approved)** | 20 | Programmes from the published NSSTA Advance Training Calendar FY 2025-26, approved by the Training Programme Approval Committee. Real venues, cadres, durations and batch sizes. |
+| **Sandbox** | 26 | Authored courses that carry the curriculum, videos and checkpoint question bank the *My Courses* screen runs on. Clearly labelled; not presented as real catalogue content. |
 
-Live production access requires Karmayogi Bharat credentials, which this repository
-does not ship. So the prototype runs against a **sandbox implementing the same
-contract** (`/mock-sunbird/...`, a real HTTP service). Switching to production is a
-configuration change, not a rewrite — and you can prove it locally:
+### iGOT Karmayogi
+
+iGOT is engineered on the open-source **Sunbird** stack, and its content search endpoint
+answers **without credentials**:
+
+```bash
+curl -X POST https://portal.igotkarmayogi.gov.in/api/content/v1/search \
+  -H 'Content-Type: application/json' \
+  -d '{"request":{"filters":{"primaryCategory":["Course"],"status":["Live"]},"limit":3}}'
+```
+
+So the catalogue — the only part the recommendation engine reads — is genuinely real.
+`backend/scripts/fetch_igot.py` ingests it; re-run it to refresh:
+
+```bash
+cd backend
+python -m scripts.fetch_igot --dry-run    # show what would change
+python -m scripts.fetch_igot              # write the seed
+```
+
+Ingesting rather than calling live at request time is deliberate: the demo then runs
+offline at full speed and does not depend on venue wifi or the portal being up.
+
+**How courses are tagged.** Every iGOT course carries `competencies_v6` — the Karmayogi
+Competency Model, with a competency *area* (Domain / Functional / Behavioural, the same
+three types this project's FRAC model uses), a *theme* and a *sub-theme*. We map that
+taxonomy onto our competency ids rather than trusting the search query that found the
+course. iGOT's search is fuzzy full-text: `"survey design sampling"` returns *Borehole
+Planning Core Logging and Sampling in Base Metal Exploration*, which shares one word and
+no subject. It is tagged **Mines** in KCM, maps to nothing here, and drops out along with
+36 others — so there is no blocklist of unrelated domains to maintain.
+
+**What still needs credentials.** Enrolment and progress writes go through Keycloak user
+tokens, which this repository does not ship. Those run against the sandbox
+(`/mock-sunbird/...`, a real HTTP service speaking the same contract), and
+`SunbirdKarmayogiClient` is wired and ready for a gateway key. You can prove the swap
+locally:
 
 ```bash
 # terminal 1 — the sandbox that speaks Sunbird
@@ -56,9 +91,30 @@ uvicorn app.main:app --port 8001
 curl localhost:8001/api/recommendations/u-jso-anita   # "source": "sunbird"
 ```
 
-Both paths return identical recommendations.
+**The course catalogue is real iGOT content. Enrolment is not connected to production
+iGOT, and does not claim to be.**
 
-**This build is not connected to production iGOT, and does not claim to be.**
+### NSSTA training programmes
+
+NSSTA — the National Statistical Systems Training Academy, under the NSO — runs the
+formal training an officer is entitled to, approved by **TPAC** (Training Programme
+Approval Committee, chaired by the DG, Coordination & Administration Division).
+
+A TPAC programme is not an iGOT course, and the platform does not pretend otherwise:
+
+| | iGOT course | NSSTA programme |
+|---|---|---|
+| Format | Online, self-paced | Classroom / residential, fixed dates |
+| Capacity | Unlimited | A batch of 25–35 |
+| Access | Enrol yourself | **Nominated by your department** |
+| Audience | Anyone | A named cadre — ISS probationers, SSOs, state DES |
+
+So a recommended NSSTA programme shows its eligible cadre and seat count, and the button
+asks to **request nomination** rather than offering an enrolment the platform cannot
+perform. Both sources are ranked together by the same gap engine, because an officer
+should see one honest list of what will close their gaps.
+
+Source: [NSSTA Advance Training Calendar FY 2025-26](https://mospi.gov.in/sites/default/files/announcements/Circular_NSSTA_Advance_Training_Calander_FY(25-26).pdf), mospi.gov.in.
 
 ---
 
@@ -74,7 +130,7 @@ cd backend
 python -m venv .venv
 .venv/Scripts/activate          # Windows;  source .venv/bin/activate on macOS/Linux
 pip install -r requirements.txt
-python -m seed.seed             # 15 competencies, 3 roles, 9 officers
+python -m seed.seed             # 26 competencies, 3 roles, 9 officers, 184 courses
 uvicorn app.main:app --reload --port 8000
 ```
 
@@ -89,7 +145,7 @@ npm run dev                     # http://localhost:5173
 **Tests**
 
 ```bash
-cd backend && python -m pytest      # 84 tests
+cd backend && python -m pytest      # 86 tests
 cd frontend && npm test             # 31 component tests
 ```
 
@@ -180,14 +236,21 @@ Blending with the prior stops a single quiz from swinging an officer's record.
 
 ### Seeded roles
 
-- **JSO — Junior Statistical Officer:** C01(3,H) C02(3,H) C03(3,H) C04(2,M) C09(2,M) C11(2,M) C15(2,M)
-- **SI — Statistical Investigator (Field):** C02(3,H) C03(2,M) C08(3,H) C13(2,M) C11(2,M) C15(2,M)
-- **DA — Statistical Data Analyst:** C04(4,H) C09(4,H) C10(3,H) C07(3,M) C12(2,M) C14(2,M) C15(3,M)
+- **JSO — Junior Statistical Officer:** C01(3,H) C02(3,H) C03(3,H) C04(2,M) C09(2,M) C11(2,M) C15(2,M) C16(2,M) C19(2,L) C22(2,M) C25(2,L)
+- **SI — Statistical Investigator (Field):** C02(3,H) C03(2,M) C08(3,H) C13(2,M) C11(2,M) C15(2,M) C17(2,M) C22(2,L) C24(2,L)
+- **DA — Statistical Data Analyst:** C04(4,H) C09(4,H) C10(3,H) C07(3,M) C12(2,M) C14(2,M) C15(3,M) C19(3,H) C20(3,M) C21(2,L) C26(2,M)
 
-The 15 competencies span survey design, questionnaire and CAPI operations, data
-quality, statistical analysis, national accounts, price indices, SDG indicators,
-NIC/NCO classification, R/Python, visualisation, data ethics and the Collection of
-Statistics Act, big data, GIS, SDMX metadata, and analytical communication.
+The **26 competencies** cover the four domains the problem statement names:
+
+| Domain | Competencies |
+|---|---|
+| **Statistical** (14) | Survey design and sampling, questionnaire and CAPI operations, data quality, statistical analysis, national accounts, price indices, SDG indicators, NIC/NCO classification, big data, GIS, SDMX metadata, and labour, agricultural and industrial statistics. |
+| **Technical** (8) | R/Python, SQL and database management, data visualisation, AI/ML, cloud and government cloud, cybersecurity and data privacy, DPI and e-governance. |
+| **Behavioural / managerial** (4) | Analytical thinking and communication, leadership and team management, project management, decision making and change management. |
+
+The technical, digital-governance and behavioural competencies are not decorative: they
+are what NSSTA's own calendar trains — machine learning with Python at IIT Madras,
+leadership at IIM Ahmedabad, agricultural and labour statistics at NSSTA itself.
 
 ---
 
@@ -196,20 +259,23 @@ Statistics Act, big data, GIS, SDMX metadata, and analytical communication.
 Start both servers, open `http://localhost:5173`, and leave the officer selector on
 **Anita Deshmukh — JSO**.
 
-1. **My competencies.** The radar shows target vs attained across her seven role
-   requirements; readiness is 59.4%. The gap engine puts **Survey Design & Sampling
+1. **My Dashboard.** The radar shows target vs attained across her eleven role
+   requirements; readiness is 55.7%. The gap engine puts **Survey Design & Sampling
    Methodology** and **Data Quality Assurance** at the top, both weighted gap 2.0.
-2. **Recommended training.** The top card is *Microdata Cleaning Workflows in R and
-   Python* — it ranks first because it closes two of her gaps at once. Enrol.
-   (Open the network tab: the catalogue comes from the Sunbird-contract service.)
+2. **Recommended training.** The top card is *Data Analysis using R* — a real iGOT
+   course — because it closes three of her gaps at once. Note the badges: courses are
+   marked **iGOT Karmayogi**, **NSSTA · TPAC approved** or **Sandbox**, and the NSSTA
+   ones ask to *request nomination* rather than offering enrolment. Each of her top
+   gaps gets two routes rather than the catalogue's deepest subject taking every slot.
+   Enrol in one.
 3. **Assessment.** Upload `demo/sampling-methodology.pdf`, choose **C01**, generate.
    Answer the questions, submit — attained proficiency rises, the gap shrinks, and
    role readiness is recomputed on screen.
-4. **My learning.** All four course states on one screen: one in progress, one not
+4. **My Courses.** All four course states on one screen: one in progress, one not
    started, one completed, one expired. Open *Foundations of Survey Design*, watch the
    two remaining videos in module 2 — the bar moves each time — and the checkpoint
    unlocks. Take it; the topic record updates with what was right and wrong.
-5. **Department view.** The heatmap shows capacity across the cadre, the bar chart
+5. **Admin Dashboard.** The heatmap shows capacity across the cadre, the bar chart
    ranks department-wide gaps, and each top gap gets a costed cohort training
    recommendation.
 6. **Integration.** Show `backend/app/integration/sunbird.py` and run the two-terminal
@@ -219,9 +285,9 @@ Start both servers, open `http://localhost:5173`, and leave the officer selector
 
 ---
 
-## My learning: courses, checkpoints and topic record
+## My Courses: curriculum, checkpoints and topic record
 
-All 26 catalogue courses carry a curriculum. Each is **three modules of three video
+The 26 authored sandbox courses carry a curriculum. Each is **three modules of three video
 lessons**, and every module ends in a
 **checkpoint quiz** that unlocks only once its videos are watched. Pass mark is 60%,
 and a checkpoint can be retaken until it is passed.
@@ -244,7 +310,7 @@ A finished course never flips to expired when its date passes.
 ### Topic record
 
 Checkpoint questions come from an **authored, topic-tagged question bank** (180 items
-across 45 topics, three per competency), not from the LLM — so the same question means the same thing every
+across 45 topics, three for each of the 15 competencies the sandbox curriculum covers), not from the LLM — so the same question means the same thing every
 time and mastery is measured against stable items. Every answer is stored with its
 topic, giving a running accuracy per topic:
 
@@ -316,9 +382,11 @@ backend/
     quiz/        service.py                                ← extract, chunk, validate
     routers/     users · gaps · quiz · admin · mock_sunbird
     engines/     progress.py                              ← derived progress
-  seed/          seed.py · igot_courses_seed.json (26 courses)
+  scripts/       fetch_igot.py                            ← live iGOT ingest
+  seed/          seed.py · igot_courses_seed.json (26 sandbox + 138 iGOT)
+                 nssta_tpac_seed.json (20 TPAC programmes)
                  curriculum.json · question_bank.json (180 items)
-  tests/         84 tests
+  tests/         86 tests
 frontend/
   src/pages/     Learner.tsx · MyLearning.tsx · Upload.tsx · Admin.tsx
   src/components/Radar · Heatmap · GapList · CourseCard · Progress
@@ -334,7 +402,11 @@ TypeScript · Vite · Tailwind CSS 4 · Recharts.
 
 ## Scope
 
-Deliberately **not** built: live production iGOT integration, self-hosted Sunbird,
-real SSO/Keycloak (the app uses a lightweight JWT and the Sunbird token is mocked),
-mobile apps, and multi-tenant onboarding. The competency taxonomy is kept to 15 real
-competencies and 3 real roles rather than an impressive-looking invented list.
+Deliberately **not** built: live iGOT *enrolment* (the catalogue is real; writing
+enrolments back needs Keycloak credentials), self-hosted Sunbird, real SSO/Keycloak
+(the app uses a lightweight JWT and the Sunbird token is mocked), mobile apps, virtual
+labs, a learner-facing AI assistant, multilingual content, and multi-tenant onboarding.
+
+The competency taxonomy is 26 real competencies and 3 real roles drawn from the
+problem statement's four domains and NSSTA's published calendar, rather than an
+impressive-looking invented list.
