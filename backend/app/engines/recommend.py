@@ -17,6 +17,8 @@ COVERAGE_BONUS = 0.6
 LEVEL_PENALTY = 0.35
 # Most courses shown for any one competency before other gaps get a turn.
 PER_COMPETENCY = 2
+# Charged per competency a course claims that is not one of the officer's gaps.
+DILUTION_PENALTY = 0.2
 
 
 def _to_out(course: Course) -> CourseOut:
@@ -58,7 +60,22 @@ def recommend_courses(
         primary = max(covered, key=lambda cid: gap_by_id[cid].weighted_gap)
         primary_gap = gap_by_id[primary]
         level_distance = abs(course.target_level - primary_gap.target_level)
-        score = round(priority_mass + coverage_bonus - LEVEL_PENALTY * level_distance, 3)
+
+        # How much of this course is actually about the officer's gaps. iGOT tags
+        # some content very broadly - "File management in AutoCAD" carries six KCM
+        # competencies including Office Management / File-DAK Management, and
+        # "Artificial Intelligence_L2" carries five. Without this they collect the
+        # coverage bonus and outrank focused courses. A course claiming six
+        # subjects teaches none of them deeply, so charge for the ones the officer
+        # did not ask for.
+        off_target = max(0, len(course.competency_ids) - len(covered))
+        score = round(
+            priority_mass
+            + coverage_bonus
+            - LEVEL_PENALTY * level_distance
+            - DILUTION_PENALTY * off_target,
+            3,
+        )
 
         names = [gap_by_id[cid].competency_name for cid in covered]
         if len(covered) > 1:
