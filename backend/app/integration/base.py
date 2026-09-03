@@ -36,6 +36,7 @@ class Course(BaseModel):
     eligibility: str = ""         # which cadre may attend
     duration_days: int = 0        # NSSTA publishes days, not minutes
     batch_size: int = 0
+    url: str = ""                 # the course on the iGOT portal
 
 
 class EnrolmentRecord(BaseModel):
@@ -74,6 +75,23 @@ def sunbird_envelope(api_id: str, result: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+IGOT_PORTAL = "https://portal.igotkarmayogi.gov.in"
+
+
+def course_url(identifier: str, source: str) -> str:
+    """Where an officer actually opens this course.
+
+    Derived from the identifier rather than stored, so it needs no extra field
+    in the seed and stays correct when the catalogue is refreshed. Only iGOT
+    content has a portal page: an NSSTA programme is a scheduled classroom
+    batch, so there is nothing to link to and the card asks for nomination
+    instead. Sandbox courses are served by this app and have no external page.
+    """
+    if source != "igot" or not identifier:
+        return ""
+    return f"{IGOT_PORTAL}/public/toc/{identifier}/overview"
+
+
 def course_from_sunbird(node: dict[str, Any]) -> Course:
     """Map a Sunbird content node onto our Course model."""
     duration = node.get("duration") or 0
@@ -97,4 +115,5 @@ def course_from_sunbird(node: dict[str, Any]) -> Course:
         eligibility=node.get("eligibility") or "",
         duration_days=int(node.get("duration_days") or 0),
         batch_size=int(node.get("batch_size") or 0),
+        url=course_url(node.get("identifier", ""), node.get("source") or "igot"),
     )

@@ -99,6 +99,7 @@ class CourseOut(BaseModel):
     eligibility: str = ""
     duration_days: int = 0
     batch_size: int = 0
+    url: str = ""
 
 
 class Recommendation(BaseModel):

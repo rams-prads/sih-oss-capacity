@@ -67,7 +67,19 @@ export function CourseCard({
       )}
 
       <div className="mt-3 flex items-center justify-between border-t border-slate-100 pt-3">
-        <code className="text-[11px] text-slate-400">{course.identifier}</code>
+        {course.url ? (
+          <a
+            href={course.url}
+            target="_blank"
+            rel="noreferrer"
+            className="text-[11px] text-blue-700 underline decoration-dotted underline-offset-2 hover:text-blue-900"
+            title="Open this course on the iGOT Karmayogi portal"
+          >
+            {course.identifier}
+          </a>
+        ) : (
+          <code className="text-[11px] text-slate-400">{course.identifier}</code>
+        )}
         <button
           disabled={enrolled}
           onClick={() => onEnrol(course.identifier)}

@@ -59,6 +59,8 @@ export interface Course {
   eligibility: string;
   duration_days: number;
   batch_size: number;
+  /** The course on the iGOT portal. Empty for NSSTA programmes and sandbox courses. */
+  url: string;
 }
 
 export interface Recommendation {
