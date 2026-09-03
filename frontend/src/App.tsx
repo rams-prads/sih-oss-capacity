@@ -44,16 +44,16 @@ export default function App() {
 
           <nav className="flex gap-1 rounded-xl bg-white/10 p-1">
             <NavLink to="/learner" className={tab}>
-              My competencies
+              My Dashboard
             </NavLink>
             <NavLink to="/my-learning" className={tab}>
-              My learning
+              My Courses
             </NavLink>
             <NavLink to="/assess" className={tab}>
-              Assessment
+              Quiz Generator
             </NavLink>
             <NavLink to="/admin" className={tab}>
-              Department view
+              Admin Dashboard
             </NavLink>
           </nav>
 

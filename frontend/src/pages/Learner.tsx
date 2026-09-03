@@ -1,17 +1,9 @@
 import { useCallback, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { enrol, getEnrolments, getGaps, getRecommendations } from "../api";
-import type {
-  CourseStatus,
-  Enrolment,
-  GapItem,
-  GapReport,
-  Recommendation,
-  User,
-} from "../api";
+import type { Enrolment, GapItem, GapReport, Recommendation, User } from "../api";
 import { CourseCard } from "../components/CourseCard";
 import { GapList } from "../components/GapList";
-import { ProgressBar, StatusPill } from "../components/Progress";
 import { CompetencyRadar } from "../components/Radar";
 import { Card, Empty, ErrorNote, Spinner, Stat } from "../components/ui";
 
@@ -62,6 +54,9 @@ export default function Learner({ userId, user }: { userId: string; user?: User 
 
   const openGaps = report.items.filter((i) => i.gap > 0);
   const enrolledIds = new Set(enrolments.map((e) => e.course_identifier));
+  const avgProgress = enrolments.length
+    ? Math.round(enrolments.reduce((s, e) => s + e.progress_pct, 0) / enrolments.length)
+    : 0;
 
   return (
     <div className="space-y-5">
@@ -73,8 +68,8 @@ export default function Learner({ userId, user }: { userId: string; user?: User 
           tone={report.readiness_pct >= 80 ? "good" : "warn"}
         />
         <Stat label="Open competency gaps" value={openGaps.length} hint={`of ${report.items.length} required`} />
-        <Stat label="Weighted gap" value={report.total_weighted_gap.toFixed(1)} hint={`worst case ${report.max_weighted_gap.toFixed(1)}`} />
         <Stat label="Courses enrolled" value={enrolments.length} hint={`${enrolments.filter((e) => e.status === "completed").length} completed`} />
+        <Stat label="Course progress" value={`${avgProgress}%`} hint="average across enrolled courses" />
       </div>
 
       <div className="grid gap-5 lg:grid-cols-5">
@@ -124,38 +119,6 @@ export default function Learner({ userId, user }: { userId: string; user?: User 
         )}
       </Card>
 
-      {enrolments.length > 0 && (
-        <Card
-          title="My learning"
-          subtitle="Videos watched and checkpoint quizzes passed"
-          right={
-            <Link
-              to="/my-learning"
-              className="rounded-lg border border-slate-300 px-3 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-50"
-            >
-              Open full record
-            </Link>
-          }
-        >
-          <ul className="divide-y divide-slate-100">
-            {enrolments.slice(0, 4).map((e) => (
-              <li key={e.course_identifier} className="flex items-center gap-4 py-3">
-                <div className="min-w-0 flex-1">
-                  <p className="truncate text-sm font-medium text-slate-900">{e.course_name}</p>
-                  <code className="text-[11px] text-slate-400">{e.course_identifier}</code>
-                </div>
-                <StatusPill status={e.status as CourseStatus} />
-                <div className="w-40 shrink-0">
-                  <ProgressBar value={e.progress_pct} status={e.status as CourseStatus} />
-                </div>
-                <span className="w-10 shrink-0 text-right text-xs tabular-nums text-slate-500">
-                  {e.progress_pct}%
-                </span>
-              </li>
-            ))}
-          </ul>
-        </Card>
-      )}
     </div>
   );
 }
