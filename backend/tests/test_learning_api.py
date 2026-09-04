@@ -4,7 +4,7 @@ from sqlalchemy import select
 from app.db import SessionLocal
 from app.models import BankQuestion, Checkpoint
 
-SURVEY_DESIGN = "do_3137421900011"
+# Resolved from the response rather than named: the catalogue comes from iGOT.
 
 
 def _answer_key(checkpoint_id: int) -> list[int]:
@@ -18,8 +18,42 @@ def _answer_key(checkpoint_id: int) -> list[int]:
         return [q.answer_index for q in rows]
 
 
-def _course(body, identifier=SURVEY_DESIGN):
-    return next(c for c in body["courses"] if c["course_identifier"] == identifier)
+def _course(body, identifier=None):
+    """A course from the dashboard: by id, else the one in progress."""
+    if identifier:
+        return next(c for c in body["courses"] if c["course_identifier"] == identifier)
+    return next(c for c in body["courses"] if c["status"] == "in_progress")
+
+
+def _assessed_module(course):
+    """The module carrying this course's assessment.
+
+    Authored courses had a quiz per module; an ingested iGOT course has modules of
+    video and one assessment at the end, so the position cannot be assumed.
+    """
+    return next(m for m in course["modules"] if m["checkpoint_id"] is not None)
+
+
+def _watch_all(client, user, course):
+    """Watch every unwatched video, returning the progress after each."""
+    seen = []
+    for module in course["modules"]:
+        for lesson in module["lessons"]:
+            if lesson["completed"]:
+                continue
+            seen.append(
+                client.post(f"/api/users/{user}/lessons/{lesson['id']}/complete").json()
+            )
+    return seen
+
+
+def _assessable(body):
+    """A course carrying an assessment, so the checkpoint loop can be exercised."""
+    return next(
+        c
+        for c in body["courses"]
+        if any(m["checkpoint_id"] is not None for m in c["modules"])
+    )
 
 
 def test_dashboard_reports_every_status(client):
@@ -62,7 +96,8 @@ def test_completed_course_is_fully_done(client):
 
 def test_checkpoint_is_locked_until_its_videos_are_watched(client):
     body = client.get("/api/users/u-jso-anita/learning").json()
-    module = _course(body)["modules"][1]
+    course = _assessable(body)
+    module = _assessed_module(course)
     assert module["checkpoint_unlocked"] is False
 
     response = client.get(
@@ -74,18 +109,19 @@ def test_checkpoint_is_locked_until_its_videos_are_watched(client):
 
 def test_watching_videos_moves_progress_and_unlocks_the_checkpoint(client):
     user = "u-jso-anita"
-    before = _course(client.get(f"/api/users/{user}/learning").json())
-    module = before["modules"][1]
-    pending = [l["id"] for l in module["lessons"] if not l["completed"]]
+    before = _assessable(client.get(f"/api/users/{user}/learning").json())
+    module = _assessed_module(before)
 
     last_pct = before["progress_pct"]
-    for lesson_id in pending:
-        body = client.post(f"/api/users/{user}/lessons/{lesson_id}/complete").json()
+    for body in _watch_all(client, user, before):
         assert body["progress_pct"] > last_pct      # the bar always moves forward
         last_pct = body["progress_pct"]
 
-    after = _course(client.get(f"/api/users/{user}/learning").json())
-    assert after["modules"][1]["checkpoint_unlocked"] is True
+    after = _course(
+        client.get(f"/api/users/{user}/learning").json(),
+        before["course_identifier"],
+    )
+    assert _assessed_module(after)["checkpoint_unlocked"] is True
     assert after["next_action"]["kind"] == "checkpoint"
 
     quiz = client.get(
@@ -98,13 +134,15 @@ def test_watching_videos_moves_progress_and_unlocks_the_checkpoint(client):
 def test_failing_then_passing_a_checkpoint(client):
     """A failed attempt is recorded but does not advance the course."""
     user = "u-jso-anita"
-    checkpoint_id = _course(client.get(f"/api/users/{user}/learning").json())["modules"][1][
-        "checkpoint_id"
-    ]
+    course = _assessable(client.get(f"/api/users/{user}/learning").json())
+    checkpoint_id = _assessed_module(course)["checkpoint_id"]
+    _watch_all(client, user, course)   # the assessment only opens once watched
     key = _answer_key(checkpoint_id)
 
     wrong = [key[0]] + [(k + 1) % 4 for k in key[1:]]
-    before_pct = _course(client.get(f"/api/users/{user}/learning").json())["progress_pct"]
+    before_pct = _course(
+        client.get(f"/api/users/{user}/learning").json(), course["course_identifier"]
+    )["progress_pct"]
     failed = client.post(
         f"/api/checkpoints/{checkpoint_id}/submit",
         params={"user_id": user},
@@ -136,7 +174,10 @@ def test_lesson_completion_requires_enrolment(client):
 
 def test_answer_count_must_match(client):
     body = client.get("/api/users/u-si-lalita/learning").json()
-    checkpoint_id = _course(body, "do_3137421900023")["modules"][0]["checkpoint_id"]
+    course = _assessable(body)
+    checkpoint_id = next(
+        m["checkpoint_id"] for m in course["modules"] if m["checkpoint_id"] is not None
+    )
     response = client.post(
         f"/api/checkpoints/{checkpoint_id}/submit",
         params={"user_id": "u-si-lalita"},

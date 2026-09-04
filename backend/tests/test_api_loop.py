@@ -64,17 +64,20 @@ def test_login_and_authenticated_identity(client):
 
 def test_enrolment_round_trip(client):
     """Enrol, then let progress come from watching a video - never set by hand."""
+    # A real catalogue id, taken from the catalogue rather than named here: the
+    # course list is fetched from iGOT and its identifiers change on refresh.
+    course_id = client.get("/api/courses").json()[0]["identifier"]
     response = client.post(
-        "/api/users/u-jso-farah/enrolments", json={"course_identifier": "do_3137421900011"}
+        "/api/users/u-jso-farah/enrolments", json={"course_identifier": course_id}
     )
     assert response.status_code == 201
 
     rows = client.get("/api/users/u-jso-farah/enrolments").json()
-    assert any(r["course_identifier"] == "do_3137421900011" for r in rows)
+    assert any(r["course_identifier"] == course_id for r in rows)
 
     board = client.get("/api/users/u-jso-farah/learning").json()
     course = next(
-        c for c in board["courses"] if c["course_identifier"] == "do_3137421900011"
+        c for c in board["courses"] if c["course_identifier"] == course_id
     )
     assert course["status"] == "not_started"
     assert course["progress_pct"] == 0

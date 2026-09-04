@@ -269,81 +269,58 @@ HISTORY = [
 # (lessons_done, [(module_index, correct_of_4), ...], enrolled_days_ago, expires_in_days)
 # Status is DERIVED from this, never stated: all lessons + all checkpoints passed
 # is "completed"; an unfinished course past its expiry date is "expired".
-SURVEY_DESIGN = "do_3137421900011"
-DATA_QUALITY = "do_3137421900015"
-QUESTIONNAIRE = "do_3137421900013"
-DESCRIPTIVE = "do_3137421900017"
-R_COMPUTING = "do_3137421900025"
-CLASSIFICATION = "do_3137421900023"
-
+# --- Demo learning history ------------------------------------------------
+# Keyed on competency, not on a course id. The catalogue is fetched from iGOT and
+# changes between refreshes, so naming courses here would rot; the seeder picks a
+# real course tagged to the competency instead.
+#
+# (officer, competency, fraction of the course watched, final-assessment scores %,
+#  days since enrolment, days until the window closes)
 LEARNING = [
-    # Anita is the demo profile: one of every status, and a retried checkpoint.
-    ("u-jso-anita", SURVEY_DESIGN, 4, [(0, 3)], 40, 55),
-    ("u-jso-anita", DESCRIPTIVE, 9, [(0, 4), (1, 3), (2, 1), (2, 3)], 120, 200),
-    ("u-jso-anita", CLASSIFICATION, 3, [], 150, -20),
-    ("u-jso-anita", DATA_QUALITY, 0, [], 8, 90),
+    # Anita is the demo profile: one of every status, including a retried assessment.
+    ("u-jso-anita", "C01", 0.4, [], 40, 55),        # in progress
+    ("u-jso-anita", "C04", 1.0, [25.0, 75.0], 120, 200),  # completed after a retry
+    ("u-jso-anita", "C10", 0.3, [], 150, -20),      # expired part-way
+    ("u-jso-anita", "C03", 0.0, [], 8, 90),         # not started
 
-    ("u-jso-rakesh", SURVEY_DESIGN, 9, [(0, 4), (1, 4), (2, 3)], 100, 180),
-    ("u-jso-rakesh", R_COMPUTING, 6, [(0, 3), (1, 2), (1, 3)], 30, 18),
+    ("u-jso-rakesh", "C01", 1.0, [100.0], 100, 180),
+    ("u-jso-rakesh", "C19", 0.6, [50.0], 30, 18),
 
-    ("u-jso-farah", DATA_QUALITY, 3, [], 20, 70),
-    ("u-jso-farah", QUESTIONNAIRE, 0, [], 5, 90),
+    ("u-jso-farah", "C29", 0.3, [], 20, 70),
+    ("u-jso-farah", "C30", 0.0, [], 5, 90),
 
-    ("u-si-vikram", QUESTIONNAIRE, 5, [(0, 3)], 45, 12),
-    ("u-si-vikram", CLASSIFICATION, 3, [(0, 0)], 140, -10),
+    ("u-si-vikram", "C23", 0.5, [75.0], 45, 12),
+    ("u-si-vikram", "C29", 0.3, [0.0], 140, -10),
 
-    ("u-si-lalita", QUESTIONNAIRE, 9, [(0, 4), (1, 3), (2, 4)], 110, 190),
-    ("u-si-lalita", CLASSIFICATION, 4, [(0, 3)], 25, 65),
+    ("u-si-lalita", "C04", 1.0, [100.0], 110, 190),
+    ("u-si-lalita", "C24", 0.4, [75.0], 25, 65),
 
-    ("u-da-suresh", R_COMPUTING, 7, [(0, 4), (1, 3)], 35, 25),
-    ("u-da-suresh", DESCRIPTIVE, 9, [(0, 3), (1, 4), (2, 3)], 130, 210),
+    ("u-da-suresh", "C09", 0.7, [100.0], 35, 25),
+    ("u-da-suresh", "C04", 1.0, [75.0], 130, 210),
 
-    ("u-da-neha", DESCRIPTIVE, 9, [(0, 4), (1, 4), (2, 4)], 160, 240),
-    ("u-da-neha", R_COMPUTING, 9, [(0, 4), (1, 3), (2, 4)], 90, 170),
+    ("u-da-neha", "C04", 1.0, [100.0], 160, 240),
+    ("u-da-neha", "C25", 1.0, [75.0], 90, 170),
 
-    ("u-da-imran", DESCRIPTIVE, 3, [(0, 1)], 15, 75),
-    ("u-da-imran", R_COMPUTING, 0, [], 6, 85),
+    ("u-da-imran", "C30", 0.3, [25.0], 15, 75),
+    ("u-da-imran", "C31", 0.0, [], 6, 85),
 
-    ("u-admin-meera", DESCRIPTIVE, 9, [(0, 4), (1, 4), (2, 3)], 200, 280),
+    ("u-admin-meera", "C27", 1.0, [100.0], 200, 280),
 ]
 
 
 def load_curriculum(db, now):
-    """Topics, lessons, checkpoints and the authored question bank."""
+    """Topics and the authored question bank.
+
+    The 26 invented courses this used to build are gone - course structure is
+    ingested from iGOT now. What remains is assessment material: topics tag each
+    question to a competency so a score can move a FRAC proficiency level.
+    """
     here = Path(__file__).resolve().parent
     curriculum = json.loads((here / "curriculum.json").read_text(encoding="utf-8"))
     bank = json.loads((here / "question_bank.json").read_text(encoding="utf-8"))
 
     for topic_id, meta in curriculum["topics"].items():
         db.add(Topic(id=topic_id, name=meta["name"], competency_id=meta["competency_id"]))
-
-    lesson_count = 0
-    for course_id, topic_ids in curriculum["courses"].items():
-        position = 0
-        for module_index, topic_id in enumerate(topic_ids):
-            topic = curriculum["topics"][topic_id]
-            for title, minutes in topic["lessons"]:
-                db.add(
-                    Lesson(
-                        course_identifier=course_id,
-                        position=position,
-                        module_index=module_index,
-                        title=title,
-                        topic_id=topic_id,
-                        duration_min=minutes,
-                    )
-                )
-                position += 1
-                lesson_count += 1
-            db.add(
-                Checkpoint(
-                    course_identifier=course_id,
-                    module_index=module_index,
-                    title=topic["module_title"],
-                    topic_id=topic_id,
-                    pass_pct=60,
-                )
-            )
 
     question_count = 0
     for topic_id, questions in bank.items():
@@ -363,7 +340,7 @@ def load_curriculum(db, now):
             question_count += 1
 
     db.flush()
-    return lesson_count, question_count
+    return 0, question_count
 
 
 def load_igot_curriculum(db) -> tuple[int, int]:
@@ -515,7 +492,49 @@ def run() -> None:
         for cp in db.scalars(select(Checkpoint)).all():
             checkpoints_by_course.setdefault(cp.course_identifier, {})[cp.module_index] = cp
 
-        for uid, course_id, lessons_done, attempts, enrolled_ago, expires_in in LEARNING:
+        # Pick a real course per (competency) once, so two officers on the same
+        # competency share a course and the department view has overlap.
+        courses_by_competency: dict[str, list[str]] = {}
+        for course in catalogue["content"]:
+            if not lessons_by_course.get(course["identifier"]):
+                continue
+            for competency_id in course.get("se_competencies", []):
+                courses_by_competency.setdefault(competency_id, []).append(
+                    course["identifier"]
+                )
+        # Prefer a course of demonstrable size: a single-lesson stub cannot show
+        # partial progress at all, and the 68-lesson outlier buries the screen.
+        def _demo_rank(course_id: str) -> tuple[int, str]:
+            count = len(lessons_by_course.get(course_id, []))
+            return (0 if 3 <= count <= 15 else 1, course_id)
+
+        for ids in courses_by_competency.values():
+            ids.sort(key=_demo_rank)
+
+        used_per_user: dict[str, set[str]] = {}
+        for uid, competency_id, watched_fraction, scores, enrolled_ago, expires_in in LEARNING:
+            taken = used_per_user.setdefault(uid, set())
+            candidates = [
+                c for c in courses_by_competency.get(competency_id, []) if c not in taken
+            ]
+            # A history with scores has to land on a course that can record them.
+            if scores:
+                candidates = [
+                    c for c in candidates if checkpoints_by_course.get(c)
+                ] or candidates
+            course_id = next(iter(candidates), None)
+            if course_id is None:
+                continue  # no real course carries this competency; skip rather than invent
+            taken.add(course_id)
+
+            course_lessons = lessons_by_course.get(course_id, [])
+            lessons_done = round(len(course_lessons) * watched_fraction)
+            if watched_fraction > 0 and course_lessons:
+                # Rounding must not turn "part way through" into "not started".
+                lessons_done = max(1, lessons_done)
+            if 0 < watched_fraction < 1 and course_lessons:
+                lessons_done = min(lessons_done, len(course_lessons) - 1) or 1
+            attempts = scores
             enrolled_at = now - timedelta(days=enrolled_ago)
             db.add(
                 Enrolment(
@@ -540,13 +559,13 @@ def run() -> None:
                     )
                 )
 
-            seen: dict[int, int] = {}
-            for order, (module_index, correct) in enumerate(attempts):
-                checkpoint = checkpoints_by_course.get(course_id, {}).get(module_index)
+            # One assessment per ingested course, at the end.
+            final = sorted(checkpoints_by_course.get(course_id, {}).items())
+            checkpoint = final[-1][1] if final else None
+            for order, score in enumerate(attempts):
                 if checkpoint is None:
                     continue
-                seen[module_index] = seen.get(module_index, 0) + 1
-                score = round(100 * correct / 4, 1)
+                correct = round(4 * score / 100)
                 db.add(
                     CheckpointAttempt(
                         user_id=uid,
@@ -555,7 +574,7 @@ def run() -> None:
                         topic_id=checkpoint.topic_id,
                         score_pct=score,
                         passed=score >= checkpoint.pass_pct,
-                        attempt_no=seen[module_index],
+                        attempt_no=order + 1,
                         items=[
                             {
                                 "question_id": 0,
@@ -600,10 +619,9 @@ def run() -> None:
 
     print(
         f"Seeded {len(COMPETENCIES)} competencies, {len(ROLES)} roles, "
-        f"{len(USERS)} officers, {len(LEARNING)} enrolments with curriculum "
-        f"({lesson_count} lessons, {question_count} bank questions). "
-        f"iGOT video curricula: {igot_lessons} lessons across real courses, "
-        f"{igot_quizzes} final assessments."
+        f"{len(USERS)} officers, {len(LEARNING)} enrolments. "
+        f"Catalogue is real: {igot_lessons} video lessons across iGOT courses, "
+        f"{igot_quizzes} final assessments, {question_count} authored bank questions."
     )
 
 

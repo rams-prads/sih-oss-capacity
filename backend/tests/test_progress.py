@@ -16,10 +16,13 @@ from app.engines.progress import (
 )
 from app.models import Enrolment
 
-SURVEY_DESIGN = "do_3137421900011"
-DESCRIPTIVE = "do_3137421900017"
-CLASSIFICATION = "do_3137421900023"
-DATA_QUALITY = "do_3137421900015"
+# Courses are resolved by the state the test needs, not by id: the catalogue is
+# fetched from iGOT and its identifiers change between refreshes.
+from tests.conftest import (  # noqa: E402
+    course_in_state,
+    course_with_assessment,
+    unwatched_lessons,
+)
 
 
 def _enrolment(db, user_id, course_id):
@@ -33,36 +36,61 @@ def _enrolment(db, user_id, course_id):
 
 
 def test_progress_counts_videos_and_passed_checkpoints(db):
-    """4 of 9 videos plus 1 of 3 checkpoints = 5 of 12 units."""
-    progress = course_progress(db, "u-jso-anita", SURVEY_DESIGN)
-    assert progress["lessons_total"] == 9
-    assert progress["checkpoints_total"] == 3
-    assert progress["lessons_completed"] == 4
-    assert progress["checkpoints_passed"] == 1
-    assert progress["progress_pct"] == round(100 * 5 / 12)
+    """A course is its videos plus its assessments, and progress is the units done."""
+    progress = course_progress(db, "u-jso-anita", course_in_state(db, IN_PROGRESS))
+    total = progress["lessons_total"] + progress["checkpoints_total"]
+    done = progress["lessons_completed"] + progress["checkpoints_passed"]
+    assert total > 0
+    assert 0 < done < total, "an in-progress course is neither untouched nor finished"
+    assert progress["progress_pct"] == round(100 * done / total)
 
 
 def test_a_failed_checkpoint_does_not_count_toward_progress(db):
-    """Rakesh failed module 2 at 50%, then passed at 75%: still one pass."""
-    progress = course_progress(db, "u-jso-rakesh", "do_3137421900025")
-    module = progress["modules"][1]
-    assert module["attempts"] == 2
-    assert module["best_score_pct"] == 75.0
-    assert module["checkpoint_passed"] is True
+    """A failed attempt is recorded but never counts as a passed unit."""
+    from sqlalchemy import select
+
+    from app.models import Checkpoint, CheckpointAttempt
+
+    course_id = course_with_assessment(db)
+    checkpoint = db.scalar(select(Checkpoint).where(Checkpoint.course_identifier == course_id))
+    db.add(
+        CheckpointAttempt(
+            user_id="u-jso-anita",
+            checkpoint_id=checkpoint.id,
+            course_identifier=course_id,
+            topic_id=checkpoint.topic_id,
+            score_pct=25.0,
+            passed=False,
+            attempt_no=1,
+            items=[],
+        )
+    )
+    db.flush()
+
+    progress = course_progress(db, "u-jso-anita", course_id)
+    module = next(m for m in progress["modules"] if m["checkpoint_id"] == checkpoint.id)
+    assert module["attempts"] == 1
+    assert module["best_score_pct"] == 25.0
+    assert module["checkpoint_passed"] is False
+    assert progress["checkpoints_passed"] == 0
 
 
 def test_checkpoint_locks_until_its_videos_are_watched(db):
-    progress = course_progress(db, "u-jso-anita", SURVEY_DESIGN)
-    assert progress["modules"][0]["checkpoint_unlocked"] is True   # 3 of 3 watched
-    assert progress["modules"][1]["checkpoint_unlocked"] is False  # 1 of 3 watched
+    """The assessment opens only once the course has actually been watched."""
+    course_id = course_with_assessment(db)
+    progress = course_progress(db, "u-jso-anita", course_id)
+    gated = [m for m in progress["modules"] if m["checkpoint_id"] is not None]
+    assert gated, "expected an assessment on this course"
+    assert progress["lessons_completed"] < progress["lessons_total"]
+    assert all(m["checkpoint_unlocked"] is False for m in gated)
 
 
 def test_status_derivation(db):
     cases = {
-        DESCRIPTIVE: COMPLETED,
-        SURVEY_DESIGN: IN_PROGRESS,
-        CLASSIFICATION: EXPIRED,
-        DATA_QUALITY: NOT_STARTED,
+        course_in_state(db, COMPLETED): COMPLETED,
+        course_in_state(db, IN_PROGRESS): IN_PROGRESS,
+        course_in_state(db, EXPIRED): EXPIRED,
+        course_in_state(db, NOT_STARTED): NOT_STARTED,
     }
     for course_id, expected in cases.items():
         enrolment = _enrolment(db, "u-jso-anita", course_id)
@@ -72,43 +100,96 @@ def test_status_derivation(db):
 
 def test_a_finished_course_is_never_marked_expired(db):
     """Completing before the window closes must survive the date passing."""
-    enrolment = _enrolment(db, "u-jso-anita", DESCRIPTIVE)
+    completed_id = course_in_state(db, COMPLETED)
+    enrolment = _enrolment(db, "u-jso-anita", completed_id)
     enrolment.expires_at = datetime.now(timezone.utc) - timedelta(days=1)
-    progress = course_progress(db, "u-jso-anita", DESCRIPTIVE)
+    progress = course_progress(db, "u-jso-anita", completed_id)
     assert derive_status(enrolment, progress) == COMPLETED
 
 
 def test_next_action_is_the_next_unwatched_video(db):
-    progress = course_progress(db, "u-jso-anita", SURVEY_DESIGN)
+    progress = course_progress(db, "u-jso-anita", course_in_state(db, IN_PROGRESS))
     action = next_action(progress, IN_PROGRESS)
     assert action is not None
     assert action["kind"] == "lesson"
-    assert action["label"] == "Choosing stratification variables"
+    # The next thing to do is the first video not yet watched.
+    unwatched = [
+        lesson
+        for module in progress["modules"]
+        for lesson in module["lessons"]
+        if not lesson["completed"]
+    ]
+    assert action["lesson_id"] == unwatched[0]["id"]
 
 
-def test_next_action_becomes_the_checkpoint_once_a_module_is_watched(db):
-    progress = course_progress(db, "u-si-lalita", CLASSIFICATION)
+def test_next_action_becomes_the_assessment_once_the_videos_are_watched(db):
+    """With every video done, the one thing left is the assessment."""
+    from sqlalchemy import select
+
+    from app.models import Lesson, LessonProgress
+
+    course_id = course_with_assessment(db)
+    for lesson in unwatched_lessons(db, course_id):
+        db.add(
+            LessonProgress(
+                user_id="u-jso-anita", lesson_id=lesson.id, course_identifier=course_id
+            )
+        )
+    db.flush()
+
+    progress = course_progress(db, "u-jso-anita", course_id)
     action = next_action(progress, IN_PROGRESS)
     assert action is not None
-    # Lalita watched 4 of 9 and passed module 1, so module 2's videos come next.
-    assert action["kind"] == "lesson"
+    assert action["kind"] == "checkpoint"
+    assert action["checkpoint_id"] is not None
 
 
 def test_completed_and_expired_courses_have_no_next_action(db):
-    for course_id, course_status in ((DESCRIPTIVE, COMPLETED), (CLASSIFICATION, EXPIRED)):
+    for course_id, course_status in (
+        (course_in_state(db, COMPLETED), COMPLETED),
+        (course_in_state(db, EXPIRED), EXPIRED),
+    ):
         progress = course_progress(db, "u-jso-anita", course_id)
         assert next_action(progress, course_status) is None
 
 
 def test_topic_mastery_counts_every_attempt_not_just_the_best(db):
-    """Anita failed hypothesis testing 1/4 then passed 3/4: 4 of 8 overall."""
-    rows = {r["topic_id"]: r for r in topic_mastery(db, "u-jso-anita")}
-    hypothesis = rows["T12"]
-    assert hypothesis["questions_answered"] == 8
-    assert hypothesis["questions_correct"] == 4
-    assert hypothesis["accuracy_pct"] == 50.0
-    assert hypothesis["verdict"] == "developing"
-    assert hypothesis["attempts"] == 2
+    """A retake does not erase the first attempt: accuracy is over both.
+
+    Farah has no seeded assessment history, so the counts here are only what
+    this test put there.
+    """
+    from sqlalchemy import select
+
+    from app.models import Checkpoint, CheckpointAttempt
+
+    course_id = course_with_assessment(db)
+    checkpoint = db.scalar(select(Checkpoint).where(Checkpoint.course_identifier == course_id))
+    for attempt_no, correct in ((1, 1), (2, 3)):
+        db.add(
+            CheckpointAttempt(
+                user_id="u-jso-farah",
+                checkpoint_id=checkpoint.id,
+                course_identifier=course_id,
+                topic_id=checkpoint.topic_id,
+                score_pct=25.0 * correct,
+                passed=correct >= 3,
+                attempt_no=attempt_no,
+                items=[
+                    {"question_id": 0, "topic_id": checkpoint.topic_id, "correct": i < correct}
+                    for i in range(4)
+                ],
+            )
+        )
+    db.flush()
+
+    rows = {r["topic_id"]: r for r in topic_mastery(db, "u-jso-farah")}
+    row = rows[checkpoint.topic_id]
+    assert row["attempts"] == 2
+    assert row["questions_answered"] == 8
+    assert row["questions_correct"] == 4      # 1 then 3, not just the better run
+    assert row["accuracy_pct"] == 50.0
+    assert row["verdict"] == "developing"
 
 
 def test_topic_mastery_is_weakest_first(db):
@@ -186,9 +267,7 @@ def test_igot_modules_are_visible_and_gated_on_the_whole_course(db):
     assert final[0]["checkpoint_unlocked"] is False, "locked before anything is watched"
 
     # Watch the lot; the final assessment then opens.
-    for lesson in db.scalars(
-        select(Lesson).where(Lesson.course_identifier == course_id)
-    ).all():
+    for lesson in unwatched_lessons(db, course_id):
         db.add(
             LessonProgress(
                 user_id="u-jso-anita",
