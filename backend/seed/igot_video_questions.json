@@ -1,0 +1,120 @@
+{
+  "_comment": "Module assessments generated from the iGOT lesson videos themselves by scripts/generate_video_quizzes.py: each video was transcribed and the questions written from that transcript, then put through the same validity gate as any other generated item. Committed so the app runs these assessments with no API key, no network and no cost - the key is only needed to regenerate.",
+  "courses": {
+    "do_11428343573406515212": {
+      "course_name": "Soft Skills",
+      "modules": [
+        {
+          "module_index": 0,
+          "title": "Introduction",
+          "competency_id": "C15",
+          "questions": [
+            {
+              "stem": "According to the lesson, why are soft skills now considered necessary in the present scenario?",
+              "options": [
+                "Hard skills are no longer considered requirements for jobs.",
+                "They are essential for career success and performing jobs efficiently.",
+                "They have completely replaced the need for technical hard skills.",
+                "They are the only skills currently taught in formal training programs."
+              ],
+              "answer_index": 1,
+              "explanation": "The lesson states that while we traditionally focus on hard skills, in the present scenario, that is not enough; we need a wide range of soft skills to be successful in our careers and perform jobs efficiently.",
+              "difficulty": 0.3
+            },
+            {
+              "stem": "Which of the following is explicitly listed as a soft skill in the lesson?",
+              "options": [
+                "Technical programming",
+                "Financial auditing",
+                "Time management",
+                "Mechanical repair"
+              ],
+              "answer_index": 2,
+              "explanation": "The lesson explicitly lists communication, teamwork, time management, empathy, and delegation as examples of soft skills.",
+              "difficulty": 0.2
+            },
+            {
+              "stem": "Why are soft skills considered particularly important in Indian Railways?",
+              "options": [
+                "Because railway work requires individuals to perform tasks single-handedly.",
+                "Because no work in the railway can be performed single-handedly.",
+                "Because the railway requires fewer communication skills than other sectors.",
+                "Because Indian Railways is the only organization that provides soft skills training."
+              ],
+              "answer_index": 1,
+              "explanation": "The lesson states that in Indian Railways, soft skills are immense because no work can be performed single-handedly.",
+              "difficulty": 0.4
+            },
+            {
+              "stem": "What does the lesson suggest regarding the current state of soft skills training?",
+              "options": [
+                "The importance of soft skills is often undervalued and they receive less training.",
+                "Soft skills are the primary focus of all current training programs.",
+                "There is too much training focused on soft skills compared to hard skills.",
+                "Soft skills are rarely needed in modern workplaces."
+              ],
+              "answer_index": 0,
+              "explanation": "The lesson mentions that the importance of soft skills is often undervalued and there is less training in the subject.",
+              "difficulty": 0.3
+            }
+          ]
+        },
+        {
+          "module_index": 2,
+          "title": "Soft Skills Part II",
+          "competency_id": "C15",
+          "questions": [
+            {
+              "stem": "According to the transcript, which of the following best describes the process of 'Gender sensitization'?",
+              "options": [
+                "The practice of dressing in a businesslike and professional manner.",
+                "The process of raising awareness about gender equality and encouraging behavior changes.",
+                "The ability to work effectively in a group and support team members.",
+                "The capacity to remain flexible and adaptable to new tasks."
+              ],
+              "answer_index": 1,
+              "explanation": "The lesson defines gender sensitization as the process of raising awareness about gender equality, encouraging behavior changes, teaching gender sensitivity, and eliminating gender discrimination.",
+              "difficulty": 0.2
+            },
+            {
+              "stem": "What does the transcript identify as the two main components of the communication process?",
+              "options": [
+                "Speaking and writing.",
+                "Presenting and questioning.",
+                "Speaking and listening.",
+                "Reading and understanding."
+              ],
+              "answer_index": 2,
+              "explanation": "The lesson states that communication is a two-way process involving both the sending and receiving of information, which requires both speaking and listening.",
+              "difficulty": 0.3
+            },
+            {
+              "stem": "Which of the following is specifically cited as a method for building strong interpersonal relationships?",
+              "options": [
+                "Gender sensitivity",
+                "Professionalism",
+                "Work ethic",
+                "Empathy"
+              ],
+              "answer_index": 3,
+              "explanation": "The lesson lists five methods to develop interpersonal relationships, and empathy is explicitly included as the third method.",
+              "difficulty": 0.4
+            },
+            {
+              "stem": "According to the lesson, why is the development of communication skills particularly important as one progresses in their career?",
+              "options": [
+                "It is an essential requirement for most managers and leaders to speak, listen, question, and write with clarity.",
+                "It is the only way to ensure an individual remains well-dressed and poised in the workplace.",
+                "It is primarily used for managing personal relationships rather than professional ones.",
+                "It is the most important soft skill for entry-level employees but becomes less relevant for senior managers."
+              ],
+              "answer_index": 0,
+              "explanation": "The lesson states that the importance of communication skills increases with career progress, noting that clarity in speaking, listening, questioning, and writing is essential for most managers and leaders.",
+              "difficulty": 0.5
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -343,6 +343,66 @@ def load_curriculum(db, now):
     return 0, question_count
 
 
+def load_video_assessments(db) -> tuple[int, int]:
+    """Module assessments written from the lesson videos themselves.
+
+    scripts/generate_video_quizzes.py transcribes each iGOT lesson and generates
+    questions from that transcript; the result is committed as seed data, so this
+    runs with no API key, no network and no cost. Only regenerating needs a key.
+
+    These are per module, which the authored bank could not honestly support: with
+    only a module title to go on, asserting what module 2 assesses was a guess. A
+    transcript of that module removes the guess, so each one gets its own topic and
+    its own checkpoint, gated on watching that module's videos.
+    """
+    path = Path(__file__).resolve().parent / "igot_video_questions.json"
+    if not path.exists():
+        return 0, 0
+
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    topics = questions = 0
+
+    for course_identifier, course in payload.get("courses", {}).items():
+        for module in course.get("modules", []):
+            if not module.get("questions"):
+                continue
+            # A topic per module, so topic mastery reports on what was taught rather
+            # than lumping a whole course under one label.
+            topic_id = f"V{course_identifier[-8:]}-{module['module_index']}"
+            db.add(
+                Topic(
+                    id=topic_id,
+                    name=module["title"][:200],
+                    competency_id=module["competency_id"],
+                )
+            )
+            topics += 1
+            for q in module["questions"]:
+                db.add(
+                    BankQuestion(
+                        topic_id=topic_id,
+                        stem=q["stem"],
+                        options=q["options"],
+                        answer_index=q["answer_index"],
+                        explanation=q.get("explanation", ""),
+                        difficulty=q.get("difficulty", 0.5),
+                    )
+                )
+                questions += 1
+            db.add(
+                Checkpoint(
+                    course_identifier=course_identifier,
+                    module_index=module["module_index"],
+                    title=f"Assessment: {module['title'][:80]}",
+                    topic_id=topic_id,
+                    pass_pct=60,
+                )
+            )
+
+    db.flush()
+    return topics, questions
+
+
 def load_igot_curriculum(db) -> tuple[int, int]:
     """Lessons for real iGOT courses, from the videos the portal serves publicly.
 
@@ -371,6 +431,13 @@ def load_igot_curriculum(db) -> tuple[int, int]:
         topic_for_competency.setdefault(meta["competency_id"], topic_id)
     has_questions = {t for t in bank if not t.startswith("_")}
 
+    video_path = here / "igot_video_questions.json"
+    _video_assessed = set()
+    if video_path.exists():
+        _video_assessed = set(
+            json.loads(video_path.read_text(encoding="utf-8")).get("courses", {})
+        )
+
     lesson_count = quiz_count = 0
     for course in catalogue:
         modules = course.get("modules") or []
@@ -394,6 +461,9 @@ def load_igot_curriculum(db) -> tuple[int, int]:
                 )
                 position += 1
                 lesson_count += 1
+
+        if course_id in _video_assessed:
+            continue  # its modules already carry assessments generated from the videos
 
         assessable = next(
             (
@@ -476,6 +546,7 @@ def run() -> None:
                 )
 
         lesson_count, question_count = load_curriculum(db, now)
+        video_topics, video_questions = load_video_assessments(db)
         igot_lessons, igot_quizzes = load_igot_curriculum(db)
 
         catalogue = json.loads(
@@ -621,7 +692,8 @@ def run() -> None:
         f"Seeded {len(COMPETENCIES)} competencies, {len(ROLES)} roles, "
         f"{len(USERS)} officers, {len(LEARNING)} enrolments. "
         f"Catalogue is real: {igot_lessons} video lessons across iGOT courses, "
-        f"{igot_quizzes} final assessments, {question_count} authored bank questions."
+        f"{igot_quizzes} final assessments, {question_count} authored bank questions, "
+        f"{video_questions} questions generated from {video_topics} lesson videos."
     )
 
 
