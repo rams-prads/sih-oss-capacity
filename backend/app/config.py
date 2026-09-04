@@ -3,13 +3,23 @@ import os
 from functools import lru_cache
 from pathlib import Path
 
-from dotenv import load_dotenv
+# .env.example tells you to copy it to .env and put your keys there, and nothing
+# was reading that file: every setting came from the real environment, so a key
+# written into .env was silently ignored and the app quietly stayed on the stub
+# provider. Load it here, before any setting is read.
+#
+# Real environment variables still win, so docker-compose and CI are unaffected.
+try:
+    from dotenv import load_dotenv
 
-# Load the repository-root .env before Settings is defined: the class body below
-# reads os.environ at import time. Real environment variables win over the file
-# (override=False), so docker-compose and CI keep control.
-ENV_FILE = Path(__file__).resolve().parents[2] / ".env"
-load_dotenv(ENV_FILE, override=False)
+    for _candidate in (
+        Path(__file__).resolve().parents[2] / ".env",   # repository root
+        Path(__file__).resolve().parents[1] / ".env",   # backend/, if run from there
+    ):
+        if _candidate.is_file():
+            load_dotenv(_candidate, override=False)
+except ImportError:  # pragma: no cover - python-dotenv ships with uvicorn[standard]
+    pass
 
 
 class Settings:

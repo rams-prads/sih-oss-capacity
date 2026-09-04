@@ -7,3 +7,5 @@ dist/
 .venv/
 venv/
 .pytest_cache/
+quizgen.log
+quizgen.log.err

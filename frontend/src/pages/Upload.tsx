@@ -105,7 +105,7 @@ export default function Upload({ userId }: { userId: string }) {
         >
           <div className="grid gap-5 md:grid-cols-2">
             <div>
-              <label className="mb-1.5 block text-xs font-medium text-slate-600">
+              <label className="mb-1.5 block text-xs font-medium text-ink-2">
                 Learning material
               </label>
               <input
@@ -113,22 +113,22 @@ export default function Upload({ userId }: { userId: string }) {
                 type="file"
                 accept=".pdf,.txt,.md,application/pdf,text/plain"
                 onChange={(e) => e.target.files?.[0] && handleUpload(e.target.files[0])}
-                className="w-full rounded-lg border border-slate-300 bg-white p-2 text-sm file:mr-3 file:rounded-md file:border-0 file:bg-slate-900 file:px-3 file:py-1.5 file:text-xs file:font-medium file:text-white"
+                className="w-full rounded-lg border border-hairline-strong bg-surface p-2 text-sm file:mr-3 file:rounded-md file:border-0 file:bg-ashoka file:px-3 file:py-1.5 file:text-xs file:font-medium file:text-white"
               />
               {materialId && (
-                <p className="mt-2 text-xs text-teal-700">{fileName} accepted, ready to generate</p>
+                <p className="mt-2 text-xs text-chakra">{fileName} accepted, ready to generate</p>
               )}
             </div>
 
             <div className="space-y-3">
               <div>
-                <label className="mb-1.5 block text-xs font-medium text-slate-600">
+                <label className="mb-1.5 block text-xs font-medium text-ink-2">
                   Competency assessed
                 </label>
                 <select
                   value={competencyId}
                   onChange={(e) => setCompetencyId(e.target.value)}
-                  className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm"
+                  className="w-full rounded-lg border border-hairline-strong bg-surface px-3 py-2 text-sm"
                 >
                   {competencies.map((c) => (
                     <option key={c.id} value={c.id}>
@@ -139,7 +139,7 @@ export default function Upload({ userId }: { userId: string }) {
               </div>
 
               <div>
-                <label className="mb-1.5 block text-xs font-medium text-slate-600">
+                <label className="mb-1.5 block text-xs font-medium text-ink-2">
                   Questions: {numQuestions}
                 </label>
                 <input
@@ -148,7 +148,7 @@ export default function Upload({ userId }: { userId: string }) {
                   max={15}
                   value={numQuestions}
                   onChange={(e) => setNumQuestions(Number(e.target.value))}
-                  className="w-full accent-slate-900"
+                  className="w-full accent-ashoka"
                 />
               </div>
             </div>
@@ -157,7 +157,7 @@ export default function Upload({ userId }: { userId: string }) {
           <button
             disabled={!materialId || stage === "generating"}
             onClick={handleGenerate}
-            className="mt-5 rounded-lg bg-slate-900 px-4 py-2 text-sm font-medium text-white transition hover:bg-slate-700 disabled:cursor-not-allowed disabled:bg-slate-300"
+            className="mt-5 rounded-lg bg-ashoka px-4 py-2 text-sm font-medium text-white transition hover:bg-ashoka-2 disabled:cursor-not-allowed disabled:bg-hairline-strong"
           >
             {stage === "generating" ? "Generating questions" : "Generate assessment"}
           </button>
@@ -174,9 +174,9 @@ export default function Upload({ userId }: { userId: string }) {
           <ol className="space-y-5">
             {generation.quiz.questions.map((q, qi) => (
               <li key={q.id}>
-                <p className="text-sm font-medium text-slate-900">
+                <p className="text-sm font-medium text-ink">
                   {qi + 1}. {q.stem}
-                  <span className="ml-2 text-xs font-normal text-slate-400">
+                  <span className="ml-2 text-xs font-normal text-ink-4">
                     difficulty {q.difficulty.toFixed(2)}
                   </span>
                 </p>
@@ -186,8 +186,8 @@ export default function Upload({ userId }: { userId: string }) {
                       key={oi}
                       className={`flex cursor-pointer items-start gap-2.5 rounded-lg border px-3 py-2 text-sm transition ${
                         answers[qi] === oi
-                          ? "border-slate-900 bg-slate-50"
-                          : "border-slate-200 hover:border-slate-300"
+                          ? "border-ashoka bg-raised"
+                          : "border-hairline hover:border-hairline-strong"
                       }`}
                     >
                       <input
@@ -195,9 +195,9 @@ export default function Upload({ userId }: { userId: string }) {
                         name={`q${qi}`}
                         checked={answers[qi] === oi}
                         onChange={() => setAnswers((a) => a.map((v, i) => (i === qi ? oi : v)))}
-                        className="mt-0.5 accent-slate-900"
+                        className="mt-0.5 accent-ashoka"
                       />
-                      <span className="text-slate-700">{option}</span>
+                      <span className="text-ink-2">{option}</span>
                     </label>
                   ))}
                 </div>
@@ -205,15 +205,15 @@ export default function Upload({ userId }: { userId: string }) {
             ))}
           </ol>
 
-          <div className="mt-6 flex items-center gap-3 border-t border-slate-100 pt-4">
+          <div className="mt-6 flex items-center gap-3 border-t border-hairline pt-4">
             <button
               disabled={answers.some((a) => a < 0)}
               onClick={handleSubmit}
-              className="rounded-lg bg-slate-900 px-4 py-2 text-sm font-medium text-white transition hover:bg-slate-700 disabled:cursor-not-allowed disabled:bg-slate-300"
+              className="rounded-lg bg-ashoka px-4 py-2 text-sm font-medium text-white transition hover:bg-ashoka-2 disabled:cursor-not-allowed disabled:bg-hairline-strong"
             >
               Submit assessment
             </button>
-            <span className="text-xs text-slate-500">
+            <span className="text-xs text-ink-3">
               {answers.filter((a) => a >= 0).length} of {answers.length} answered
             </span>
           </div>
@@ -257,7 +257,7 @@ export default function Upload({ userId }: { userId: string }) {
             right={
               <button
                 onClick={reset}
-                className="rounded-lg border border-slate-300 px-3 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-50"
+                className="rounded-lg border border-hairline-strong px-3 py-1.5 text-xs font-medium text-ink-2 hover:bg-raised"
               >
                 Assess another competency
               </button>
@@ -268,17 +268,17 @@ export default function Upload({ userId }: { userId: string }) {
                 <li key={q.id} className="flex gap-3 text-sm">
                   <span
                     className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-xs font-bold text-white ${
-                      result.per_item[i] ? "bg-teal-600" : "bg-red-500"
+                      result.per_item[i] ? "bg-chakra" : "bg-alert-soft0"
                     }`}
                   >
                     {result.per_item[i] ? "\u2713" : "\u2715"}
                   </span>
                   <div>
-                    <p className="font-medium text-slate-900">{q.stem}</p>
-                    <p className="mt-0.5 text-xs text-slate-600">
+                    <p className="font-medium text-ink">{q.stem}</p>
+                    <p className="mt-0.5 text-xs text-ink-2">
                       Correct: {q.options[q.answer_index]}
                     </p>
-                    <p className="text-xs text-slate-400">difficulty {q.difficulty.toFixed(2)}</p>
+                    <p className="text-xs text-ink-4">difficulty {q.difficulty.toFixed(2)}</p>
                   </div>
                 </li>
               ))}

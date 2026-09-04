@@ -33,28 +33,28 @@ export function AdminSignIn({ onSignedIn }: { onSignedIn: (user: User) => void }
   }
 
   return (
-    <div className="mx-auto max-w-md rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-      <h2 className="font-semibold text-slate-900">Administrator sign-in</h2>
-      <p className="mt-1 text-sm text-slate-500">
+    <div className="mx-auto max-w-md rounded-xl border border-hairline bg-surface p-6 shadow-sm">
+      <h2 className="font-semibold text-ink">Administrator sign-in</h2>
+      <p className="mt-1 text-sm text-ink-3">
         Department analytics show every officer's record, so they require a sign-in
         rather than the profile switcher.
       </p>
 
       <form onSubmit={submit} className="mt-4 space-y-3">
         <div>
-          <label className="mb-1 block text-xs font-medium text-slate-600" htmlFor="uid">
+          <label className="mb-1 block text-xs font-medium text-ink-2" htmlFor="uid">
             Officer id
           </label>
           <input
             id="uid"
             value={userId}
             onChange={(e) => setUserId(e.target.value)}
-            className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm"
+            className="w-full rounded-lg border border-hairline-strong px-3 py-2 text-sm"
             autoComplete="username"
           />
         </div>
         <div>
-          <label className="mb-1 block text-xs font-medium text-slate-600" htmlFor="pwd">
+          <label className="mb-1 block text-xs font-medium text-ink-2" htmlFor="pwd">
             Password
           </label>
           <input
@@ -62,25 +62,25 @@ export function AdminSignIn({ onSignedIn }: { onSignedIn: (user: User) => void }
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm"
+            className="w-full rounded-lg border border-hairline-strong px-3 py-2 text-sm"
             autoComplete="current-password"
           />
         </div>
 
         {error && (
-          <p className="rounded-lg bg-rose-50 px-3 py-2 text-sm text-rose-700">{error}</p>
+          <p className="rounded-lg bg-alert-soft px-3 py-2 text-sm text-alert">{error}</p>
         )}
 
         <button
           type="submit"
           disabled={busy || !password}
-          className="w-full rounded-lg bg-slate-900 px-4 py-2 text-sm font-medium text-white transition hover:bg-slate-700 disabled:bg-slate-300"
+          className="w-full rounded-lg bg-ashoka px-4 py-2 text-sm font-medium text-white transition hover:bg-ashoka-2 disabled:bg-hairline-strong"
         >
           {busy ? "Signing in…" : "Sign in"}
         </button>
       </form>
 
-      <p className="mt-4 border-t border-slate-100 pt-3 text-xs text-slate-400">
+      <p className="mt-4 border-t border-hairline pt-3 text-xs text-ink-4">
         Demo credentials: <code>u-admin-meera</code> / <code>admin123</code>. Seeded
         officers use <code>officer123</code> and are not administrators.
       </p>

@@ -22,6 +22,14 @@ class LLMProvider(Protocol):
         self, text: str, competency_name: str, n: int
     ) -> list[GeneratedQuestion]: ...
 
+    def chat(self, context: str, question: str) -> str:
+        """Answer a learner's question about one course, grounded in `context`.
+
+        Returns "" when the provider cannot answer freeform questions, which the
+        tutor treats as "no model configured" rather than as an answer.
+        """
+        return ""
+
 
 MCQ_SYSTEM_PROMPT = (
     "You are a subject-matter examiner for India's Official Statistical System, writing "
@@ -49,3 +57,24 @@ Return ONLY a JSON array, no prose or code fences, with this shape:
 STUDY MATERIAL:
 {text}
 """
+
+
+TUTOR_SYSTEM_PROMPT = (
+    "You are a tutor for officers of India's Official Statistical System, helping with "
+    "one course they are enrolled in under Mission Karmayogi. Answer only from the "
+    "course context supplied. If the context does not contain the answer, say so "
+    "plainly and point them at the part of the course that would cover it. Never "
+    "invent course content, scores, or statistics. Be concise: a short paragraph, or a "
+    "few bullets. Address the officer directly."
+)
+
+
+def build_tutor_prompt(context: str, question: str) -> str:
+    return f"""Course context for this officer:
+
+{context}
+
+Their question:
+{question}
+
+Answer using only the context above."""

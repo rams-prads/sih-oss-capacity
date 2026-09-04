@@ -12,6 +12,7 @@ import type {
   LearningDashboard,
 } from "../api";
 import { CheckpointModal } from "../components/CheckpointModal";
+import { CourseTutor } from "../components/CourseTutor";
 import { CourseProgressCard } from "../components/CourseProgressCard";
 import { ProgressBar, STATUS_META } from "../components/Progress";
 import { TopicMasteryPanel } from "../components/TopicMasteryPanel";
@@ -113,10 +114,10 @@ export default function MyLearning({ userId }: { userId: string }) {
         <div className="grid gap-6 lg:grid-cols-3">
           <div className="lg:col-span-2">
             <div className="mb-1.5 flex items-baseline justify-between">
-              <span className="text-sm font-medium text-slate-700">
+              <span className="text-sm font-medium text-ink-2">
                 Overall completion across {summary.enrolled} courses
               </span>
-              <span className="text-lg font-semibold tabular-nums text-slate-900">
+              <span className="text-lg font-semibold tabular-nums text-ink">
                 {summary.overall_progress_pct}%
               </span>
             </div>
@@ -125,7 +126,7 @@ export default function MyLearning({ userId }: { userId: string }) {
               status="in_progress"
               height="h-2.5"
             />
-            <p className="mt-2 text-xs text-slate-500">
+            <p className="mt-2 text-xs text-ink-3">
               {summary.lessons_completed} of {summary.lessons_total} videos watched and{" "}
               {summary.checkpoints_passed} checkpoints passed. Progress is counted from
               completed videos and passed checkpoints only.
@@ -136,13 +137,13 @@ export default function MyLearning({ userId }: { userId: string }) {
                 (s) => (
                   <div
                     key={s}
-                    className="rounded-lg border border-slate-200 px-3 py-2"
+                    className="rounded-lg border border-hairline px-3 py-2"
                   >
                     <div className="flex items-center gap-1.5">
                       <span className={`h-1.5 w-1.5 rounded-full ${STATUS_META[s].dot}`} />
-                      <span className="text-xs text-slate-500">{STATUS_META[s].label}</span>
+                      <span className="text-xs text-ink-3">{STATUS_META[s].label}</span>
                     </div>
-                    <p className="mt-0.5 text-xl font-semibold tabular-nums text-slate-900">
+                    <p className="mt-0.5 text-xl font-semibold tabular-nums text-ink">
                       {counts[s]}
                     </p>
                   </div>
@@ -151,21 +152,21 @@ export default function MyLearning({ userId }: { userId: string }) {
             </div>
           </div>
 
-          <div className="rounded-xl bg-slate-50 p-4">
-            <p className="text-xs font-medium uppercase tracking-wide text-slate-500">
+          <div className="rounded-xl bg-raised p-4">
+            <p className="text-xs font-medium uppercase tracking-wide text-ink-3">
               Assessment record
             </p>
-            <p className="mt-1.5 text-2xl font-semibold tabular-nums text-slate-900">
+            <p className="mt-1.5 text-2xl font-semibold tabular-nums text-ink">
               {summary.avg_checkpoint_score !== null
                 ? `${summary.avg_checkpoint_score}%`
                 : "—"}
             </p>
-            <p className="text-xs text-slate-500">average checkpoint score</p>
-            <p className="mt-3 text-sm text-slate-700">
+            <p className="text-xs text-ink-3">average checkpoint score</p>
+            <p className="mt-3 text-sm text-ink-2">
               {summary.questions_correct} of {summary.questions_answered} questions answered
               correctly
             </p>
-            <p className="mt-3 border-t border-slate-200 pt-3 text-xs leading-relaxed text-slate-500">
+            <p className="mt-3 border-t border-hairline pt-3 text-xs leading-relaxed text-ink-3">
               A checkpoint quiz follows every three videos. It unlocks once those videos are
               watched, and you can retake it until you pass.
             </p>
@@ -184,8 +185,8 @@ export default function MyLearning({ userId }: { userId: string }) {
                 onClick={() => setFilter(f.key)}
                 className={`rounded-lg px-2.5 py-1 text-xs font-medium transition ${
                   filter === f.key
-                    ? "bg-slate-900 text-white"
-                    : "text-slate-600 hover:bg-slate-100"
+                    ? "bg-ashoka text-white"
+                    : "text-ink-2 hover:bg-ground"
                 }`}
               >
                 {f.label}
@@ -211,6 +212,10 @@ export default function MyLearning({ userId }: { userId: string }) {
           </div>
         )}
       </Card>
+
+      {courses.length > 0 && (
+        <CourseTutor userId={userId} courses={courses} onWatchLesson={handleWatch} />
+      )}
 
       <Card
         title="Topic record"
