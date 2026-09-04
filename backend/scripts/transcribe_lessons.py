@@ -85,32 +85,57 @@ def lessons_for_courses(db, identifiers: list[str]) -> list[Lesson]:
 
 
 def build_embeddings(store: dict, only: set[str] | None = None) -> int:
-    """Chunk and embed every transcript that does not have vectors yet."""
+    """Chunk and embed every transcript that does not have vectors yet.
+
+    Saves after every batch. The first version saved only at the end, so a rate
+    limit 96 chunks into 258 threw away all 96 and the run had to start over.
+    """
     pending: list[tuple[str, int, str]] = []
     for key, entry in store["lessons"].items():
         if only is not None and key not in only:
             continue
-        if entry.get("chunks") and entry["chunks"][0].get("embedding"):
+        existing = entry.get("chunks") or []
+        if existing and all(c.get("embedding") for c in existing):
             continue
-        pieces = chunk_transcript(entry["text"])
-        entry["chunks"] = [{"position": i, "text": t} for i, t in enumerate(pieces)]
-        for i, text in enumerate(pieces):
-            pending.append((key, i, text))
+        if not existing:
+            pieces = chunk_transcript(entry["text"])
+            entry["chunks"] = [{"position": i, "text": t} for i, t in enumerate(pieces)]
+            existing = entry["chunks"]
+        # Only the chunks still missing a vector, so a resumed run does not pay
+        # again for the ones that succeeded.
+        for chunk in existing:
+            if not chunk.get("embedding"):
+                pending.append((key, chunk["position"], chunk["text"]))
 
     if not pending:
         return 0
 
     print(f"  embedding {len(pending)} chunks with {embedding_model()}", flush=True)
+    # Chunk lists were just rebuilt above, so persist them before spending any
+    # quota: an interrupted run then resumes against the same chunk boundaries.
+    _write(store)
+
     done = 0
     for start in range(0, len(pending), EMBED_BATCH):
         batch = pending[start : start + EMBED_BATCH]
-        vectors = embed_texts([text for _k, _i, text in batch])
+        try:
+            vectors = embed_texts([text for _k, _i, text in batch])
+        except Exception as exc:
+            print(
+                f"    stopped at {done}/{len(pending)}: {type(exc).__name__}. "
+                "Work so far is saved; rerun with --embed-only to continue.",
+                file=sys.stderr,
+                flush=True,
+            )
+            _write(store)
+            return done
         for (key, index, _text), vector in zip(batch, vectors):
             chunk = store["lessons"][key]["chunks"][index]
             chunk["embedding"] = vector
             chunk["embedding_model"] = embedding_model()
             chunk["dimensions"] = DIMENSIONS
         done += len(batch)
+        _write(store)
         print(f"    {done}/{len(pending)}", flush=True)
     return done
 

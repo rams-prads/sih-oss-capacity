@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import math
 import re
+import time
 from dataclasses import dataclass
 
 import httpx
@@ -95,13 +96,19 @@ def chunk_transcript(text: str, size: int = CHUNK_CHARS, overlap: int = CHUNK_OV
     return [c.strip() for c in chunks if c.strip()]
 
 
+# The transcription path retries; this one did not, and a 429 partway through a
+# batch killed an hour-long run. Free-tier embedding quota is easy to exhaust.
+EMBED_ATTEMPTS = 5
+EMBED_BACKOFF_SECONDS = 20
+
+
 def embed_texts(
     texts: list[str],
     task_type: str = "RETRIEVAL_DOCUMENT",
     model: str | None = None,
     timeout: float = 120.0,
 ) -> list[list[float]]:
-    """Embed a batch of passages.
+    """Embed a batch of passages, retrying when the API pushes back.
 
     task_type matters: Gemini embeds a document and the query that should find it
     into deliberately different spaces, and using one type for both measurably
@@ -125,16 +132,45 @@ def embed_texts(
             for text in texts
         ]
     }
-    response = httpx.post(
-        f"{API}/models/{name}:batchEmbedContents",
-        headers={"x-goog-api-key": settings.gemini_api_key},
-        json=payload,
-        timeout=timeout,
-    )
-    response.raise_for_status()
-    return [
-        normalise(item["values"]) for item in response.json().get("embeddings", [])
-    ]
+
+    last_error: Exception | None = None
+    for attempt in range(EMBED_ATTEMPTS):
+        try:
+            response = httpx.post(
+                f"{API}/models/{name}:batchEmbedContents",
+                headers={"x-goog-api-key": settings.gemini_api_key},
+                json=payload,
+                timeout=timeout,
+            )
+            if response.status_code in (429, 500, 503):
+                raise httpx.HTTPStatusError(
+                    f"HTTP {response.status_code}", request=response.request,
+                    response=response,
+                )
+            response.raise_for_status()
+            return [
+                normalise(item["values"])
+                for item in response.json().get("embeddings", [])
+            ]
+        except httpx.HTTPStatusError as exc:
+            last_error = exc
+            status = exc.response.status_code if exc.response is not None else 0
+            if status not in (429, 500, 503) or attempt == EMBED_ATTEMPTS - 1:
+                raise
+            # Honour Retry-After when the API sends one; it knows better than we do.
+            wait = EMBED_BACKOFF_SECONDS * (attempt + 1)
+            header = exc.response.headers.get("retry-after") if exc.response else None
+            if header and header.isdigit():
+                wait = max(wait, int(header))
+            print(f"      embedding {status}, waiting {wait}s", flush=True)
+            time.sleep(wait)
+        except httpx.RequestError as exc:
+            last_error = exc
+            if attempt == EMBED_ATTEMPTS - 1:
+                raise
+            time.sleep(EMBED_BACKOFF_SECONDS * (attempt + 1))
+
+    raise last_error if last_error else RuntimeError("embedding failed")
 
 
 def normalise(vector: list[float]) -> list[float]:
