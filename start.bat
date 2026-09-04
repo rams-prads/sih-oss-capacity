@@ -177,7 +177,7 @@ echo.
 echo  Stopping anything listening on ports 8000 and 5173...
 for %%P in (8000 5173) do (
     for /f "tokens=5" %%A in ('netstat -ano ^| findstr /r /c:"TCP.*:%%P .*LISTENING"') do (
-        echo   port %%P  ->  stopping process %%A
+        echo   port %%P  -^>  stopping process %%A
         taskkill /PID %%A /F >nul 2>&1
     )
 )
