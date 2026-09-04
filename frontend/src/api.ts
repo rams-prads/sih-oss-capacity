@@ -21,6 +21,9 @@ export interface User {
   is_admin: boolean;
 }
 
+export type Evidence = "measured" | "provisional" | "self_reported" | "unmeasured";
+export type GapAction = "train" | "assess" | "maintain";
+
 export interface GapItem {
   competency_id: string;
   competency_name: string;
@@ -31,6 +34,12 @@ export interface GapItem {
   weight: number;
   weighted_gap: number;
   meets_target: boolean;
+  evidence: Evidence;
+  confidence_pct: number;
+  level_low: number;
+  level_high: number;
+  questions_answered: number;
+  recommended_action: GapAction;
 }
 
 export interface GapReport {
@@ -43,6 +52,10 @@ export interface GapReport {
   total_weighted_gap: number;
   max_weighted_gap: number;
   readiness_pct: number;
+  evidence_coverage_pct: number;
+  measured_competencies: number;
+  provisional_competencies: number;
+  unverified_competencies: number;
 }
 
 export interface Course {

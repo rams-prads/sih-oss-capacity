@@ -1,30 +1,7 @@
 import { PROFICIENCY } from "../api";
 import type { GapItem } from "../api";
+import { ActionChip, EvidenceChip, LevelRange } from "./Evidence";
 import { Badge, Button } from "./ui";
-
-/**
- * Four steps, showing attained against target. The steps beyond the target are
- * drawn fainter than the ones inside it, so the bar reads as "how far of what
- * is asked" rather than "how far of four".
- */
-function LevelBar({ attained, target }: { attained: number; target: number }) {
-  return (
-    <div className="flex gap-[3px]" title={`Attained ${attained} of target ${target}`}>
-      {[0, 1, 2, 3].map((step) => {
-        const filled = step < attained;
-        const required = step < target;
-        return (
-          <span
-            key={step}
-            className={`h-1.5 w-6 rounded-full ${
-              filled ? "bg-saffron" : required ? "bg-hairline-strong" : "bg-hairline/60"
-            }`}
-          />
-        );
-      })}
-    </div>
-  );
-}
 
 /** Ranked competency gaps: the output of the gap engine. */
 export function GapList({
@@ -46,22 +23,23 @@ export function GapList({
           </span>
 
           <div className="min-w-0 flex-1">
-            <p className="truncate text-sm font-medium text-ink">{item.competency_name}</p>
-            <p className="mt-0.5 text-xs text-ink-3">
-              {PROFICIENCY[item.attained_level]}
-              <span className="mx-1 text-ink-4" aria-hidden>
-                &rarr;
+            <p className="truncate text-sm font-medium text-slate-900">{item.competency_name}</p>
+            <p className="mt-0.5 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-slate-500">
+              <span>
+                {PROFICIENCY[item.attained_level]} &rarr; needs{" "}
+                {PROFICIENCY[item.target_level]}
               </span>
-              needs {PROFICIENCY[item.target_level]}
-              {item.weight >= 1 && (
-                <span className="ml-2 rounded bg-ground px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide text-ink-3">
-                  role-critical
+              <EvidenceChip evidence={item.evidence} />
+              {item.evidence === "measured" || item.evidence === "provisional" ? (
+                <span className="text-slate-400">
+                  {item.confidence_pct}% confident &middot; {item.questions_answered} questions
                 </span>
-              )}
+              ) : null}
+              {item.weight >= 1 && <span className="text-slate-400">role-critical</span>}
             </p>
           </div>
 
-          <LevelBar attained={item.attained_level} target={item.target_level} />
+          <LevelRange item={item} />
 
           <div className="w-24 shrink-0 text-right">
             {item.meets_target ? (
@@ -69,6 +47,10 @@ export function GapList({
             ) : (
               <Badge tone="amber">gap {item.weighted_gap.toFixed(1)}</Badge>
             )}
+          </div>
+
+          <div className="w-20 shrink-0 text-right">
+            <ActionChip action={item.recommended_action} />
           </div>
 
           {onAssess && (

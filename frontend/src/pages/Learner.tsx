@@ -77,6 +77,16 @@ export default function Learner({ userId, user }: { userId: string; user?: User 
           hint={user?.role_name ?? report.role_name}
           tone={report.readiness_pct >= 80 ? "good" : "warn"}
         />
+        <Stat
+          label="Backed by assessment"
+          value={`${report.evidence_coverage_pct}%`}
+          hint={
+            report.measured_competencies === 0
+              ? "readiness rests on self-reported levels"
+              : `${report.measured_competencies} measured, ${report.provisional_competencies} provisional, ${report.unverified_competencies} unverified`
+          }
+          tone={report.evidence_coverage_pct >= 50 ? "good" : "warn"}
+        />
         <Stat label="Open competency gaps" value={openGaps.length} hint={`of ${report.items.length} required`} />
         <Stat label="Courses enrolled" value={enrolments.length} hint={`${enrolments.filter((e) => e.status === "completed").length} completed`} />
         <Stat label="Course progress" value={`${avgProgress}%`} hint="average across enrolled courses" />
@@ -94,7 +104,7 @@ export default function Learner({ userId, user }: { userId: string; user?: User 
         <Card
           className="lg:col-span-3"
           title="Your competency gaps, ranked"
-          subtitle="Ordered by shortfall weighted by how critical each competency is to your role"
+          subtitle="Ordered by shortfall weighted by how critical each competency is to your role. Assess means we cannot yet confirm whether the target is met."
         >
           {openGaps.length === 0 ? (
             <Empty>You meet every proficiency target for this role.</Empty>

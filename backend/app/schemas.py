@@ -70,6 +70,24 @@ class GapItem(BaseModel):
     weighted_gap: float
     meets_target: bool
 
+    # Where the attained level came from, and how far to trust it. A gap
+    # computed from a measured level and one computed from an officer's own
+    # estimate at sign-up are not the same claim, and the difference decides
+    # whether the right next step is training or assessment.
+    evidence: str = Field(
+        default="self_reported",
+        description="measured | provisional | self_reported | unmeasured",
+    )
+    confidence_pct: float = Field(
+        default=0.0, description="Posterior mass inside the reported level"
+    )
+    level_low: int = Field(default=0, description="Lowest level the evidence supports")
+    level_high: int = Field(default=4)
+    questions_answered: int = 0
+    recommended_action: str = Field(
+        default="assess", description="train | assess | maintain"
+    )
+
 
 class GapReport(BaseModel):
     user_id: str
@@ -83,6 +101,16 @@ class GapReport(BaseModel):
     readiness_pct: float = Field(
         description="100 x (1 - total_weighted_gap / max_weighted_gap); role readiness."
     )
+    # Readiness is only as good as the evidence under it. An officer can read as
+    # 80% ready on levels they told us at sign-up and never demonstrated, so the
+    # report says how much of that figure rests on measurement.
+    evidence_coverage_pct: float = Field(
+        default=0.0,
+        description="Share of role-required competencies with a measured level",
+    )
+    measured_competencies: int = 0
+    provisional_competencies: int = 0
+    unverified_competencies: int = 0
 
 
 # --- courses / recommendations -------------------------------------------

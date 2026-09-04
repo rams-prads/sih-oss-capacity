@@ -171,3 +171,119 @@ def _rebuild(original: Ability, theta: float, se: float) -> Ability:
     level = theta_to_level(theta)
     confidence = sum(w for t, w in zip(THETA_GRID, weights) if theta_to_level(t) == level)
     return Ability(theta, se, level, confidence, original.n_responses, weights)
+
+
+@dataclass
+class CompetencyAbility:
+    competency_id: str
+    ability: Ability
+    questions_answered: int
+    topics_assessed: int
+    days_since_assessed: float | None
+
+
+def _competency_abilities_from(
+    attempts: list[CheckpointAttempt],
+    topics: dict[str, Topic],
+    bank: dict[int, tuple[float, float, float]],
+    apply_decay: bool,
+) -> dict[str, CompetencyAbility]:
+    """Pool one officer's already-loaded attempts into per-competency abilities."""
+    by_competency: dict[str, list[Response]] = defaultdict(list)
+    topics_seen: dict[str, set[str]] = defaultdict(set)
+    last_seen: dict[str, datetime] = {}
+
+    for attempt in attempts:
+        for item in attempt.items:
+            topic_id = item.get("topic_id", attempt.topic_id)
+            topic = topics.get(topic_id)
+            if topic is None:
+                continue
+            question_id = item.get("question_id")
+            if question_id and question_id in bank:
+                b, a, c = bank[question_id]
+            else:
+                b, a, c = 0.0, DEFAULT_DISCRIMINATION, DEFAULT_GUESSING
+            by_competency[topic.competency_id].append(
+                Response(b, bool(item.get("correct")), a, c)
+            )
+            topics_seen[topic.competency_id].add(topic_id)
+            stamp = attempt.created_at
+            if stamp is not None:
+                current = last_seen.get(topic.competency_id)
+                last_seen[topic.competency_id] = max(current, stamp) if current else stamp
+
+    now = datetime.now(timezone.utc)
+    out: dict[str, CompetencyAbility] = {}
+    for competency_id, responses in by_competency.items():
+        ability = estimate_ability(responses)
+        days = None
+        stamp = last_seen.get(competency_id)
+        if stamp is not None:
+            aware = stamp if stamp.tzinfo else stamp.replace(tzinfo=timezone.utc)
+            days = max(0.0, (now - aware).total_seconds() / 86400.0)
+            if apply_decay:
+                theta, se = decay_prior(ability.theta, ability.se, days)
+                ability = _rebuild(ability, theta, se)
+        out[competency_id] = CompetencyAbility(
+            competency_id=competency_id,
+            ability=ability,
+            questions_answered=len(responses),
+            topics_assessed=len(topics_seen[competency_id]),
+            days_since_assessed=days,
+        )
+    return out
+
+
+def competency_abilities(
+    db: Session,
+    user_id: str,
+    bank: dict[int, tuple[float, float, float]] | None = None,
+    apply_decay: bool = True,
+) -> dict[str, CompetencyAbility]:
+    """Ability per competency for one officer, pooling across its topics.
+
+    Topics are facets of one competency, so pooling their responses estimates a
+    single trait from more evidence than any topic has alone. That matters here:
+    a four-item checkpoint cannot separate adjacent levels, but three topics'
+    worth of checkpoints often can.
+    """
+    bank = bank if bank is not None else item_bank(db)
+    topics = {t.id: t for t in db.scalars(select(Topic)).all()}
+    attempts = list(
+        db.scalars(
+            select(CheckpointAttempt)
+            .where(CheckpointAttempt.user_id == user_id)
+            .order_by(CheckpointAttempt.created_at)
+        ).all()
+    )
+    return _competency_abilities_from(attempts, topics, bank, apply_decay)
+
+
+def competency_abilities_bulk(
+    db: Session, user_ids: list[str], apply_decay: bool = True
+) -> dict[str, dict[str, CompetencyAbility]]:
+    """The same for many officers, with a fixed number of queries.
+
+    The department view estimates every officer at once, so attempts, topics and
+    the item bank are loaded once for the whole set rather than once per officer.
+    """
+    if not user_ids:
+        return {}
+
+    bank = item_bank(db)
+    topics = {t.id: t for t in db.scalars(select(Topic)).all()}
+
+    by_user: dict[str, list[CheckpointAttempt]] = {uid: [] for uid in user_ids}
+    attempts = db.scalars(
+        select(CheckpointAttempt)
+        .where(CheckpointAttempt.user_id.in_(user_ids))
+        .order_by(CheckpointAttempt.created_at)
+    ).all()
+    for attempt in attempts:
+        by_user.setdefault(attempt.user_id, []).append(attempt)
+
+    return {
+        uid: _competency_abilities_from(rows, topics, bank, apply_decay)
+        for uid, rows in by_user.items()
+    }
