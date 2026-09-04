@@ -307,6 +307,19 @@ def pick_courses(catalogue: list[dict], wanted: int) -> list[dict]:
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--courses", type=int, default=3, help="how many courses to do")
+    parser.add_argument(
+        "--only",
+        default="",
+        help=(
+            "comma-separated course identifiers to do instead of picking by size. "
+            "Use this to finish one officer's courses so a demo tells a whole story."
+        ),
+    )
+    parser.add_argument(
+        "--for-user",
+        default="",
+        help="do the courses this officer is enrolled in, in shortest-first order",
+    )
     parser.add_argument("--dry-run", action="store_true", help="show the plan, call nothing")
     args = parser.parse_args()
 
@@ -315,7 +328,39 @@ def main() -> None:
         raise SystemExit("GEMINI_API_KEY is not set - put it in .env")
 
     catalogue = json.loads(SEED_PATH.read_text(encoding="utf-8"))["content"]
-    chosen = pick_courses(catalogue, args.courses)
+
+    wanted: set[str] = {c.strip() for c in args.only.split(",") if c.strip()}
+    if args.for_user:
+        # Assessing every course one officer holds is worth more for a demo than
+        # the same effort spread thinly over unrelated courses.
+        from sqlalchemy import select
+
+        from app.db import SessionLocal
+        from app.models import Enrolment
+
+        with SessionLocal() as db:
+            wanted |= {
+                e.course_identifier
+                for e in db.scalars(
+                    select(Enrolment).where(Enrolment.user_id == args.for_user)
+                ).all()
+            }
+
+    if wanted:
+        by_id = {c["identifier"]: c for c in catalogue}
+        chosen = [
+            by_id[i]
+            for i in wanted
+            if i in by_id and by_id[i].get("modules")
+        ]
+        chosen.sort(
+            key=lambda c: sum(l["duration_min"] for m in c["modules"] for l in m["lessons"])
+        )
+        missing = [i for i in wanted if i not in by_id or not by_id[i].get("modules")]
+        for identifier in missing:
+            print(f"  (no playable video for {identifier}, skipping)")
+    else:
+        chosen = pick_courses(catalogue, args.courses)
     if not chosen:
         raise SystemExit("no suitable courses in the catalogue")
 
