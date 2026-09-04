@@ -13,7 +13,13 @@ import re
 import httpx
 
 from app.config import get_settings
-from app.llm.base import MCQ_SYSTEM_PROMPT, GeneratedQuestion, build_mcq_prompt
+from app.llm.base import (
+    MCQ_SYSTEM_PROMPT,
+    TUTOR_SYSTEM_PROMPT,
+    GeneratedQuestion,
+    build_mcq_prompt,
+    build_tutor_prompt,
+)
 
 
 def parse_mcq_json(raw: str) -> list[GeneratedQuestion]:
@@ -65,6 +71,15 @@ class StubLLMProvider:
         """A short subject phrase, so each stem is distinct."""
         words = re.sub(r"^(The|A|An|This|These|In|For)\s+", "", sentence).split()
         return " ".join(words[:5]).rstrip(",;:.").lower() or "this topic"
+
+    def chat(self, context: str, question: str) -> str:
+        """No model, so no freeform answer.
+
+        The tutor answers everything it can from the learner's own record; this
+        returning empty is what tells it to say plainly that open questions need a
+        model configured, rather than inventing a reply.
+        """
+        return ""
 
     def generate_mcqs(self, text: str, competency_name: str, n: int) -> list[GeneratedQuestion]:
         sentences = [
@@ -122,6 +137,23 @@ class OpenAIProvider:
         response.raise_for_status()
         return parse_mcq_json(response.json()["choices"][0]["message"]["content"])
 
+    def chat(self, context: str, question: str) -> str:
+        response = httpx.post(
+            "https://api.openai.com/v1/chat/completions",
+            headers={"Authorization": f"Bearer {self.api_key}"},
+            json={
+                "model": self.model,
+                "temperature": 0.2,
+                "messages": [
+                    {"role": "system", "content": TUTOR_SYSTEM_PROMPT},
+                    {"role": "user", "content": build_tutor_prompt(context, question)},
+                ],
+            },
+            timeout=60.0,
+        )
+        response.raise_for_status()
+        return response.json()["choices"][0]["message"]["content"].strip()
+
 
 class GeminiProvider:
     name = "gemini"
@@ -149,6 +181,22 @@ class GeminiProvider:
         parts = response.json()["candidates"][0]["content"]["parts"]
         return parse_mcq_json("".join(p.get("text", "") for p in parts))
 
+    def chat(self, context: str, question: str) -> str:
+        url = (
+            f"https://generativelanguage.googleapis.com/v1beta/models/"
+            f"{self.model}:generateContent"
+        )
+        prompt = f"{TUTOR_SYSTEM_PROMPT}\n\n{build_tutor_prompt(context, question)}"
+        response = httpx.post(
+            url,
+            headers={"x-goog-api-key": self.api_key},
+            json={"contents": [{"parts": [{"text": prompt}]}]},
+            timeout=60.0,
+        )
+        response.raise_for_status()
+        parts = response.json()["candidates"][0]["content"]["parts"]
+        return "".join(p.get("text", "") for p in parts).strip()
+
 
 class OllamaProvider:
     name = "ollama"
@@ -170,6 +218,19 @@ class OllamaProvider:
         )
         response.raise_for_status()
         return parse_mcq_json(response.json().get("response", ""))
+
+    def chat(self, context: str, question: str) -> str:
+        response = httpx.post(
+            f"{self.base}/api/generate",
+            json={
+                "model": self.model,
+                "prompt": f"{TUTOR_SYSTEM_PROMPT}\n\n{build_tutor_prompt(context, question)}",
+                "stream": False,
+            },
+            timeout=120.0,
+        )
+        response.raise_for_status()
+        return response.json().get("response", "").strip()
 
 
 _PROVIDERS = {

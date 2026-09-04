@@ -12,6 +12,7 @@ import type {
   LearningDashboard,
 } from "../api";
 import { CheckpointModal } from "../components/CheckpointModal";
+import { CourseTutor } from "../components/CourseTutor";
 import { CourseProgressCard } from "../components/CourseProgressCard";
 import { ProgressBar, STATUS_META } from "../components/Progress";
 import { TopicMasteryPanel } from "../components/TopicMasteryPanel";
@@ -211,6 +212,10 @@ export default function MyLearning({ userId }: { userId: string }) {
           </div>
         )}
       </Card>
+
+      {courses.length > 0 && (
+        <CourseTutor userId={userId} courses={courses} onWatchLesson={handleWatch} />
+      )}
 
       <Card
         title="Topic record"

@@ -544,3 +544,34 @@ class BaselineResultOut(BaseModel):
     questions_correct: int
     score_pct: float
     estimates: list[CompetencyEstimate] = []
+
+
+# --- course tutor ---------------------------------------------------------
+class TutorAskRequest(BaseModel):
+    message: str = Field(min_length=1, max_length=1000)
+
+
+class TutorLesson(BaseModel):
+    id: int
+    title: str
+    duration_min: int
+    module: str = ""
+
+
+class TutorTopic(BaseModel):
+    topic_id: str
+    topic_name: str
+    accuracy_pct: float
+    questions_answered: int
+    verdict: str
+
+
+class TutorReplyOut(BaseModel):
+    course_identifier: str
+    course_name: str
+    answer: str
+    source: str = Field(description="record | model | unanswered — where the answer came from")
+    intent: str = "general"
+    lessons_to_rewatch: list[TutorLesson] = []
+    weak_topics: list[TutorTopic] = []
+    suggestions: list[str] = []
