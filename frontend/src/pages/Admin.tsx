@@ -82,7 +82,7 @@ export default function Admin() {
   return (
     <div className="space-y-5">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <div className="flex gap-1 rounded-xl bg-slate-100 p-1">
+        <div className="flex gap-1 rounded-xl bg-ground p-1">
           {([
             ["capacity", "Competency capacity"],
             ["learning", "Training progress"],
@@ -91,7 +91,7 @@ export default function Admin() {
               key={key}
               onClick={() => setTab(key)}
               className={`rounded-lg px-3 py-1.5 text-sm font-medium transition ${
-                tab === key ? "bg-white text-slate-900 shadow-sm" : "text-slate-600"
+                tab === key ? "bg-surface text-ink shadow-sm" : "text-ink-2"
               }`}
             >
               {label}
@@ -103,7 +103,7 @@ export default function Admin() {
           <select
             value={department}
             onChange={(e) => setDepartment(e.target.value)}
-            className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm"
+            className="rounded-lg border border-hairline-strong bg-surface px-3 py-2 text-sm"
           >
             <option value="">All departments</option>
             {departments.map((d) => (
@@ -114,7 +114,7 @@ export default function Admin() {
           </select>
           <button
             onClick={signOut}
-            className="rounded-lg border border-slate-300 px-3 py-2 text-xs font-medium text-slate-600 hover:bg-slate-50"
+            className="rounded-lg border border-hairline-strong px-3 py-2 text-xs font-medium text-ink-2 hover:bg-raised"
           >
             Sign out
           </button>
@@ -189,28 +189,28 @@ export default function Admin() {
           ) : (
             <ul className="space-y-3">
               {overview.cohort_recommendations.map((c) => (
-                <li key={c.competency_id} className="rounded-lg border border-slate-200 p-3">
+                <li key={c.competency_id} className="rounded-lg border border-hairline p-3">
                   <div className="flex items-start justify-between gap-3">
-                    <p className="text-sm font-medium text-slate-900">{c.competency_name}</p>
-                    <span className="shrink-0 rounded-full bg-red-50 px-2 py-0.5 text-xs font-medium text-red-700">
+                    <p className="text-sm font-medium text-ink">{c.competency_name}</p>
+                    <span className="shrink-0 rounded-full bg-alert-soft px-2 py-0.5 text-xs font-medium text-alert">
                       {c.officers_below_target} officers
                     </span>
                   </div>
                   {c.course ? (
-                    <p className="mt-1.5 text-xs text-slate-600">
-                      Schedule <span className="font-medium text-slate-800">{c.course.name}</span>
-                      <span className="text-slate-400">
+                    <p className="mt-1.5 text-xs text-ink-2">
+                      Schedule <span className="font-medium text-ink">{c.course.name}</span>
+                      <span className="text-ink-4">
                         {" "}
                         &middot; {Math.round(c.course.duration_min / 60)} h &middot;{" "}
                         {c.course.identifier}
                       </span>
                     </p>
                   ) : (
-                    <p className="mt-1.5 text-xs text-amber-700">
+                    <p className="mt-1.5 text-xs text-saffron-ink">
                       No catalogue course covers this competency yet.
                     </p>
                   )}
-                  <p className="mt-1 text-xs text-slate-400">
+                  <p className="mt-1 text-xs text-ink-4">
                     average shortfall {c.avg_gap.toFixed(1)} levels
                   </p>
                 </li>
@@ -231,7 +231,7 @@ export default function Admin() {
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-slate-200 text-left text-xs uppercase tracking-wide text-slate-500">
+              <tr className="border-b border-hairline text-left text-xs uppercase tracking-wide text-ink-3">
                 <th className="py-2 pr-3 font-medium">Competency</th>
                 <th className="py-2 pr-3 font-medium">Type</th>
                 <th className="py-2 pr-3 text-right font-medium">Avg attained</th>
@@ -240,25 +240,25 @@ export default function Admin() {
                 <th className="py-2 text-right font-medium">Meeting target</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-hairline">
               {overview.competency_stats.map((s) => (
                 <tr key={s.competency_id}>
                   <td className="py-2 pr-3">
-                    <span className="font-mono text-xs text-slate-400">{s.competency_id}</span>{" "}
+                    <span className="font-mono text-xs text-ink-4">{s.competency_id}</span>{" "}
                     {s.competency_name}
                   </td>
-                  <td className="py-2 pr-3 text-xs text-slate-500">
+                  <td className="py-2 pr-3 text-xs text-ink-3">
                     {s.competency_type.toLowerCase()}
                   </td>
                   <td className="py-2 pr-3 text-right tabular-nums">{s.avg_attained.toFixed(1)}</td>
-                  <td className="py-2 pr-3 text-right tabular-nums text-slate-500">
+                  <td className="py-2 pr-3 text-right tabular-nums text-ink-3">
                     {s.avg_target.toFixed(1)}
                   </td>
                   <td className="py-2 pr-3 text-right font-medium tabular-nums">
                     {s.avg_gap.toFixed(1)}
                   </td>
                   <td className="py-2 text-right tabular-nums">
-                    <span className={s.pct_meeting_target < 50 ? "text-red-600" : "text-teal-700"}>
+                    <span className={s.pct_meeting_target < 50 ? "text-alert" : "text-chakra"}>
                       {s.officers_meeting_target}/{s.officers_requiring}
                     </span>
                   </td>

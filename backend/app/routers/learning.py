@@ -7,6 +7,8 @@ from fastapi import APIRouter, HTTPException, status
 from sqlalchemy import select
 
 from app.deps import DbSession, KarmayogiDep
+from app.engines import tutor
+from app.llm.providers import get_llm_provider
 from app.engines.progress import (
     COMPLETED,
     EXPIRED,
@@ -29,6 +31,10 @@ from app.models import (
     User,
 )
 from app.schemas import (
+    TutorTopic,
+    TutorReplyOut,
+    TutorLesson,
+    TutorAskRequest,
     CheckpointItemResult,
     CheckpointQuestionOut,
     CheckpointQuizOut,
@@ -367,3 +373,48 @@ def user_topic_mastery(user_id: str, db: DbSession):
     if db.get(User, user_id) is None:
         raise HTTPException(status.HTTP_404_NOT_FOUND, "User not found")
     return [TopicMastery(**row) for row in topic_mastery(db, user_id)]
+
+
+@router.post("/courses/{course_identifier}/tutor", response_model=TutorReplyOut)
+def ask_tutor(
+    course_identifier: str, user_id: str, payload: TutorAskRequest, db: DbSession
+):
+    """Answer a question about one enrolled course.
+
+    Scoped deliberately: the officer must be enrolled, and every fact in the reply
+    comes from that course's own lessons and assessment attempts. There is no
+    route here to the rest of the platform.
+    """
+    provider = get_llm_provider()
+    try:
+        reply = tutor.answer(db, user_id, course_identifier, payload.message, provider)
+    except KeyError:
+        raise HTTPException(
+            status.HTTP_404_NOT_FOUND, "Not enrolled in that course"
+        ) from None
+
+    enrolment = db.scalar(
+        select(Enrolment).where(
+            Enrolment.user_id == user_id,
+            Enrolment.course_identifier == course_identifier,
+        )
+    )
+    return TutorReplyOut(
+        course_identifier=course_identifier,
+        course_name=enrolment.course_name if enrolment else course_identifier,
+        answer=reply.answer,
+        source=reply.source,
+        intent=reply.intent,
+        lessons_to_rewatch=[TutorLesson(**lesson) for lesson in reply.lessons_to_rewatch],
+        weak_topics=[
+            TutorTopic(
+                topic_id=row["topic_id"],
+                topic_name=row["topic_name"],
+                accuracy_pct=row["accuracy_pct"],
+                questions_answered=row["questions_answered"],
+                verdict=row["verdict"],
+            )
+            for row in reply.weak_topics
+        ],
+        suggestions=reply.suggestions,
+    )

@@ -509,3 +509,40 @@ export const getRoles = () =>
   api
     .get<{ id: string; name: string; stream: string; grade: number }[]>("/roles")
     .then((r) => r.data);
+
+// --- course tutor (My Courses only) --------------------------------------
+export interface TutorLesson {
+  id: number;
+  title: string;
+  duration_min: number;
+  module: string;
+}
+
+export interface TutorTopic {
+  topic_id: string;
+  topic_name: string;
+  accuracy_pct: number;
+  questions_answered: number;
+  verdict: Verdict;
+}
+
+export interface TutorReply {
+  course_identifier: string;
+  course_name: string;
+  answer: string;
+  /** "record" = from this officer's own data, "model" = LLM, "unanswered" = declined. */
+  source: "record" | "model" | "unanswered";
+  intent: string;
+  lessons_to_rewatch: TutorLesson[];
+  weak_topics: TutorTopic[];
+  suggestions: string[];
+}
+
+export const askTutor = (courseIdentifier: string, userId: string, message: string) =>
+  api
+    .post<TutorReply>(
+      `/courses/${courseIdentifier}/tutor`,
+      { message },
+      { params: { user_id: userId } },
+    )
+    .then((r) => r.data);

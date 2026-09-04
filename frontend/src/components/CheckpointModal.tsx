@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { CheckpointQuiz, CheckpointResult } from "../api";
 import { VERDICT_META } from "./Progress";
 
@@ -20,19 +20,41 @@ export function CheckpointModal({
   );
   const answered = answers.filter((a) => a >= 0).length;
 
+  // Escape closes it. A modal that traps the user until they find the ✕ is the
+  // kind of thing nobody praises and everybody notices.
+  useEffect(() => {
+    function onKey(event: KeyboardEvent) {
+      if (event.key === "Escape") onClose();
+    }
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [onClose]);
+
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-slate-900/50 p-4 sm:p-8">
-      <div className="w-full max-w-2xl rounded-xl bg-white shadow-xl">
-        <header className="flex items-start justify-between gap-4 border-b border-slate-100 px-5 py-4">
+    <div
+      className="overlay-in fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-ink/45 p-4 backdrop-blur-sm sm:p-8"
+      onMouseDown={(e) => {
+        // Only a press that both starts and ends on the backdrop closes it, so
+        // a text selection that drags out of the panel does not dismiss the quiz.
+        if (e.target === e.currentTarget) onClose();
+      }}
+    >
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-label={`Checkpoint: ${quiz.topic_name}`}
+        className="panel-in w-full max-w-2xl rounded-2xl border border-hairline bg-surface shadow-[var(--shadow-lg)]"
+      >
+        <header className="flex items-start justify-between gap-4 border-b border-hairline px-5 py-4">
           <div>
-            <h2 className="font-semibold text-slate-900">Checkpoint: {quiz.topic_name}</h2>
-            <p className="mt-0.5 text-xs text-slate-500">
+            <h2 className="font-semibold text-ink">Checkpoint: {quiz.topic_name}</h2>
+            <p className="mt-0.5 text-xs text-ink-3">
               {quiz.course_name} · attempt {quiz.attempt_no} · pass at {quiz.pass_pct}%
             </p>
           </div>
           <button
             onClick={onClose}
-            className="rounded-lg px-2 py-1 text-sm text-slate-400 hover:bg-slate-100 hover:text-slate-700"
+            className="rounded-lg px-2 py-1 text-sm text-ink-4 hover:bg-ground hover:text-ink-2"
             aria-label="Close"
           >
             ✕
@@ -45,7 +67,7 @@ export function CheckpointModal({
               <ol className="space-y-5">
                 {quiz.questions.map((q, qi) => (
                   <li key={q.id}>
-                    <p className="text-sm font-medium text-slate-900">
+                    <p className="text-sm font-medium text-ink">
                       {qi + 1}. {q.stem}
                     </p>
                     <div className="mt-2 space-y-1.5">
@@ -54,8 +76,8 @@ export function CheckpointModal({
                           key={oi}
                           className={`flex cursor-pointer items-start gap-2.5 rounded-lg border px-3 py-2 text-sm transition ${
                             answers[qi] === oi
-                              ? "border-slate-900 bg-slate-50"
-                              : "border-slate-200 hover:border-slate-300"
+                              ? "border-ashoka bg-raised"
+                              : "border-hairline hover:border-hairline-strong"
                           }`}
                         >
                           <input
@@ -65,9 +87,9 @@ export function CheckpointModal({
                             onChange={() =>
                               setAnswers((a) => a.map((v, i) => (i === qi ? oi : v)))
                             }
-                            className="mt-0.5 accent-slate-900"
+                            className="mt-0.5 accent-ashoka"
                           />
-                          <span className="text-slate-700">{option}</span>
+                          <span className="text-ink-2">{option}</span>
                         </label>
                       ))}
                     </div>
@@ -76,15 +98,15 @@ export function CheckpointModal({
               </ol>
             </div>
 
-            <footer className="flex items-center gap-3 border-t border-slate-100 px-5 py-3.5">
+            <footer className="flex items-center gap-3 border-t border-hairline px-5 py-3.5">
               <button
                 disabled={answered < answers.length || submitting}
                 onClick={() => onSubmit(answers)}
-                className="rounded-lg bg-slate-900 px-4 py-2 text-sm font-medium text-white transition hover:bg-slate-700 disabled:cursor-not-allowed disabled:bg-slate-300"
+                className="rounded-lg bg-ashoka px-4 py-2 text-sm font-medium text-white transition hover:bg-ashoka-2 disabled:cursor-not-allowed disabled:bg-hairline-strong"
               >
                 {submitting ? "Submitting…" : "Submit"}
               </button>
-              <span className="text-xs text-slate-500">
+              <span className="text-xs text-ink-3">
                 {answered} of {answers.length} answered
               </span>
             </footer>
@@ -92,28 +114,28 @@ export function CheckpointModal({
         ) : (
           <>
             <div
-              className={`px-5 py-4 ${result.passed ? "bg-teal-50" : "bg-rose-50"}`}
+              className={`px-5 py-4 ${result.passed ? "bg-chakra-soft" : "bg-alert-soft"}`}
             >
               <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
                 <p
                   className={`text-2xl font-semibold tabular-nums ${
-                    result.passed ? "text-teal-800" : "text-rose-800"
+                    result.passed ? "text-chakra" : "text-alert"
                   }`}
                 >
                   {result.score_pct}%
                 </p>
                 <p
                   className={`text-sm font-medium ${
-                    result.passed ? "text-teal-800" : "text-rose-800"
+                    result.passed ? "text-chakra" : "text-alert"
                   }`}
                 >
                   {result.passed ? "Passed" : `Not passed — ${result.pass_pct}% needed`}
                 </p>
-                <p className="text-sm text-slate-600">
+                <p className="text-sm text-ink-2">
                   {result.correct_count} of {result.total} correct
                 </p>
               </div>
-              <p className="mt-1.5 text-xs text-slate-600">
+              <p className="mt-1.5 text-xs text-ink-2">
                 Course progress is now {result.course_progress_pct}%. Your record on{" "}
                 <span className="font-medium">{result.topic_name}</span> across all attempts:{" "}
                 <span className={VERDICT_META[result.topic_verdict].className}>
@@ -128,25 +150,25 @@ export function CheckpointModal({
                 <div key={item.question_id} className="flex gap-3 text-sm">
                   <span
                     className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-xs font-bold text-white ${
-                      item.correct ? "bg-teal-600" : "bg-rose-500"
+                      item.correct ? "bg-chakra" : "bg-alert"
                     }`}
                   >
                     {item.correct ? "\u2713" : "\u2715"}
                   </span>
                   <div className="min-w-0">
-                    <p className="font-medium text-slate-900">
+                    <p className="font-medium text-ink">
                       {i + 1}. {item.stem}
                     </p>
                     {!item.correct && (
-                      <p className="mt-1 text-xs text-rose-700">
+                      <p className="mt-1 text-xs text-alert">
                         You chose: {item.options[item.your_answer]}
                       </p>
                     )}
-                    <p className="mt-0.5 text-xs text-teal-800">
+                    <p className="mt-0.5 text-xs text-chakra">
                       Correct: {item.options[item.answer_index]}
                     </p>
                     {item.explanation && (
-                      <p className="mt-1 text-xs leading-relaxed text-slate-500">
+                      <p className="mt-1 text-xs leading-relaxed text-ink-3">
                         {item.explanation}
                       </p>
                     )}
@@ -155,10 +177,10 @@ export function CheckpointModal({
               ))}
             </div>
 
-            <footer className="border-t border-slate-100 px-5 py-3.5">
+            <footer className="border-t border-hairline px-5 py-3.5">
               <button
                 onClick={onClose}
-                className="rounded-lg bg-slate-900 px-4 py-2 text-sm font-medium text-white hover:bg-slate-700"
+                className="rounded-lg bg-ashoka px-4 py-2 text-sm font-medium text-white hover:bg-ashoka-2"
               >
                 Back to my learning
               </button>
