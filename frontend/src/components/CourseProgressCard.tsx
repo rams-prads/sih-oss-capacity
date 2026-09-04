@@ -33,17 +33,17 @@ export function CourseProgressCard({
   const hasCurriculum = course.lessons_total > 0;
 
   return (
-    <article className="rounded-xl border border-slate-200 bg-white shadow-sm">
+    <article className="rounded-xl border border-hairline bg-surface shadow-sm">
       <div className="p-4">
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div className="min-w-0 flex-1">
-            <h3 className="text-sm font-semibold leading-snug text-slate-900">
+            <h3 className="text-sm font-semibold leading-snug text-ink">
               {course.course_name}
             </h3>
-            <p className="mt-1 text-xs text-slate-500">
+            <p className="mt-1 text-xs text-ink-3">
               {course.provider}
               {course.competency_ids.length > 0 && (
-                <span className="ml-2 font-mono text-slate-400">
+                <span className="ml-2 font-mono text-ink-4">
                   {course.competency_ids.join(" \u00b7 ")}
                 </span>
               )}
@@ -56,27 +56,27 @@ export function CourseProgressCard({
           // A real iGOT course is taken on the portal, so there are no lessons to
           // tick off here. Show what it covers and a way through to it rather than
           // a bare apology, and be plain that progress lives on iGOT.
-          <div className="mt-3.5 rounded-lg border border-dashed border-slate-300 bg-slate-50 px-3 py-2.5">
+          <div className="mt-3.5 rounded-lg border border-dashed border-hairline-strong bg-raised px-3 py-2.5">
             {course.outline.length > 0 ? (
               <>
-                <p className="text-xs font-medium text-slate-700">
+                <p className="text-xs font-medium text-ink-2">
                   What it covers
-                  <span className="ml-1 font-normal text-slate-400">
+                  <span className="ml-1 font-normal text-ink-4">
                     ({course.outline.length} module{course.outline.length > 1 ? "s" : ""})
                   </span>
                 </p>
-                <ol className="mt-1.5 list-decimal space-y-0.5 pl-5 text-xs leading-relaxed text-slate-600">
+                <ol className="mt-1.5 list-decimal space-y-0.5 pl-5 text-xs leading-relaxed text-ink-2">
                   {course.outline.map((module, index) => (
                     <li key={`${index}-${module}`}>{module}</li>
                   ))}
                 </ol>
               </>
             ) : (
-              <p className="text-xs text-slate-500">
+              <p className="text-xs text-ink-3">
                 This course publishes no module outline.
               </p>
             )}
-            <p className="mt-2.5 border-t border-slate-200 pt-2 text-xs text-slate-500">
+            <p className="mt-2.5 border-t border-hairline pt-2 text-xs text-ink-3">
               This course is taken on iGOT Karmayogi, so progress is tracked there, not
               here. Your enrolment is recorded.
               {course.url && (
@@ -84,7 +84,7 @@ export function CourseProgressCard({
                   href={course.url}
                   target="_blank"
                   rel="noreferrer"
-                  className="ml-1 font-medium text-blue-700 underline underline-offset-2 hover:text-blue-900"
+                  className="ml-1 font-medium text-ashoka-2 underline underline-offset-2 hover:text-ashoka"
                 >
                   Open on iGOT &rarr;
                 </a>
@@ -94,10 +94,10 @@ export function CourseProgressCard({
         ) : (
         <div className="mt-3.5">
           <div className="mb-1.5 flex items-baseline justify-between text-xs">
-            <span className="font-medium tabular-nums text-slate-700">
+            <span className="font-medium tabular-nums text-ink-2">
               {course.progress_pct}% complete
             </span>
-            <span className="text-slate-500">
+            <span className="text-ink-3">
               {course.lessons_completed}/{course.lessons_total} videos,{" "}
               {course.checkpoints_passed}/{course.checkpoints_total} checkpoints
             </span>
@@ -108,25 +108,25 @@ export function CourseProgressCard({
 
         <div className="mt-3 flex flex-wrap items-center justify-between gap-3">
           <UnitTrack modules={course.modules} />
-          <div className="flex items-center gap-3 text-xs text-slate-500">
+          <div className="flex items-center gap-3 text-xs text-ink-3">
             {course.avg_checkpoint_score !== null && (
               <span>avg score {course.avg_checkpoint_score}%</span>
             )}
             {course.status === "completed" && course.completed_at && (
-              <span className="text-teal-700">Completed {fmtDate(course.completed_at)}</span>
+              <span className="text-chakra">Completed {fmtDate(course.completed_at)}</span>
             )}
             {course.status === "expired" && (
-              <span className="text-rose-700">Access ended {fmtDate(course.expires_at)}</span>
+              <span className="text-alert">Access ended {fmtDate(course.expires_at)}</span>
             )}
             {course.days_remaining !== null && course.days_remaining <= 30 && (
-              <span className="font-medium text-amber-700">
+              <span className="font-medium text-saffron-ink">
                 {course.days_remaining} days left
               </span>
             )}
           </div>
         </div>
 
-        <div className="mt-4 flex items-center gap-2 border-t border-slate-100 pt-3">
+        <div className="mt-4 flex items-center gap-2 border-t border-hairline pt-3">
           {course.next_action && !locked ? (
             <button
               onClick={() => {
@@ -154,15 +154,15 @@ export function CourseProgressCard({
                 busyLessonId !== null &&
                 busyLessonId === course.next_action.lesson_id
               }
-              className="rounded-lg bg-slate-900 px-3 py-1.5 text-xs font-medium text-white transition hover:bg-slate-700 disabled:bg-slate-400"
+              className="rounded-lg bg-ashoka px-3 py-1.5 text-xs font-medium text-white transition hover:bg-ashoka-2 disabled:opacity-45"
             >
               {course.next_action.kind === "lesson" ? "Watch next video" : "Take checkpoint"}
-              <span className="ml-1.5 font-normal text-slate-300">
+              <span className="ml-1.5 font-normal text-ink-4">
                 {course.next_action.label}
               </span>
             </button>
           ) : (
-            <span className="text-xs text-slate-400">
+            <span className="text-xs text-ink-4">
               {course.status === "completed"
                 ? "All videos watched and all checkpoints passed."
                 : "Enrolment window closed. Re-enrol to continue."}
@@ -171,7 +171,7 @@ export function CourseProgressCard({
           {hasCurriculum && (
             <button
               onClick={() => setOpen((v) => !v)}
-              className="ml-auto rounded-lg border border-slate-300 px-2.5 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-50"
+              className="ml-auto rounded-lg border border-hairline-strong px-2.5 py-1.5 text-xs font-medium text-ink-2 hover:bg-raised"
             >
               {open ? "Hide" : "Show"} contents
             </button>
@@ -180,14 +180,14 @@ export function CourseProgressCard({
       </div>
 
       {open && (
-        <div className="border-t border-slate-100 bg-slate-50/60 px-4 py-3">
+        <div className="border-t border-hairline bg-raised/60 px-4 py-3">
           {course.modules.map((m) => (
             <div key={m.module_index} className="mb-3 last:mb-0">
               <div className="mb-1.5 flex items-center justify-between">
-                <p className="text-xs font-semibold text-slate-700">
+                <p className="text-xs font-semibold text-ink-2">
                   Module {m.module_index + 1}: {m.topic_name}
                 </p>
-                <span className="text-xs text-slate-500">
+                <span className="text-xs text-ink-3">
                   {m.lessons_completed}/{m.lessons_total} watched
                 </span>
               </div>
@@ -196,23 +196,23 @@ export function CourseProgressCard({
                 {m.lessons.map((l) => (
                   <li
                     key={l.id}
-                    className="flex items-center gap-2.5 rounded-lg bg-white px-2.5 py-1.5 text-xs ring-1 ring-slate-100"
+                    className="flex items-center gap-2.5 rounded-lg bg-surface px-2.5 py-1.5 text-xs ring-1 ring-hairline"
                   >
                     <span
                       className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-[10px] font-bold text-white ${
-                        l.completed ? "bg-teal-600" : "bg-slate-300"
+                        l.completed ? "bg-chakra" : "bg-hairline-strong"
                       }`}
                     >
                       {l.completed ? "\u2713" : ""}
                     </span>
-                    <span className={l.completed ? "text-slate-500" : "text-slate-800"}>
+                    <span className={l.completed ? "text-ink-3" : "text-ink"}>
                       {l.title}
                     </span>
-                    <span className="ml-auto shrink-0 text-slate-400">{l.duration_min} min</span>
+                    <span className="ml-auto shrink-0 text-ink-4">{l.duration_min} min</span>
                     {!locked && l.video_url && (
                       <button
                         onClick={() => setPlaying(playing === l.id ? null : l.id)}
-                        className="shrink-0 rounded border border-slate-300 px-2 py-0.5 font-medium text-slate-700 hover:bg-slate-50"
+                        className="shrink-0 rounded border border-hairline-strong px-2 py-0.5 font-medium text-ink-2 hover:bg-raised"
                       >
                         {playing === l.id ? "Close" : l.completed ? "Rewatch" : "Play"}
                       </button>
@@ -221,7 +221,7 @@ export function CourseProgressCard({
                       <button
                         onClick={() => onWatch(l.id)}
                         disabled={busyLessonId === l.id}
-                        className="shrink-0 rounded border border-slate-300 px-2 py-0.5 font-medium text-slate-700 hover:bg-slate-50 disabled:opacity-50"
+                        className="shrink-0 rounded border border-hairline-strong px-2 py-0.5 font-medium text-ink-2 hover:bg-raised disabled:opacity-50"
                       >
                         {busyLessonId === l.id ? "..." : "Watch"}
                       </button>
@@ -244,7 +244,7 @@ export function CourseProgressCard({
                           if (!l.completed) onWatch(l.id);
                         }}
                       />
-                      <p className="px-1 py-1 text-[11px] text-slate-300">
+                      <p className="px-1 py-1 text-[11px] text-ink-4">
                         Streamed from iGOT Karmayogi. Watching to the end marks it complete
                         here.
                       </p>
@@ -255,24 +255,24 @@ export function CourseProgressCard({
                 <li
                   className={`flex items-center gap-2.5 rounded-lg px-2.5 py-1.5 text-xs ring-1 ${
                     m.checkpoint_passed
-                      ? "bg-teal-50 ring-teal-200"
+                      ? "bg-chakra-soft ring-chakra/25"
                       : m.checkpoint_unlocked
-                        ? "bg-white ring-slate-200"
-                        : "bg-slate-100 ring-slate-200"
+                        ? "bg-surface ring-hairline"
+                        : "bg-ground ring-hairline"
                   }`}
                 >
                   <span
                     className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-[10px] font-bold text-white ${
-                      m.checkpoint_passed ? "bg-teal-600" : "bg-slate-300"
+                      m.checkpoint_passed ? "bg-chakra" : "bg-hairline-strong"
                     }`}
                   >
                     {m.checkpoint_passed ? "\u2713" : ""}
                   </span>
-                  <span className="font-medium text-slate-800">
+                  <span className="font-medium text-ink">
                     {m.lessons_total === 0 ? "Final assessment" : "Checkpoint quiz"}, pass at{" "}
                     {m.pass_pct}%
                   </span>
-                  <span className="ml-auto shrink-0 text-slate-500">
+                  <span className="ml-auto shrink-0 text-ink-3">
                     {m.attempts === 0
                       ? m.checkpoint_unlocked
                         ? "Ready"
@@ -284,7 +284,7 @@ export function CourseProgressCard({
                   {m.checkpoint_unlocked && !locked && (
                     <button
                       onClick={() => onCheckpoint(m.checkpoint_id!)}
-                      className="shrink-0 rounded border border-slate-300 bg-white px-2 py-0.5 font-medium text-slate-700 hover:bg-slate-50"
+                      className="shrink-0 rounded border border-hairline-strong bg-surface px-2 py-0.5 font-medium text-ink-2 hover:bg-raised"
                     >
                       {m.checkpoint_passed ? "Retake" : "Start"}
                     </button>

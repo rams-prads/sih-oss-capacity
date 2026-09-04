@@ -1,6 +1,6 @@
 import { PROFICIENCY } from "../api";
 import type { Recommendation } from "../api";
-import { Badge } from "./ui";
+import { Badge, Button } from "./ui";
 
 export function CourseCard({
   rec,
@@ -30,46 +30,66 @@ export function CourseCard({
       : { label: "Sandbox course", tone: "slate" as const };
 
   return (
-    <article className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm transition hover:border-slate-300">
+    <article className="lift flex flex-col rounded-2xl border border-hairline bg-surface p-4">
       <div className="flex items-start justify-between gap-3">
-        <h3 className="text-sm font-semibold leading-snug text-slate-900">{course.name}</h3>
+        <h3 className="text-sm font-semibold leading-snug text-ink">{course.name}</h3>
         {rec.covers_count > 1 && <Badge tone="blue">covers {rec.covers_count} gaps</Badge>}
       </div>
 
-      <div className="mt-2 flex flex-wrap items-center gap-1.5">
+      <div className="mt-2.5 flex flex-wrap items-center gap-1.5">
         <Badge tone={origin.tone}>{origin.label}</Badge>
         {isProgramme && course.mode && <Badge tone="slate">{course.mode}</Badge>}
       </div>
 
-      <p className="mt-2 line-clamp-2 text-xs leading-relaxed text-slate-500">
+      <p className="mt-2.5 line-clamp-2 text-xs leading-relaxed text-ink-3">
         {course.description}
       </p>
 
-      <p className="mt-2.5 text-xs font-medium text-teal-700">{rec.reason}</p>
+      {/* Why this course was recommended. It carries the engine's reasoning, so
+          it gets a rule and the accent rather than being another grey line. */}
+      <p className="mt-3 border-l-2 border-saffron/50 pl-2.5 text-xs leading-relaxed text-ink-2">
+        {rec.reason}
+      </p>
 
-      <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-slate-500">
+      <div className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px] text-ink-3">
         <span>{course.provider}</span>
-        <span aria-hidden>&middot;</span>
-        <span>
+        <span className="text-ink-4" aria-hidden>
+          &middot;
+        </span>
+        <span className="tabular-nums">
           {isProgramme && course.duration_days
             ? `${course.duration_days} day${course.duration_days > 1 ? "s" : ""}`
             : `${Math.max(1, Math.round(course.duration_min / 60))} h`}
         </span>
-        <span aria-hidden>&middot;</span>
+        <span className="text-ink-4" aria-hidden>
+          &middot;
+        </span>
         <span>takes you to {PROFICIENCY[course.target_level]}</span>
       </div>
 
       {course.outline.length > 0 && (
-        <details className="mt-2.5 group">
-          <summary className="cursor-pointer list-none text-xs font-medium text-slate-600 hover:text-slate-900">
-            <span className="underline decoration-dotted underline-offset-2">
-              What it covers
-            </span>
-            <span className="ml-1 text-slate-400">
+        <details className="group mt-3">
+          <summary className="press inline-flex cursor-pointer list-none items-center gap-1 text-xs font-medium text-ink-2 hover:text-ink">
+            <svg
+              viewBox="0 0 12 12"
+              className="h-3 w-3 transition-transform duration-[180ms] [transition-timing-function:var(--ease-out)] group-open:rotate-90"
+              aria-hidden
+            >
+              <path
+                d="M4.5 2.5 8 6l-3.5 3.5"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+            What it covers
+            <span className="font-normal text-ink-4">
               ({course.outline.length} module{course.outline.length > 1 ? "s" : ""})
             </span>
           </summary>
-          <ol className="mt-1.5 list-decimal space-y-0.5 pl-5 text-xs leading-relaxed text-slate-500">
+          <ol className="mt-2 list-decimal space-y-1 pl-5 text-xs leading-relaxed text-ink-3 marker:text-ink-4">
             {course.outline.map((module, index) => (
               <li key={`${index}-${module}`}>{module}</li>
             ))}
@@ -78,31 +98,51 @@ export function CourseCard({
       )}
 
       {isProgramme && course.eligibility && (
-        <p className="mt-2 rounded-lg bg-amber-50 px-2.5 py-1.5 text-xs text-amber-900">
+        <p className="mt-3 rounded-lg bg-saffron-soft px-2.5 py-2 text-xs leading-relaxed text-saffron-ink ring-1 ring-inset ring-saffron/20">
           Open to {course.eligibility}
           {course.batch_size ? ` · ${course.batch_size} seats per batch` : ""}
         </p>
       )}
 
-      <div className="mt-3 flex items-center justify-between border-t border-slate-100 pt-3">
+      {/* mt-auto keeps the action rail on the baseline across a grid row, so
+          cards of different content heights still line up. */}
+      <div className="mt-auto flex items-center justify-between gap-3 border-t border-hairline pt-3 [margin-top:0.875rem]">
         {course.url ? (
           <a
             href={course.url}
             target="_blank"
             rel="noreferrer"
-            className="text-[11px] text-blue-700 underline decoration-dotted underline-offset-2 hover:text-blue-900"
+            className="truncate font-mono text-[11px] text-ink-2 underline decoration-dotted underline-offset-2 transition-colors duration-[180ms] hover:text-ink"
             title="Open this course on the iGOT Karmayogi portal"
           >
             {course.identifier}
           </a>
         ) : (
-          <code className="text-[11px] text-slate-400">{course.identifier}</code>
+          <code className="truncate font-mono text-[11px] text-ink-4">{course.identifier}</code>
         )}
-        <button
+        <Button
+          size="sm"
+          variant={enrolled ? "secondary" : "primary"}
           disabled={enrolled}
           onClick={() => onEnrol(course.identifier)}
-          className="rounded-lg bg-slate-900 px-3 py-1.5 text-xs font-medium text-white transition hover:bg-slate-700 disabled:bg-teal-600 disabled:opacity-100"
+          className={
+            enrolled
+              ? "shrink-0 !border-chakra/30 !bg-chakra-soft !text-chakra !opacity-100"
+              : "shrink-0"
+          }
         >
+          {enrolled && (
+            <svg viewBox="0 0 12 12" className="h-3 w-3" aria-hidden>
+              <path
+                d="M2.5 6.5 5 9l4.5-5.5"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.75"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          )}
           {enrolled
             ? isProgramme
               ? "Nomination requested"
@@ -110,7 +150,7 @@ export function CourseCard({
             : isProgramme
               ? "Request nomination"
               : "Enrol"}
-        </button>
+        </Button>
       </div>
     </article>
   );

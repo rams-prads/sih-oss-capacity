@@ -26,6 +26,8 @@ from __future__ import annotations
 import argparse
 import base64
 import json
+import os
+import tempfile
 import re
 import sys
 import time
@@ -91,7 +93,31 @@ def _generate_url() -> str:
 UPLOAD_TIMEOUT = httpx.Timeout(900.0, connect=60.0)
 
 
-def upload_file(client: httpx.Client, key: str, blob: bytes, name: str) -> str | None:
+def download_to_disk(client: httpx.Client, url: str) -> tuple[Path | None, int]:
+    """Stream a lesson to a temp file.
+
+    Reading a 250 MB video into memory and then base64-encoding it needs the best
+    part of a gigabyte, which is how a whole batch died with MemoryError. Nothing
+    here holds more than a chunk.
+    """
+    handle, path_str = tempfile.mkstemp(suffix=".mp4")
+    path = Path(path_str)
+    size = 0
+    try:
+        with os.fdopen(handle, "wb") as sink:
+            with client.stream("GET", url, timeout=600) as response:
+                response.raise_for_status()
+                for chunk in response.iter_bytes(1_048_576):
+                    sink.write(chunk)
+                    size += len(chunk)
+        return path, size
+    except Exception as exc:
+        print(f"      download failed: {type(exc).__name__}", file=sys.stderr, flush=True)
+        path.unlink(missing_ok=True)
+        return None, 0
+
+
+def upload_file(client: httpx.Client, key: str, path: Path, size: int, name: str) -> str | None:
     """Push a video through the resumable File API; returns its uri once ACTIVE.
 
     Returns None on any failure: one unreadable lesson must cost that lesson, not
@@ -103,7 +129,7 @@ def upload_file(client: httpx.Client, key: str, blob: bytes, name: str) -> str |
         headers={
             "X-Goog-Upload-Protocol": "resumable",
             "X-Goog-Upload-Command": "start",
-            "X-Goog-Upload-Header-Content-Length": str(len(blob)),
+            "X-Goog-Upload-Header-Content-Length": str(size),
             "X-Goog-Upload-Header-Content-Type": "video/mp4",
             "Content-Type": "application/json",
         },
@@ -115,16 +141,18 @@ def upload_file(client: httpx.Client, key: str, blob: bytes, name: str) -> str |
         print(f"      upload start failed: HTTP {start.status_code}", file=sys.stderr)
         return None
 
-    done = client.post(
-        session,
-        headers={
-            "Content-Length": str(len(blob)),
-            "X-Goog-Upload-Offset": "0",
-            "X-Goog-Upload-Command": "upload, finalize",
-        },
-        content=blob,
-        timeout=UPLOAD_TIMEOUT,
-    )
+    # Hand httpx the file object so it streams from disk instead of buffering.
+    with path.open("rb") as source:
+        done = client.post(
+            session,
+            headers={
+                "Content-Length": str(size),
+                "X-Goog-Upload-Offset": "0",
+                "X-Goog-Upload-Command": "upload, finalize",
+            },
+            content=source,
+            timeout=UPLOAD_TIMEOUT,
+        )
     if done.status_code != 200:
         print(f"      upload finalize failed: HTTP {done.status_code}", file=sys.stderr)
         return None
@@ -151,35 +179,34 @@ def upload_file(client: httpx.Client, key: str, blob: bytes, name: str) -> str |
 
 def transcribe(client: httpx.Client, key: str, url: str, title: str) -> str:
     """Transcript of one lesson, or "" if the video cannot be read."""
+    path, size = download_to_disk(client, url)
+    if path is None:
+        return ""
+
     try:
-        media = client.get(url, timeout=300)
-        media.raise_for_status()
-        blob = media.content
-    except Exception as exc:
-        print(f"      download failed: {type(exc).__name__}", file=sys.stderr)
-        return ""
+        print(f"      {size/1_000_000:.0f} MB", flush=True)
+        if size > SIZE_LIMIT:
+            print("      too large for this batch, skipping", flush=True)
+            return ""
 
-    print(f"      {len(blob)/1_000_000:.0f} MB", flush=True)
-    if len(blob) > SIZE_LIMIT:
-        print("      too large for this batch, skipping", flush=True)
-        return ""
-
-    if len(blob) <= INLINE_LIMIT:
-        part = {
-            "inline_data": {
-                "mime_type": "video/mp4",
-                "data": base64.b64encode(blob).decode(),
+        if size <= INLINE_LIMIT:
+            part = {
+                "inline_data": {
+                    "mime_type": "video/mp4",
+                    "data": base64.b64encode(path.read_bytes()).decode(),
+                }
             }
-        }
-    else:
-        try:
-            uri = upload_file(client, key, blob, title)
-        except Exception as exc:
-            print(f"      upload failed: {type(exc).__name__}", file=sys.stderr)
-            return ""
-        if not uri:
-            return ""
-        part = {"file_data": {"mime_type": "video/mp4", "file_uri": uri}}
+        else:
+            try:
+                uri = upload_file(client, key, path, size, title)
+            except Exception as exc:
+                print(f"      upload failed: {type(exc).__name__}", file=sys.stderr, flush=True)
+                return ""
+            if not uri:
+                return ""
+            part = {"file_data": {"mime_type": "video/mp4", "file_uri": uri}}
+    finally:
+        path.unlink(missing_ok=True)
 
     # Print the status and the message. Swallowing them turned every failure into
     # an indistinguishable "no transcript", which hid a rate limit for two runs.

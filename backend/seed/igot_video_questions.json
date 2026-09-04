@@ -10,52 +10,52 @@
           "competency_id": "C15",
           "questions": [
             {
-              "stem": "According to the lesson, why are soft skills now considered necessary in the present scenario?",
+              "stem": "According to the lesson, what is the primary reason why soft skills are essential in the context of the Indian Railways?",
               "options": [
-                "Hard skills are no longer considered requirements for jobs.",
-                "They are essential for career success and performing jobs efficiently.",
-                "They have completely replaced the need for technical hard skills.",
-                "They are the only skills currently taught in formal training programs."
+                "Because they are a requirement for getting promoted to a management position.",
+                "Because railway work cannot be performed single-handedly and requires cooperation.",
+                "Because hard skills are no longer considered necessary for railway operations.",
+                "Because they are the only way to effectively manage time and delegation."
               ],
               "answer_index": 1,
-              "explanation": "The lesson states that while we traditionally focus on hard skills, in the present scenario, that is not enough; we need a wide range of soft skills to be successful in our careers and perform jobs efficiently.",
+              "explanation": "The lesson states that in Indian Railways, the importance of soft skills is immense because no work can be performed single-handedly and requires cooperation and support.",
+              "difficulty": 0.2
+            },
+            {
+              "stem": "How does the lesson characterize the historical focus on professional skills compared to the present scenario?",
+              "options": [
+                "Traditionally, there was too much focus on soft skills, whereas now we focus on hard skills.",
+                "Traditionally, we focused on hard skills, but today those alone are not enough.",
+                "Traditionally, both were ignored, but now soft skills are the only priority.",
+                "Traditionally, we focused on team management, whereas now we focus on delegation."
+              ],
+              "answer_index": 1,
+              "explanation": "The lesson states that traditionally, focus was on hard skills, but in the present scenario, that is not enough.",
               "difficulty": 0.3
             },
             {
               "stem": "Which of the following is explicitly listed as a soft skill in the lesson?",
               "options": [
-                "Technical programming",
-                "Financial auditing",
-                "Time management",
-                "Mechanical repair"
+                "Technical proficiency",
+                "Data analysis",
+                "Empathy",
+                "System architecture"
               ],
               "answer_index": 2,
-              "explanation": "The lesson explicitly lists communication, teamwork, time management, empathy, and delegation as examples of soft skills.",
+              "explanation": "The lesson lists communication, teamwork, time management, empathy, and delegation as diverse skills needed for career success.",
               "difficulty": 0.2
             },
             {
-              "stem": "Why are soft skills considered particularly important in Indian Railways?",
+              "stem": "What observation does the lesson make regarding the current state of soft skills training?",
               "options": [
-                "Because railway work requires individuals to perform tasks single-handedly.",
-                "Because no work in the railway can be performed single-handedly.",
-                "Because the railway requires fewer communication skills than other sectors.",
-                "Because Indian Railways is the only organization that provides soft skills training."
+                "It is the primary focus of all professional development programs worldwide.",
+                "It is undervalued and receives less training despite being needed for efficient job performance.",
+                "It is widely available but generally considered less important than technical hard skills.",
+                "It is only relevant for senior management and not for sub-ordinates."
               ],
               "answer_index": 1,
-              "explanation": "The lesson states that in Indian Railways, soft skills are immense because no work can be performed single-handedly.",
+              "explanation": "The lesson states that the importance of soft skills is often undervalued and there is less training in the subject, even though they are needed for performing the job efficiently.",
               "difficulty": 0.4
-            },
-            {
-              "stem": "What does the lesson suggest regarding the current state of soft skills training?",
-              "options": [
-                "The importance of soft skills is often undervalued and they receive less training.",
-                "Soft skills are the primary focus of all current training programs.",
-                "There is too much training focused on soft skills compared to hard skills.",
-                "Soft skills are rarely needed in modern workplaces."
-              ],
-              "answer_index": 0,
-              "explanation": "The lesson mentions that the importance of soft skills is often undervalued and there is less training in the subject.",
-              "difficulty": 0.3
             }
           ]
         },
@@ -65,52 +65,222 @@
           "competency_id": "C15",
           "questions": [
             {
-              "stem": "According to the transcript, which of the following best describes the process of 'Gender sensitization'?",
+              "stem": "According to the lesson, which soft skill is defined as the process of raising awareness about gender equality and encouraging behavior changes?",
               "options": [
-                "The practice of dressing in a businesslike and professional manner.",
-                "The process of raising awareness about gender equality and encouraging behavior changes.",
-                "The ability to work effectively in a group and support team members.",
-                "The capacity to remain flexible and adaptable to new tasks."
+                "Professionalism",
+                "Work Ethics",
+                "Gender sensitization",
+                "Interpersonal Skills"
               ],
-              "answer_index": 1,
-              "explanation": "The lesson defines gender sensitization as the process of raising awareness about gender equality, encouraging behavior changes, teaching gender sensitivity, and eliminating gender discrimination.",
+              "answer_index": 2,
+              "explanation": "The lesson explicitly states that gender sensitization is the process of raising awareness about gender equality and encouraging behavior changes.",
               "difficulty": 0.2
             },
             {
-              "stem": "What does the transcript identify as the two main components of the communication process?",
+              "stem": "Which of the following is NOT listed as a component of the 'Communication' soft skill for young managers?",
               "options": [
-                "Speaking and writing.",
-                "Presenting and questioning.",
-                "Speaking and listening.",
-                "Reading and understanding."
+                "Oral and speaking capability",
+                "Written communication",
+                "Listening",
+                "Sense of humour"
               ],
-              "answer_index": 2,
-              "explanation": "The lesson states that communication is a two-way process involving both the sending and receiving of information, which requires both speaking and listening.",
+              "answer_index": 3,
+              "explanation": "The lesson categorizes 'sense of humour' under Interpersonal Skills, while oral capability, written communication, and listening are listed under Communication.",
+              "difficulty": 0.5
+            },
+            {
+              "stem": "How does the lesson characterize communication as a process?",
+              "options": [
+                "A one-way process focused on speaking clearly",
+                "A two-way process involving both sending and receiving information",
+                "A hierarchical process reserved for senior leaders",
+                "A process primarily focused on writing concise reports"
+              ],
+              "answer_index": 1,
+              "explanation": "The lesson states that communication is a two-way process, involving both the sending and receiving of information.",
               "difficulty": 0.3
             },
             {
-              "stem": "Which of the following is specifically cited as a method for building strong interpersonal relationships?",
+              "stem": "Which of the following is identified in the lesson as a method to build a foundation of trust and understanding for strong interpersonal relationships?",
               "options": [
-                "Gender sensitivity",
-                "Professionalism",
-                "Work ethic",
-                "Empathy"
+                "Work ethics",
+                "Empathy",
+                "Flexibility",
+                "Gender sensitivity"
               ],
-              "answer_index": 3,
-              "explanation": "The lesson lists five methods to develop interpersonal relationships, and empathy is explicitly included as the third method.",
+              "answer_index": 1,
+              "explanation": "The lesson lists five ways to build interpersonal relationships, one of which is empathy, defined as trying to understand and share the feelings of others.",
+              "difficulty": 0.4
+            }
+          ]
+        }
+      ]
+    },
+    "do_1146492969644113921128": {
+      "course_name": "Leave Rules and Management in Government Service",
+      "modules": [
+        {
+          "module_index": 0,
+          "title": "Overview of Leaves",
+          "competency_id": "C32",
+          "questions": [
+            {
+              "stem": "Which of the following is true regarding the Central Civil Services (Leave) Rules, 1972?",
+              "options": [
+                "They apply to all government servants, including Railway employees.",
+                "They apply to all government servants, including members of All India Services.",
+                "They do not apply to Railway employees and members of All India Services.",
+                "They came into force on January 01, 1972."
+              ],
+              "answer_index": 2,
+              "explanation": "The lesson states that the rules govern all government servants with the exception of Railway employees and members of All India Services, who are governed by separate rules.",
+              "difficulty": 0.2
+            },
+            {
+              "stem": "Under the general conditions of leave, which of the following is accurate regarding Casual Leave (CL)?",
+              "options": [
+                "CL can be combined with any other kind of regular leave.",
+                "CL cannot be combined with any kind of leave.",
+                "CL can be combined with Special Casual Leave but not regular leave.",
+                "CL can be combined with Restricted Holidays."
+              ],
+              "answer_index": 1,
+              "explanation": "The lesson explicitly states that while regular leave can be combined with other leaves, 'CL cannot be combined with any kind of leave.'",
               "difficulty": 0.4
             },
             {
-              "stem": "According to the lesson, why is the development of communication skills particularly important as one progresses in their career?",
+              "stem": "What is the consequence of being recalled from leave if the Government Servant is outside India?",
               "options": [
-                "It is an essential requirement for most managers and leaders to speak, listen, question, and write with clarity.",
-                "It is the only way to ensure an individual remains well-dressed and poised in the workplace.",
-                "It is primarily used for managing personal relationships rather than professional ones.",
-                "It is the most important soft skill for entry-level employees but becomes less relevant for senior managers."
+                "They must pay for their own passage back to India.",
+                "The time spent on the voyage to India does not count as duty.",
+                "They are provided free passage to India.",
+                "They are not entitled to leave salary from the date of recall."
+              ],
+              "answer_index": 2,
+              "explanation": "The transcript states that for leave outside India, the government servant is granted free passage to India upon being recalled.",
+              "difficulty": 0.6
+            },
+            {
+              "stem": "Regarding leave on a Medical Certificate, which of the following is correct according to Rule 19 (6)?",
+              "options": [
+                "The authority may waive the production of a medical certificate for leave not exceeding three days.",
+                "A medical certificate is never required for non-gazetted government servants.",
+                "Any leave granted without a medical certificate is automatically treated as medical leave.",
+                "A fitness certificate is not required to resume duty after medical leave."
               ],
               "answer_index": 0,
-              "explanation": "The lesson states that the importance of communication skills increases with career progress, noting that clarity in speaking, listening, questioning, and writing is essential for most managers and leaders.",
+              "explanation": "The lesson states that under Rule 19 (6), the competent authority may waive the medical certificate requirement for leave periods not exceeding three days, but such leave is not treated as medical leave.",
               "difficulty": 0.5
+            }
+          ]
+        },
+        {
+          "module_index": 1,
+          "title": "Debitable Leaves",
+          "competency_id": "C32",
+          "questions": [
+            {
+              "stem": "What is the rule regarding the accrual of Earned Leaves for an employee who joins in the middle of a six-month cycle?",
+              "options": [
+                "15 leaves are credited immediately upon joining.",
+                "2.5 leaves per completed calendar month are credited.",
+                "1/10th of their previous EOL is credited.",
+                "No leaves are credited until the next six-month cycle begins."
+              ],
+              "answer_index": 1,
+              "explanation": "The lesson states that in case an employee joins in the middle of the six months, 2.5 leaves per completed calendar month are credited to their account.",
+              "difficulty": 0.2
+            },
+            {
+              "stem": "How is the deduction calculated for Half Pay Leave (HPL) when an employee takes Commuted Leave?",
+              "options": [
+                "An equal number of days are deducted from the HPL balance.",
+                "1/18th of the commuted leave period is deducted.",
+                "Double the number of commuted leaves taken are deducted from the HPL balance.",
+                "Commuted leave does not impact the HPL balance."
+              ],
+              "answer_index": 2,
+              "explanation": "The transcript explicitly mentions that two times the number of commuted leaves are deducted from HPLs.",
+              "difficulty": 0.3
+            },
+            {
+              "stem": "Under what condition is the salary recovered if an employee resigns or retires while on Leave Not Due (LND)?",
+              "options": [
+                "The salary is always recovered regardless of the reason for leaving.",
+                "Salary is recovered unless the retirement is due to ill health, premature retirement, or death.",
+                "Salary is recovered only if the employee has less than one year of service.",
+                "Salary is never recovered if the employee provides a medical certificate."
+              ],
+              "answer_index": 1,
+              "explanation": "The lesson states that salary paid is recovered if the employee leaves service, but specifies that salary is not recovered when retirement is due to ill health, premature retirement, or in the event of death.",
+              "difficulty": 0.5
+            },
+            {
+              "stem": "What is the maximum duration of Extra-ordinary Leave (EOL) that can be granted to a permanent employee at a stretch?",
+              "options": [
+                "3 months",
+                "6 months",
+                "18 months",
+                "5 years"
+              ],
+              "answer_index": 3,
+              "explanation": "The transcript states that a maximum of 5 years of Extra-ordinary Leave at a stretch can be granted to permanent employees.",
+              "difficulty": 0.2
+            }
+          ]
+        },
+        {
+          "module_index": 2,
+          "title": "Non-Debitable Leaves",
+          "competency_id": "C32",
+          "questions": [
+            {
+              "stem": "What is the maximum duration of Maternity Leave granted to a female Government servant with less than two surviving children for childbirth?",
+              "options": [
+                "45 days",
+                "180 days",
+                "730 days",
+                "2 years"
+              ],
+              "answer_index": 1,
+              "explanation": "The lesson states that Maternity Leave is granted for a maximum period of 180 days for child birth to an employee with less than two surviving children.",
+              "difficulty": 0.2
+            },
+            {
+              "stem": "Under what condition can a male Government servant be granted Child Care Leave?",
+              "options": [
+                "If he has less than two surviving children.",
+                "If he is a single parent of a disabled child.",
+                "If his spouse is employed in the private sector.",
+                "He is not eligible for Child Care Leave under any circumstances."
+              ],
+              "answer_index": 1,
+              "explanation": "The lesson specifies that Child Care Leave is granted to female Government servants, but notes it may be granted to a single male employee in the case of disabled children.",
+              "difficulty": 0.6
+            },
+            {
+              "stem": "Which of the following is true regarding Paternity Leave?",
+              "options": [
+                "It is granted for 30 days within a period of 6 months.",
+                "It is only granted for biological children, not adopted children.",
+                "It is granted for 15 days within a period of 6 months.",
+                "It is granted to male Government servants regardless of the number of surviving children."
+              ],
+              "answer_index": 2,
+              "explanation": "The lesson states that Paternity Leave is granted for 15 days, within a period of 6 months, and is granted in case of adoption of a child as well.",
+              "difficulty": 0.4
+            },
+            {
+              "stem": "What is the maximum number of spells per calendar year for Child Care Leave for a single female employee?",
+              "options": [
+                "1 spell",
+                "2 spells",
+                "3 spells",
+                "6 spells"
+              ],
+              "answer_index": 3,
+              "explanation": "The lesson states that Child Care Leave cannot be granted in more than 3 spells in a calendar year, but it may be granted in six spells to a single female employee.",
+              "difficulty": 0.7
             }
           ]
         }

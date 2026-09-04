@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { NavLink, Navigate, Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { getUsers, setActiveUser } from "./api";
 import type { User } from "./api";
+import { NAV, Rail, UserMenu } from "./components/Shell";
 import Admin from "./pages/Admin";
 import Join from "./pages/Join";
 import Learner from "./pages/Learner";
@@ -13,6 +14,7 @@ const DEMO_USER = "u-jso-anita";
 export default function App() {
   const [users, setUsers] = useState<User[]>([]);
   const [userId, setUserId] = useState(DEMO_USER);
+  const location = useLocation();
 
   // A newly registered officer becomes the active profile, so the dashboard they
   // land on is their own rather than the demo one.
@@ -30,62 +32,31 @@ export default function App() {
   }, [userId]);
 
   const active = users.find((u) => u.id === userId);
-
-  const tab = ({ isActive }: { isActive: boolean }) =>
-    `rounded-lg px-3 py-1.5 text-sm font-medium transition ${
-      isActive ? "bg-white text-slate-900 shadow-sm" : "text-slate-300 hover:text-white"
-    }`;
+  const current = NAV.find((item) => location.pathname.startsWith(item.to));
 
   return (
-    <div className="min-h-screen">
-      <header className="bg-[#1e3a5f] text-white">
-        <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-4 px-6 py-3">
-          <div className="mr-auto">
-            <h1 className="text-base font-semibold leading-tight">
-              Competency Platform for the Official Statistical System
+    <div className="min-h-screen pl-[4.5rem]">
+      <Rail />
+
+      {/* The header carries the page name and the officer, and nothing else.
+          Navigation moved to the rail, so this row no longer competes with it. */}
+      <header className="sticky top-0 z-30 border-b border-hairline bg-ground/80 backdrop-blur-xl">
+        <div className="mx-auto flex max-w-[82rem] items-center gap-6 px-8 py-4">
+          <div className="mr-auto min-w-0">
+            <h1 className="truncate text-[19px] font-semibold leading-tight text-ink">
+              {current?.label ?? "Competency Platform"}
             </h1>
-            <p className="text-xs text-slate-300">
-              Ministry of Statistics &amp; Programme Implementation &middot; aligned to FRAC and
-              iGOT Karmayogi
+            <p className="mt-0.5 truncate text-[12px] leading-tight text-ink-3">
+              {current?.blurb ?? "Official Statistical System · MoSPI"}
             </p>
           </div>
 
-          <nav className="flex gap-1 rounded-xl bg-white/10 p-1">
-            <NavLink to="/learner" className={tab}>
-              My Dashboard
-            </NavLink>
-            <NavLink to="/my-learning" className={tab}>
-              My Courses
-            </NavLink>
-            <NavLink to="/assess" className={tab}>
-              Quiz Generator
-            </NavLink>
-            <NavLink to="/admin" className={tab}>
-              Admin Dashboard
-            </NavLink>
-            <NavLink to="/join" className={tab}>
-              Join
-            </NavLink>
-          </nav>
-
-          <label className="flex items-center gap-2 text-xs text-slate-300">
-            Viewing as
-            <select
-              value={userId}
-              onChange={(e) => setUserId(e.target.value)}
-              className="rounded-lg border-0 bg-white/10 px-2 py-1.5 text-sm text-white outline-none ring-1 ring-white/20 focus:ring-white/50"
-            >
-              {users.map((u) => (
-                <option key={u.id} value={u.id} className="text-slate-900">
-                  {u.name} — {u.role_id}
-                </option>
-              ))}
-            </select>
-          </label>
+          <UserMenu users={users} userId={userId} onSelect={setUserId} />
         </div>
       </header>
 
-      <main className="mx-auto max-w-7xl px-6 py-6">
+      {/* Keyed on pathname so each screen enters rather than snapping in. */}
+      <main key={location.pathname} className="rise mx-auto max-w-[82rem] px-8 py-7">
         <Routes>
           <Route path="/" element={<Navigate to="/learner" replace />} />
           <Route path="/learner" element={<Learner userId={userId} user={active} />} />
@@ -96,10 +67,12 @@ export default function App() {
         </Routes>
       </main>
 
-      <footer className="mx-auto max-w-7xl px-6 pb-8 text-xs leading-relaxed text-slate-500">
-        Prototype for Smart India Hackathon 2026 (SIH26101). Course data is served by a local
-        sandbox implementing the Sunbird API contract that iGOT Karmayogi is built on. This build
-        is not connected to production iGOT.
+      <footer className="mx-auto max-w-[82rem] px-8 pb-10">
+        <p className="border-t border-hairline pt-5 text-[11px] leading-relaxed text-ink-4">
+          Prototype for Smart India Hackathon 2026 (SIH26101). Course data is served by a local
+          sandbox implementing the Sunbird API contract that iGOT Karmayogi is built on. This build
+          is not connected to production iGOT.
+        </p>
       </footer>
     </div>
   );

@@ -1,14 +1,260 @@
 @import "tailwindcss";
+@import "@fontsource-variable/inter";
+
+/* ---------------------------------------------------------------------------
+   Design tokens.
+
+   Three colours carry the whole interface: near-black, warm paper, and one
+   orange accent. Green and red exist only as status and are never decorative -
+   that restraint is what keeps a dense dashboard from reading as noise.
+
+   The token NAMES are unchanged from the previous palette on purpose: every
+   screen already references them, so the whole app re-skins from this block.
+   --------------------------------------------------------------------------- */
 
 @theme {
-  --color-ink: #0f172a;
-  --color-ashoka: #1e3a5f;
-  --color-saffron: #d97706;
-  --color-chakra: #0f766e;
+  /* Ground and surfaces - warm, not blue-grey. Paper rather than screen. */
+  --color-ground: #f7f7f5;
+  --color-surface: #ffffff;
+  --color-raised: #fafaf9;
+  --color-hairline: #ebebe7;
+  --color-hairline-strong: #dbdbd5;
+
+  /* Ink ramp */
+  --color-ink: #16161a;
+  --color-ink-2: #52525b;
+  --color-ink-3: #6b6b75;
+  --color-ink-4: #8a8a93;
+
+  /* Primary. Near-black, so the accent never competes with a button. */
+  --color-ashoka: #16161a;
+  --color-ashoka-2: #2f2f37;
+  --color-ashoka-soft: #f4f4f5;
+
+  /* The one accent. */
+  --color-saffron: #ea580c;
+  --color-saffron-ink: #9a3412;
+  --color-saffron-soft: #fff4ed;
+
+  /* Status only. */
+  --color-chakra: #15803d;
+  --color-chakra-soft: #f1f8f3;
+  --color-alert: #be123c;
+  --color-alert-soft: #fff1f2;
+
+  --font-sans: "Inter Variable", "Inter", ui-sans-serif, system-ui, "Segoe UI",
+    Roboto, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, monospace;
+}
+
+:root {
+  /* Depth is a hairline plus one soft layer. A minimal interface that still
+     stacks heavy shadows is not minimal. */
+  --shadow-flat: 0 1px 1px rgba(22, 22, 26, 0.03);
+  --shadow-sm: 0 1px 2px rgba(22, 22, 26, 0.04);
+  --shadow-md: 0 2px 4px -1px rgba(22, 22, 26, 0.04), 0 8px 20px -6px rgba(22, 22, 26, 0.08);
+  --shadow-lg: 0 4px 8px -2px rgba(22, 22, 26, 0.05), 0 18px 44px -12px rgba(22, 22, 26, 0.14);
+
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+
+  --dur-press: 140ms;
+  --dur-hover: 180ms;
+  --dur-enter: 260ms;
 }
 
 body {
-  background-color: #f6f7f9;
+  background-color: var(--color-ground);
   color: var(--color-ink);
+  font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: "cv02", "cv03", "cv04", "calt";
 }
+
+h1, h2, h3 { letter-spacing: -0.018em; }
+
+:focus-visible {
+  outline: 2px solid var(--color-saffron);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+::selection { background: color-mix(in oklab, var(--color-saffron) 22%, transparent); }
+
+/* ---------------------------------------------------------------------------
+   Interaction utilities
+   --------------------------------------------------------------------------- */
+
+.press {
+  transition: transform var(--dur-press) var(--ease-out),
+    background-color var(--dur-hover) ease,
+    border-color var(--dur-hover) ease,
+    box-shadow var(--dur-hover) ease,
+    color var(--dur-hover) ease;
+}
+
+.press:active { transform: scale(0.97); }
+
+.lift {
+  transition: transform var(--dur-hover) var(--ease-out),
+    box-shadow var(--dur-hover) var(--ease-out),
+    border-color var(--dur-hover) ease;
+}
+
+/* Touch devices fire hover on tap, which leaves cards stuck lifted after a
+   scroll, so the lift is gated to real pointers. */
+@media (hover: hover) and (pointer: fine) {
+  .lift:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Rail tooltips
+
+   The nav is icon-only, so every item needs a label on hover. There is a delay
+   before the first one appears, so a pointer merely crossing the rail does not
+   fire them; once the rail itself is hovered the delay drops to zero and the
+   rest open instantly, which is what makes the nav feel fast rather than slow.
+   --------------------------------------------------------------------------- */
+
+.tip {
+  position: absolute;
+  left: calc(100% + 0.625rem);
+  top: 50%;
+  z-index: 50;
+  transform: translateY(-50%) translateX(-4px);
+  opacity: 0;
+  pointer-events: none;
+  white-space: nowrap;
+  border-radius: 0.5rem;
+  background: var(--color-ink);
+  color: #fff;
+  padding: 0.3125rem 0.5rem;
+  font-size: 11px;
+  font-weight: 500;
+  transition: opacity 140ms var(--ease-out), transform 140ms var(--ease-out);
+  transition-delay: 400ms;
+}
+
+.tip-host:hover .tip,
+.tip-host:focus-visible .tip {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}
+
+.rail:hover .tip { transition-delay: 0ms; }
+
+/* ---------------------------------------------------------------------------
+   Entry motion. Keyframes are right here: each fires once on mount and is
+   never interrupted or retargeted.
+   --------------------------------------------------------------------------- */
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes menu-in {
+  from { opacity: 0; transform: scale(0.96) translateY(-4px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes panel-in {
+  from { opacity: 0; transform: scale(0.96) translateY(6px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.rise { animation: rise var(--dur-enter) var(--ease-out) backwards; }
+
+/* 45ms reads as a cascade; past ~80ms it reads as slow. */
+.stagger > * { animation: rise var(--dur-enter) var(--ease-out) backwards; }
+.stagger > *:nth-child(1) { animation-delay: 0ms; }
+.stagger > *:nth-child(2) { animation-delay: 45ms; }
+.stagger > *:nth-child(3) { animation-delay: 90ms; }
+.stagger > *:nth-child(4) { animation-delay: 135ms; }
+.stagger > *:nth-child(5) { animation-delay: 180ms; }
+.stagger > *:nth-child(n + 6) { animation-delay: 200ms; }
+
+/* A menu is anchored to its trigger, so unlike a modal it scales from that
+   corner rather than from its own centre. */
+.menu-in {
+  transform-origin: top right;
+  animation: menu-in 160ms var(--ease-out);
+}
+
+.overlay-in { animation: fade 180ms var(--ease-out); }
+
+/* A modal is not anchored to a trigger, so it keeps a centred origin. Entry
+   starts at 0.96 rather than 0 - nothing appears out of nothing. */
+.panel-in { animation: panel-in 220ms var(--ease-out); }
+
+/* Reduced motion drops movement, not feedback: opacity and colour still carry
+   meaning, so only translation and scaling go. */
+@media (prefers-reduced-motion: reduce) {
+  .rise,
+  .stagger > * { animation: none; }
+  .menu-in, .panel-in { animation: fade 160ms var(--ease-out); }
+  .press:active { transform: none; }
+  .tip { transition-delay: 0ms; }
+
+  @media (hover: hover) and (pointer: fine) {
+    .lift:hover { transform: none; }
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Base-layer defaults.
+
+   In @layer base deliberately: Tailwind v4 puts its utilities in a cascade
+   layer, and unlayered CSS beats every layered rule regardless of specificity,
+   so a bare button rule out here would override utilities across the app.
+   --------------------------------------------------------------------------- */
+
+@layer base {
+  button {
+    transition: transform var(--dur-press) var(--ease-out),
+      background-color var(--dur-hover) ease,
+      border-color var(--dur-hover) ease,
+      color var(--dur-hover) ease,
+      box-shadow var(--dur-hover) ease;
+  }
+
+  button:not(:disabled) { cursor: pointer; }
+  button:not(:disabled):active { transform: scale(0.97); }
+
+  body { accent-color: var(--color-saffron); }
+
+  input, select, textarea {
+    transition: border-color var(--dur-hover) ease, box-shadow var(--dur-hover) ease;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  button:not(:disabled):active { transform: none; }
+}
+
+/* Scrollbars. The default Windows scrollbar is the single most dated element
+   on screen in a demo. */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-hairline-strong) transparent;
+}
+
+*::-webkit-scrollbar { width: 10px; height: 10px; }
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--color-hairline-strong);
+  border: 3px solid transparent;
+  background-clip: content-box;
+  border-radius: 999px;
+}
+
+*::-webkit-scrollbar-thumb:hover { background-color: var(--color-ink-4); }

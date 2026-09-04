@@ -74,7 +74,7 @@ export function CourseTutor({
               setCourseId(null);
               setTurns([]);
             }}
-            className="rounded-lg border border-slate-300 px-2.5 py-1 text-xs font-medium text-slate-700 hover:bg-slate-50"
+            className="rounded-lg border border-hairline-strong px-2.5 py-1 text-xs font-medium text-ink-2 hover:bg-raised"
           >
             Change course
           </button>
@@ -87,12 +87,12 @@ export function CourseTutor({
             <button
               key={c.course_identifier}
               onClick={() => setCourseId(c.course_identifier)}
-              className="rounded-lg border border-slate-200 px-3 py-2 text-left text-xs text-slate-700 transition hover:border-slate-400 hover:bg-slate-50"
+              className="rounded-lg border border-hairline px-3 py-2 text-left text-xs text-ink-2 transition hover:border-ink-4 hover:bg-raised"
             >
-              <span className="block max-w-[22rem] truncate font-medium text-slate-900">
+              <span className="block max-w-[22rem] truncate font-medium text-ink">
                 {c.course_name}
               </span>
-              <span className="text-slate-500">
+              <span className="text-ink-3">
                 {c.progress_pct}% · {c.status.replace("_", " ")}
               </span>
             </button>
@@ -102,7 +102,7 @@ export function CourseTutor({
         <>
           <div className="max-h-96 space-y-3 overflow-y-auto pr-1">
             {turns.length === 0 && (
-              <p className="text-xs text-slate-500">
+              <p className="text-xs text-ink-3">
                 Ask anything about this course, or start with one of these.
               </p>
             )}
@@ -111,15 +111,15 @@ export function CourseTutor({
               turn.from === "you" ? (
                 <p
                   key={index}
-                  className="ml-auto max-w-[80%] rounded-xl rounded-br-sm bg-slate-900 px-3 py-2 text-xs text-white"
+                  className="ml-auto max-w-[80%] rounded-xl rounded-br-sm bg-ashoka px-3 py-2 text-xs text-white"
                 >
                   {turn.text}
                 </p>
               ) : (
                 <div key={index} className="max-w-[92%] space-y-2">
-                  <div className="rounded-xl rounded-bl-sm bg-slate-100 px-3 py-2 text-xs leading-relaxed text-slate-800">
+                  <div className="rounded-xl rounded-bl-sm bg-ground px-3 py-2 text-xs leading-relaxed text-ink">
                     <p className="whitespace-pre-line">{turn.reply.answer}</p>
-                    <p className="mt-1.5 text-[11px] text-slate-500">
+                    <p className="mt-1.5 text-[11px] text-ink-3">
                       {turn.reply.source === "record"
                         ? "From your record on this course"
                         : turn.reply.source === "model"
@@ -133,18 +133,18 @@ export function CourseTutor({
                       {turn.reply.lessons_to_rewatch.map((lesson) => (
                         <li
                           key={lesson.id}
-                          className="flex items-center gap-2 rounded-lg bg-white px-2.5 py-1.5 text-xs ring-1 ring-slate-200"
+                          className="flex items-center gap-2 rounded-lg bg-surface px-2.5 py-1.5 text-xs ring-1 ring-hairline"
                         >
-                          <span className="min-w-0 flex-1 truncate text-slate-800">
+                          <span className="min-w-0 flex-1 truncate text-ink">
                             {lesson.title}
                           </span>
-                          <span className="shrink-0 text-slate-400">
+                          <span className="shrink-0 text-ink-4">
                             {lesson.duration_min} min
                           </span>
                           {onWatchLesson && (
                             <button
                               onClick={() => onWatchLesson(lesson.id)}
-                              className="shrink-0 rounded border border-slate-300 px-2 py-0.5 font-medium text-slate-700 hover:bg-slate-50"
+                              className="shrink-0 rounded border border-hairline-strong px-2 py-0.5 font-medium text-ink-2 hover:bg-raised"
                             >
                               Open
                             </button>
@@ -173,7 +173,7 @@ export function CourseTutor({
                         <button
                           key={s}
                           onClick={() => send(s)}
-                          className="rounded-full border border-slate-300 px-2.5 py-1 text-[11px] text-slate-600 hover:bg-slate-50"
+                          className="rounded-full border border-hairline-strong px-2.5 py-1 text-[11px] text-ink-2 hover:bg-raised"
                         >
                           {s}
                         </button>
@@ -184,7 +184,7 @@ export function CourseTutor({
               ),
             )}
 
-            {busy && <p className="text-xs text-slate-400">Thinking…</p>}
+            {busy && <p className="text-xs text-ink-4">Thinking…</p>}
             <div ref={endRef} />
           </div>
 
@@ -194,7 +194,7 @@ export function CourseTutor({
                 <button
                   key={q}
                   onClick={() => send(q)}
-                  className="rounded-full border border-slate-300 px-2.5 py-1 text-[11px] text-slate-600 hover:bg-slate-50"
+                  className="rounded-full border border-hairline-strong px-2.5 py-1 text-[11px] text-ink-2 hover:bg-raised"
                 >
                   {q}
                 </button>
@@ -202,25 +202,25 @@ export function CourseTutor({
             </div>
           )}
 
-          {error && <p className="mt-2 text-xs text-red-700">{error}</p>}
+          {error && <p className="mt-2 text-xs text-alert">{error}</p>}
 
           <form
             onSubmit={(e) => {
               e.preventDefault();
               send(draft);
             }}
-            className="mt-3 flex gap-2 border-t border-slate-100 pt-3"
+            className="mt-3 flex gap-2 border-t border-hairline pt-3"
           >
             <input
               value={draft}
               onChange={(e) => setDraft(e.target.value)}
               placeholder={`Ask about ${course.course_name.slice(0, 40)}…`}
-              className="flex-1 rounded-lg border border-slate-300 px-3 py-2 text-xs"
+              className="flex-1 rounded-lg border border-hairline-strong px-3 py-2 text-xs"
             />
             <button
               type="submit"
               disabled={busy || !draft.trim()}
-              className="rounded-lg bg-slate-900 px-3 py-2 text-xs font-medium text-white hover:bg-slate-700 disabled:bg-slate-400"
+              className="rounded-lg bg-ashoka px-3 py-2 text-xs font-medium text-white hover:bg-ashoka-2 disabled:opacity-45"
             >
               Ask
             </button>

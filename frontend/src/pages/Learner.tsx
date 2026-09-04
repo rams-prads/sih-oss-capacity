@@ -12,7 +12,7 @@ import type {
 import { CourseCard } from "../components/CourseCard";
 import { GapList } from "../components/GapList";
 import { CompetencyRadar } from "../components/Radar";
-import { Card, Empty, ErrorNote, Spinner, Stat } from "../components/ui";
+import { Badge, Card, Empty, ErrorNote, Meta, Spinner, Stat } from "../components/ui";
 
 export default function Learner({ userId, user }: { userId: string; user?: User }) {
   const navigate = useNavigate();
@@ -70,7 +70,7 @@ export default function Learner({ userId, user }: { userId: string; user?: User 
 
   return (
     <div className="space-y-5">
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="stagger grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <Stat
           label="Role readiness"
           value={`${report.readiness_pct}%`}
@@ -108,9 +108,9 @@ export default function Learner({ userId, user }: { userId: string; user?: User 
         title="Recommended training"
         subtitle="Courses matched to your highest-priority gaps"
         right={
-          <span className="rounded-full bg-slate-100 px-2.5 py-1 text-xs text-slate-600">
+          <Meta>
             catalogue: {source === "sunbird" ? "Sunbird gateway" : "Sunbird-contract sandbox"}
-          </span>
+          </Meta>
         }
       >
         {recs.length === 0 ? (
@@ -138,19 +138,17 @@ export default function Learner({ userId, user }: { userId: string; user?: User 
             `what the step up will ask for.`
           }
           right={
-            <span className="rounded-full bg-blue-50 px-2.5 py-1 text-xs font-medium text-blue-800">
-              career progression
-            </span>
+            <Badge tone="blue">career progression</Badge>
           }
         >
           <ul className="mb-4 flex flex-wrap gap-2">
             {progression.items.map((item) => (
               <li
                 key={item.competency_id}
-                className="rounded-lg border border-slate-200 px-2.5 py-1 text-xs text-slate-700"
+                className="rounded-lg border border-hairline bg-raised px-2.5 py-1 text-xs text-ink-2"
               >
                 {item.competency_name}
-                <span className="ml-1.5 text-slate-400">
+                <span className="ml-1.5 text-ink-4">
                   {item.attained_level} &rarr; {item.target_level}
                 </span>
               </li>
