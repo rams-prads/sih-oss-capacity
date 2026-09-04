@@ -630,33 +630,36 @@ def run() -> None:
                     )
                 )
 
-            # One assessment per ingested course, at the end.
-            final = sorted(checkpoints_by_course.get(course_id, {}).items())
-            checkpoint = final[-1][1] if final else None
-            for order, score in enumerate(attempts):
-                if checkpoint is None:
-                    continue
-                correct = round(4 * score / 100)
-                db.add(
-                    CheckpointAttempt(
-                        user_id=uid,
-                        checkpoint_id=checkpoint.id,
-                        course_identifier=course_id,
-                        topic_id=checkpoint.topic_id,
-                        score_pct=score,
-                        passed=score >= checkpoint.pass_pct,
-                        attempt_no=order + 1,
-                        items=[
-                            {
-                                "question_id": 0,
-                                "topic_id": checkpoint.topic_id,
-                                "correct": i < correct,
-                            }
-                            for i in range(4)
-                        ],
-                        created_at=enrolled_at + timedelta(days=order + 2),
+            # Against every assessment the course carries, not just the last one.
+            # A course generated from its videos has one per module, and recording
+            # an attempt on a single checkpoint left a fully watched course stuck
+            # at "in progress" for ever - it can only be complete once all of them
+            # are passed.
+            for checkpoint in [
+                cp for _, cp in sorted(checkpoints_by_course.get(course_id, {}).items())
+            ]:
+                for order, score in enumerate(attempts):
+                    correct = round(4 * score / 100)
+                    db.add(
+                        CheckpointAttempt(
+                            user_id=uid,
+                            checkpoint_id=checkpoint.id,
+                            course_identifier=course_id,
+                            topic_id=checkpoint.topic_id,
+                            score_pct=score,
+                            passed=score >= checkpoint.pass_pct,
+                            attempt_no=order + 1,
+                            items=[
+                                {
+                                    "question_id": 0,
+                                    "topic_id": checkpoint.topic_id,
+                                    "correct": i < correct,
+                                }
+                                for i in range(4)
+                            ],
+                            created_at=enrolled_at + timedelta(days=order + 2),
+                        )
                     )
-                )
 
         for i, (uid, competency_id, score, prior, new) in enumerate(HISTORY):
             correct = round(score / 100 * 8)
