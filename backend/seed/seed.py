@@ -18,6 +18,8 @@ from sqlalchemy import select  # noqa: E402
 from app.db import Base, SessionLocal, engine  # noqa: E402
 from app.security import hash_password  # noqa: E402
 from app.models import (  # noqa: E402
+    LessonTranscript,
+    TranscriptChunk,
     AssessmentResult,
     BankQuestion,
     Checkpoint,
@@ -489,6 +491,59 @@ def load_igot_curriculum(db) -> tuple[int, int]:
     return lesson_count, quiz_count
 
 
+
+def load_transcripts(db) -> tuple[int, int]:
+    """Load committed lesson transcripts and their chunk embeddings.
+
+    Produced once by scripts/transcribe_lessons.py from the videos themselves,
+    because iGOT publishes no transcripts. Committed so a clone gets the text
+    without a key, a network call or a cost.
+    """
+    path = Path(__file__).resolve().parent / "igot_transcripts.json"
+    if not path.is_file():
+        return 0, 0
+
+    data = json.loads(path.read_text(encoding="utf-8"))
+    known = {lesson.id for lesson in db.scalars(select(Lesson)).all()}
+
+    transcripts = chunks = 0
+    for entry in data.get("lessons", {}).values():
+        lesson_id = entry.get("lesson_id")
+        # Lesson ids are assigned by this seed run; a transcript captured against
+        # an older run is skipped rather than attached to the wrong video.
+        if lesson_id not in known:
+            continue
+        transcript = LessonTranscript(
+            lesson_id=lesson_id,
+            course_identifier=entry["course_identifier"],
+            lesson_title=entry.get("lesson_title", ""),
+            text=entry["text"],
+            char_count=entry.get("char_count", len(entry["text"])),
+            source=entry.get("source", "gemini-video"),
+            model=entry.get("model", ""),
+        )
+        for chunk in entry.get("chunks", []):
+            transcript.chunks.append(
+                TranscriptChunk(
+                    lesson_id=lesson_id,
+                    course_identifier=entry["course_identifier"],
+                    position=chunk.get("position", 0),
+                    text=chunk["text"],
+                    char_count=len(chunk["text"]),
+                    embedding=chunk.get("embedding"),
+                    embedding_model=chunk.get("embedding_model", ""),
+                    dimensions=chunk.get("dimensions", 0),
+                )
+            )
+            chunks += 1
+        db.add(transcript)
+        transcripts += 1
+
+    db.flush()
+    return transcripts, chunks
+
+
+
 def run() -> None:
     Base.metadata.drop_all(bind=engine)
     Base.metadata.create_all(bind=engine)
@@ -702,12 +757,15 @@ def run() -> None:
             if enrolment.status == "completed" and enrolment.completed_at is None:
                 enrolment.completed_at = enrolment.enrolled_at + timedelta(days=30)
 
+        n_transcripts, n_chunks = load_transcripts(db)
+
         db.commit()
 
     print(
         f"Seeded {len(COMPETENCIES)} competencies, {len(ROLES)} roles, "
         f"{len(USERS)} officers, {len(LEARNING)} enrolments. "
         f"Catalogue is real: {igot_lessons} video lessons across iGOT courses, "
+        f"{n_transcripts} transcripts ({n_chunks} embedded chunks), "
         f"{igot_quizzes} final assessments, {question_count} authored bank questions, "
         f"{video_questions} questions generated from {video_topics} lesson videos."
     )

@@ -300,3 +300,61 @@ class CheckpointAttempt(Base):
     attempt_no: Mapped[int] = mapped_column(Integer, default=1)
     items: Mapped[list[dict]] = mapped_column(JSON, nullable=False)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=_utcnow)
+
+
+# --- lesson transcripts and their embeddings -------------------------------
+class LessonTranscript(Base):
+    """What a lesson video actually says.
+
+    iGOT ships no transcripts, so these are produced once from the video itself
+    and then committed as seed data. Keeping the transcript rather than
+    discarding it after question generation is the point: the same text grounds
+    the tutor, feeds retrieval, and lets a new assessment be written later
+    without fetching a quarter of a gigabyte of video again.
+    """
+
+    __tablename__ = "lesson_transcripts"
+    __table_args__ = (UniqueConstraint("lesson_id", name="uq_transcript_lesson"),)
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    lesson_id: Mapped[int] = mapped_column(ForeignKey("lessons.id"), nullable=False, index=True)
+    course_identifier: Mapped[str] = mapped_column(String(64), nullable=False, index=True)
+    lesson_title: Mapped[str] = mapped_column(String(300), default="")
+    text: Mapped[str] = mapped_column(Text, nullable=False)
+    char_count: Mapped[int] = mapped_column(Integer, default=0)
+    source: Mapped[str] = mapped_column(String(50), default="gemini-video")
+    model: Mapped[str] = mapped_column(String(80), default="")
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=_utcnow)
+
+    chunks: Mapped[list[TranscriptChunk]] = relationship(
+        back_populates="transcript",
+        cascade="all, delete-orphan",
+        order_by="TranscriptChunk.position",
+    )
+
+
+class TranscriptChunk(Base):
+    """A passage of a transcript, with its embedding.
+
+    Chunked rather than embedded whole because a ten minute lesson covers
+    several ideas, and one vector for all of them retrieves none of them well.
+    """
+
+    __tablename__ = "transcript_chunks"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    transcript_id: Mapped[int] = mapped_column(
+        ForeignKey("lesson_transcripts.id"), nullable=False, index=True
+    )
+    lesson_id: Mapped[int] = mapped_column(ForeignKey("lessons.id"), nullable=False, index=True)
+    course_identifier: Mapped[str] = mapped_column(String(64), nullable=False, index=True)
+    position: Mapped[int] = mapped_column(Integer, default=0)
+    text: Mapped[str] = mapped_column(Text, nullable=False)
+    char_count: Mapped[int] = mapped_column(Integer, default=0)
+    # Stored as JSON so the demo runs on SQLite with no vector extension. A real
+    # deployment would move this to pgvector; nothing above this layer changes.
+    embedding: Mapped[list[float] | None] = mapped_column(JSON, nullable=True)
+    embedding_model: Mapped[str] = mapped_column(String(80), default="")
+    dimensions: Mapped[int] = mapped_column(Integer, default=0)
+
+    transcript: Mapped[LessonTranscript] = relationship(back_populates="chunks")
