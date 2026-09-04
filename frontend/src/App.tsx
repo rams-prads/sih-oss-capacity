@@ -3,6 +3,7 @@ import { NavLink, Navigate, Route, Routes } from "react-router-dom";
 import { getUsers, setActiveUser } from "./api";
 import type { User } from "./api";
 import Admin from "./pages/Admin";
+import Join from "./pages/Join";
 import Learner from "./pages/Learner";
 import MyLearning from "./pages/MyLearning";
 import Upload from "./pages/Upload";
@@ -12,6 +13,13 @@ const DEMO_USER = "u-jso-anita";
 export default function App() {
   const [users, setUsers] = useState<User[]>([]);
   const [userId, setUserId] = useState(DEMO_USER);
+
+  // A newly registered officer becomes the active profile, so the dashboard they
+  // land on is their own rather than the demo one.
+  function handleJoined(user: User) {
+    setUsers((current) => [...current.filter((u) => u.id !== user.id), user]);
+    setUserId(user.id);
+  }
 
   useEffect(() => {
     getUsers().then(setUsers).catch(() => setUsers([]));
@@ -55,6 +63,9 @@ export default function App() {
             <NavLink to="/admin" className={tab}>
               Admin Dashboard
             </NavLink>
+            <NavLink to="/join" className={tab}>
+              Join
+            </NavLink>
           </nav>
 
           <label className="flex items-center gap-2 text-xs text-slate-300">
@@ -81,6 +92,7 @@ export default function App() {
           <Route path="/my-learning" element={<MyLearning userId={userId} />} />
           <Route path="/assess" element={<Upload userId={userId} />} />
           <Route path="/admin" element={<Admin />} />
+          <Route path="/join" element={<Join onJoined={handleJoined} />} />
         </Routes>
       </main>
 

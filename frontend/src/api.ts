@@ -446,3 +446,66 @@ export const getAdminLearning = (department?: string) =>
   api.get<AdminLearningOverview>("/admin/learning", {
     params: department ? { department } : {},
   }).then((r) => r.data);
+
+// --- onboarding: register, then establish a starting proficiency ----------
+export interface RegisterPayload {
+  name: string;
+  role_id: string;
+  department: string;
+  email: string;
+  password: string;
+}
+
+export interface BaselineQuestion {
+  question_id: number;
+  competency_id: string;
+  competency_name: string;
+  stem: string;
+  options: string[];
+  difficulty: number;
+}
+
+export interface Baseline {
+  user_id: string;
+  user_name: string;
+  role_id: string;
+  role_name: string;
+  questions: BaselineQuestion[];
+  competencies_assessed: string[];
+  /** Named rather than silently scored zero. */
+  competencies_without_questions: string[];
+}
+
+export interface CompetencyEstimate {
+  competency_id: string;
+  competency_name: string;
+  questions_answered: number;
+  questions_correct: number;
+  attained_level: number;
+  target_level: number;
+  gap: number;
+}
+
+export interface BaselineResult {
+  user_id: string;
+  questions_answered: number;
+  questions_correct: number;
+  score_pct: number;
+  estimates: CompetencyEstimate[];
+}
+
+export const registerOfficer = (payload: RegisterPayload) =>
+  api.post<User>("/users", payload).then((r) => r.data);
+
+export const getBaseline = (id: string) =>
+  api.get<Baseline>(`/assessment/${id}`).then((r) => r.data);
+
+export const submitBaseline = (
+  id: string,
+  answers: { question_id: number; answer_index: number }[],
+) => api.post<BaselineResult>(`/assessment/${id}/submit`, { answers }).then((r) => r.data);
+
+export const getRoles = () =>
+  api
+    .get<{ id: string; name: string; stream: string; grade: number }[]>("/roles")
+    .then((r) => r.data);

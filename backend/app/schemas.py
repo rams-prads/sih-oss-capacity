@@ -487,3 +487,60 @@ class AdminLearningOverview(BaseModel):
     course_rollup: list[CourseRollup]
     expiring_soon: list[AtRiskEnrolment]
     expired_incomplete: list[AtRiskEnrolment]
+
+
+# --- onboarding: registration and the baseline assessment ----------------
+class RegisterRequest(BaseModel):
+    name: str = Field(min_length=2, max_length=120)
+    role_id: str = Field(description="Designation held, e.g. JSO or ASO")
+    department: str = Field(min_length=2, max_length=200)
+    email: str = ""
+    password: str = Field(min_length=6, max_length=128)
+
+
+class BaselineQuestionOut(BaseModel):
+    question_id: int
+    competency_id: str
+    competency_name: str
+    stem: str
+    options: list[str]
+    difficulty: float
+
+
+class BaselineOut(BaseModel):
+    user_id: str
+    user_name: str
+    role_id: str
+    role_name: str
+    questions: list[BaselineQuestionOut] = []
+    competencies_assessed: list[str] = []
+    # Named plainly: an officer should be told what was not measured rather than
+    # scored zero on it.
+    competencies_without_questions: list[str] = []
+
+
+class BaselineAnswer(BaseModel):
+    question_id: int
+    answer_index: int
+
+
+class BaselineSubmitRequest(BaseModel):
+    answers: list[BaselineAnswer]
+
+
+class CompetencyEstimate(BaseModel):
+    competency_id: str
+    competency_name: str
+    questions_answered: int
+    questions_correct: int
+    attained_level: int
+    target_level: int
+    gap: int
+
+
+class BaselineResultOut(BaseModel):
+    user_id: str
+    questions_answered: int
+    questions_correct: int
+    score_pct: float
+    estimates: list[CompetencyEstimate] = []
