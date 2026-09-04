@@ -556,6 +556,12 @@ def run() -> None:
         )
         course_names = {c["identifier"]: c["name"] for c in catalogue["content"]}
 
+        topic_questions: dict[str, list[BankQuestion]] = {}
+        for question in db.scalars(
+            select(BankQuestion).order_by(BankQuestion.topic_id, BankQuestion.id)
+        ).all():
+            topic_questions.setdefault(question.topic_id, []).append(question)
+
         lessons_by_course: dict[str, list[Lesson]] = {}
         checkpoints_by_course: dict[str, dict[int, Checkpoint]] = {}
         for lesson in db.scalars(select(Lesson).order_by(Lesson.position)).all():
@@ -649,9 +655,16 @@ def run() -> None:
                             score_pct=score,
                             passed=score >= checkpoint.pass_pct,
                             attempt_no=order + 1,
+                            # Record which question was answered, not a
+                            # placeholder: item calibration can only learn an
+                            # item's real difficulty from responses tied to it.
                             items=[
                                 {
-                                    "question_id": 0,
+                                    "question_id": (
+                                        topic_questions[checkpoint.topic_id][i].id
+                                        if i < len(topic_questions.get(checkpoint.topic_id, []))
+                                        else 0
+                                    ),
                                     "topic_id": checkpoint.topic_id,
                                     "correct": i < correct,
                                 }

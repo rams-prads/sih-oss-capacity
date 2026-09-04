@@ -575,3 +575,70 @@ class TutorReplyOut(BaseModel):
     lessons_to_rewatch: list[TutorLesson] = []
     weak_topics: list[TutorTopic] = []
     suggestions: list[str] = []
+
+
+# --- psychometrics ---------------------------------------------------------
+class TopicAbilityOut(BaseModel):
+    topic_id: str
+    topic_name: str
+    competency_id: str
+    theta: float = Field(description="Latent ability, standard normal scale")
+    standard_error: float
+    level: int
+    level_name: str
+    confidence_pct: float = Field(description="Posterior mass inside the reported level")
+    level_low: int = Field(description="Lowest level consistent with the evidence")
+    level_high: int
+    provisional: bool = Field(description="True when too uncertain to act on")
+    questions_answered: int
+    days_since_assessed: float | None = None
+
+
+class AbilityReport(BaseModel):
+    user_id: str
+    user_name: str
+    topics: list[TopicAbilityOut]
+    measured_topics: int
+    provisional_topics: int
+    note: str
+
+
+class ItemParameterOut(BaseModel):
+    item_id: int
+    topic_id: str = ""
+    stem: str = ""
+    authored_difficulty: float
+    calibrated_difficulty: float
+    discrimination: float
+    guessing: float
+    n_responses: int
+    p_correct: float
+    status: str
+    drift: float
+
+
+class CalibrationOut(BaseModel):
+    responses: int
+    items_seen: int
+    items_calibrated: int
+    min_responses_required: int
+    note: str
+    flagged_items: list[ItemParameterOut]
+    low_discrimination_items: list[ItemParameterOut]
+
+
+class ModelScore(BaseModel):
+    name: str
+    accuracy_pct: float
+    auc: float
+    brier: float
+    log_loss: float
+    calibration_error: float
+
+
+class ValidationOut(BaseModel):
+    source: str = Field(description="real | simulated")
+    responses: int
+    holdout_pct: float
+    models: list[ModelScore]
+    note: str
