@@ -10,9 +10,11 @@ import hashlib
 import hmac
 import os
 
+from app.config import get_settings
+
 # Deliberately expensive. Tests lower it via PBKDF2_ITERATIONS because they
 # re-seed nine officers before every test; never lower it in a real deployment.
-ITERATIONS = int(os.environ.get("PBKDF2_ITERATIONS", "200000"))
+ITERATIONS = get_settings().pbkdf2_iterations
 
 
 def hash_password(password: str, salt: bytes | None = None) -> str:

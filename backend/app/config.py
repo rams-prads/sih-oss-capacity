@@ -1,6 +1,15 @@
 """Environment-driven settings. Demo defaults require zero external services."""
 import os
 from functools import lru_cache
+from pathlib import Path
+
+from dotenv import load_dotenv
+
+# Load the repository-root .env before Settings is defined: the class body below
+# reads os.environ at import time. Real environment variables win over the file
+# (override=False), so docker-compose and CI keep control.
+ENV_FILE = Path(__file__).resolve().parents[2] / ".env"
+load_dotenv(ENV_FILE, override=False)
 
 
 class Settings:
@@ -33,6 +42,9 @@ class Settings:
     ).split(",")
 
     max_upload_bytes: int = int(os.environ.get("MAX_UPLOAD_BYTES", str(8 * 1024 * 1024)))
+
+    # Password hashing cost. Tests lower it; never lower it in a deployment.
+    pbkdf2_iterations: int = int(os.environ.get("PBKDF2_ITERATIONS", "200000"))
 
 
 @lru_cache
