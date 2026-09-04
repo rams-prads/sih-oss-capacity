@@ -161,7 +161,11 @@ class GeminiProvider:
     def __init__(self) -> None:
         settings = get_settings()
         self.api_key = settings.gemini_api_key
-        self.model = settings.llm_model or "gemini-2.0-flash"
+        # Model names here rot fast. gemini-2.0-flash 404s (retired) and
+        # gemini-2.5-flash returns "no longer available to new users", so neither
+        # works on a freshly issued key. The -latest aliases resolve but were
+        # returning 503 under load. Override with LLM_MODEL to pin your own.
+        self.model = settings.llm_model or "gemini-3.1-flash-lite"
         if not self.api_key:
             raise RuntimeError("GEMINI_API_KEY is required for LLM_PROVIDER=gemini")
 
