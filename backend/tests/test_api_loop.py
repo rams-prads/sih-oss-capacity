@@ -34,13 +34,20 @@ def test_health_reports_the_active_backends(client):
 
 def test_taxonomy_endpoints(client):
     competencies = client.get("/api/competencies").json()
-    assert len(competencies) == 15
-    assert {c["id"] for c in competencies} >= {"C01", "C15"}
+    assert len(competencies) == 36
+    # Every competency domain the problem statement names has to be present,
+    # including the administrative ladder the OSS actually runs on.
+    assert {c["id"] for c in competencies} >= {"C01", "C15", "C20", "C22", "C24", "C29", "C31"}
 
     roles = client.get("/api/roles").json()
-    assert {r["id"] for r in roles} == {"JSO", "SI", "DA"}
+    # The real designation hierarchy, MTS through Secretary, in both streams.
+    assert len(roles) == 17
+    assert {r["id"] for r in roles} >= {"MTS", "JSO", "ASO", "SSO", "DDG", "SECY"}
+    # Returned in hierarchy order, and each designation states its stream.
+    assert [r["grade"] for r in roles] == sorted(r["grade"] for r in roles)
+    assert all(r["stream"] for r in roles)
     jso = next(r for r in roles if r["id"] == "JSO")
-    assert len(jso["requirements"]) == 7
+    assert len(jso["requirements"]) == 8
 
 
 def test_login_and_authenticated_identity(client):
@@ -57,17 +64,20 @@ def test_login_and_authenticated_identity(client):
 
 def test_enrolment_round_trip(client):
     """Enrol, then let progress come from watching a video - never set by hand."""
+    # A real catalogue id, taken from the catalogue rather than named here: the
+    # course list is fetched from iGOT and its identifiers change on refresh.
+    course_id = client.get("/api/courses").json()[0]["identifier"]
     response = client.post(
-        "/api/users/u-jso-farah/enrolments", json={"course_identifier": "do_3137421900011"}
+        "/api/users/u-jso-farah/enrolments", json={"course_identifier": course_id}
     )
     assert response.status_code == 201
 
     rows = client.get("/api/users/u-jso-farah/enrolments").json()
-    assert any(r["course_identifier"] == "do_3137421900011" for r in rows)
+    assert any(r["course_identifier"] == course_id for r in rows)
 
     board = client.get("/api/users/u-jso-farah/learning").json()
     course = next(
-        c for c in board["courses"] if c["course_identifier"] == "do_3137421900011"
+        c for c in board["courses"] if c["course_identifier"] == course_id
     )
     assert course["status"] == "not_started"
     assert course["progress_pct"] == 0
@@ -80,7 +90,7 @@ def test_enrolment_round_trip(client):
 
 def test_upload_generate_take_quiz_shrinks_the_gap(client):
     """AC 8.3 + 8.4: upload -> MCQs -> score -> attained level rises -> gap shrinks."""
-    user_id = "u-jso-farah"  # C01 attained 2, JSO target 3
+    user_id = "u-jso-anita"  # C01 attained 1, JSO target 3
     before = client.get(f"/api/gaps/{user_id}").json()
     prior_gap = next(i for i in before["items"] if i["competency_id"] == "C01")["gap"]
     assert prior_gap > 0
@@ -203,9 +213,10 @@ def test_admin_overview_and_metrics(client):
     assert scoped["officer_count"] == 2
 
     metrics = client.get("/api/admin/metrics", headers=headers).json()
-    assert metrics["competencies"] == 15
-    assert metrics["roles"] == 3
-    assert metrics["catalogue_size"] == 26
+    assert metrics["competencies"] == 36
+    assert metrics["roles"] == 17
+    # The catalogue is refreshed from the live iGOT API, so its exact size moves.
+    assert metrics["catalogue_size"] > 100
     # No generated quizzes yet, so the validity rate has nothing to report on.
     assert metrics["mcq_validity_rate_pct"] == 0.0
 

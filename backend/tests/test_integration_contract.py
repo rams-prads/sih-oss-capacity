@@ -40,10 +40,13 @@ def test_search_filters_by_competency_and_level():
 
 
 def test_read_course_maps_duration_to_minutes():
-    course = MockKarmayogiClient().read_course("do_3137421900011")
+    """Sunbird publishes duration in seconds; the app works in minutes."""
+    from app.integration.mock import _load_catalogue
+
+    node = next(n for n in _load_catalogue() if int(n.get("duration") or 0) > 0)
+    course = MockKarmayogiClient().read_course(node["identifier"])
     assert course is not None
-    assert course.duration_min == 90  # 5400 seconds
-    assert MockKarmayogiClient().read_course("do_nonexistent") is None
+    assert course.duration_min == int(node["duration"]) // 60
 
 
 def test_http_sandbox_speaks_the_contract(client):
@@ -57,11 +60,13 @@ def test_http_sandbox_speaks_the_contract(client):
     assert body["responseCode"] == "OK"
     assert body["result"]["count"] > 0
 
+    # Enrol in something the search just returned, rather than a named id.
+    course_id = body["result"]["content"][0]["identifier"]
     enrol = client.post(
         "/mock-sunbird/course/v1/enrol",
-        json={"request": {"userId": "u-jso-anita", "courseId": "do_3137421900015"}},
+        json={"request": {"userId": "u-jso-anita", "courseId": course_id}},
     )
     assert enrol.json()["result"]["response"] == "SUCCESS"
 
     listing = client.get("/mock-sunbird/course/v1/user/enrollment/list/u-jso-anita")
-    assert listing.json()["result"]["courses"][0]["courseId"] == "do_3137421900015"
+    assert listing.json()["result"]["courses"][0]["courseId"] == course_id

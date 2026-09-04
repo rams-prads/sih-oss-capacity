@@ -31,6 +31,8 @@ class RoleOut(ORMModel):
     id: str
     name: str
     description: str = ""
+    stream: str = ""
+    grade: int = 0
     requirements: list[RoleRequirementOut] = []
 
 
@@ -92,6 +94,13 @@ class CourseOut(BaseModel):
     target_level: int = 0
     provider: str = "iGOT Karmayogi"
     duration_min: int = 0
+    source: str = "igot"
+    mode: str = ""
+    eligibility: str = ""
+    duration_days: int = 0
+    batch_size: int = 0
+    url: str = ""
+    outline: list[str] = []
 
 
 class Recommendation(BaseModel):
@@ -108,6 +117,21 @@ class RecommendationResponse(BaseModel):
     user_id: str
     source: str = Field(description="mock | sunbird — which Karmayogi client served the catalogue")
     recommendations: list[Recommendation]
+
+
+class ProgressionResponse(BaseModel):
+    """Training for the designation above, not the one currently held."""
+
+    user_id: str
+    current_role_id: str
+    current_role_name: str
+    next_role_id: str = ""
+    next_role_name: str = ""
+    next_role_stream: str = ""
+    next_role_grade: int = 0
+    at_top_of_ladder: bool = False
+    items: list[GapItem] = []
+    recommendations: list[Recommendation] = []
 
 
 class EnrolRequest(BaseModel):
@@ -268,15 +292,18 @@ class LessonOut(BaseModel):
     title: str
     duration_min: int
     completed: bool
+    video_url: str = ""
 
 
 class ModuleOut(BaseModel):
     module_index: int
     title: str
-    topic_id: str
-    topic_name: str
-    checkpoint_id: int
-    pass_pct: int
+    topic_id: str = ""
+    topic_name: str = ""
+    # None for an ingested iGOT module: its videos carry no quiz of their own,
+    # the course has a single assessment at the end.
+    checkpoint_id: int | None = None
+    pass_pct: int = 0
     lessons: list[LessonOut]
     lessons_completed: int
     lessons_total: int
@@ -311,6 +338,11 @@ class LearningCourse(BaseModel):
     avg_checkpoint_score: float | None = None
     next_action: NextAction | None = None
     modules: list[ModuleOut] = []
+    # Present for real iGOT courses, which are taken on the portal rather than
+    # here: the module titles say what the course covers, and the link opens it.
+    outline: list[str] = []
+    url: str = ""
+    source: str = "igot"
 
 
 class TopicMastery(BaseModel):
@@ -455,3 +487,60 @@ class AdminLearningOverview(BaseModel):
     course_rollup: list[CourseRollup]
     expiring_soon: list[AtRiskEnrolment]
     expired_incomplete: list[AtRiskEnrolment]
+
+
+# --- onboarding: registration and the baseline assessment ----------------
+class RegisterRequest(BaseModel):
+    name: str = Field(min_length=2, max_length=120)
+    role_id: str = Field(description="Designation held, e.g. JSO or ASO")
+    department: str = Field(min_length=2, max_length=200)
+    email: str = ""
+    password: str = Field(min_length=6, max_length=128)
+
+
+class BaselineQuestionOut(BaseModel):
+    question_id: int
+    competency_id: str
+    competency_name: str
+    stem: str
+    options: list[str]
+    difficulty: float
+
+
+class BaselineOut(BaseModel):
+    user_id: str
+    user_name: str
+    role_id: str
+    role_name: str
+    questions: list[BaselineQuestionOut] = []
+    competencies_assessed: list[str] = []
+    # Named plainly: an officer should be told what was not measured rather than
+    # scored zero on it.
+    competencies_without_questions: list[str] = []
+
+
+class BaselineAnswer(BaseModel):
+    question_id: int
+    answer_index: int
+
+
+class BaselineSubmitRequest(BaseModel):
+    answers: list[BaselineAnswer]
+
+
+class CompetencyEstimate(BaseModel):
+    competency_id: str
+    competency_name: str
+    questions_answered: int
+    questions_correct: int
+    attained_level: int
+    target_level: int
+    gap: int
+
+
+class BaselineResultOut(BaseModel):
+    user_id: str
+    questions_answered: int
+    questions_correct: int
+    score_pct: float
+    estimates: list[CompetencyEstimate] = []

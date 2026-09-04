@@ -23,6 +23,10 @@ export function CourseProgressCard({
   onCheckpoint: (checkpointId: number) => void;
 }) {
   const [open, setOpen] = useState(false);
+  // Which lesson is playing inline. iGOT serves the mp4 directly, so the video
+  // plays here and finishing it is what marks the lesson watched - the whole
+  // point, since iGOT will not tell us what was watched on its own portal.
+  const [playing, setPlaying] = useState<number | null>(null);
   const locked = course.status === "expired" || course.status === "completed";
   // Not every catalogue course has had its curriculum loaded yet. Say so plainly
   // rather than showing a progress bar that can never move.
@@ -49,10 +53,44 @@ export function CourseProgressCard({
         </div>
 
         {!hasCurriculum ? (
-          <p className="mt-3.5 rounded-lg border border-dashed border-slate-300 bg-slate-50 px-3 py-2.5 text-xs text-slate-500">
-            Course contents are not yet loaded for this title, so progress cannot be
-            tracked here. Enrolment is recorded and the course opens in iGOT Karmayogi.
-          </p>
+          // A real iGOT course is taken on the portal, so there are no lessons to
+          // tick off here. Show what it covers and a way through to it rather than
+          // a bare apology, and be plain that progress lives on iGOT.
+          <div className="mt-3.5 rounded-lg border border-dashed border-slate-300 bg-slate-50 px-3 py-2.5">
+            {course.outline.length > 0 ? (
+              <>
+                <p className="text-xs font-medium text-slate-700">
+                  What it covers
+                  <span className="ml-1 font-normal text-slate-400">
+                    ({course.outline.length} module{course.outline.length > 1 ? "s" : ""})
+                  </span>
+                </p>
+                <ol className="mt-1.5 list-decimal space-y-0.5 pl-5 text-xs leading-relaxed text-slate-600">
+                  {course.outline.map((module, index) => (
+                    <li key={`${index}-${module}`}>{module}</li>
+                  ))}
+                </ol>
+              </>
+            ) : (
+              <p className="text-xs text-slate-500">
+                This course publishes no module outline.
+              </p>
+            )}
+            <p className="mt-2.5 border-t border-slate-200 pt-2 text-xs text-slate-500">
+              This course is taken on iGOT Karmayogi, so progress is tracked there, not
+              here. Your enrolment is recorded.
+              {course.url && (
+                <a
+                  href={course.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="ml-1 font-medium text-blue-700 underline underline-offset-2 hover:text-blue-900"
+                >
+                  Open on iGOT &rarr;
+                </a>
+              )}
+            </p>
+          </div>
         ) : (
         <div className="mt-3.5">
           <div className="mb-1.5 flex items-baseline justify-between text-xs">
@@ -91,11 +129,24 @@ export function CourseProgressCard({
         <div className="mt-4 flex items-center gap-2 border-t border-slate-100 pt-3">
           {course.next_action && !locked ? (
             <button
-              onClick={() =>
-                course.next_action!.kind === "lesson"
-                  ? onWatch(course.next_action!.lesson_id!)
-                  : onCheckpoint(course.next_action!.checkpoint_id!)
-              }
+              onClick={() => {
+                const action = course.next_action!;
+                if (action.kind !== "lesson") {
+                  onCheckpoint(action.checkpoint_id!);
+                  return;
+                }
+                // An iGOT lesson is evidenced by watching it, so open the player
+                // rather than marking it complete on a button press.
+                const lesson = course.modules
+                  .flatMap((mod) => mod.lessons)
+                  .find((item) => item.id === action.lesson_id);
+                if (lesson?.video_url) {
+                  setOpen(true);
+                  setPlaying(lesson.id);
+                } else {
+                  onWatch(action.lesson_id!);
+                }
+              }}
               disabled={
                 // Only a lesson can be mid-flight. Comparing null to null here
                 // used to disable every "Take checkpoint" button.
@@ -158,7 +209,15 @@ export function CourseProgressCard({
                       {l.title}
                     </span>
                     <span className="ml-auto shrink-0 text-slate-400">{l.duration_min} min</span>
-                    {!l.completed && !locked && (
+                    {!locked && l.video_url && (
+                      <button
+                        onClick={() => setPlaying(playing === l.id ? null : l.id)}
+                        className="shrink-0 rounded border border-slate-300 px-2 py-0.5 font-medium text-slate-700 hover:bg-slate-50"
+                      >
+                        {playing === l.id ? "Close" : l.completed ? "Rewatch" : "Play"}
+                      </button>
+                    )}
+                    {!l.completed && !locked && !l.video_url && (
                       <button
                         onClick={() => onWatch(l.id)}
                         disabled={busyLessonId === l.id}
@@ -170,6 +229,29 @@ export function CourseProgressCard({
                   </li>
                 ))}
 
+                {m.lessons
+                  .filter((l) => playing === l.id && l.video_url)
+                  .map((l) => (
+                    <li key={`player-${l.id}`} className="rounded-lg bg-black/90 p-1.5">
+                      <video
+                        key={l.id}
+                        src={l.video_url}
+                        controls
+                        autoPlay
+                        className="w-full rounded"
+                        // Reaching the end is the evidence. No self-reported ticking.
+                        onEnded={() => {
+                          if (!l.completed) onWatch(l.id);
+                        }}
+                      />
+                      <p className="px-1 py-1 text-[11px] text-slate-300">
+                        Streamed from iGOT Karmayogi. Watching to the end marks it complete
+                        here.
+                      </p>
+                    </li>
+                  ))}
+
+                {m.checkpoint_id !== null && (
                 <li
                   className={`flex items-center gap-2.5 rounded-lg px-2.5 py-1.5 text-xs ring-1 ${
                     m.checkpoint_passed
@@ -187,24 +269,28 @@ export function CourseProgressCard({
                     {m.checkpoint_passed ? "\u2713" : ""}
                   </span>
                   <span className="font-medium text-slate-800">
-                    Checkpoint quiz, pass at {m.pass_pct}%
+                    {m.lessons_total === 0 ? "Final assessment" : "Checkpoint quiz"}, pass at{" "}
+                    {m.pass_pct}%
                   </span>
                   <span className="ml-auto shrink-0 text-slate-500">
                     {m.attempts === 0
                       ? m.checkpoint_unlocked
                         ? "Ready"
-                        : "Locked until videos are watched"
+                        : m.lessons_total === 0
+                          ? "Locked until the course is watched"
+                          : "Locked until videos are watched"
                       : `Best ${m.best_score_pct}% in ${m.attempts} attempt${m.attempts > 1 ? "s" : ""}`}
                   </span>
                   {m.checkpoint_unlocked && !locked && (
                     <button
-                      onClick={() => onCheckpoint(m.checkpoint_id)}
+                      onClick={() => onCheckpoint(m.checkpoint_id!)}
                       className="shrink-0 rounded border border-slate-300 bg-white px-2 py-0.5 font-medium text-slate-700 hover:bg-slate-50"
                     >
                       {m.checkpoint_passed ? "Retake" : "Start"}
                     </button>
                   )}
                 </li>
+                )}
               </ul>
             </div>
           ))}

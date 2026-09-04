@@ -14,7 +14,7 @@ import type {
 import { CheckpointModal } from "../components/CheckpointModal";
 import { CourseProgressCard } from "../components/CourseProgressCard";
 import { ProgressBar, STATUS_META } from "../components/Progress";
-import { StrengthsAndGaps, TopicMasteryPanel } from "../components/TopicMasteryPanel";
+import { TopicMasteryPanel } from "../components/TopicMasteryPanel";
 import { Card, Empty, ErrorNote, Spinner } from "../components/ui";
 
 const FILTERS: { key: CourseStatus | "all"; label: string }[] = [
@@ -107,7 +107,7 @@ export default function MyLearning({ userId }: { userId: string }) {
       {error && <ErrorNote>{error}</ErrorNote>}
 
       <Card
-        title="My learning"
+        title="Learning summary"
         subtitle={`${data.user_name} · ${data.role_name} · ${data.department}`}
       >
         <div className="grid gap-6 lg:grid-cols-3">
@@ -212,24 +212,12 @@ export default function MyLearning({ userId }: { userId: string }) {
         )}
       </Card>
 
-      <div className="grid gap-5 lg:grid-cols-2">
-        <Card
-          title="Where you stand"
-          subtitle="Based only on checkpoint questions you have actually answered"
-        >
-          <StrengthsAndGaps
-            strongest={data.strongest_topics}
-            weakest={data.weakest_topics}
-          />
-        </Card>
-
-        <Card
-          title="Topic record"
-          subtitle="Accuracy across every attempt, weakest first"
-        >
-          <TopicMasteryPanel topics={data.topic_mastery} />
-        </Card>
-      </div>
+      <Card
+        title="Topic record"
+        subtitle="Accuracy on checkpoint questions you have answered, weakest first"
+      >
+        <TopicMasteryPanel topics={data.topic_mastery} />
+      </Card>
 
       {quiz && (
         <CheckpointModal

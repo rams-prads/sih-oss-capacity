@@ -52,3 +52,36 @@ def test_unknown_user_raises(db):
 
     with pytest.raises(KeyError):
         compute_gaps(db, "nobody")
+
+
+def test_designation_hierarchy_is_well_formed(db):
+    """The designation table is the competency profile's anchor, so it has to hold.
+
+    Targets and weights are expanded from a documented seniority rule rather
+    than typed per designation, which is exactly the kind of thing that goes
+    quietly wrong.
+    """
+    from sqlalchemy import select
+
+    from app.models import Competency, Role
+
+    roles = db.scalars(select(Role)).all()
+    known = {c.id for c in db.scalars(select(Competency)).all()}
+
+    assert len(roles) == 17
+    assert {r.stream for r in roles} >= {"Statistical", "Administration"}
+
+    for role in roles:
+        assert role.requirements, f"{role.id} expects no competencies"
+        assert role.grade > 0, f"{role.id} has no grade"
+        for req in role.requirements:
+            assert req.competency_id in known, f"{role.id} wants unknown {req.competency_id}"
+            assert 0 <= req.target_level <= 4
+            assert req.weight in (1.0, 0.6, 0.3)
+
+    # Seniority has to mean something: a Secretary is not held to a junior bar.
+    mts = next(r for r in roles if r.id == "MTS")
+    secretary = next(r for r in roles if r.id == "SECY")
+    assert max(r.target_level for r in secretary.requirements) > max(
+        r.target_level for r in mts.requirements
+    )

@@ -56,11 +56,23 @@ class Competency(Base):
 
 
 class Role(Base):
+    """A designation in the Official Statistical System.
+
+    Designation is the anchor of the competency profile: it is what an officer
+    actually holds, and what determines the competencies expected of them. The
+    stream separates the statistical ladder from the administrative one, since
+    an ASO and a JSO sit at a comparable grade but are measured on different
+    things; grade orders the whole hierarchy so career progression - the next
+    designation up - is derivable rather than hard-coded.
+    """
+
     __tablename__ = "roles"
 
     id: Mapped[str] = mapped_column(String(8), primary_key=True)
     name: Mapped[str] = mapped_column(String(200), nullable=False)
     description: Mapped[str] = mapped_column(Text, default="")
+    stream: Mapped[str] = mapped_column(String(60), default="")
+    grade: Mapped[int] = mapped_column(Integer, default=0)
 
     requirements: Mapped[list[RoleRequirement]] = relationship(
         back_populates="role", cascade="all, delete-orphan"
@@ -219,8 +231,13 @@ class Lesson(Base):
     position: Mapped[int] = mapped_column(Integer, nullable=False)
     module_index: Mapped[int] = mapped_column(Integer, default=0)
     title: Mapped[str] = mapped_column(String(300), nullable=False)
-    topic_id: Mapped[str] = mapped_column(ForeignKey("topics.id"), nullable=False)
+    # Authored sandbox lessons belong to a topic; a video ingested from iGOT does
+    # not, and forcing one on it would pollute the topic mastery record.
+    topic_id: Mapped[str | None] = mapped_column(ForeignKey("topics.id"), nullable=True)
     duration_min: Mapped[int] = mapped_column(Integer, default=10)
+    # Present for iGOT lessons: the mp4 the portal serves, played in place here so
+    # the watch record is ours rather than one we cannot read back from iGOT.
+    video_url: Mapped[str] = mapped_column(String(600), default="")
 
 
 class Checkpoint(Base):

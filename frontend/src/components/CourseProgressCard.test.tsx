@@ -21,6 +21,9 @@ function makeCourse(overrides: Partial<LearningCourse> = {}): LearningCourse {
     expires_at: null,
     days_remaining: null,
     avg_checkpoint_score: 75,
+    outline: [],
+    url: "",
+    source: "sandbox",
     next_action: { kind: "lesson", label: "Stratification", lesson_id: 5, checkpoint_id: null },
     modules: [
       {
@@ -31,9 +34,9 @@ function makeCourse(overrides: Partial<LearningCourse> = {}): LearningCourse {
         checkpoint_id: 1,
         pass_pct: 60,
         lessons: [
-          { id: 1, position: 0, title: "What a frame is", duration_min: 11, completed: true },
-          { id: 2, position: 1, title: "Coverage error", duration_min: 13, completed: true },
-          { id: 3, position: 2, title: "Building frames", duration_min: 12, completed: true },
+          { id: 1, position: 0, title: "What a frame is", duration_min: 11, completed: true, video_url: "" },
+          { id: 2, position: 1, title: "Coverage error", duration_min: 13, completed: true, video_url: "" },
+          { id: 3, position: 2, title: "Building frames", duration_min: 12, completed: true, video_url: "" },
         ],
         lessons_completed: 3,
         lessons_total: 3,
@@ -50,9 +53,9 @@ function makeCourse(overrides: Partial<LearningCourse> = {}): LearningCourse {
         checkpoint_id: 2,
         pass_pct: 60,
         lessons: [
-          { id: 4, position: 3, title: "Why stratify", duration_min: 12, completed: true },
-          { id: 5, position: 4, title: "Stratification", duration_min: 10, completed: false },
-          { id: 6, position: 5, title: "Allocation", duration_min: 14, completed: false },
+          { id: 4, position: 3, title: "Why stratify", duration_min: 12, completed: true, video_url: "" },
+          { id: 5, position: 4, title: "Stratification", duration_min: 10, completed: false, video_url: "" },
+          { id: 6, position: 5, title: "Allocation", duration_min: 14, completed: false, video_url: "" },
         ],
         lessons_completed: 1,
         lessons_total: 3,
@@ -115,13 +118,55 @@ describe("CourseProgressCard", () => {
     expect(screen.getByText(/All videos watched and all checkpoints passed/)).toBeInTheDocument();
   });
 
-  it("says plainly when a course has no curriculum instead of showing a stuck bar", () => {
-    const course = makeCourse({ lessons_total: 0, checkpoints_total: 0, modules: [], progress_pct: 0 });
+  it("shows what an iGOT course covers instead of a stuck progress bar", () => {
+    const course = makeCourse({
+      lessons_total: 0,
+      checkpoints_total: 0,
+      modules: [],
+      progress_pct: 0,
+      outline: ["Measuring GDP", "Economic Models"],
+      url: "https://portal.igotkarmayogi.gov.in/public/toc/do_123/overview",
+    });
     render(
       <CourseProgressCard course={course} busyLessonId={null} onWatch={noop} onCheckpoint={noop} />,
     );
-    expect(screen.getByText(/Course contents are not yet loaded/)).toBeInTheDocument();
+    expect(screen.getByText("Measuring GDP")).toBeInTheDocument();
+    expect(screen.getByText(/tracked there, not/)).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /Open on iGOT/ })).toHaveAttribute(
+      "href",
+      "https://portal.igotkarmayogi.gov.in/public/toc/do_123/overview",
+    );
     expect(screen.queryByRole("progressbar")).not.toBeInTheDocument();
+  });
+
+  it("says so plainly when a course publishes no outline", () => {
+    const course = makeCourse({
+      lessons_total: 0,
+      checkpoints_total: 0,
+      modules: [],
+      progress_pct: 0,
+      outline: [],
+      url: "",
+    });
+    render(
+      <CourseProgressCard course={course} busyLessonId={null} onWatch={noop} onCheckpoint={noop} />,
+    );
+    expect(screen.getByText(/publishes no module outline/)).toBeInTheDocument();
+    expect(screen.queryByRole("link", { name: /Open on iGOT/ })).not.toBeInTheDocument();
+  });
+
+  it("plays an iGOT video instead of ticking it off unwatched", async () => {
+    const onWatch = vi.fn();
+    const course = makeCourse();
+    course.modules[1].lessons[1].video_url = "https://portal.igotkarmayogi.gov.in/a.mp4";
+    const { container } = render(
+      <CourseProgressCard course={course} busyLessonId={null} onWatch={onWatch} onCheckpoint={noop} />,
+    );
+    await userEvent.click(screen.getByRole("button", { name: /Watch next video/ }));
+    // Pressing the button must not claim the video was watched.
+    expect(onWatch).not.toHaveBeenCalled();
+    const video = container.querySelector("video");
+    expect(video).toHaveAttribute("src", "https://portal.igotkarmayogi.gov.in/a.mp4");
   });
 
   it("marks a locked checkpoint as locked when its videos are unwatched", async () => {

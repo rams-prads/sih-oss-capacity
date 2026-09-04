@@ -53,6 +53,16 @@ export interface Course {
   target_level: number;
   provider: string;
   duration_min: number;
+  /** "igot" = self-paced online course; "nssta" = TPAC-approved NSSTA programme. */
+  source: string;
+  mode: string;
+  eligibility: string;
+  duration_days: number;
+  batch_size: number;
+  /** The course on the iGOT portal. Empty for NSSTA programmes and sandbox courses. */
+  url: string;
+  /** Module titles from iGOT. Empty when the course publishes none worth showing. */
+  outline: string[];
 }
 
 export interface Recommendation {
@@ -170,6 +180,23 @@ export const getRecommendations = (id: string) =>
     .then((r) => r.data);
 export const getEnrolments = (id: string) =>
   api.get<Enrolment[]>(`/users/${id}/enrolments`).then((r) => r.data);
+
+/** Training for the designation above the one an officer holds. */
+export interface Progression {
+  user_id: string;
+  current_role_id: string;
+  current_role_name: string;
+  next_role_id: string;
+  next_role_name: string;
+  next_role_stream: string;
+  next_role_grade: number;
+  at_top_of_ladder: boolean;
+  items: GapItem[];
+  recommendations: Recommendation[];
+}
+
+export const getProgression = (id: string) =>
+  api.get<Progression>(`/progression/${id}`).then((r) => r.data);
 export const enrol = (id: string, course_identifier: string) =>
   api.post(`/users/${id}/enrolments`, { course_identifier }).then((r) => r.data);
 export const getCompetencies = () => api.get<Competency[]>("/competencies").then((r) => r.data);
@@ -188,6 +215,8 @@ export interface LessonItem {
   title: string;
   duration_min: number;
   completed: boolean;
+  /** The mp4 iGOT serves, played in place. Empty for authored sandbox lessons. */
+  video_url: string;
 }
 
 export interface ModuleItem {
@@ -195,7 +224,8 @@ export interface ModuleItem {
   title: string;
   topic_id: string;
   topic_name: string;
-  checkpoint_id: number;
+  /** null for an ingested iGOT module: the course is assessed once, at the end. */
+  checkpoint_id: number | null;
   pass_pct: number;
   lessons: LessonItem[];
   lessons_completed: number;
@@ -231,6 +261,10 @@ export interface LearningCourse {
   avg_checkpoint_score: number | null;
   next_action: NextAction | null;
   modules: ModuleItem[];
+  /** Module titles from iGOT, for courses taken on the portal rather than here. */
+  outline: string[];
+  url: string;
+  source: string;
 }
 
 export interface TopicMastery {
@@ -412,3 +446,66 @@ export const getAdminLearning = (department?: string) =>
   api.get<AdminLearningOverview>("/admin/learning", {
     params: department ? { department } : {},
   }).then((r) => r.data);
+
+// --- onboarding: register, then establish a starting proficiency ----------
+export interface RegisterPayload {
+  name: string;
+  role_id: string;
+  department: string;
+  email: string;
+  password: string;
+}
+
+export interface BaselineQuestion {
+  question_id: number;
+  competency_id: string;
+  competency_name: string;
+  stem: string;
+  options: string[];
+  difficulty: number;
+}
+
+export interface Baseline {
+  user_id: string;
+  user_name: string;
+  role_id: string;
+  role_name: string;
+  questions: BaselineQuestion[];
+  competencies_assessed: string[];
+  /** Named rather than silently scored zero. */
+  competencies_without_questions: string[];
+}
+
+export interface CompetencyEstimate {
+  competency_id: string;
+  competency_name: string;
+  questions_answered: number;
+  questions_correct: number;
+  attained_level: number;
+  target_level: number;
+  gap: number;
+}
+
+export interface BaselineResult {
+  user_id: string;
+  questions_answered: number;
+  questions_correct: number;
+  score_pct: number;
+  estimates: CompetencyEstimate[];
+}
+
+export const registerOfficer = (payload: RegisterPayload) =>
+  api.post<User>("/users", payload).then((r) => r.data);
+
+export const getBaseline = (id: string) =>
+  api.get<Baseline>(`/assessment/${id}`).then((r) => r.data);
+
+export const submitBaseline = (
+  id: string,
+  answers: { question_id: number; answer_index: number }[],
+) => api.post<BaselineResult>(`/assessment/${id}/submit`, { answers }).then((r) => r.data);
+
+export const getRoles = () =>
+  api
+    .get<{ id: string; name: string; stream: string; grade: number }[]>("/roles")
+    .then((r) => r.data);

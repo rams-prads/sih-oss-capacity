@@ -1,17 +1,16 @@
 import { useCallback, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { enrol, getEnrolments, getGaps, getRecommendations } from "../api";
+import { useNavigate } from "react-router-dom";
+import { enrol, getEnrolments, getGaps, getProgression, getRecommendations } from "../api";
 import type {
-  CourseStatus,
   Enrolment,
   GapItem,
   GapReport,
+  Progression,
   Recommendation,
   User,
 } from "../api";
 import { CourseCard } from "../components/CourseCard";
 import { GapList } from "../components/GapList";
-import { ProgressBar, StatusPill } from "../components/Progress";
 import { CompetencyRadar } from "../components/Radar";
 import { Card, Empty, ErrorNote, Spinner, Stat } from "../components/ui";
 
@@ -21,6 +20,7 @@ export default function Learner({ userId, user }: { userId: string; user?: User 
   const [recs, setRecs] = useState<Recommendation[]>([]);
   const [source, setSource] = useState("");
   const [enrolments, setEnrolments] = useState<Enrolment[]>([]);
+  const [progression, setProgression] = useState<Progression | null>(null);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
 
@@ -28,15 +28,17 @@ export default function Learner({ userId, user }: { userId: string; user?: User 
     setLoading(true);
     setError("");
     try {
-      const [gaps, recommendations, enrolled] = await Promise.all([
+      const [gaps, recommendations, enrolled, ahead] = await Promise.all([
         getGaps(userId),
         getRecommendations(userId),
         getEnrolments(userId),
+        getProgression(userId),
       ]);
       setReport(gaps);
       setRecs(recommendations.recommendations);
       setSource(recommendations.source);
       setEnrolments(enrolled);
+      setProgression(ahead);
     } catch {
       setError("Could not reach the platform API. Is the backend running on port 8000?");
     } finally {
@@ -62,6 +64,9 @@ export default function Learner({ userId, user }: { userId: string; user?: User 
 
   const openGaps = report.items.filter((i) => i.gap > 0);
   const enrolledIds = new Set(enrolments.map((e) => e.course_identifier));
+  const avgProgress = enrolments.length
+    ? Math.round(enrolments.reduce((s, e) => s + e.progress_pct, 0) / enrolments.length)
+    : 0;
 
   return (
     <div className="space-y-5">
@@ -73,8 +78,8 @@ export default function Learner({ userId, user }: { userId: string; user?: User 
           tone={report.readiness_pct >= 80 ? "good" : "warn"}
         />
         <Stat label="Open competency gaps" value={openGaps.length} hint={`of ${report.items.length} required`} />
-        <Stat label="Weighted gap" value={report.total_weighted_gap.toFixed(1)} hint={`worst case ${report.max_weighted_gap.toFixed(1)}`} />
         <Stat label="Courses enrolled" value={enrolments.length} hint={`${enrolments.filter((e) => e.status === "completed").length} completed`} />
+        <Stat label="Course progress" value={`${avgProgress}%`} hint="average across enrolled courses" />
       </div>
 
       <div className="grid gap-5 lg:grid-cols-5">
@@ -124,36 +129,48 @@ export default function Learner({ userId, user }: { userId: string; user?: User 
         )}
       </Card>
 
-      {enrolments.length > 0 && (
+      {progression && !progression.at_top_of_ladder && progression.items.length > 0 && (
         <Card
-          title="My learning"
-          subtitle="Videos watched and checkpoint quizzes passed"
+          title={`Preparing for ${progression.next_role_name}`}
+          subtitle={
+            `The designation above ${progression.current_role_name}. These competencies are ` +
+            `not required of you today, so they do not count against your readiness - they are ` +
+            `what the step up will ask for.`
+          }
           right={
-            <Link
-              to="/my-learning"
-              className="rounded-lg border border-slate-300 px-3 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-50"
-            >
-              Open full record
-            </Link>
+            <span className="rounded-full bg-blue-50 px-2.5 py-1 text-xs font-medium text-blue-800">
+              career progression
+            </span>
           }
         >
-          <ul className="divide-y divide-slate-100">
-            {enrolments.slice(0, 4).map((e) => (
-              <li key={e.course_identifier} className="flex items-center gap-4 py-3">
-                <div className="min-w-0 flex-1">
-                  <p className="truncate text-sm font-medium text-slate-900">{e.course_name}</p>
-                  <code className="text-[11px] text-slate-400">{e.course_identifier}</code>
-                </div>
-                <StatusPill status={e.status as CourseStatus} />
-                <div className="w-40 shrink-0">
-                  <ProgressBar value={e.progress_pct} status={e.status as CourseStatus} />
-                </div>
-                <span className="w-10 shrink-0 text-right text-xs tabular-nums text-slate-500">
-                  {e.progress_pct}%
+          <ul className="mb-4 flex flex-wrap gap-2">
+            {progression.items.map((item) => (
+              <li
+                key={item.competency_id}
+                className="rounded-lg border border-slate-200 px-2.5 py-1 text-xs text-slate-700"
+              >
+                {item.competency_name}
+                <span className="ml-1.5 text-slate-400">
+                  {item.attained_level} &rarr; {item.target_level}
                 </span>
               </li>
             ))}
           </ul>
+
+          {progression.recommendations.length === 0 ? (
+            <Empty>No training in the catalogue matches this step up yet.</Empty>
+          ) : (
+            <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+              {progression.recommendations.map((rec) => (
+                <CourseCard
+                  key={rec.course.identifier}
+                  rec={rec}
+                  enrolled={enrolledIds.has(rec.course.identifier)}
+                  onEnrol={handleEnrol}
+                />
+              ))}
+            </div>
+          )}
         </Card>
       )}
     </div>

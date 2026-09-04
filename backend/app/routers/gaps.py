@@ -7,14 +7,16 @@ from sqlalchemy import select
 from app.config import get_settings
 from app.deps import DbSession, KarmayogiDep
 from app.engines.gap import compute_gaps, top_gaps
+from app.engines.progression import progression_gaps
 from app.engines.recommend import recommend_courses
-from app.models import Enrolment, User
+from app.models import Enrolment, Role, User
 from app.schemas import (
     CourseOut,
     EnrolmentOut,
     EnrolRequest,
     GapItem,
     GapReport,
+    ProgressionResponse,
     RecommendationResponse,
 )
 
@@ -47,6 +49,36 @@ def get_recommendations(user_id: str, db: DbSession, client: KarmayogiDep, limit
         user_id=user_id,
         source=get_settings().karmayogi_mode,
         recommendations=recommend_courses(client, report.items, limit=limit),
+    )
+
+
+@router.get("/progression/{user_id}", response_model=ProgressionResponse)
+def get_progression(user_id: str, db: DbSession, client: KarmayogiDep, limit: int = 6):
+    """Training for the designation above the one an officer holds.
+
+    The problem statement asks recommendations to weigh future job requirements
+    and career progression, which the present-day gap report cannot express: an
+    officer already meeting their designation has no gaps and would be shown
+    nothing at all.
+    """
+    user = db.get(User, user_id)
+    if user is None:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "User not found")
+
+    current = db.get(Role, user.role_id)
+    target_role, items = progression_gaps(db, user_id)
+
+    return ProgressionResponse(
+        user_id=user_id,
+        current_role_id=user.role_id,
+        current_role_name=current.name if current else user.role_id,
+        next_role_id=target_role.id if target_role else "",
+        next_role_name=target_role.name if target_role else "",
+        next_role_stream=target_role.stream if target_role else "",
+        next_role_grade=target_role.grade if target_role else 0,
+        at_top_of_ladder=target_role is None,
+        items=items,
+        recommendations=recommend_courses(client, items, limit=limit) if items else [],
     )
 
 

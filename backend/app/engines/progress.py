@@ -90,19 +90,33 @@ def course_progress(db: Session, user_id: str, course_identifier: str) -> dict:
         lessons_by_module[lesson.module_index].append(lesson)
 
     topic_names = {t.id: t.name for t in db.scalars(select(Topic)).all()}
+    checkpoint_by_module = {c.module_index: c for c in checkpoints}
+    all_lessons_done = bool(lessons) and all(
+        lesson.id in done_lesson_ids for lesson in lessons
+    )
+
+    # Modules come from the union of both, not from checkpoints alone. An authored
+    # course has a checkpoint per module; an ingested iGOT course has modules of
+    # video with a single assessment at the end, so keying on checkpoints hid every
+    # one of its lessons and left that assessment permanently locked.
     modules = []
-    for checkpoint in checkpoints:
-        module_lessons = lessons_by_module.get(checkpoint.module_index, [])
+    for module_index in sorted(set(lessons_by_module) | set(checkpoint_by_module)):
+        module_lessons = lessons_by_module.get(module_index, [])
+        checkpoint = checkpoint_by_module.get(module_index)
         lessons_done = sum(1 for lesson in module_lessons if lesson.id in done_lesson_ids)
-        best = best_by_checkpoint.get(checkpoint.id)
+        best = best_by_checkpoint.get(checkpoint.id) if checkpoint else None
         modules.append(
             {
-                "module_index": checkpoint.module_index,
-                "title": checkpoint.title,
-                "topic_id": checkpoint.topic_id,
-                "topic_name": topic_names.get(checkpoint.topic_id, checkpoint.topic_id),
-                "checkpoint_id": checkpoint.id,
-                "pass_pct": checkpoint.pass_pct,
+                "module_index": module_index,
+                "title": checkpoint.title if checkpoint else f"Module {module_index + 1}",
+                "topic_id": checkpoint.topic_id if checkpoint else "",
+                "topic_name": (
+                    topic_names.get(checkpoint.topic_id, checkpoint.topic_id)
+                    if checkpoint
+                    else f"Module {module_index + 1}"
+                ),
+                "checkpoint_id": checkpoint.id if checkpoint else None,
+                "pass_pct": checkpoint.pass_pct if checkpoint else 0,
                 "lessons": [
                     {
                         "id": lesson.id,
@@ -110,16 +124,24 @@ def course_progress(db: Session, user_id: str, course_identifier: str) -> dict:
                         "title": lesson.title,
                         "duration_min": lesson.duration_min,
                         "completed": lesson.id in done_lesson_ids,
+                        "video_url": lesson.video_url,
                     }
                     for lesson in module_lessons
                 ],
                 "lessons_completed": lessons_done,
                 "lessons_total": len(module_lessons),
-                # The quiz opens only once its videos have been watched.
-                "checkpoint_unlocked": lessons_done == len(module_lessons) and bool(module_lessons),
-                "checkpoint_passed": checkpoint.id in passed_checkpoint_ids,
+                # The quiz opens once its videos have been watched. A checkpoint
+                # with no videos of its own is a course-level final assessment, so
+                # it gates on the whole course instead.
+                "checkpoint_unlocked": bool(checkpoint)
+                and (
+                    lessons_done == len(module_lessons)
+                    if module_lessons
+                    else all_lessons_done
+                ),
+                "checkpoint_passed": bool(checkpoint) and checkpoint.id in passed_checkpoint_ids,
                 "best_score_pct": round(best.score_pct, 1) if best else None,
-                "attempts": attempt_counts.get(checkpoint.id, 0),
+                "attempts": attempt_counts.get(checkpoint.id, 0) if checkpoint else 0,
             }
         )
 
@@ -160,7 +182,8 @@ def next_action(progress: dict, status: str) -> dict | None:
         for lesson in module["lessons"]:
             if not lesson["completed"]:
                 return {"kind": "lesson", "lesson_id": lesson["id"], "label": lesson["title"]}
-        if not module["checkpoint_passed"]:
+        # A module of video with no assessment of its own has nothing to offer here.
+        if module["checkpoint_id"] is not None and not module["checkpoint_passed"]:
             return {
                 "kind": "checkpoint",
                 "checkpoint_id": module["checkpoint_id"],
