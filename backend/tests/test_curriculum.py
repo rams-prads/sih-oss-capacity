@@ -148,3 +148,70 @@ class TestAgainstTheSeededCatalogue:
             assert genuine or total == 1, (
                 f"{course} has {len(singles)} one-video sections with no real grouping"
             )
+
+
+class TestSectionLength:
+    """A section nobody can scan is as unhelpful as one holding a single item."""
+
+    def test_a_long_authored_unit_is_split(self):
+        from app.engines.curriculum import MAX_SECTION
+
+        long_unit = [{"title": "Tips and Tricks", "lessons": [video(f"v{i}") for i in range(27)]}]
+        sections = regroup(long_unit)
+        assert len(sections) > 1
+        assert all(len(s["lessons"]) <= MAX_SECTION for s in sections)
+
+    def test_splitting_keeps_the_name_its_author_gave_it(self):
+        long_unit = [{"title": "Tips and Tricks", "lessons": [video(f"v{i}") for i in range(12)]}]
+        for section in regroup(long_unit):
+            assert section["title"].startswith("Tips and Tricks (")
+
+    def test_a_unit_within_the_limit_is_untouched(self):
+        unit = [{"title": "Getting Started", "lessons": [video(f"v{i}") for i in range(7)]}]
+        assert regroup(unit) == unit
+
+    def test_no_run_of_one_is_left_at_the_end(self):
+        """Cutting 16 into fives would otherwise strand a single video."""
+        for count in (6, 11, 16, 21, 26):
+            sections = regroup(wrapped(*[f"v{i}" for i in range(count)]))
+            assert len(sections[-1]["lessons"]) > 1, count
+
+    def test_splitting_still_loses_nothing(self):
+        titles = [f"v{i}" for i in range(27)]
+        long_unit = [{"title": "Unit", "lessons": [video(t) for t in titles]}]
+        flattened = [l["title"] for s in regroup(long_unit) for l in s["lessons"]]
+        assert flattened == titles
+
+
+class TestSectionTitles:
+    def test_a_section_is_named_after_itself_not_its_quiz(self, db):
+        """The outline titled each section after the checkpoint that closed it,
+        so a regrouped course showed "Assessment: Module 6" over its second
+        section - the right grouping under the wrong number."""
+        from app.engines.progress import course_progress
+
+        progress = course_progress(db, "u-jso-anita", "do_11391537250983936014")
+        titles = [m["title"] for m in progress["modules"] if m["lessons_total"] > 0]
+        if not titles:
+            import pytest
+
+            pytest.skip("course not seeded in this checkout")
+        assert not any(t.lower().startswith("assessment:") for t in titles), titles
+
+    def test_section_numbering_follows_the_order_shown(self, db):
+        from app.engines.progress import course_progress
+
+        progress = course_progress(db, "u-jso-anita", "do_11391537250983936014")
+        sections = [m for m in progress["modules"] if m["lessons_total"] > 0]
+        if len(sections) < 2:
+            import pytest
+
+            pytest.skip("course not seeded in this checkout")
+        # "Videos 1-5" then "Videos 6-10": the first number of each section is
+        # one past the last of the one before it.
+        import re
+
+        spans = [re.findall(r"\d+", m["title"]) for m in sections]
+        if all(len(s) == 2 for s in spans):
+            for earlier, later in zip(spans, spans[1:]):
+                assert int(later[0]) == int(earlier[1]) + 1, spans

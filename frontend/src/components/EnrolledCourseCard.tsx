@@ -73,7 +73,7 @@ export function EnrolledCourseCard({
           <span>Taken on the iGOT portal</span>
         )}
         {course.days_remaining !== null && course.days_remaining <= 30 ? (
-          <span className="font-medium text-saffron-ink">
+          <span className="font-medium text-alert">
             {course.days_remaining} days left
           </span>
         ) : null}

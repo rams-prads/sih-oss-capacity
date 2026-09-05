@@ -136,12 +136,12 @@ function ModuleSection({
                   aria-current={current ? "true" : undefined}
                   className={`flex w-full items-center gap-2.5 border-l-2 py-2.5 pl-4 pr-3 text-left transition ${
                     current
-                      ? "border-saffron bg-saffron-soft"
+                      ? "border-ashoka bg-ashoka-soft"
                       : "border-transparent hover:bg-raised"
                   }`}
                 >
                   {current ? (
-                    <PlayCircleIcon className="shrink-0 text-[18px] text-saffron" />
+                    <PlayCircleIcon className="shrink-0 text-[18px] text-ashoka" />
                   ) : locked ? (
                     <LockIcon className="shrink-0 text-[16px] text-ink-4" />
                   ) : lesson.completed ? (

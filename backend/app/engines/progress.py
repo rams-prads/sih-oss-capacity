@@ -108,7 +108,14 @@ def course_progress(db: Session, user_id: str, course_identifier: str) -> dict:
         modules.append(
             {
                 "module_index": module_index,
-                "title": checkpoint.title if checkpoint else f"Module {module_index + 1}",
+                # The section's own name, not the name of the quiz that ends
+                # it. Falls back to the checkpoint only when a section has no
+                # lessons at all, which is how a final assessment appears.
+                "title": (
+                    next((l.module_title for l in module_lessons if l.module_title), "")
+                    or (checkpoint.title if checkpoint else "")
+                    or f"Section {module_index + 1}"
+                ),
                 "topic_id": checkpoint.topic_id if checkpoint else "",
                 "topic_name": (
                     topic_names.get(checkpoint.topic_id, checkpoint.topic_id)

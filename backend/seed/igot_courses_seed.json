@@ -695,7 +695,7 @@
    "source": "igot",
    "modules": [
     {
-     "title": "Introduction",
+     "title": "Introduction (1–5)",
      "lessons": [
       {
        "title": "Communication skills Introduction",
@@ -721,7 +721,12 @@
        "title": "Express yourself-Skill Set P II",
        "duration_min": 6,
        "url": "https://portal.igotkarmayogi.gov.in/content-store/content/do_1138028114128322561143/artifact/do_1138028114128322561143_1684990586993_5expressyourselfskillset2_5expressyourselfskillset21684990521158.mp4"
-      },
+      }
+     ]
+    },
+    {
+     "title": "Introduction (6–10)",
+     "lessons": [
       {
        "title": "Express yourself-Conclusion",
        "duration_min": 6,
@@ -746,7 +751,12 @@
        "title": "Soft Skills-Work ethics",
        "duration_min": 6,
        "url": "https://portal.igotkarmayogi.gov.in/content-store/content/do_1138020898944122881128/artifact/do_1138020898944122881128_1684825481408_10workethics_10workethics1684825475026.mp4"
-      },
+      }
+     ]
+    },
+    {
+     "title": "Introduction (11–12)",
+     "lessons": [
       {
        "title": "Soft Skills-Team Work A Case Study",
        "duration_min": 15,
@@ -760,7 +770,7 @@
      ]
     },
     {
-     "title": "Parcel Sales Manual",
+     "title": "Parcel Sales Manual (1–5)",
      "lessons": [
       {
        "title": "PSM Sales Overview",
@@ -786,7 +796,12 @@
        "title": "PSM Sales Preparation Part II",
        "duration_min": 5,
        "url": "https://portal.igotkarmayogi.gov.in/content-store/content/do_1138000628783759361105/artifact/do_1138000628783759361105_1684578016805_9665_5psmsalepreparation2_5psmsalepreparation21684578018189.mp4"
-      },
+      }
+     ]
+    },
+    {
+     "title": "Parcel Sales Manual (6–10)",
+     "lessons": [
       {
        "title": "PSM Sales Preparation Part III",
        "duration_min": 5,
@@ -811,7 +826,12 @@
        "title": "PSM Sales Managing Objections",
        "duration_min": 9,
        "url": "https://portal.igotkarmayogi.gov.in/content-store/content/do_113800069339947008183/artifact/do_113800069339947008183_1684578835735_1636_10psmmanagingqueries_10psmmanagingqueries1684578834481.mp4"
-      },
+      }
+     ]
+    },
+    {
+     "title": "Parcel Sales Manual (11–16)",
+     "lessons": [
       {
        "title": "PSM Sales Closing",
        "duration_min": 8,
@@ -891,8 +911,12 @@
     }
    ],
    "outline": [
-    "Introduction",
-    "Parcel Sales Manual",
+    "Introduction (1–5)",
+    "Introduction (6–10)",
+    "Introduction (11–12)",
+    "Parcel Sales Manual (1–5)",
+    "Parcel Sales Manual (6–10)",
+    "Parcel Sales Manual (11–16)",
     "Parcel Products"
    ]
   },
@@ -2067,7 +2091,7 @@
      ]
     },
     {
-     "title": "Tips and Tricks",
+     "title": "Tips and Tricks (1–5)",
      "lessons": [
       {
        "title": "Using Colors with Activity Codes",
@@ -2093,7 +2117,12 @@
        "title": "Quickly Add a Row",
        "duration_min": 1,
        "url": "https://portal.igotkarmayogi.gov.in/content-store/content/do_113873079697244160152/artifact/do_113873079697244160152_1693820098049_quicklyaddarow1693820086298.mp4"
-      },
+      }
+     ]
+    },
+    {
+     "title": "Tips and Tricks (6–10)",
+     "lessons": [
       {
        "title": "Using Drag-and-Drop",
        "duration_min": 1,
@@ -2118,7 +2147,12 @@
        "title": "Navigating Directly to Pages",
        "duration_min": 1,
        "url": "https://portal.igotkarmayogi.gov.in/content-store/content/do_113873090899533824170/artifact/do_113873090899533824170_1693492589045_navigatingdirectlytopages1693492586504.mp4"
-      },
+      }
+     ]
+    },
+    {
+     "title": "Tips and Tricks (11–15)",
+     "lessons": [
       {
        "title": "Setting File Permissions for Mobile Download",
        "duration_min": 1,
@@ -2143,7 +2177,12 @@
        "title": "Managing App Presets",
        "duration_min": 1,
        "url": "https://portal.igotkarmayogi.gov.in/content-store/content/do_113873512395284480154/artifact/do_113873512395284480154_1693544065867_managingapppresets1693544059448.mp4"
-      },
+      }
+     ]
+    },
+    {
+     "title": "Tips and Tricks (16–20)",
+     "lessons": [
       {
        "title": "Using Automatic and Manual Sharing",
        "duration_min": 1,
@@ -2168,7 +2207,12 @@
        "title": "Disabling Auto-Reorganization When Editing Activity Data",
        "duration_min": 1,
        "url": "https://portal.igotkarmayogi.gov.in/content-store/content/do_113873516339847168152/artifact/do_113873516339847168152_1693544544718_disablingautoreorganizationwheneditingactivitydata1693544541227.mp4"
-      },
+      }
+     ]
+    },
+    {
+     "title": "Tips and Tricks (21–25)",
+     "lessons": [
       {
        "title": "Zooming in and Out of Views",
        "duration_min": 1,
@@ -2193,7 +2237,12 @@
        "title": "P6 Style Grid",
        "duration_min": 1,
        "url": "https://portal.igotkarmayogi.gov.in/content-store/content/do_113873522142740480150/artifact/do_113873522142740480150_1693545256101_p6stylegrid1693545252964.mp4"
-      },
+      }
+     ]
+    },
+    {
+     "title": "Tips and Tricks (26–27)",
+     "lessons": [
       {
        "title": "Replace the Project Details Page",
        "duration_min": 1,
@@ -2214,7 +2263,12 @@
     "Reports",
     "Files",
     "Workflows and Forms",
-    "Tips and Tricks"
+    "Tips and Tricks (1–5)",
+    "Tips and Tricks (6–10)",
+    "Tips and Tricks (11–15)",
+    "Tips and Tricks (16–20)",
+    "Tips and Tricks (21–25)",
+    "Tips and Tricks (26–27)"
    ]
   },
   {
@@ -2234,7 +2288,7 @@
    "source": "igot",
    "modules": [
     {
-     "title": "Data Visualization",
+     "title": "Data Visualization (1–5)",
      "lessons": [
       {
        "title": "Video 1",
@@ -2260,7 +2314,12 @@
        "title": "Video 5",
        "duration_min": 2,
        "url": "https://portal.igotkarmayogi.gov.in/content-store/content/do_113885168269238272141/artifact/do_113885168269238272141_1694966900723_uoa_msds_b01_1.6.1_v061694966893394.mp4"
-      },
+      }
+     ]
+    },
+    {
+     "title": "Data Visualization (6–10)",
+     "lessons": [
       {
        "title": "Video 6",
        "duration_min": 2,
@@ -2285,7 +2344,12 @@
        "title": "Video 10",
        "duration_min": 3,
        "url": "https://portal.igotkarmayogi.gov.in/content-store/content/do_113885172602314752197/artifact/do_113885172602314752197_1694967430698_uoa_msds_b01_1.6.1_v111694967413132.mp4"
-      },
+      }
+     ]
+    },
+    {
+     "title": "Data Visualization (11–13)",
+     "lessons": [
       {
        "title": "Video 11",
        "duration_min": 8,
@@ -2304,7 +2368,7 @@
      ]
     },
     {
-     "title": "Common Chart Types - 1",
+     "title": "Common Chart Types - 1 (1–5)",
      "lessons": [
       {
        "title": "Video 14",
@@ -2330,7 +2394,12 @@
        "title": "Video 18",
        "duration_min": 2,
        "url": "https://portal.igotkarmayogi.gov.in/content-store/content/do_1138851861077114881106/artifact/do_1138851861077114881106_1694969093641_uoa_msds_b01_1.6.1_v201694969080651.mp4"
-      },
+      }
+     ]
+    },
+    {
+     "title": "Common Chart Types - 1 (6–10)",
+     "lessons": [
       {
        "title": "Video 19",
        "duration_min": 3,
@@ -2355,7 +2424,12 @@
        "title": "Video 23",
        "duration_min": 7,
        "url": "https://portal.igotkarmayogi.gov.in/content-store/content/do_1138851909778063361103/artifact/do_1138851909778063361103_1694969834621_uoa_msds_b01_1.6.2_ver01_video061694969781477.mp4"
-      },
+      }
+     ]
+    },
+    {
+     "title": "Common Chart Types - 1 (11–15)",
+     "lessons": [
       {
        "title": "Video 24",
        "duration_min": 1,
@@ -2380,7 +2454,12 @@
        "title": "Video 28",
        "duration_min": 1,
        "url": "https://portal.igotkarmayogi.gov.in/content-store/content/do_1138855483779072001102/artifact/do_1138855483779072001102_1695013888520_uoamsdsb011.6.3v031695013880007.mp4"
-      },
+      }
+     ]
+    },
+    {
+     "title": "Common Chart Types - 1 (16–19)",
+     "lessons": [
       {
        "title": "Video 29",
        "duration_min": 5,
@@ -2404,7 +2483,7 @@
      ]
     },
     {
-     "title": "Common Chart Types - 2",
+     "title": "Common Chart Types - 2 (1–5)",
      "lessons": [
       {
        "title": "Video 33",
@@ -2430,7 +2509,12 @@
        "title": "Video 37",
        "duration_min": 1,
        "url": "https://portal.igotkarmayogi.gov.in/content-store/content/do_1138855736692981761110/artifact/do_1138855736692981761110_1695016535302_uoa_msds_b01_1.6.1_v161695016485286.mp4"
-      },
+      }
+     ]
+    },
+    {
+     "title": "Common Chart Types - 2 (6–10)",
+     "lessons": [
       {
        "title": "Video 38",
        "duration_min": 3,
@@ -2460,9 +2544,15 @@
     }
    ],
    "outline": [
-    "Data Visualization",
-    "Common Chart Types - 1",
-    "Common Chart Types - 2"
+    "Data Visualization (1–5)",
+    "Data Visualization (6–10)",
+    "Data Visualization (11–13)",
+    "Common Chart Types - 1 (1–5)",
+    "Common Chart Types - 1 (6–10)",
+    "Common Chart Types - 1 (11–15)",
+    "Common Chart Types - 1 (16–19)",
+    "Common Chart Types - 2 (1–5)",
+    "Common Chart Types - 2 (6–10)"
    ]
   },
   {
@@ -2514,7 +2604,7 @@
      ]
     },
     {
-     "title": "Business Intelligence Process",
+     "title": "Business Intelligence Process (1–5)",
      "lessons": [
       {
        "title": "Video 6",
@@ -2540,7 +2630,12 @@
        "title": "Video 10",
        "duration_min": 1,
        "url": "https://portal.igotkarmayogi.gov.in/content-store/content/do_1138893895269253121168/artifact/do_1138893895269253121168_1695482240664_uoamsdsb011.4.1video101695482237122.mp4"
-      },
+      }
+     ]
+    },
+    {
+     "title": "Business Intelligence Process (6–10)",
+     "lessons": [
       {
        "title": "Video 11",
        "duration_min": 4,
@@ -2565,7 +2660,12 @@
        "title": "Video 15",
        "duration_min": 4,
        "url": "https://portal.igotkarmayogi.gov.in/content-store/content/do_1138893976505139201192/artifact/do_1138893976505139201192_1695483279461_uoamsdsb011.4.1video151695483269648.mp4"
-      },
+      }
+     ]
+    },
+    {
+     "title": "Business Intelligence Process (11–13)",
+     "lessons": [
       {
        "title": "Video 16",
        "duration_min": 5,
@@ -2584,7 +2684,7 @@
      ]
     },
     {
-     "title": "RDBMS and Its Features",
+     "title": "RDBMS and Its Features (1–5)",
      "lessons": [
       {
        "title": "Video 19",
@@ -2610,7 +2710,12 @@
        "title": "Video 23",
        "duration_min": 3,
        "url": "https://portal.igotkarmayogi.gov.in/content-store/content/do_1138898227043942401169/artifact/do_1138898227043942401169_1695535071368_uoamsdsb011.4.2video051695535062301.mp4"
-      },
+      }
+     ]
+    },
+    {
+     "title": "RDBMS and Its Features (6–10)",
+     "lessons": [
       {
        "title": "Video 24",
        "duration_min": 6,
@@ -2635,7 +2740,12 @@
        "title": "Video 28",
        "duration_min": 9,
        "url": "https://portal.igotkarmayogi.gov.in/content-store/content/do_1138899095434936321172/artifact/do_1138899095434936321172_1695545886640_uoamsdsb011.4.2video111695545705823.mp4"
-      },
+      }
+     ]
+    },
+    {
+     "title": "RDBMS and Its Features (11–16)",
+     "lessons": [
       {
        "title": "Video 29",
        "duration_min": 5,
@@ -2669,7 +2779,7 @@
      ]
     },
     {
-     "title": "Basic SQL Querying",
+     "title": "Basic SQL Querying (1–5)",
      "lessons": [
       {
        "title": "Video 35",
@@ -2695,7 +2805,12 @@
        "title": "Video 39",
        "duration_min": 9,
        "url": "https://portal.igotkarmayogi.gov.in/content-store/content/do_1138899851787960321196/artifact/do_1138899851787960321196_1695555604758_uoamsdsb011.4.3introductiontosqlqueryingvideo11695555596232.mp4"
-      },
+      }
+     ]
+    },
+    {
+     "title": "Basic SQL Querying (6–10)",
+     "lessons": [
       {
        "title": "Video 40",
        "duration_min": 8,
@@ -2720,7 +2835,12 @@
        "title": "Video 44",
        "duration_min": 2,
        "url": "https://portal.igotkarmayogi.gov.in/content-store/content/do_113889997766139904199/artifact/do_113889997766139904199_1695556459079_uoamsdsb011.4.3introductiontosqlqueryingvideo51695556453444.mp4"
-      },
+      }
+     ]
+    },
+    {
+     "title": "Basic SQL Querying (11–15)",
+     "lessons": [
       {
        "title": "Video 45",
        "duration_min": 10,
@@ -2745,7 +2865,12 @@
        "title": "Video 49",
        "duration_min": 5,
        "url": "https://portal.igotkarmayogi.gov.in/content-store/content/do_1138901362305433601204/artifact/do_1138901362305433601204_1695573364977_uoamsdsb011.4.3introductiontosqlqueryingvideo91695573355655.mp4"
-      },
+      }
+     ]
+    },
+    {
+     "title": "Basic SQL Querying (16–20)",
+     "lessons": [
       {
        "title": "Video 50",
        "duration_min": 3,
@@ -2770,7 +2895,12 @@
        "title": "Video 54",
        "duration_min": 3,
        "url": "https://portal.igotkarmayogi.gov.in/content-store/content/do_1138901429497528321191/artifact/do_1138901429497528321191_1695574347101_uoamsdsb011.4.2video201695574292705.mp4"
-      },
+      }
+     ]
+    },
+    {
+     "title": "Basic SQL Querying (21–22)",
+     "lessons": [
       {
        "title": "Video 55",
        "duration_min": 5,
@@ -2856,11 +2986,17 @@
    ],
    "outline": [
     "Welcome to Database",
-    "Business Intelligence Process",
-    "RDBMS and Its Features",
-    "Basic SQL Querying",
-    "Advanced Queries - Joins",
-    "Module Summary: Database Design and SQL"
+    "Business Intelligence Process (1–5)",
+    "Business Intelligence Process (6–10)",
+    "Business Intelligence Process (11–13)",
+    "RDBMS and Its Features (1–5)",
+    "RDBMS and Its Features (6–10)",
+    "RDBMS and Its Features (11–16)",
+    "Basic SQL Querying (1–5)",
+    "Basic SQL Querying (6–10)",
+    "Basic SQL Querying (11–15)",
+    "Basic SQL Querying (16–20)",
+    "Basic SQL Querying (21–22)"
    ]
   },
   {
@@ -3083,7 +3219,7 @@
      ]
     },
     {
-     "title": "One and Two-Sample Tests With z and t-Statistics",
+     "title": "One and Two-Sample Tests With z and t-Statistics (1–5)",
      "lessons": [
       {
        "title": "Video 18",
@@ -3109,7 +3245,12 @@
        "title": "Video 22",
        "duration_min": 4,
        "url": "https://portal.igotkarmayogi.gov.in/content-store/content/do_1138963219303546881296/artifact/do_1138963219303546881296_1696328471911_uoamsdsb012.7.5edit01v061696328440023.mp4"
-      },
+      }
+     ]
+    },
+    {
+     "title": "One and Two-Sample Tests With z and t-Statistics (6–9)",
+     "lessons": [
       {
        "title": "Video 23",
        "duration_min": 8,
@@ -3162,7 +3303,8 @@
     "Case Study Introduction",
     "Sampling and Statistical Inferencing",
     "Inferences using Probability Distributions",
-    "One and Two-Sample Tests With z and t-Statistics",
+    "One and Two-Sample Tests With z and t-Statistics (1–5)",
+    "One and Two-Sample Tests With z and t-Statistics (6–9)",
     "One and Two Sample Tests - Binomial Distribution"
    ]
   },
@@ -3472,7 +3614,7 @@
      ]
     },
     {
-     "title": "Pillars of AI/ML Initiative",
+     "title": "Pillars of AI/ML Initiative (1–5)",
      "lessons": [
       {
        "title": "Video 9",
@@ -3498,7 +3640,12 @@
        "title": "Video 13",
        "duration_min": 1,
        "url": "https://portal.igotkarmayogi.gov.in/content-store/content/do_113918300169109504156/artifact/do_113918300169109504156_1699020710431_uoamsdsb018.2.2session2vo051699020699962.mp4"
-      },
+      }
+     ]
+    },
+    {
+     "title": "Pillars of AI/ML Initiative (6–10)",
+     "lessons": [
       {
        "title": "Video 14",
        "duration_min": 5,
@@ -3523,7 +3670,12 @@
        "title": "Video 18",
        "duration_min": 6,
        "url": "https://portal.igotkarmayogi.gov.in/content-store/content/do_113918303229034496158/artifact/do_113918303229034496158_1699022577213_uoamsdsb018.2.2session2vo101699022498057.mp4"
-      },
+      }
+     ]
+    },
+    {
+     "title": "Pillars of AI/ML Initiative (11–15)",
+     "lessons": [
       {
        "title": "Video 19",
        "duration_min": 6,
@@ -3552,7 +3704,7 @@
      ]
     },
     {
-     "title": "Pillars of AI/ML Initiatives",
+     "title": "Pillars of AI/ML Initiatives (1–5)",
      "lessons": [
       {
        "title": "Video 24",
@@ -3578,7 +3730,12 @@
        "title": "Video 28",
        "duration_min": 5,
        "url": "https://portal.igotkarmayogi.gov.in/content-store/content/do_113918308508852224170/artifact/do_113918308508852224170_1699026946630_uoamsdsb018.5.1v071699026924187.mp4"
-      },
+      }
+     ]
+    },
+    {
+     "title": "Pillars of AI/ML Initiatives (6–10)",
+     "lessons": [
       {
        "title": "Video 29",
        "duration_min": 6,
@@ -3603,7 +3760,12 @@
        "title": "Video 33",
        "duration_min": 5,
        "url": "https://portal.igotkarmayogi.gov.in/content-store/content/do_113918311062749184124/artifact/do_113918311062749184124_1699199733776_uoamsdsb018.5.1v131699199715652.mp4"
-      },
+      }
+     ]
+    },
+    {
+     "title": "Pillars of AI/ML Initiatives (11–14)",
+     "lessons": [
       {
        "title": "Video 34",
        "duration_min": 5,
@@ -3627,7 +3789,7 @@
      ]
     },
     {
-     "title": "Case Studies for AI/ML Initiatives",
+     "title": "Case Studies for AI/ML Initiatives (1–5)",
      "lessons": [
       {
        "title": "Video 38",
@@ -3653,7 +3815,12 @@
        "title": "Video 42",
        "duration_min": 6,
        "url": "https://portal.igotkarmayogi.gov.in/content-store/content/do_113918314530594816152/artifact/do_113918314530594816152_1699213184255_uoamsdsb018.5.2v051699213167240.mp4"
-      },
+      }
+     ]
+    },
+    {
+     "title": "Case Studies for AI/ML Initiatives (6–10)",
+     "lessons": [
       {
        "title": "Video 43",
        "duration_min": 6,
@@ -3678,7 +3845,12 @@
        "title": "Video 47",
        "duration_min": 8,
        "url": "https://portal.igotkarmayogi.gov.in/content-store/content/do_113918320170844160151/artifact/do_113918320170844160151_1699214218769_uoamsdsb018.5.2v101699214201925.mp4"
-      },
+      }
+     ]
+    },
+    {
+     "title": "Case Studies for AI/ML Initiatives (11–13)",
+     "lessons": [
       {
        "title": "Video 48",
        "duration_min": 4,
@@ -3699,9 +3871,15 @@
    ],
    "outline": [
     "AI/ML Initiative: Background",
-    "Pillars of AI/ML Initiative",
-    "Pillars of AI/ML Initiatives",
-    "Case Studies for AI/ML Initiatives"
+    "Pillars of AI/ML Initiative (1–5)",
+    "Pillars of AI/ML Initiative (6–10)",
+    "Pillars of AI/ML Initiative (11–15)",
+    "Pillars of AI/ML Initiatives (1–5)",
+    "Pillars of AI/ML Initiatives (6–10)",
+    "Pillars of AI/ML Initiatives (11–14)",
+    "Case Studies for AI/ML Initiatives (1–5)",
+    "Case Studies for AI/ML Initiatives (6–10)",
+    "Case Studies for AI/ML Initiatives (11–13)"
    ]
   },
   {
@@ -5545,7 +5723,7 @@
      ]
     },
     {
-     "title": "Videos 6–10",
+     "title": "Videos 6–11",
      "lessons": [
       {
        "title": "Treasury and State Economy (Kosa)",
@@ -5571,12 +5749,7 @@
        "title": "Relevance of Arthasastra",
        "duration_min": 6,
        "url": "https://portal.igotkarmayogi.gov.in/content-store/content/do_1142585747603619841214/artifact/do_1142585747603619841214_1740548694267_ch14_c101740548676891.mp4"
-      }
-     ]
-    },
-    {
-     "title": "Video 11",
-     "lessons": [
+      },
       {
        "title": "Public Administration in Epics",
        "duration_min": 10,
@@ -5587,8 +5760,7 @@
    ],
    "outline": [
     "Videos 1–5",
-    "Videos 6–10",
-    "Video 11"
+    "Videos 6–11"
    ]
   },
   {
@@ -5771,7 +5943,7 @@
    "source": "igot",
    "modules": [
     {
-     "title": "Videos 1–5",
+     "title": "Videos 1–6",
      "lessons": [
       {
        "title": "Using AI to Create Slide Outlines and Presentation Content",
@@ -5797,12 +5969,7 @@
        "title": "Using Gemini AI to Auto-Generate Presentation Slides",
        "duration_min": 1,
        "url": "https://portal.igotkarmayogi.gov.in/content-store/content/do_1142637308125757441107/artifact/do_1142637308125757441107_1741178082885_20240626googleslidesaipresentation6-made-with-clipchamp1741178077760.mp4"
-      }
-     ]
-    },
-    {
-     "title": "Video 6",
-     "lessons": [
+      },
       {
        "title": "Using AI to Create, Improve, and Download Full Presentations",
        "duration_min": 2,
@@ -5812,8 +5979,7 @@
     }
    ],
    "outline": [
-    "Videos 1–5",
-    "Video 6"
+    "Videos 1–6"
    ]
   },
   {
@@ -6396,7 +6562,7 @@
    "source": "igot",
    "modules": [
     {
-     "title": "Videos 1–5",
+     "title": "Videos 1–6",
      "lessons": [
       {
        "title": "What is Public Policy and Why Public Policies",
@@ -6422,12 +6588,7 @@
        "title": "Policy Process and Policy Cycle",
        "duration_min": 22,
        "url": "https://portal.igotkarmayogi.gov.in/content-store/content/do_1143258174317527041199/artifact/do_1143258174317527041199_1748757062231_module-51748757012143.mp4"
-      }
-     ]
-    },
-    {
-     "title": "Video 6",
-     "lessons": [
+      },
       {
        "title": "Policy Typologies and Politics",
        "duration_min": 26,
@@ -6437,8 +6598,7 @@
     }
    ],
    "outline": [
-    "Videos 1–5",
-    "Video 6"
+    "Videos 1–6"
    ]
   },
   {
@@ -7917,7 +8077,7 @@
    "source": "igot",
    "modules": [
     {
-     "title": "Videos 1–5",
+     "title": "Videos 1–6",
      "lessons": [
       {
        "title": "Legal Foundations and DPI Approach",
@@ -7943,12 +8103,7 @@
        "title": "Implementation Framework and Risk Management",
        "duration_min": 4,
        "url": "https://portal.igotkarmayogi.gov.in/content-store/content/do_114400965426323456155/artifact/do_114400965426323456155_1757930498614_dpi-qs-of-segment-51757930350076.mp4"
-      }
-     ]
-    },
-    {
-     "title": "Video 6",
-     "lessons": [
+      },
       {
        "title": "Implementation Checklist and Global Model",
        "duration_min": 5,
@@ -7958,8 +8113,7 @@
     }
    ],
    "outline": [
-    "Videos 1–5",
-    "Video 6"
+    "Videos 1–6"
    ]
   },
   {
@@ -9034,7 +9188,7 @@
    "source": "igot",
    "modules": [
     {
-     "title": "Videos 1–5",
+     "title": "Videos 1–6",
      "lessons": [
       {
        "title": "Introduction",
@@ -9060,12 +9214,7 @@
        "title": "Paradigm Shift for Making Sustainable Choices",
        "duration_min": 5,
        "url": "https://portal.igotkarmayogi.gov.in/content-store/content/do_11446810359228825611/artifact/do_11446810359228825611_1766125967094_unit-5_paradigm-shift-for-making-sustainable-choices1766125927311.mp4"
-      }
-     ]
-    },
-    {
-     "title": "Video 6",
-     "lessons": [
+      },
       {
        "title": "Summary",
        "duration_min": 1,
@@ -9075,8 +9224,7 @@
     }
    ],
    "outline": [
-    "Videos 1–5",
-    "Video 6"
+    "Videos 1–6"
    ]
   },
   {
@@ -9160,7 +9308,7 @@
    "source": "igot",
    "modules": [
     {
-     "title": "Videos 1–5",
+     "title": "Videos 1–6",
      "lessons": [
       {
        "title": "Cybersecurity Foundations",
@@ -9186,12 +9334,7 @@
        "title": "Organizational Preparedness",
        "duration_min": 38,
        "url": "https://portal.igotkarmayogi.gov.in/content-store/content/do_1144681927199866881953/artifact/do_1144681927199866881953_1766136826456_csg-part51766136806716.mp4"
-      }
-     ]
-    },
-    {
-     "title": "Video 6",
-     "lessons": [
+      },
       {
        "title": "National Legal Frameworks",
        "duration_min": 45,
@@ -9201,8 +9344,7 @@
     }
    ],
    "outline": [
-    "Videos 1–5",
-    "Video 6"
+    "Videos 1–6"
    ]
   },
   {
@@ -9304,7 +9446,7 @@
    "source": "igot",
    "modules": [
     {
-     "title": "Videos 1–5",
+     "title": "Videos 1–6",
      "lessons": [
       {
        "title": "Purchase vs Procurement",
@@ -9330,12 +9472,7 @@
        "title": "Tendering Methods and Procurement Platforms",
        "duration_min": 5,
        "url": "https://portal.igotkarmayogi.gov.in/content-store/content/do_1144819239225917441572/artifact/do_1144819239225917441572_1767813001570_module-5-made-with-clipchamp1767812979742.mp4"
-      }
-     ]
-    },
-    {
-     "title": "Video 6",
-     "lessons": [
+      },
       {
        "title": "GeM-Purchase Acceptance and Payment",
        "duration_min": 4,
@@ -9345,8 +9482,7 @@
     }
    ],
    "outline": [
-    "Videos 1–5",
-    "Video 6"
+    "Videos 1–6"
    ]
   },
   {
@@ -9647,7 +9783,7 @@
      ]
     },
     {
-     "title": "What are Prompts",
+     "title": "What are Prompts (1–5)",
      "lessons": [
       {
        "title": "What are Prompts",
@@ -9673,7 +9809,12 @@
        "title": "Creating content using Generative AI: Demonstration",
        "duration_min": 1,
        "url": "https://portal.igotkarmayogi.gov.in/content-store/content/do_1145244093840916481302/artifact/do_1145244093840916481302_1772999197326_demo_v1_content-creation1772999192564.mp4"
-      },
+      }
+     ]
+    },
+    {
+     "title": "What are Prompts (6–10)",
+     "lessons": [
       {
        "title": "Writing and responding to emails with Generative AI: Demonstration",
        "duration_min": 2,
@@ -9735,7 +9876,8 @@
    "outline": [
     "Introduction: Artificial Intelligence for Karmayogis",
     "When to Use Search Engine or Generative AI",
-    "What are Prompts",
+    "What are Prompts (1–5)",
+    "What are Prompts (6–10)",
     "Artificial Intelligence and You",
     "Conclusion and Congratulations: Artificial Intelligence for Karmayogis"
    ]
@@ -10357,7 +10499,7 @@
      ]
     },
     {
-     "title": "Mastering AI Prompting for HR Functions",
+     "title": "Mastering AI Prompting for HR Functions (1–5)",
      "lessons": [
       {
        "title": "Writing structured and role-based prompts",
@@ -10383,7 +10525,12 @@
        "title": "Generating Structured Interview Questions",
        "duration_min": 6,
        "url": "https://portal.igotkarmayogi.gov.in/content-store/content/do_1145997717243822081170/artifact/do_1145997717243822081170_1782198703602_m2l2v3_generating-structured-interview-questions1782198696313.mp4"
-      },
+      }
+     ]
+    },
+    {
+     "title": "Mastering AI Prompting for HR Functions (6–10)",
+     "lessons": [
       {
        "title": "Automating Candidate Communication",
        "duration_min": 5,
@@ -10408,7 +10555,12 @@
        "title": "Streamlining HR System Integrations",
        "duration_min": 7,
        "url": "https://portal.igotkarmayogi.gov.in/content-store/content/do_1145997732835983361273/artifact/do_1145997732835983361273_1782198898000_m2l3v4_streamlining-hr-system-integrations1782198886696.mp4"
-      },
+      }
+     ]
+    },
+    {
+     "title": "Mastering AI Prompting for HR Functions (11–16)",
+     "lessons": [
       {
        "title": "Automating Employee Onboarding and Exit Processes",
        "duration_min": 6,
@@ -10460,7 +10612,9 @@
    "outline": [
     "How AI generates responses and potential pitfalls",
     "Ensuring AI Reliability in HR",
-    "Mastering AI Prompting for HR Functions",
+    "Mastering AI Prompting for HR Functions (1–5)",
+    "Mastering AI Prompting for HR Functions (6–10)",
+    "Mastering AI Prompting for HR Functions (11–16)",
     "AI Tools and Practical Implementation"
    ]
   },
@@ -10530,7 +10684,7 @@
    "source": "igot",
    "modules": [
     {
-     "title": "Videos 1–5",
+     "title": "Videos 1–6",
      "lessons": [
       {
        "title": "Recognizing and Framing Government Problems",
@@ -10556,12 +10710,7 @@
        "title": "Implementation and Learning from Decisions",
        "duration_min": 15,
        "url": "https://portal.igotkarmayogi.gov.in/content-store/content/do_1146117723000094721127/artifact/do_1146117723000094721127_1783663613553_module-5_-implementation-and-learning-from-decisions1783663658311.mp4"
-      }
-     ]
-    },
-    {
-     "title": "Video 6",
-     "lessons": [
+      },
       {
        "title": "Case study_ Applying the Structured",
        "duration_min": 8,
@@ -10571,8 +10720,7 @@
     }
    ],
    "outline": [
-    "Videos 1–5",
-    "Video 6"
+    "Videos 1–6"
    ]
   },
   {
@@ -10892,7 +11040,7 @@
    "source": "igot",
    "modules": [
     {
-     "title": "Basics of cleaning MIS data",
+     "title": "Basics of cleaning MIS data (1–5)",
      "lessons": [
       {
        "title": "Basics of cleaning MIS data",
@@ -10918,7 +11066,12 @@
        "title": "Introduction to Descriptive Statistics",
        "duration_min": 26,
        "url": "https://portal.igotkarmayogi.gov.in/content-store/content/do_11462398603907891211731/artifact/do_11462398603907891211731_1785156377723_do_113878033683972096110_1694096171311_output4.116940961590951785156252863.mp4"
-      },
+      }
+     ]
+    },
+    {
+     "title": "Basics of cleaning MIS data (6–10)",
+     "lessons": [
       {
        "title": "Basic Visualisations bar column line and stacked charts",
        "duration_min": 29,
@@ -10943,7 +11096,12 @@
        "title": "Principles for formatting data visualisations",
        "duration_min": 10,
        "url": "https://portal.igotkarmayogi.gov.in/content-store/content/do_1146239910529761281633/artifact/do_1146239910529761281633_1785156802577_do_113878104859951104117_1694105881953_5.6principlesforformattingdatavisualisations16941058708091785156676567.mp4"
-      },
+      }
+     ]
+    },
+    {
+     "title": "Basics of cleaning MIS data (11–15)",
+     "lessons": [
       {
        "title": "Making effective presentations (Part 1)",
        "duration_min": 19,
@@ -10968,7 +11126,12 @@
        "title": "Ranking within groups and assigning grades",
        "duration_min": 15,
        "url": "https://portal.igotkarmayogi.gov.in/content-store/content/do_11462399446000435211735/artifact/do_11462399446000435211735_1785155604972_do_113878211777495040111_1694117764821_7.2rankingwithasingleindicator16941177421781785155466597.mp4"
-      },
+      }
+     ]
+    },
+    {
+     "title": "Basics of cleaning MIS data (16–19)",
+     "lessons": [
       {
        "title": "Conceptualising a composite index",
        "duration_min": 11,
@@ -10993,7 +11156,10 @@
     }
    ],
    "outline": [
-    "Basics of cleaning MIS data"
+    "Basics of cleaning MIS data (1–5)",
+    "Basics of cleaning MIS data (6–10)",
+    "Basics of cleaning MIS data (11–15)",
+    "Basics of cleaning MIS data (16–19)"
    ]
   },
   {
@@ -11010,7 +11176,7 @@
    "source": "igot",
    "modules": [
     {
-     "title": "Videos 1–5",
+     "title": "Videos 1–6",
      "lessons": [
       {
        "title": "Introduction to Industry 4.0",
@@ -11036,12 +11202,7 @@
        "title": "The Human Factor in Industry 4.0",
        "duration_min": 7,
        "url": "https://portal.igotkarmayogi.gov.in/content-store/content/do_1146211824455188481316/artifact/do_1146211824455188481316_1784812324980_do_114268605389217792117_the-human-factor-in-industry-4.01784812326964.mp4"
-      }
-     ]
-    },
-    {
-     "title": "Video 6",
-     "lessons": [
+      },
       {
        "title": "Case Studies and Real-world Applications",
        "duration_min": 13,
@@ -11051,8 +11212,7 @@
     }
    ],
    "outline": [
-    "Videos 1–5",
-    "Video 6"
+    "Videos 1–6"
    ]
   },
   {
@@ -11312,7 +11472,7 @@
      ]
     },
     {
-     "title": "Videos 6–10",
+     "title": "Videos 6–11",
      "lessons": [
       {
        "title": "Relevance of Confidence Interval",
@@ -11338,12 +11498,7 @@
        "title": "An Overview of Time Series Data",
        "duration_min": 8,
        "url": "https://portal.igotkarmayogi.gov.in/content-store/content/do_114644406613057536177/artifact/do_114644406613057536177_1787647294045_module_10_statistical-tools-data-driver-and-decision-making1787647291652.mp4"
-      }
-     ]
-    },
-    {
-     "title": "Video 11",
-     "lessons": [
+      },
       {
        "title": "Logistic Curve and its Application",
        "duration_min": 9,
@@ -11354,8 +11509,7 @@
    ],
    "outline": [
     "Videos 1–5",
-    "Videos 6–10",
-    "Video 11"
+    "Videos 6–11"
    ]
   },
   {
@@ -11468,7 +11622,7 @@
    "source": "igot",
    "modules": [
     {
-     "title": "Videos 1–5",
+     "title": "Videos 1–6",
      "lessons": [
       {
        "title": "Introduction to AI and it's applications",
@@ -11494,12 +11648,7 @@
        "title": "Responsible AI Practices and Ethical Considerations",
        "duration_min": 11,
        "url": "https://portal.igotkarmayogi.gov.in/content-store/content/do_1146458673147658241282/artifact/do_1146458673147658241282_1787825603750_do_1146170850127462401803_1784312185501_ai-for-digital-transformation_module-4-part-117843121348321787826172105.mp4"
-      }
-     ]
-    },
-    {
-     "title": "Video 6",
-     "lessons": [
+      },
       {
        "title": "Conclusion",
        "duration_min": 5,
@@ -11509,8 +11658,7 @@
     }
    ],
    "outline": [
-    "Videos 1–5",
-    "Video 6"
+    "Videos 1–6"
    ]
   },
   {

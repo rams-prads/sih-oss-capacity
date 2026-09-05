@@ -16,6 +16,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from sqlalchemy import select  # noqa: E402
 
 from app.db import Base, SessionLocal, engine  # noqa: E402
+from app.engines.curriculum import is_placeholder  # noqa: E402
 from app.engines.video_prompts import answer_timestamp, plan_segments  # noqa: E402
 from app.security import hash_password  # noqa: E402
 from app.models import (  # noqa: E402
@@ -364,19 +365,35 @@ def load_video_assessments(db) -> tuple[int, int]:
         return 0, 0
 
     payload = json.loads(path.read_text(encoding="utf-8"))
+    # Section titles, to fall back on when the unit these questions came from
+    # never had a real name. "Overview of Leaves" is worth keeping as a topic;
+    # "Module 1" tells a learner nothing about what they got wrong.
+    sections = {
+        course["identifier"]: [m.get("title", "") for m in (course.get("modules") or [])]
+        for course in json.loads(
+            (Path(__file__).resolve().parent / "igot_courses_seed.json").read_text(
+                encoding="utf-8"
+            )
+        )["content"]
+    }
     topics = questions = 0
 
     for course_identifier, course in payload.get("courses", {}).items():
         for module in course.get("modules", []):
             if not module.get("questions"):
                 continue
+            index = module["module_index"]
+            course_sections = sections.get(course_identifier, [])
+            label = module["title"]
+            if is_placeholder(label) and index < len(course_sections):
+                label = course_sections[index] or label
             # A topic per module, so topic mastery reports on what was taught rather
             # than lumping a whole course under one label.
             topic_id = f"V{course_identifier[-8:]}-{module['module_index']}"
             db.add(
                 Topic(
                     id=topic_id,
-                    name=module["title"][:200],
+                    name=label[:200],
                     competency_id=module["competency_id"],
                 )
             )
@@ -397,7 +414,7 @@ def load_video_assessments(db) -> tuple[int, int]:
                 Checkpoint(
                     course_identifier=course_identifier,
                     module_index=module["module_index"],
-                    title=f"Assessment: {module['title'][:80]}",
+                    title=f"Assessment: {label[:80]}",
                     topic_id=topic_id,
                     pass_pct=60,
                 )
@@ -457,6 +474,7 @@ def load_igot_curriculum(db) -> tuple[int, int]:
                         course_identifier=course_id,
                         position=position,
                         module_index=module_index,
+                        module_title=module.get("title", ""),
                         title=lesson["title"],
                         topic_id=None,
                         duration_min=lesson.get("duration_min", 5),

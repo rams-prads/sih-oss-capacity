@@ -13,35 +13,40 @@
    --------------------------------------------------------------------------- */
 
 @theme {
-  /* Ground and surfaces - warm, not blue-grey. Paper rather than screen. */
-  --color-ground: #f7f7f5;
+  /* Ground and surfaces. Very slightly cool, so white cards lift off it and
+     the navy below reads as the same family rather than an intrusion. */
+  --color-ground: #f4f6fa;
   --color-surface: #ffffff;
-  --color-raised: #fafaf9;
-  --color-hairline: #ebebe7;
-  --color-hairline-strong: #dbdbd5;
+  --color-raised: #f9fafc;
+  --color-hairline: #e3e8f0;
+  --color-hairline-strong: #cbd3e0;
 
-  /* Ink ramp */
-  --color-ink: #23232b;
-  --color-ink-2: #55555f;
-  --color-ink-3: #6b6b75;
-  --color-ink-4: #75757e;
+  /* Ink ramp. Navy-black rather than neutral grey: a page of pure grey on grey
+     is what made this read as a wireframe instead of a product. */
+  --color-ink: #16223a;
+  --color-ink-2: #465069;
+  --color-ink-3: #5d6883;
+  --color-ink-4: #69738d;
 
-  /* Primary. Near-black, so the accent never competes with a button. */
-  --color-ashoka: #2c2c35;
-  --color-ashoka-2: #3d3d47;
-  --color-ashoka-soft: #f4f4f5;
+  /* Primary. A deep navy carries the interface - buttons, the active lesson,
+     the header - and gives it an identity a grey did not. */
+  --color-ashoka: #1e3a63;
+  --color-ashoka-2: #2b5187;
+  --color-ashoka-soft: #eaf0f8;
 
-  /* The one accent. */
-  --color-saffron: #b0532a;
-  --color-saffron-ink: #8a4223;
-  --color-saffron-soft: #fbf1ea;
+  /* The accent, now the complement of the primary rather than the only colour
+     on screen. It means progress or attention - the played portion of a video,
+     an in-video question, an enrolment running out - and is never decorative.
+     Anything merely active or selected uses the primary instead. */
+  --color-saffron: #b3541f;
+  --color-saffron-ink: #8c4318;
+  --color-saffron-soft: #fdf2e9;
 
-  /* Status only. */
-  --color-chakra: #2f7248;
-  --color-chakra-soft: #f1f8f3;
-  --color-alert: #a83247;
-  --color-alert-soft: #fff1f2;
-
+  /* Status only, never decorative. */
+  --color-chakra: #1f7050;
+  --color-chakra-soft: #eef7f2;
+  --color-alert: #a8304a;
+  --color-alert-soft: #fdf0f3;
 
   /* Type scale. Raised a step across the board: the interface was built on
      11-13px and read as cramped. Line heights are set with the sizes so a
@@ -69,10 +74,10 @@
 :root {
   /* Depth is a hairline plus one soft layer. A minimal interface that still
      stacks heavy shadows is not minimal. */
-  --shadow-flat: 0 1px 1px rgba(22, 22, 26, 0.03);
-  --shadow-sm: 0 1px 2px rgba(22, 22, 26, 0.04);
-  --shadow-md: 0 2px 4px -1px rgba(22, 22, 26, 0.04), 0 8px 20px -6px rgba(22, 22, 26, 0.08);
-  --shadow-lg: 0 4px 8px -2px rgba(22, 22, 26, 0.05), 0 18px 44px -12px rgba(22, 22, 26, 0.14);
+  --shadow-flat: 0 1px 1px rgba(22, 34, 58, 0.04);
+  --shadow-sm: 0 1px 2px rgba(22, 34, 58, 0.05);
+  --shadow-md: 0 2px 4px -1px rgba(22, 34, 58, 0.05), 0 8px 20px -6px rgba(22, 34, 58, 0.09);
+  --shadow-lg: 0 4px 8px -2px rgba(22, 34, 58, 0.06), 0 18px 44px -12px rgba(22, 34, 58, 0.15);
 
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);

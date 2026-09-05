@@ -19,6 +19,12 @@ import re
 # after each one is not a slog.
 SECTION_SIZE = 5
 
+# A section nobody can scan is as unhelpful as a section holding one item. One
+# iGOT unit holds 27 videos under a single heading; opening it buries the rest
+# of the outline. Longer units keep their name and are split into runs within
+# it, so the author's grouping survives and the list stays readable.
+MAX_SECTION = 8
+
 # Words iGOT uses when a unit was never given a name. Followed by a number they
 # carry nothing the position does not already say: "Module 3", "SQL_Resource7".
 GENERIC_WORDS = {"module", "video", "lesson", "unit", "part", "section", "resource", "item"}
@@ -76,6 +82,19 @@ def _best_title(module: dict, lesson: dict) -> str:
     return video or unit
 
 
+def _chunk(lessons: list[dict], size: int) -> list[list[dict]]:
+    """Runs of `size`, with no run of one left at the end.
+
+    Cutting 16 into fives leaves a final run holding a single video, which is
+    the thing this module exists to avoid. The remainder joins the run before
+    it instead.
+    """
+    runs = [lessons[i : i + size] for i in range(0, len(lessons), size)]
+    if len(runs) > 1 and len(runs[-1]) == 1:
+        runs[-2].extend(runs.pop())
+    return runs
+
+
 def regroup(modules: list[dict], section_size: int = SECTION_SIZE) -> list[dict]:
     """Sections worth showing, from whatever the hierarchy gave us.
 
@@ -87,7 +106,7 @@ def regroup(modules: list[dict], section_size: int = SECTION_SIZE) -> list[dict]
     if not modules:
         return []
     if has_real_structure(modules):
-        return modules
+        return [part for m in modules for part in _split_long(m, section_size)]
 
     lessons = []
     for module in modules:
@@ -99,12 +118,13 @@ def regroup(modules: list[dict], section_size: int = SECTION_SIZE) -> list[dict]
         return [{"title": "Course videos", "lessons": lessons}]
 
     sections = []
-    for start in range(0, len(lessons), section_size):
-        chunk = lessons[start : start + section_size]
-        first, last = start + 1, start + len(chunk)
+    seen = 0
+    for chunk in _chunk(lessons, section_size):
+        first, last = seen + 1, seen + len(chunk)
+        seen = last
         sections.append(
             {
-                "title": f"Videos {first}\u2013{last}" if last > first else f"Video {first}",
+                "title": f"Videos {first}–{last}" if last > first else f"Video {first}",
                 "lessons": chunk,
             }
         )
@@ -120,3 +140,22 @@ def remap_module_index(old_index: int, section_size: int = SECTION_SIZE) -> int:
     section is expected, and their questions merge.
     """
     return old_index // section_size
+
+
+def _split_long(module: dict, section_size: int, limit: int = MAX_SECTION) -> list[dict]:
+    """Break a unit that is too long to scan, keeping the name its author gave it."""
+    lessons = module.get("lessons") or []
+    if len(lessons) <= limit:
+        return [module]
+
+    title = module.get("title") or ""
+    parts = []
+    seen = 0
+    for chunk in _chunk(lessons, section_size):
+        first, last = seen + 1, seen + len(chunk)
+        seen = last
+        span = f"{first}–{last}" if last > first else f"{first}"
+        parts.append(
+            {**module, "title": f"{title} ({span})" if title else f"Videos {span}", "lessons": chunk}
+        )
+    return parts

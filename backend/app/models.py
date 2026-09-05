@@ -230,6 +230,11 @@ class Lesson(Base):
     course_identifier: Mapped[str] = mapped_column(String(64), nullable=False, index=True)
     position: Mapped[int] = mapped_column(Integer, nullable=False)
     module_index: Mapped[int] = mapped_column(Integer, default=0)
+    # The section this lesson sits in. Held here because a section's name is a
+    # property of the curriculum, not of the assessment that happens to close
+    # it: the outline used to title each section after its checkpoint, so a
+    # regrouped course showed "Assessment: Module 6" over its second section.
+    module_title: Mapped[str] = mapped_column(String(300), default="")
     title: Mapped[str] = mapped_column(String(300), nullable=False)
     # Authored sandbox lessons belong to a topic; a video ingested from iGOT does
     # not, and forcing one on it would pollute the topic mastery record.
