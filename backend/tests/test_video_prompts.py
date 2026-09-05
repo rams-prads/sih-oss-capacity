@@ -272,3 +272,98 @@ class TestTheyNeverAffectMeasurement:
 
         db.expire_all()
         assert len(response_corpus(db)) == before
+
+
+class TestRewatchTarget:
+    """Where "rewatch this part" sends the learner.
+
+    It used to rewind a fixed sixty seconds from the question, which is
+    arbitrary, and here it was worse than arbitrary: distractors are drawn from
+    the same passage on purpose, so a blind rewind often landed on the material
+    behind a WRONG option and appeared to be teaching it.
+    """
+
+    TRANSCRIPT = (
+        "We begin with an introduction to the topic and why it matters. "  # ~0%
+        "A user defined function lets you define behaviour MySQL does not ship with. "  # ~25%
+        "Moving on, indexes make searches over a large table considerably faster. "  # ~50%
+        "Finally we look at how to tune a query once the index is in place."  # ~75%
+    )
+
+    def test_seeks_to_where_the_answer_was_spoken(self):
+        from app.engines.video_prompts import answer_timestamp
+
+        at = answer_timestamp(
+            self.TRANSCRIPT,
+            "indexes make searches over a large table considerably faster",
+            duration_min=8,
+            prompt_timestamp=460,
+        )
+        # That line sits around the middle of a 480 second lesson.
+        assert 200 <= at <= 300
+
+    def test_two_questions_from_one_passage_get_different_targets(self):
+        """The failure that was reported: every question rewound to the same place."""
+        from app.engines.video_prompts import answer_timestamp
+
+        early = answer_timestamp(
+            self.TRANSCRIPT, "A user defined function lets you define behaviour", 8, 460
+        )
+        late = answer_timestamp(
+            self.TRANSCRIPT, "how to tune a query once the index is in place", 8, 460
+        )
+        assert early < late
+
+    def test_never_lands_on_or_after_the_question(self):
+        """The answer was spoken before it was asked; landing later is useless."""
+        from app.engines.video_prompts import answer_timestamp
+
+        at = answer_timestamp(
+            self.TRANSCRIPT, "how to tune a query once the index is in place", 8, 60
+        )
+        assert at < 60
+
+    def test_a_quote_too_short_to_place_is_not_guessed_at(self):
+        """"movie" appears in the first seconds of a lesson that says it constantly."""
+        from app.engines.video_prompts import locate_quote
+
+        assert locate_quote(self.TRANSCRIPT, "the") is None
+        assert locate_quote(self.TRANSCRIPT, "a query") is None
+
+    def test_a_quote_said_more_than_once_is_not_guessed_at(self):
+        from app.engines.video_prompts import locate_quote
+
+        repeated = "the same distinctive sentence appears twice here. " * 2
+        assert locate_quote(repeated, "the same distinctive sentence appears twice here") is None
+
+    def test_an_unplaceable_quote_falls_back_to_the_passage_start(self):
+        from app.engines.video_prompts import answer_timestamp
+
+        at = answer_timestamp(
+            self.TRANSCRIPT, "xx", duration_min=8, prompt_timestamp=460,
+            segment_start_seconds=120,
+        )
+        assert at == 120
+
+    def test_with_no_fallback_it_still_rewinds_rather_than_doing_nothing(self):
+        from app.engines.video_prompts import answer_timestamp
+
+        at = answer_timestamp(self.TRANSCRIPT, "xx", duration_min=8, prompt_timestamp=460)
+        assert 0 < at < 460
+
+    def test_a_missing_transcript_does_not_crash(self):
+        from app.engines.video_prompts import answer_timestamp, locate_quote
+
+        assert locate_quote("", "anything") is None
+        assert answer_timestamp("", "", 0, 0) == 0
+
+    def test_every_seeded_prompt_has_a_usable_target(self, db):
+        from sqlalchemy import select
+
+        from app.models import VideoPrompt
+
+        prompts = db.scalars(select(VideoPrompt)).all()
+        if not prompts:
+            pytest.skip("no prompts seeded")
+        for prompt in prompts:
+            assert 0 <= prompt.answer_timestamp_seconds < max(1, prompt.timestamp_seconds)

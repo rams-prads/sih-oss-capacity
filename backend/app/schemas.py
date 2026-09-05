@@ -719,6 +719,12 @@ class AnswerPromptOut(BaseModel):
     answer_index: int
     explanation: str = ""
     quote: str = ""
+    # Returned only with the answer, not with the question: a timestamp pointing
+    # at the explanation is a hint, and the rewatch button only appears after
+    # the learner has committed.
+    rewatch_from_seconds: int = Field(
+        default=0, description="Where the answer was explained in the video"
+    )
     graded: bool = Field(
         default=False,
         description="Always false: in-video prompts never affect the competency estimate",

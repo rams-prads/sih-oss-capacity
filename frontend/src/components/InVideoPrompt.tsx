@@ -127,10 +127,11 @@ export function InVideoPrompt({
               </button>
               {!result.correct && onRewatch && (
                 <button
-                  onClick={() => onRewatch(Math.max(0, prompt.timestamp_seconds - 60))}
+                  onClick={() => onRewatch(result.rewatch_from_seconds)}
                   className="rounded-lg border border-slate-300 px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50"
                 >
-                  Rewatch this part
+                  Rewatch from {Math.floor(result.rewatch_from_seconds / 60)}:
+                  {String(result.rewatch_from_seconds % 60).padStart(2, "0")}
                 </button>
               )}
             </>

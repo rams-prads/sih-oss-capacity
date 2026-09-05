@@ -599,6 +599,8 @@ export interface PromptAnswer {
   answer_index: number;
   explanation: string;
   quote: string;
+  /** Where in the video the answer was actually explained. */
+  rewatch_from_seconds: number;
   graded: boolean;
 }
 

@@ -21,6 +21,7 @@ space, so a second viewing asks about different parts of what was said.
 from __future__ import annotations
 
 import math
+import re
 from dataclasses import dataclass, field
 
 from app.engines.embeddings import cosine
@@ -163,3 +164,80 @@ def select_varied(
         remaining.remove(pick)
 
     return chosen
+
+
+# --- where the answer was actually taught ----------------------------------
+# "Rewatch this part" originally rewound a fixed sixty seconds from where the
+# question appeared. That is arbitrary, and it was actively misleading here:
+# distractors are deliberately drawn from the same passage, so a blind rewind
+# often landed on the material behind a WRONG option and appeared to teach it.
+#
+# Every prompt carries the verbatim line that answers it, so we can find where
+# that line falls in the transcript and map it onto the runtime the same way the
+# prompt's own position is estimated.
+REWATCH_LEAD_IN_SECONDS = 8
+
+# A quote has to be long enough to identify one moment. "movie" appears within
+# the first three seconds of a lesson that says it forty times, and seeking
+# there is worse than not trying: the learner is dropped somewhere unrelated and
+# told it is the answer.
+MIN_LOCATABLE_QUOTE = 30
+
+
+def _normalise(text: str) -> str:
+    return re.sub(r"\s+", " ", text or "").strip().lower()
+
+
+def locate_quote(transcript: str, quote: str) -> float | None:
+    """Where in the transcript this line falls, as a fraction from 0 to 1.
+
+    Returns None unless the line is long enough to be distinctive and occurs
+    exactly once, so the caller falls back rather than seeking somewhere
+    confidently wrong.
+    """
+    haystack = _normalise(transcript)
+    needle = _normalise(quote)
+    if not haystack or len(needle) < MIN_LOCATABLE_QUOTE:
+        return None
+
+    occurrences = haystack.count(needle)
+    if occurrences == 1:
+        return haystack.find(needle) / len(haystack)
+    if occurrences > 1:
+        # Said more than once; we cannot tell which time was meant.
+        return None
+
+    # A model sometimes tidies the tail of a quote. The opening is enough,
+    # provided it is still distinctive and unique.
+    head = needle[:MIN_LOCATABLE_QUOTE]
+    if haystack.count(head) == 1:
+        return haystack.find(head) / len(haystack)
+    return None
+
+
+def answer_timestamp(
+    transcript: str,
+    quote: str,
+    duration_min: int,
+    prompt_timestamp: int,
+    segment_start_seconds: int | None = None,
+    lead_in: int = REWATCH_LEAD_IN_SECONDS,
+) -> int:
+    """The second to seek to so the answer is explained just after landing.
+
+    When the quote cannot be placed, fall back to the start of the passage the
+    question was drawn from - still the right part of the lesson, just less
+    precisely. A fixed rewind is the last resort.
+    """
+    duration_seconds = max(1, (duration_min or 1) * 60)
+    ceiling = max(0, prompt_timestamp - 1)
+
+    position = locate_quote(transcript, quote)
+    if position is not None:
+        at = int(duration_seconds * position) - lead_in
+        # Never past the question: the answer was spoken before it was asked.
+        return max(0, min(at, ceiling))
+
+    if segment_start_seconds is not None:
+        return max(0, min(segment_start_seconds, ceiling))
+    return max(0, min(prompt_timestamp - 30, ceiling))

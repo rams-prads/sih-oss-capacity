@@ -398,6 +398,9 @@ class VideoPrompt(Base):
     answer_index: Mapped[int] = mapped_column(Integer, nullable=False)
     explanation: Mapped[str] = mapped_column(Text, default="")
     quotes: Mapped[str] = mapped_column(Text, default="")
+    # Where the answering line was spoken, so "rewatch this part" lands on the
+    # explanation rather than a fixed rewind from the question.
+    answer_timestamp_seconds: Mapped[int] = mapped_column(Integer, default=0)
 
     # Used to keep a pool varied and to avoid serving two questions that are the
     # same question in different words.

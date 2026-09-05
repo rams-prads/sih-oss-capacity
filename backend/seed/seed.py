@@ -16,6 +16,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from sqlalchemy import select  # noqa: E402
 
 from app.db import Base, SessionLocal, engine  # noqa: E402
+from app.engines.video_prompts import answer_timestamp, plan_segments  # noqa: E402
 from app.security import hash_password  # noqa: E402
 from app.models import (  # noqa: E402
     VideoPrompt,
@@ -558,13 +559,33 @@ def load_video_prompts(db) -> int:
         return 0
 
     data = json.loads(path.read_text(encoding="utf-8"))
-    known = {lesson.id for lesson in db.scalars(select(Lesson)).all()}
+    lessons = {lesson.id: lesson for lesson in db.scalars(select(Lesson)).all()}
+    transcripts = {
+        row.lesson_id: row.text
+        for row in db.scalars(select(LessonTranscript)).all()
+    }
+    chunk_rows: dict[int, list[tuple[int, str]]] = {}
+    for chunk in db.scalars(
+        select(TranscriptChunk).order_by(TranscriptChunk.lesson_id, TranscriptChunk.position)
+    ).all():
+        chunk_rows.setdefault(chunk.lesson_id, []).append((chunk.id, chunk.text))
 
     written = 0
     for entry in data.get("lessons", {}).values():
         lesson_id = entry.get("lesson_id")
-        if lesson_id not in known:
+        if lesson_id not in lessons:
             continue
+        transcript = transcripts.get(lesson_id, "")
+        duration = lessons[lesson_id].duration_min
+        # Where each passage begins, so a prompt whose quote cannot be placed
+        # still rewinds to the part of the lesson it was asked about.
+        segment_starts: dict[int, int] = {}
+        chunks = chunk_rows.get(lesson_id, [])
+        if chunks:
+            previous = 0
+            for segment in plan_segments(chunks, duration):
+                segment_starts[segment.index] = previous
+                previous = segment.timestamp_seconds
         for prompt in entry.get("prompts", []):
             db.add(
                 VideoPrompt(
@@ -578,6 +599,13 @@ def load_video_prompts(db) -> int:
                     answer_index=prompt["answer_index"],
                     explanation=prompt.get("explanation", ""),
                     quotes=prompt.get("quote", ""),
+                    answer_timestamp_seconds=answer_timestamp(
+                        transcript,
+                        prompt.get("quote", ""),
+                        duration,
+                        prompt.get("timestamp_seconds", 0),
+                        segment_starts.get(prompt.get("segment_index", 0)),
+                    ),
                     embedding=prompt.get("embedding"),
                 )
             )

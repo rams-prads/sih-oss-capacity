@@ -139,5 +139,6 @@ def answer_prompt(
         answer_index=prompt.answer_index,
         explanation=prompt.explanation,
         quote=prompt.quotes,
+        rewatch_from_seconds=prompt.answer_timestamp_seconds,
         graded=False,
     )
