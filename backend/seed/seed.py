@@ -260,13 +260,44 @@ USERS = [
 ]
 
 # Assessment history feeds the gap-closure metric.
+# Assessments taken over the past few months, oldest first. Several officers are
+# assessed on the same competency more than once, because that is what a system
+# in use looks like - and because a rate of change cannot be measured from a
+# single observation. The capacity forecast reads these: with one assessment per
+# competency it correctly refuses to project anything at all.
 HISTORY = [
-    ("u-jso-anita", "C04", 75.0, 1, 2),
+    # Sampling and survey design: the cadre is moving, slowly.
+    ("u-jso-anita", "C01", 40.0, 0, 1),
     ("u-jso-rakesh", "C01", 82.0, 2, 3),
-    ("u-si-lalita", "C02", 88.0, 2, 3),
+    ("u-jso-farah", "C01", 55.0, 1, 2),
+    ("u-si-lalita", "C01", 70.0, 2, 3),
+
+    # Data quality: assessed repeatedly, barely improving - the case for a
+    # cohort intervention rather than more of the same course.
+    ("u-jso-anita", "C03", 45.0, 1, 1),
+    ("u-jso-farah", "C03", 50.0, 2, 2),
+    ("u-jso-rakesh", "C03", 48.0, 2, 2),
+
+    # Statistical analysis: the strongest movement in the cadre.
+    ("u-jso-anita", "C04", 75.0, 1, 2),
     ("u-da-suresh", "C04", 71.0, 2, 3),
     ("u-da-neha", "C04", 91.0, 3, 4),
+    ("u-si-lalita", "C04", 66.0, 1, 2),
+
+    # Questionnaire and field operations.
+    ("u-si-lalita", "C02", 88.0, 2, 3),
+    ("u-si-vikram", "C02", 60.0, 1, 2),
+
+    # Visualisation: one officer went backwards on a retake, which is real and
+    # should pull the projection down rather than be quietly dropped.
     ("u-da-imran", "C10", 45.0, 1, 1),
+    ("u-da-imran", "C10", 38.0, 1, 0),
+    ("u-da-neha", "C10", 84.0, 2, 3),
+
+    # Office procedure and government rules, for the administrative stream.
+    ("u-jso-farah", "C29", 52.0, 1, 2),
+    ("u-si-vikram", "C29", 44.0, 1, 1),
+    ("u-da-imran", "C30", 58.0, 1, 2),
 ]
 
 
@@ -829,7 +860,9 @@ def run() -> None:
                     per_item=[True] * correct + [False] * (8 - correct),
                     prior_level=prior,
                     new_level=new,
-                    created_at=now - timedelta(days=20 - i),
+                    # Spread across the forecast window rather than the last three weeks,
+                    # so a rate of change has time to be visible in it.
+                    created_at=now - timedelta(days=max(4, 160 - i * 8)),
                 )
             )
 

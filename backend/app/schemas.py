@@ -729,3 +729,37 @@ class AnswerPromptOut(BaseModel):
         default=False,
         description="Always false: in-video prompts never affect the competency estimate",
     )
+
+
+# --- admin: capacity forecast --------------------------------------------
+class CompetencyForecastOut(BaseModel):
+    competency_id: str
+    competency_name: str
+    officers_below_target: int
+    total_gap_levels: float
+    levels_gained: float
+    observations: int
+    levels_per_month: float
+    # None when the record cannot support a rate. Saying so beats guessing.
+    months_to_close: float | None = None
+    basis: str = Field(description="The arithmetic behind the projection, in words.")
+
+
+class StallingCourseOut(BaseModel):
+    course_identifier: str
+    course_name: str = ""
+    enrolled: int
+    completed: int
+    expired: int
+    avg_progress_pct: float
+
+
+class ForecastResponse(BaseModel):
+    department: str
+    window_days: int
+    observed_from: datetime
+    officers: int
+    competencies: list[CompetencyForecastOut] = []
+    widening: list[str] = []
+    stalling_courses: list[StallingCourseOut] = []
+    note: str = ""

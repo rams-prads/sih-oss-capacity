@@ -6,6 +6,7 @@ how many officers meet each role target, and which cohort trainings to schedule.
 from __future__ import annotations
 
 from collections import defaultdict
+from dataclasses import asdict
 from datetime import datetime, timezone
 
 from fastapi import APIRouter, HTTPException, status
@@ -22,6 +23,7 @@ from app.engines.progress import (
     course_progress,
     derive_status,
 )
+from app.engines.forecast import forecast
 from app.engines.gap import compute_gaps_bulk
 from app.engines.recommend import catalogue_coverage, recommend_courses
 from app.models import (
@@ -38,6 +40,7 @@ from app.models import (
 )
 from app.schemas import (
     AdminLearningOverview,
+    ForecastResponse,
     AdminOverview,
     AtRiskEnrolment,
     CourseRollup,
@@ -393,3 +396,19 @@ def department_learning(
         expiring_soon=expiring[:10],
         expired_incomplete=lapsed[:10],
     )
+
+
+@router.get("/admin/forecast", response_model=ForecastResponse)
+def capacity_forecast(
+    _: AdminUser, db: DbSession, department: str | None = None, window_days: int = 180
+):
+    """Where the cadre's capacity is heading, from where it has been.
+
+    The rest of this dashboard is a snapshot. This projects each competency's
+    remaining gap forward at the rate the cadre has actually been closing it,
+    and returns the arithmetic alongside so an administrator can check the
+    number before acting on it.
+    """
+    # asdict, not __dict__: the nested CompetencyForecast entries are dataclasses
+    # too, and Pydantic cannot coerce those from attributes here.
+    return ForecastResponse(**asdict(forecast(db, department, window_days)))
