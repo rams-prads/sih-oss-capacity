@@ -45,7 +45,7 @@ export function TutorAnswer({ reply }: { reply: TutorReply }) {
     <>
       <div className="rounded-xl rounded-bl-sm bg-ground px-3 py-2 text-xs leading-relaxed text-ink">
         <p className="whitespace-pre-line">{reply.answer}</p>
-        <p className="mt-1.5 text-[11px] text-ink-3">{provenance}</p>
+        <p className="mt-1.5 text-2xs text-ink-3">{provenance}</p>
       </div>
 
       {sources.length > 0 && (
@@ -53,7 +53,7 @@ export function TutorAnswer({ reply }: { reply: TutorReply }) {
           {sources.map((source) => (
             <li
               key={`${source.lesson_id}-${source.quote.slice(0, 24)}`}
-              className="rounded-lg border border-hairline bg-surface px-2.5 py-1.5 text-[11px] leading-relaxed text-ink-2"
+              className="rounded-lg border border-hairline bg-surface px-2.5 py-1.5 text-2xs leading-relaxed text-ink-2"
             >
               <p className="font-medium text-ink">{source.lesson_title}</p>
               <p className="mt-0.5 border-l-2 border-hairline-strong pl-2 italic text-ink-3">
@@ -211,7 +211,7 @@ export function CourseTutor({
                         <button
                           key={s}
                           onClick={() => send(s)}
-                          className="rounded-full border border-hairline-strong px-2.5 py-1 text-[11px] text-ink-2 hover:bg-raised"
+                          className="rounded-full border border-hairline-strong px-2.5 py-1 text-2xs text-ink-2 hover:bg-raised"
                         >
                           {s}
                         </button>
@@ -232,7 +232,7 @@ export function CourseTutor({
                 <button
                   key={q}
                   onClick={() => send(q)}
-                  className="rounded-full border border-hairline-strong px-2.5 py-1 text-[11px] text-ink-2 hover:bg-raised"
+                  className="rounded-full border border-hairline-strong px-2.5 py-1 text-2xs text-ink-2 hover:bg-raised"
                 >
                   {q}
                 </button>

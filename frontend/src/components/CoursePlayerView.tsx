@@ -74,7 +74,7 @@ export function CoursePlayerView({
             </p>
           </div>
           <span
-            className={`rounded-full px-2.5 py-1 text-[11px] font-medium ring-1 ring-inset ${meta.pill}`}
+            className={`rounded-full px-2.5 py-1 text-2xs font-medium ring-1 ring-inset ${meta.pill}`}
           >
             {meta.label}
           </span>
@@ -86,7 +86,7 @@ export function CoursePlayerView({
             {course.progress_pct}%
           </span>
         </div>
-        <p className="mt-1.5 text-[11px] text-ink-3">
+        <p className="mt-1.5 text-2xs text-ink-3">
           {course.lessons_completed} of {course.lessons_total} videos
           {course.checkpoints_total > 0
             ? ` \u00b7 ${course.checkpoints_passed} of ${course.checkpoints_total} quizzes passed`

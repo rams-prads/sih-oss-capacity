@@ -18,7 +18,7 @@ export function GapList({
           key={item.competency_id}
           className="group flex items-center gap-4 py-3 first:pt-0 last:pb-0"
         >
-          <span className="w-10 shrink-0 font-mono text-[11px] tabular-nums text-ink-4">
+          <span className="w-10 shrink-0 font-mono text-2xs tabular-nums text-ink-4">
             {item.competency_id}
           </span>
 

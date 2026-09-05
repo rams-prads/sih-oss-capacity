@@ -31,7 +31,7 @@ export function Card({
           <div className="min-w-0">
             {title && <h2 className="text-[15px] font-semibold text-ink">{title}</h2>}
             {subtitle && (
-              <p className="mt-1 max-w-2xl text-[12.5px] leading-relaxed text-ink-3">{subtitle}</p>
+              <p className="mt-1 max-w-2xl text-xs leading-relaxed text-ink-3">{subtitle}</p>
             )}
           </div>
           {right && <div className="shrink-0">{right}</div>}
@@ -65,11 +65,11 @@ export function Stat({
 
   return (
     <div className="rounded-2xl border border-hairline bg-surface px-5 py-4">
-      <p className="text-[11px] font-medium uppercase tracking-[0.08em] text-ink-3">{label}</p>
+      <p className="text-2xs font-medium uppercase tracking-[0.08em] text-ink-3">{label}</p>
       <p className={`mt-2.5 text-[30px] font-semibold leading-none tabular-nums ${tones[tone]}`}>
         {value}
       </p>
-      {hint && <p className="mt-2 text-[12px] leading-snug text-ink-3">{hint}</p>}
+      {hint && <p className="mt-2 text-2xs leading-snug text-ink-3">{hint}</p>}
     </div>
   );
 }
@@ -89,7 +89,7 @@ export function Badge({
   };
   return (
     <span
-      className={`inline-flex items-center rounded-md px-2 py-0.5 text-[11px] font-medium ${tones[tone]}`}
+      className={`inline-flex items-center rounded-md px-2 py-0.5 text-2xs font-medium ${tones[tone]}`}
     >
       {children}
     </span>
@@ -113,7 +113,7 @@ export function Button({
   };
   const sizes = {
     sm: "px-2.5 py-1 text-xs",
-    md: "px-3.5 py-2 text-[13px]",
+    md: "px-3.5 py-2 text-xs",
   };
 
   return (
@@ -126,7 +126,7 @@ export function Button({
 
 export function Empty({ children }: { children: ReactNode }) {
   return (
-    <p className="rounded-xl bg-raised px-4 py-10 text-center text-[13px] text-ink-3">{children}</p>
+    <p className="rounded-xl bg-raised px-4 py-10 text-center text-xs text-ink-3">{children}</p>
   );
 }
 
@@ -136,7 +136,7 @@ export function Empty({ children }: { children: ReactNode }) {
  */
 export function Spinner({ label = "Loading" }: { label?: string }) {
   return (
-    <div className="flex items-center gap-2.5 px-1 py-10 text-[13px] text-ink-3">
+    <div className="flex items-center gap-2.5 px-1 py-10 text-xs text-ink-3">
       <span
         className="h-4 w-4 shrink-0 animate-spin rounded-full border-2 border-hairline-strong border-t-saffron [animation-duration:600ms]"
         aria-hidden
@@ -148,14 +148,14 @@ export function Spinner({ label = "Loading" }: { label?: string }) {
 
 export function ErrorNote({ children }: { children: ReactNode }) {
   return (
-    <p className="rounded-xl bg-alert-soft px-4 py-3 text-[13px] text-alert">{children}</p>
+    <p className="rounded-xl bg-alert-soft px-4 py-3 text-xs text-alert">{children}</p>
   );
 }
 
 /** A quiet caption for provenance and source notes in card headers. */
 export function Meta({ children }: { children: ReactNode }) {
   return (
-    <span className="inline-flex items-center rounded-md bg-ground px-2.5 py-1 text-[11px] font-medium text-ink-3">
+    <span className="inline-flex items-center rounded-md bg-ground px-2.5 py-1 text-2xs font-medium text-ink-3">
       {children}
     </span>
   );

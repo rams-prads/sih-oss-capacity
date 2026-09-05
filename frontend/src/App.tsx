@@ -46,7 +46,7 @@ export default function App() {
             <h1 className="truncate text-[19px] font-semibold leading-tight text-ink">
               {current?.label ?? "Competency Platform"}
             </h1>
-            <p className="mt-0.5 truncate text-[12px] leading-tight text-ink-3">
+            <p className="mt-0.5 truncate text-2xs leading-tight text-ink-3">
               {current?.blurb ?? "Official Statistical System · MoSPI"}
             </p>
           </div>
@@ -68,7 +68,7 @@ export default function App() {
       </main>
 
       <footer className="mx-auto max-w-[82rem] px-8 pb-10">
-        <p className="border-t border-hairline pt-5 text-[11px] leading-relaxed text-ink-4">
+        <p className="border-t border-hairline pt-5 text-2xs leading-relaxed text-ink-4">
           Prototype for Smart India Hackathon 2026 (SIH26101). Course data is served by a local
           sandbox implementing the Sunbird API contract that iGOT Karmayogi is built on. This build
           is not connected to production iGOT.

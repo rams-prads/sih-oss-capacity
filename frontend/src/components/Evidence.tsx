@@ -56,7 +56,7 @@ export function EvidenceChip({ evidence }: { evidence: Evidence }) {
   return (
     <span
       title={meta.explain}
-      className={`rounded-full px-2 py-0.5 text-[11px] font-medium ring-1 ring-inset ${meta.className}`}
+      className={`rounded-full px-2 py-0.5 text-2xs font-medium ring-1 ring-inset ${meta.className}`}
     >
       {meta.label}
     </span>
@@ -68,7 +68,7 @@ export function ActionChip({ action }: { action: GapAction }) {
   return (
     <span
       title={meta.explain}
-      className={`rounded-full px-2 py-0.5 text-[11px] font-medium ring-1 ring-inset ${meta.className}`}
+      className={`rounded-full px-2 py-0.5 text-2xs font-medium ring-1 ring-inset ${meta.className}`}
     >
       {meta.label}
     </span>

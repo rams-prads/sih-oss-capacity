@@ -41,7 +41,7 @@ export function PlayerButton({
       className={`grid place-items-center rounded-md text-white/85 transition
         hover:bg-white/10 hover:text-white focus-visible:outline focus-visible:outline-2
         focus-visible:outline-offset-1 focus-visible:outline-white/60
-        ${size === "lg" ? "h-9 w-9 text-[20px]" : "h-8 w-8 text-[17px]"}`}
+        ${size === "lg" ? "h-11 w-11 text-[26px]" : "h-10 w-10 text-[21px]"}`}
     >
       {children}
     </button>
@@ -107,10 +107,10 @@ export function Timeline({
           if (e.key === "ArrowRight") onSeek(Math.min(safeDuration, currentTime + 5));
           if (e.key === "ArrowLeft") onSeek(Math.max(0, currentTime - 5));
         }}
-        className="relative flex h-4 cursor-pointer items-center focus-visible:outline-none"
+        className="relative flex h-5 cursor-pointer items-center focus-visible:outline-none"
       >
         {/* Track. Grows on hover, the convention everywhere. */}
-        <div className="relative h-[3px] w-full rounded-full bg-white/25 transition-all duration-150 group-hover/track:h-[5px]">
+        <div className="relative h-[5px] w-full rounded-full bg-white/25 transition-all duration-150 group-hover/track:h-[7px]">
           {/* How much has downloaded. */}
           <div
             className="absolute inset-y-0 left-0 rounded-full bg-white/25"
@@ -123,7 +123,7 @@ export function Timeline({
           />
           {/* The handle, revealed on hover so the bar stays quiet at rest. */}
           <span
-            className="absolute top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full
+            className="absolute top-1/2 h-3.5 w-3.5 -translate-x-1/2 -translate-y-1/2 rounded-full
               bg-saffron opacity-0 shadow transition-opacity group-hover/track:opacity-100"
             style={{ left: `${pct(currentTime)}%` }}
           />
@@ -144,7 +144,7 @@ export function Timeline({
                 title={`Question at ${formatTime(prompt.timestamp_seconds)}${done ? " — answered" : ""}`}
                 aria-label={`Jump to the question at ${formatTime(prompt.timestamp_seconds)}`}
                 style={{ left: `${pct(prompt.timestamp_seconds)}%` }}
-                className={`absolute top-1/2 h-[9px] w-[9px] -translate-x-1/2 -translate-y-1/2
+                className={`absolute top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2
                   rounded-full ring-2 ring-black/50 transition hover:scale-125
                   ${done ? "bg-white/45" : "bg-amber-300"}`}
               />
@@ -156,7 +156,7 @@ export function Timeline({
       {hoverAt !== null && safeDuration > 0 && (
         <span
           className="pointer-events-none absolute -top-6 -translate-x-1/2 rounded bg-black/85 px-1.5
-            py-0.5 text-[11px] tabular-nums text-white"
+            py-0.5 text-2xs tabular-nums text-white"
           style={{ left: `${pct(hoverAt)}%` }}
         >
           {formatTime(hoverAt)}
@@ -214,7 +214,7 @@ export function ControlBar({
     <div
       // Stops a click on the bar reaching the video, which would pause it.
       onClick={(e) => e.stopPropagation()}
-      className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/55 to-transparent px-3 pb-2 pt-10"
+      className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/55 to-transparent px-4 pb-3 pt-12"
     >
       <Timeline
         duration={duration}
@@ -225,7 +225,7 @@ export function ControlBar({
         onSeek={onSeek}
       />
 
-      <div className="mt-1 flex items-center gap-1">
+      <div className="mt-1.5 flex items-center gap-1.5">
         <PlayerButton label={playing ? "Pause" : "Play"} onClick={onTogglePlay} size="lg">
           {playing ? <PauseIcon /> : <PlayIcon />}
         </PlayerButton>
@@ -236,7 +236,7 @@ export function ControlBar({
           <ForwardTenIcon />
         </PlayerButton>
 
-        <span className="ml-2 select-none text-[12px] tabular-nums text-white/70">
+        <span className="ml-2.5 select-none text-xs tabular-nums text-white/70">
           {formatTime(currentTime)}
           <span className="mx-1 text-white/35">/</span>
           {formatTime(duration)}
@@ -260,7 +260,7 @@ export function ControlBar({
                       onSpeed(rate);
                       setSpeedOpen(false);
                     }}
-                    className={`block w-full px-4 py-1.5 text-left text-[12px] tabular-nums transition
+                    className={`block w-full px-4 py-2 text-left text-xs tabular-nums transition
                       hover:bg-white/10 ${rate === speed ? "text-saffron" : "text-white/80"}`}
                   >
                     {rate === 1 ? "Normal" : `${rate}x`}
@@ -295,7 +295,7 @@ export function CentrePlay({ onClick }: { onClick: () => void }) {
       className="absolute inset-0 grid place-items-center"
     >
       <span
-        className="grid h-16 w-16 place-items-center rounded-full bg-black/45 text-[26px] text-white
+        className="grid h-20 w-20 place-items-center rounded-full bg-black/45 text-[34px] text-white
           ring-1 ring-white/30 backdrop-blur-sm transition hover:scale-105 hover:bg-black/60"
       >
         <PlayIcon />

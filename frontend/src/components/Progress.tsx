@@ -38,7 +38,7 @@ export function StatusPill({ status }: { status: CourseStatus }) {
   const meta = STATUS_META[status];
   return (
     <span
-      className={`inline-flex items-center gap-1.5 rounded-md px-2 py-0.5 text-[11px] font-medium ring-1 ring-inset ${meta.pill}`}
+      className={`inline-flex items-center gap-1.5 rounded-md px-2 py-0.5 text-2xs font-medium ring-1 ring-inset ${meta.pill}`}
     >
       <span className={`h-1.5 w-1.5 rounded-full ${meta.dot}`} />
       {meta.label}

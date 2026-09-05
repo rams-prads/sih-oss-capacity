@@ -52,8 +52,8 @@ export function CurriculumPanel({
   return (
     <aside className="flex h-full flex-col overflow-hidden rounded-xl border border-hairline bg-surface">
       <header className="border-b border-hairline px-4 py-3">
-        <h2 className="text-[13px] font-semibold text-ink">Course content</h2>
-        <p className="mt-0.5 text-[11px] text-ink-3">
+        <h2 className="text-xs font-semibold text-ink">Course content</h2>
+        <p className="mt-0.5 text-2xs text-ink-3">
           {course.modules.length} module{course.modules.length === 1 ? "" : "s"}
           {" \u00b7 "}
           {course.lessons_total} video{course.lessons_total === 1 ? "" : "s"}
@@ -113,10 +113,10 @@ function ModuleSection({
           }`}
         />
         <span className="min-w-0 flex-1">
-          <span className="block text-[12.5px] font-medium leading-snug text-ink">
+          <span className="block text-xs font-medium leading-snug text-ink">
             {module.title || module.topic_name}
           </span>
-          <span className="mt-0.5 block text-[11px] tabular-nums text-ink-3">
+          <span className="mt-0.5 block text-2xs tabular-nums text-ink-3">
             {module.lessons_completed}/{module.lessons_total} watched
             {minutes > 0 ? ` \u00b7 ${minutes} min` : ""}
           </span>
@@ -150,7 +150,7 @@ function ModuleSection({
                     <CircleIcon className="shrink-0 text-[16px] text-hairline-strong" />
                   )}
                   <span
-                    className={`min-w-0 flex-1 truncate text-[12px] leading-snug ${
+                    className={`min-w-0 flex-1 truncate text-2xs leading-snug ${
                       current
                         ? "font-medium text-ink"
                         : lesson.completed
@@ -160,7 +160,7 @@ function ModuleSection({
                   >
                     {lesson.title}
                   </span>
-                  <span className="inline-flex shrink-0 items-center gap-1 text-[11px] tabular-nums text-ink-4">
+                  <span className="inline-flex shrink-0 items-center gap-1 text-2xs tabular-nums text-ink-4">
                     <ClockIcon className="text-[12px]" />
                     {lesson.duration_min}
                   </span>
@@ -188,10 +188,10 @@ function ModuleSection({
                 ) : (
                   <LockIcon className="shrink-0 text-[14px] text-ink-4" />
                 )}
-                <span className="min-w-0 flex-1 truncate text-[12px] text-ink-2">
+                <span className="min-w-0 flex-1 truncate text-2xs text-ink-2">
                   {module.lessons_total === 0 ? "Final assessment" : "Checkpoint quiz"}
                 </span>
-                <span className="shrink-0 text-[11px] tabular-nums text-ink-4">
+                <span className="shrink-0 text-2xs tabular-nums text-ink-4">
                   {module.best_score_pct !== null
                     ? `${module.best_score_pct}%`
                     : `pass ${module.pass_pct}%`}

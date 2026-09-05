@@ -149,14 +149,14 @@ export function UserMenu({
         aria-expanded={open}
         className="press flex items-center gap-2.5 rounded-xl border border-hairline bg-surface py-1.5 pl-1.5 pr-2.5 hover:border-hairline-strong"
       >
-        <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-ink text-[11px] font-semibold text-white">
+        <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-ink text-2xs font-semibold text-white">
           {active ? initials(active.name) : "—"}
         </span>
         <span className="hidden text-left leading-tight sm:block">
-          <span className="block text-[13px] font-medium text-ink">
+          <span className="block text-xs font-medium text-ink">
             {active?.name ?? "Select officer"}
           </span>
-          <span className="block text-[11px] text-ink-3">{active?.role_name ?? ""}</span>
+          <span className="block text-2xs text-ink-3">{active?.role_name ?? ""}</span>
         </span>
         <svg viewBox="0 0 12 12" className="h-3 w-3 shrink-0 text-ink-4" aria-hidden>
           <path d="M3 4.5 6 7.5l3-3" {...stroke} strokeWidth={1.4} />
@@ -168,7 +168,7 @@ export function UserMenu({
           role="menu"
           className="menu-in absolute right-0 z-50 mt-2 w-72 overflow-hidden rounded-xl border border-hairline bg-surface shadow-[var(--shadow-lg)]"
         >
-          <p className="border-b border-hairline px-3 py-2 text-[11px] font-medium uppercase tracking-[0.08em] text-ink-3">
+          <p className="border-b border-hairline px-3 py-2 text-2xs font-medium uppercase tracking-[0.08em] text-ink-3">
             Viewing as
           </p>
           <div className="max-h-80 overflow-y-auto p-1">
@@ -186,14 +186,14 @@ export function UserMenu({
                     isActive ? "bg-ashoka-soft" : "hover:bg-ground"
                   }`}
                 >
-                  <span className="grid h-7 w-7 shrink-0 place-items-center rounded-md bg-ground text-[10px] font-semibold text-ink-2">
+                  <span className="grid h-7 w-7 shrink-0 place-items-center rounded-md bg-ground text-2xs font-semibold text-ink-2">
                     {initials(user.name)}
                   </span>
                   <span className="min-w-0 flex-1">
-                    <span className="block truncate text-[13px] font-medium text-ink">
+                    <span className="block truncate text-xs font-medium text-ink">
                       {user.name}
                     </span>
-                    <span className="block truncate text-[11px] text-ink-3">{user.role_name}</span>
+                    <span className="block truncate text-2xs text-ink-3">{user.role_name}</span>
                   </span>
                   {isActive && (
                     <svg viewBox="0 0 12 12" className="h-3.5 w-3.5 shrink-0 text-saffron" aria-hidden>

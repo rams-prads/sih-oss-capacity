@@ -46,17 +46,17 @@ export function InVideoPrompt({
       <div className="w-full max-w-xl overflow-hidden rounded-xl bg-surface shadow-lg ring-1 ring-hairline">
         <header className="flex items-center gap-2 border-b border-hairline px-5 py-3">
           <QuestionMarkerIcon className="text-[15px] text-saffron" />
-          <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-ink-3">
+          <p className="text-2xs font-semibold uppercase tracking-[0.08em] text-ink-3">
             Quick check
           </p>
-          <span className="text-[11px] tabular-nums text-ink-4">{stamp(prompt.timestamp_seconds)}</span>
-          <span className="ml-auto rounded-full bg-ashoka-soft px-2.5 py-1 text-[11px] font-medium text-ink-3">
+          <span className="text-2xs tabular-nums text-ink-4">{stamp(prompt.timestamp_seconds)}</span>
+          <span className="ml-auto rounded-full bg-ashoka-soft px-2.5 py-1 text-2xs font-medium text-ink-3">
             Practice, not scored
           </span>
         </header>
 
         <div className="px-5 py-4">
-          <p className="text-[13px] font-medium leading-snug text-ink">{prompt.stem}</p>
+          <p className="text-xs font-medium leading-snug text-ink">{prompt.stem}</p>
 
           <div className="mt-3 space-y-1.5">
             {prompt.options.map((option, index) => {
@@ -66,7 +66,7 @@ export function InVideoPrompt({
                 <label
                   key={index}
                   className={`flex cursor-pointer items-start gap-2.5 rounded-lg border px-3 py-2
-                    text-[13px] leading-snug transition ${
+                    text-xs leading-snug transition ${
                       isAnswer
                         ? "border-chakra/40 bg-chakra-soft"
                         : isWrongPick
@@ -93,7 +93,7 @@ export function InVideoPrompt({
 
           {result && (
             <div
-              className={`mt-3 rounded-lg px-3 py-2.5 text-[12px] leading-relaxed ${
+              className={`mt-3 rounded-lg px-3 py-2.5 text-2xs leading-relaxed ${
                 result.correct
                   ? "bg-chakra-soft text-chakra"
                   : "bg-saffron-soft text-saffron-ink"
@@ -119,7 +119,7 @@ export function InVideoPrompt({
                 type="button"
                 onClick={submit}
                 disabled={chosen === null || busy}
-                className="rounded-lg bg-ashoka px-4 py-2 text-[13px] font-medium text-white
+                className="rounded-lg bg-ashoka px-4 py-2 text-xs font-medium text-white
                   transition hover:bg-ashoka-2 disabled:bg-hairline-strong disabled:text-ink-4"
               >
                 {busy ? "Checking" : "Check answer"}
@@ -127,7 +127,7 @@ export function InVideoPrompt({
               <button
                 type="button"
                 onClick={onDismiss}
-                className="rounded-lg px-3 py-2 text-[13px] text-ink-3 transition hover:text-ink"
+                className="rounded-lg px-3 py-2 text-xs text-ink-3 transition hover:text-ink"
               >
                 Skip
               </button>
@@ -137,7 +137,7 @@ export function InVideoPrompt({
               <button
                 type="button"
                 onClick={onDismiss}
-                className="rounded-lg bg-ashoka px-4 py-2 text-[13px] font-medium text-white transition hover:bg-ashoka-2"
+                className="rounded-lg bg-ashoka px-4 py-2 text-xs font-medium text-white transition hover:bg-ashoka-2"
               >
                 Continue
               </button>
@@ -146,7 +146,7 @@ export function InVideoPrompt({
                   type="button"
                   onClick={() => onRewatch(result.rewatch_from_seconds)}
                   className="inline-flex items-center gap-1.5 rounded-lg border border-hairline-strong
-                    bg-surface px-3 py-2 text-[13px] font-medium text-ink-2 transition hover:bg-raised"
+                    bg-surface px-3 py-2 text-xs font-medium text-ink-2 transition hover:bg-raised"
                 >
                   <ReplayTenIcon className="text-[15px]" />
                   Rewatch from {stamp(result.rewatch_from_seconds)}

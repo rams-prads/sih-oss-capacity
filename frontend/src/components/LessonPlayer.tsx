@@ -274,7 +274,7 @@ export function LessonPlayer({
         )}
       </div>
 
-      <p className="mt-1.5 px-0.5 text-[11px] leading-relaxed text-ink-4">
+      <p className="mt-1.5 px-0.5 text-2xs leading-relaxed text-ink-4">
         Streamed from iGOT Karmayogi. Watching to the end marks it complete here.
         {questionCount > 0 &&
           ` ${questionCount} quick check${questionCount > 1 ? "s" : ""} marked on the timeline, not scored.`}

@@ -38,13 +38,13 @@ export function Heatmap({
       <table className="w-full border-separate border-spacing-[3px] text-xs">
         <thead>
           <tr>
-            <th className="sticky left-0 z-10 bg-surface px-2 py-1 text-left text-[11px] font-medium uppercase tracking-[0.07em] text-ink-3">
+            <th className="sticky left-0 z-10 bg-surface px-2 py-1 text-left text-2xs font-medium uppercase tracking-[0.07em] text-ink-3">
               Officer
             </th>
             {competencies.map((cid) => (
               <th
                 key={cid}
-                className="px-1 py-1 font-mono text-[10px] font-medium text-ink-3"
+                className="px-1 py-1 font-mono text-2xs font-medium text-ink-3"
                 title={stats.find((s) => s.competency_id === cid)?.competency_name}
               >
                 {cid}
@@ -55,7 +55,7 @@ export function Heatmap({
         <tbody>
           {officers.map(([userId, userName]) => (
             <tr key={userId} className="group">
-              <td className="sticky left-0 z-10 max-w-[10rem] truncate bg-surface px-2 py-1 text-[13px] text-ink-2">
+              <td className="sticky left-0 z-10 max-w-[10rem] truncate bg-surface px-2 py-1 text-xs text-ink-2">
                 {userName}
               </td>
               {competencies.map((cid) => {
@@ -73,7 +73,7 @@ export function Heatmap({
                 return (
                   <td key={cid} className="px-0.5 py-0.5">
                     <div
-                      className={`flex h-7 items-center justify-center rounded-md text-[11px] font-semibold tabular-nums transition-transform duration-[140ms] [transition-timing-function:var(--ease-out)] hover:scale-[1.12] ${SHADES[Math.min(cell.gap, 4)]}`}
+                      className={`flex h-7 items-center justify-center rounded-md text-2xs font-semibold tabular-nums transition-transform duration-[140ms] [transition-timing-function:var(--ease-out)] hover:scale-[1.12] ${SHADES[Math.min(cell.gap, 4)]}`}
                       title={`${userName} — ${cid}: attained ${cell.attained_level}, target ${cell.target_level}`}
                     >
                       {cell.gap === 0 ? <CheckCircleIcon className="text-[12px]" /> : cell.gap}
@@ -86,12 +86,12 @@ export function Heatmap({
         </tbody>
       </table>
 
-      <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-2 text-[11px] text-ink-3">
+      <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-2 text-2xs text-ink-3">
         <span className="font-medium uppercase tracking-[0.07em]">Gap</span>
         {SHADES.map((shade, i) => (
           <span key={i} className="flex items-center gap-1.5">
             <span
-              className={`grid h-4 w-6 place-items-center rounded text-[10px] font-semibold ${shade}`}
+              className={`grid h-4 w-6 place-items-center rounded text-2xs font-semibold ${shade}`}
             >
               {i === 0 ? <CheckCircleIcon className="text-[11px]" /> : i}
             </span>

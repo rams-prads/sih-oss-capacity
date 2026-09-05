@@ -51,7 +51,7 @@ export function CourseCard({
         {rec.reason}
       </p>
 
-      <div className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px] text-ink-3">
+      <div className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1 text-2xs text-ink-3">
         <span>{course.provider}</span>
         <span className="text-ink-4" aria-hidden>
           &middot;
@@ -112,13 +112,13 @@ export function CourseCard({
             href={course.url}
             target="_blank"
             rel="noreferrer"
-            className="truncate font-mono text-[11px] text-ink-2 underline decoration-dotted underline-offset-2 transition-colors duration-[180ms] hover:text-ink"
+            className="truncate font-mono text-2xs text-ink-2 underline decoration-dotted underline-offset-2 transition-colors duration-[180ms] hover:text-ink"
             title="Open this course on the iGOT Karmayogi portal"
           >
             {course.identifier}
           </a>
         ) : (
-          <code className="truncate font-mono text-[11px] text-ink-4">{course.identifier}</code>
+          <code className="truncate font-mono text-2xs text-ink-4">{course.identifier}</code>
         )}
         <Button
           size="sm"

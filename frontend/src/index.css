@@ -21,26 +21,45 @@
   --color-hairline-strong: #dbdbd5;
 
   /* Ink ramp */
-  --color-ink: #16161a;
-  --color-ink-2: #52525b;
+  --color-ink: #23232b;
+  --color-ink-2: #55555f;
   --color-ink-3: #6b6b75;
-  --color-ink-4: #8a8a93;
+  --color-ink-4: #75757e;
 
   /* Primary. Near-black, so the accent never competes with a button. */
-  --color-ashoka: #16161a;
-  --color-ashoka-2: #2f2f37;
+  --color-ashoka: #2c2c35;
+  --color-ashoka-2: #3d3d47;
   --color-ashoka-soft: #f4f4f5;
 
   /* The one accent. */
-  --color-saffron: #ea580c;
-  --color-saffron-ink: #9a3412;
-  --color-saffron-soft: #fff4ed;
+  --color-saffron: #b0532a;
+  --color-saffron-ink: #8a4223;
+  --color-saffron-soft: #fbf1ea;
 
   /* Status only. */
-  --color-chakra: #15803d;
+  --color-chakra: #2f7248;
   --color-chakra-soft: #f1f8f3;
-  --color-alert: #be123c;
+  --color-alert: #a83247;
   --color-alert-soft: #fff1f2;
+
+
+  /* Type scale. Raised a step across the board: the interface was built on
+     11-13px and read as cramped. Line heights are set with the sizes so a
+     denser page does not become a wall. */
+  --text-2xs: 0.75rem;      /* 12px - the smallest thing allowed on screen */
+  --text-2xs--line-height: 1.45;
+  --text-xs: 0.8125rem;     /* 13px */
+  --text-xs--line-height: 1.5;
+  --text-sm: 0.9375rem;     /* 15px */
+  --text-sm--line-height: 1.55;
+  --text-base: 1.0625rem;   /* 17px */
+  --text-base--line-height: 1.6;
+  --text-lg: 1.1875rem;     /* 19px */
+  --text-lg--line-height: 1.5;
+  --text-xl: 1.375rem;      /* 22px */
+  --text-xl--line-height: 1.4;
+  --text-2xl: 1.625rem;     /* 26px */
+  --text-2xl--line-height: 1.3;
 
   --font-sans: "Inter Variable", "Inter", ui-sans-serif, system-ui, "Segoe UI",
     Roboto, sans-serif;
@@ -133,7 +152,7 @@ h1, h2, h3 { letter-spacing: -0.018em; }
   background: var(--color-ink);
   color: #fff;
   padding: 0.3125rem 0.5rem;
-  font-size: 11px;
+  font-size: var(--text-2xs);
   font-weight: 500;
   transition: opacity 140ms var(--ease-out), transform 140ms var(--ease-out);
   transition-delay: 400ms;
