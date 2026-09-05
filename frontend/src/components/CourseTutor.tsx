@@ -30,6 +30,8 @@ const OPENERS = [
  * go and check the quote.
  */
 export function TutorAnswer({ reply }: { reply: TutorReply }) {
+  // A server older than this build sends no sources array at all.
+  const sources = reply.sources ?? [];
   const provenance =
     reply.source === "record"
       ? "From your record on this course"
@@ -46,9 +48,9 @@ export function TutorAnswer({ reply }: { reply: TutorReply }) {
         <p className="mt-1.5 text-[11px] text-ink-3">{provenance}</p>
       </div>
 
-      {reply.sources.length > 0 && (
+      {sources.length > 0 && (
         <ul className="space-y-1">
-          {reply.sources.map((source) => (
+          {sources.map((source) => (
             <li
               key={`${source.lesson_id}-${source.quote.slice(0, 24)}`}
               className="rounded-lg border border-hairline bg-surface px-2.5 py-1.5 text-[11px] leading-relaxed text-ink-2"

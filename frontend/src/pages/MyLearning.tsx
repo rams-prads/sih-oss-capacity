@@ -17,6 +17,7 @@ import { CourseProgressCard } from "../components/CourseProgressCard";
 import { ProgressBar, STATUS_META } from "../components/Progress";
 import { TopicMasteryPanel } from "../components/TopicMasteryPanel";
 import { Card, Empty, ErrorNote, Spinner } from "../components/ui";
+import { ErrorBoundary } from "../components/ErrorBoundary";
 
 const FILTERS: { key: CourseStatus | "all"; label: string }[] = [
   { key: "all", label: "All" },
@@ -215,7 +216,9 @@ export default function MyLearning({ userId }: { userId: string }) {
       </Card>
 
       {courses.length > 0 && (
-        <CourseTutor userId={userId} courses={courses} onWatchLesson={handleWatch} />
+        <ErrorBoundary label="The tutor">
+          <CourseTutor userId={userId} courses={courses} onWatchLesson={handleWatch} />
+        </ErrorBoundary>
       )}
 
       <Card
