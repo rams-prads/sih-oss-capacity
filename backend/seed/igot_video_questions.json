@@ -1,1075 +1,998 @@
 {
-  "_comment": "Module assessments generated from the iGOT lesson videos themselves by scripts/generate_video_quizzes.py: each video was transcribed and the questions written from that transcript, then put through the same validity gate as any other generated item. Committed so the app runs these assessments with no API key, no network and no cost - the key is only needed to regenerate.",
-  "courses": {
-    "do_11428343573406515212": {
-      "course_name": "Soft Skills",
-      "modules": [
-        {
-          "module_index": 0,
-          "title": "Introduction",
-          "competency_id": "C15",
-          "questions": [
-            {
-              "stem": "According to the lesson, what is the primary reason why soft skills are essential in the context of the Indian Railways?",
-              "options": [
-                "Because they are a requirement for getting promoted to a management position.",
-                "Because railway work cannot be performed single-handedly and requires cooperation.",
-                "Because hard skills are no longer considered necessary for railway operations.",
-                "Because they are the only way to effectively manage time and delegation."
-              ],
-              "answer_index": 1,
-              "explanation": "The lesson states that in Indian Railways, the importance of soft skills is immense because no work can be performed single-handedly and requires cooperation and support.",
-              "difficulty": 0.2
-            },
-            {
-              "stem": "How does the lesson characterize the historical focus on professional skills compared to the present scenario?",
-              "options": [
-                "Traditionally, there was too much focus on soft skills, whereas now we focus on hard skills.",
-                "Traditionally, we focused on hard skills, but today those alone are not enough.",
-                "Traditionally, both were ignored, but now soft skills are the only priority.",
-                "Traditionally, we focused on team management, whereas now we focus on delegation."
-              ],
-              "answer_index": 1,
-              "explanation": "The lesson states that traditionally, focus was on hard skills, but in the present scenario, that is not enough.",
-              "difficulty": 0.3
-            },
-            {
-              "stem": "Which of the following is explicitly listed as a soft skill in the lesson?",
-              "options": [
-                "Technical proficiency",
-                "Data analysis",
-                "Empathy",
-                "System architecture"
-              ],
-              "answer_index": 2,
-              "explanation": "The lesson lists communication, teamwork, time management, empathy, and delegation as diverse skills needed for career success.",
-              "difficulty": 0.2
-            },
-            {
-              "stem": "What observation does the lesson make regarding the current state of soft skills training?",
-              "options": [
-                "It is the primary focus of all professional development programs worldwide.",
-                "It is undervalued and receives less training despite being needed for efficient job performance.",
-                "It is widely available but generally considered less important than technical hard skills.",
-                "It is only relevant for senior management and not for sub-ordinates."
-              ],
-              "answer_index": 1,
-              "explanation": "The lesson states that the importance of soft skills is often undervalued and there is less training in the subject, even though they are needed for performing the job efficiently.",
-              "difficulty": 0.4
-            }
-          ]
-        },
-        {
-          "module_index": 2,
-          "title": "Soft Skills Part II",
-          "competency_id": "C15",
-          "questions": [
-            {
-              "stem": "According to the lesson, which soft skill is defined as the process of raising awareness about gender equality and encouraging behavior changes?",
-              "options": [
-                "Professionalism",
-                "Work Ethics",
-                "Gender sensitization",
-                "Interpersonal Skills"
-              ],
-              "answer_index": 2,
-              "explanation": "The lesson explicitly states that gender sensitization is the process of raising awareness about gender equality and encouraging behavior changes.",
-              "difficulty": 0.2
-            },
-            {
-              "stem": "Which of the following is NOT listed as a component of the 'Communication' soft skill for young managers?",
-              "options": [
-                "Oral and speaking capability",
-                "Written communication",
-                "Listening",
-                "Sense of humour"
-              ],
-              "answer_index": 3,
-              "explanation": "The lesson categorizes 'sense of humour' under Interpersonal Skills, while oral capability, written communication, and listening are listed under Communication.",
-              "difficulty": 0.5
-            },
-            {
-              "stem": "How does the lesson characterize communication as a process?",
-              "options": [
-                "A one-way process focused on speaking clearly",
-                "A two-way process involving both sending and receiving information",
-                "A hierarchical process reserved for senior leaders",
-                "A process primarily focused on writing concise reports"
-              ],
-              "answer_index": 1,
-              "explanation": "The lesson states that communication is a two-way process, involving both the sending and receiving of information.",
-              "difficulty": 0.3
-            },
-            {
-              "stem": "Which of the following is identified in the lesson as a method to build a foundation of trust and understanding for strong interpersonal relationships?",
-              "options": [
-                "Work ethics",
-                "Empathy",
-                "Flexibility",
-                "Gender sensitivity"
-              ],
-              "answer_index": 1,
-              "explanation": "The lesson lists five ways to build interpersonal relationships, one of which is empathy, defined as trying to understand and share the feelings of others.",
-              "difficulty": 0.4
-            }
-          ]
-        }
-      ]
-    },
-    "do_1146492969644113921128": {
-      "course_name": "Leave Rules and Management in Government Service",
-      "modules": [
-        {
-          "module_index": 0,
-          "title": "Overview of Leaves",
-          "competency_id": "C32",
-          "questions": [
-            {
-              "stem": "Which of the following is true regarding the Central Civil Services (Leave) Rules, 1972?",
-              "options": [
-                "They apply to all government servants, including Railway employees.",
-                "They apply to all government servants, including members of All India Services.",
-                "They do not apply to Railway employees and members of All India Services.",
-                "They came into force on January 01, 1972."
-              ],
-              "answer_index": 2,
-              "explanation": "The lesson states that the rules govern all government servants with the exception of Railway employees and members of All India Services, who are governed by separate rules.",
-              "difficulty": 0.2
-            },
-            {
-              "stem": "Under the general conditions of leave, which of the following is accurate regarding Casual Leave (CL)?",
-              "options": [
-                "CL can be combined with any other kind of regular leave.",
-                "CL cannot be combined with any kind of leave.",
-                "CL can be combined with Special Casual Leave but not regular leave.",
-                "CL can be combined with Restricted Holidays."
-              ],
-              "answer_index": 1,
-              "explanation": "The lesson explicitly states that while regular leave can be combined with other leaves, 'CL cannot be combined with any kind of leave.'",
-              "difficulty": 0.4
-            },
-            {
-              "stem": "What is the consequence of being recalled from leave if the Government Servant is outside India?",
-              "options": [
-                "They must pay for their own passage back to India.",
-                "The time spent on the voyage to India does not count as duty.",
-                "They are provided free passage to India.",
-                "They are not entitled to leave salary from the date of recall."
-              ],
-              "answer_index": 2,
-              "explanation": "The transcript states that for leave outside India, the government servant is granted free passage to India upon being recalled.",
-              "difficulty": 0.6
-            },
-            {
-              "stem": "Regarding leave on a Medical Certificate, which of the following is correct according to Rule 19 (6)?",
-              "options": [
-                "The authority may waive the production of a medical certificate for leave not exceeding three days.",
-                "A medical certificate is never required for non-gazetted government servants.",
-                "Any leave granted without a medical certificate is automatically treated as medical leave.",
-                "A fitness certificate is not required to resume duty after medical leave."
-              ],
-              "answer_index": 0,
-              "explanation": "The lesson states that under Rule 19 (6), the competent authority may waive the medical certificate requirement for leave periods not exceeding three days, but such leave is not treated as medical leave.",
-              "difficulty": 0.5
-            }
-          ]
-        },
-        {
-          "module_index": 1,
-          "title": "Debitable Leaves",
-          "competency_id": "C32",
-          "questions": [
-            {
-              "stem": "What is the rule regarding the accrual of Earned Leaves for an employee who joins in the middle of a six-month cycle?",
-              "options": [
-                "15 leaves are credited immediately upon joining.",
-                "2.5 leaves per completed calendar month are credited.",
-                "1/10th of their previous EOL is credited.",
-                "No leaves are credited until the next six-month cycle begins."
-              ],
-              "answer_index": 1,
-              "explanation": "The lesson states that in case an employee joins in the middle of the six months, 2.5 leaves per completed calendar month are credited to their account.",
-              "difficulty": 0.2
-            },
-            {
-              "stem": "How is the deduction calculated for Half Pay Leave (HPL) when an employee takes Commuted Leave?",
-              "options": [
-                "An equal number of days are deducted from the HPL balance.",
-                "1/18th of the commuted leave period is deducted.",
-                "Double the number of commuted leaves taken are deducted from the HPL balance.",
-                "Commuted leave does not impact the HPL balance."
-              ],
-              "answer_index": 2,
-              "explanation": "The transcript explicitly mentions that two times the number of commuted leaves are deducted from HPLs.",
-              "difficulty": 0.3
-            },
-            {
-              "stem": "Under what condition is the salary recovered if an employee resigns or retires while on Leave Not Due (LND)?",
-              "options": [
-                "The salary is always recovered regardless of the reason for leaving.",
-                "Salary is recovered unless the retirement is due to ill health, premature retirement, or death.",
-                "Salary is recovered only if the employee has less than one year of service.",
-                "Salary is never recovered if the employee provides a medical certificate."
-              ],
-              "answer_index": 1,
-              "explanation": "The lesson states that salary paid is recovered if the employee leaves service, but specifies that salary is not recovered when retirement is due to ill health, premature retirement, or in the event of death.",
-              "difficulty": 0.5
-            },
-            {
-              "stem": "What is the maximum duration of Extra-ordinary Leave (EOL) that can be granted to a permanent employee at a stretch?",
-              "options": [
-                "3 months",
-                "6 months",
-                "18 months",
-                "5 years"
-              ],
-              "answer_index": 3,
-              "explanation": "The transcript states that a maximum of 5 years of Extra-ordinary Leave at a stretch can be granted to permanent employees.",
-              "difficulty": 0.2
-            }
-          ]
-        },
-        {
-          "module_index": 2,
-          "title": "Non-Debitable Leaves",
-          "competency_id": "C32",
-          "questions": [
-            {
-              "stem": "What is the maximum duration of Maternity Leave granted to a female Government servant with less than two surviving children for childbirth?",
-              "options": [
-                "45 days",
-                "180 days",
-                "730 days",
-                "2 years"
-              ],
-              "answer_index": 1,
-              "explanation": "The lesson states that Maternity Leave is granted for a maximum period of 180 days for child birth to an employee with less than two surviving children.",
-              "difficulty": 0.2
-            },
-            {
-              "stem": "Under what condition can a male Government servant be granted Child Care Leave?",
-              "options": [
-                "If he has less than two surviving children.",
-                "If he is a single parent of a disabled child.",
-                "If his spouse is employed in the private sector.",
-                "He is not eligible for Child Care Leave under any circumstances."
-              ],
-              "answer_index": 1,
-              "explanation": "The lesson specifies that Child Care Leave is granted to female Government servants, but notes it may be granted to a single male employee in the case of disabled children.",
-              "difficulty": 0.6
-            },
-            {
-              "stem": "Which of the following is true regarding Paternity Leave?",
-              "options": [
-                "It is granted for 30 days within a period of 6 months.",
-                "It is only granted for biological children, not adopted children.",
-                "It is granted for 15 days within a period of 6 months.",
-                "It is granted to male Government servants regardless of the number of surviving children."
-              ],
-              "answer_index": 2,
-              "explanation": "The lesson states that Paternity Leave is granted for 15 days, within a period of 6 months, and is granted in case of adoption of a child as well.",
-              "difficulty": 0.4
-            },
-            {
-              "stem": "What is the maximum number of spells per calendar year for Child Care Leave for a single female employee?",
-              "options": [
-                "1 spell",
-                "2 spells",
-                "3 spells",
-                "6 spells"
-              ],
-              "answer_index": 3,
-              "explanation": "The lesson states that Child Care Leave cannot be granted in more than 3 spells in a calendar year, but it may be granted in six spells to a single female employee.",
-              "difficulty": 0.7
-            }
-          ]
-        }
-      ]
-    },
-    "do_113827558681935872125": {
-      "course_name": "Introduction to Leveraging AI and ChatGPT",
-      "modules": [
-        {
-          "module_index": 1,
-          "title": "Communicating with AI",
-          "competency_id": "C10",
-          "questions": [
-            {
-              "stem": "According to the lesson, what is the definition of a 'prompt' in the context of AI interaction?",
-              "options": [
-                "The process of training an AI model until a specific cutoff date",
-                "Any instruction or text written to the AI from the human side",
-                "The specific output or response generated by the artificial intelligence",
-                "The field of study focused on improving machine learning algorithms"
-              ],
-              "answer_index": 1,
-              "explanation": "The lesson explicitly defines a prompt as every interaction or instruction that comes from the human side to the AI.",
-              "difficulty": 0.2
-            },
-            {
-              "stem": "How does the AI respond to the use of repetition in prompts?",
-              "options": [
-                "It interprets repetition as a sign of an error and resets the context",
-                "It understands repetition, leading to different outcomes based on the degree of emphasized words",
-                "It treats repeated phrases as a command to cite specific government sources",
-                "It ignores repetition entirely to save processing power"
-              ],
-              "answer_index": 1,
-              "explanation": "The lesson states that AI understands repetition, citing that asking for 'beautiful' versus 'very, very, very unrealistically beautiful' leads to different outcomes.",
-              "difficulty": 0.4
-            },
-            {
-              "stem": "Why does the lesson advise against sharing confidential information with AI bots?",
-              "options": [
-                "Because all data shared in conversations is considered public and used in the research process",
-                "Because AI models are strictly limited to information available before September 2021",
-                "Because AI bots are incapable of processing confidential or sensitive data",
-                "Because Samsung and Apple have legally banned all AI usage globally"
-              ],
-              "answer_index": 0,
-              "explanation": "The lesson notes that all conversations shared with ChatGPT are public and that users are the 'beta trial' for these models, advising against sharing confidential info.",
-              "difficulty": 0.3
-            },
-            {
-              "stem": "What does the term 'hallucination' refer to in the context of AI?",
-              "options": [
-                "The AI's ability to express human-like emotions through flattery",
-                "The tendency of an AI to correct human code to be more readable",
-                "The AI lying or making up things that never happened",
-                "The process of the AI browsing the internet to verify sources"
-              ],
-              "answer_index": 2,
-              "explanation": "The lesson defines a lying AI as a hallucinating AI, specifically because it makes up things that never happened.",
-              "difficulty": 0.2
-            }
-          ]
-        },
-        {
-          "module_index": 2,
-          "title": "Way Forward",
-          "competency_id": "C10",
-          "questions": [
-            {
-              "stem": "Which of the following is mentioned as a key limitation or characteristic of Bard in the lesson?",
-              "options": [
-                "It has a usage limit of 25 prompts every 3 hours.",
-                "It does not keep your chat history.",
-                "It is powered by the Wolfram Alpha plugin.",
-                "It is available for a monthly fee of $20."
-              ],
-              "answer_index": 1,
-              "explanation": "The lesson explicitly states that Bard does not keep your chat history.",
-              "difficulty": 0.2
-            },
-            {
-              "stem": "According to the lesson, what is the primary difference between ChatGPT 3.5 and ChatGPT 4?",
-              "options": [
-                "ChatGPT 4 is free, whereas ChatGPT 3.5 requires a paid subscription.",
-                "ChatGPT 4 is limited to 25 prompts every 24 hours.",
-                "The difference in capability is more around reasoning than the quality of output in other aspects.",
-                "ChatGPT 3.5 has browsing capabilities, while ChatGPT 4 does not."
-              ],
-              "answer_index": 2,
-              "explanation": "The lesson states that the difference in capability between the models is more around reasoning rather than the quality of output in other aspects.",
-              "difficulty": 0.5
-            },
-            {
-              "stem": "What is identified as a reason for the prompt limitations on ChatGPT 4?",
-              "options": [
-                "The company is severely crunched on bandwidth.",
-                "The model is currently in a beta testing phase.",
-                "The system prioritizes users with the Wolfram Alpha plugin.",
-                "The model does not have browsing capabilities enabled for all users."
-              ],
-              "answer_index": 0,
-              "explanation": "The lesson states that ChatGPT 4 has a limit of 25 prompts per 3 hours because the company is severely crunched on bandwidth.",
-              "difficulty": 0.3
-            },
-            {
-              "stem": "Which statement regarding ChatGPT 4's features is supported by the transcript?",
-              "options": [
-                "It is restricted from accessing any web-based information.",
-                "It includes access to plugins like Wolfram Alpha.",
-                "It is recommended for obtaining reliable financial advice.",
-                "It is the version the training was primarily based on."
-              ],
-              "answer_index": 1,
-              "explanation": "The lesson notes that ChatGPT 4 has a set of plugins available, such as Wolfram Alpha, which also powers Siri.",
-              "difficulty": 0.4
-            }
-          ]
-        }
-      ]
-    },
-    "do_11391537250983936014": {
-      "course_name": "Advanced Concepts in SQL",
-      "modules": [
-        {
-          "module_index": 0,
-          "title": "Module 1",
-          "competency_id": "C03",
-          "questions": [
-            {
-              "stem": "According to the session, what is the primary benefit of using a stored procedure?",
-              "options": [
-                "To create standard SQL functions that are not already available in MySQL.",
-                "To store code that is run regularly, allowing for customization through parameterization.",
-                "To optimize database performance by indexing large tables.",
-                "To organize code by defining user-defined functions (UDFs)."
-              ],
-              "answer_index": 1,
-              "explanation": "The transcript states that a stored procedure is used to store code you run regularly, which can be parameterized to make it customizable and avoid rewriting code from scratch.",
-              "difficulty": 0.3
-            },
-            {
-              "stem": "What is the purpose of creating an index in MySQL, as mentioned in the lesson?",
-              "options": [
-                "To improve the readability and reusability of the code.",
-                "To help the SQL compiler understand the order of select statement clauses.",
-                "To assist with operations that require searching a large database.",
-                "To compare the efficiency of joins versus nested queries."
-              ],
-              "answer_index": 2,
-              "explanation": "The lesson explicitly states that for any operation requiring a search of a big database, it helps to make an index in MySQL.",
-              "difficulty": 0.2
-            },
-            {
-              "stem": "Why does the lesson suggest studying the order in which the SQL compiler executes select statement clauses?",
-              "options": [
-                "To help tune queries so the compiler can run them more efficiently.",
-                "To determine when to use a user-defined function versus a stored procedure.",
-                "To decide whether to use a join or a nested query.",
-                "To learn how to write more readable and reusable code."
-              ],
-              "answer_index": 0,
-              "explanation": "The transcript explains that understanding the execution order helps in tuning queries so that the SQL compiler has an easier job running them efficiently.",
-              "difficulty": 0.5
-            },
-            {
-              "stem": "How are user-defined functions (UDFs) described in the training session?",
-              "options": [
-                "As a method to parameterize code for daily report queries.",
-                "As a way to make the SQL compiler execute statements more efficiently.",
-                "As a tool to organize code and define functions not already available in MySQL.",
-                "As an alternative to using indexes for searching big databases."
-              ],
-              "answer_index": 2,
-              "explanation": "The transcript defines a UDF as something available in MySQL used to define functions for uses that are not already readily available through standard SQL functions.",
-              "difficulty": 0.4
-            }
-          ]
-        },
-        {
-          "module_index": 1,
-          "title": "Module 2",
-          "competency_id": "C03",
-          "questions": [
-            {
-              "stem": "According to the lesson, what is a primary benefit of using User Defined Functions (UDFs)?",
-              "options": [
-                "They eliminate the need for SQL syntax",
-                "They improve code readability",
-                "They are mandatory for all MySQL calculations",
-                "They replace the need for parameters"
-              ],
-              "answer_index": 1,
-              "explanation": "The lesson explicitly states that one of the reasons to use UDFs is that they improve code readability.",
-              "difficulty": 0.2
-            },
-            {
-              "stem": "Which of the following is a mandatory requirement for the body of a MySQL UDF definition?",
-              "options": [
-                "It must contain at least two RETURN statements",
-                "It must exclude the use of parameters",
-                "It must contain one RETURN statement",
-                "It must use the 'SELECT' keyword inside the function body"
-              ],
-              "answer_index": 2,
-              "explanation": "The transcript states in the example section that the function body must contain one RETURN statement.",
-              "difficulty": 0.3
-            },
-            {
-              "stem": "What is the correct sequence of actions performed by a MySQL UDF?",
-              "options": [
-                "Perform calculations, accept parameters, and return a value",
-                "Accept parameters, perform actions, and return a result",
-                "Return a value, accept parameters, and perform complex calculations",
-                "Accept parameters, return a value, and then perform calculations"
-              ],
-              "answer_index": 1,
-              "explanation": "The lesson defines UDFs as functions that accept parameter(s), perform action(s), and return the result of the action as a value.",
-              "difficulty": 0.4
-            },
-            {
-              "stem": "In the provided example 'age_today', what is the purpose of the 'RETURNS INT' clause?",
-              "options": [
-                "It defines the data type of the result returned by the function",
-                "It declares the data type of the parameter being passed",
-                "It specifies the number of calculations to be performed",
-                "It indicates that the function body contains multiple return statements"
-              ],
-              "answer_index": 0,
-              "explanation": "The syntax section shows 'RETURNS datatype' as part of the function definition, which specifies the return type; in the example, 'RETURNS INT' defines that the function returns an integer.",
-              "difficulty": 0.5
-            }
-          ]
-        },
-        {
-          "module_index": 3,
-          "title": "Module 4",
-          "competency_id": "C03",
-          "questions": [
-            {
-              "stem": "Which of the following is a key limitation of User Defined Functions (UDFs) mentioned in the lesson?",
-              "options": [
-                "UDFs cannot be used to query data from a table.",
-                "UDFs cannot execute code blocks or batches to perform actions like updating a source table.",
-                "UDFs cannot accept input parameters of any kind.",
-                "UDFs are object files that cannot be used in SELECT statements."
-              ],
-              "answer_index": 1,
-              "explanation": "The lesson states that UDFs cannot execute code blocks or code batches, meaning they cannot be used to perform tasks like updating or adding columns to a source table.",
-              "difficulty": 0.2
-            },
-            {
-              "stem": "What is defined as an object file in SQL that stores code blocks allowing for repeated execution?",
-              "options": [
-                "A UDF (User Defined Function)",
-                "A SQL built-in function like CONCAT or ABS",
-                "A Stored Procedure",
-                "A Delimiter"
-              ],
-              "answer_index": 2,
-              "explanation": "The lesson defines stored procedures as object files in SQL that store code blocks, allowing them to be run repeatedly with or without parameters.",
-              "difficulty": 0.1
-            },
-            {
-              "stem": "According to the provided syntax for creating a stored procedure, where should the main body of the procedure be written?",
-              "options": [
-                "Before the DELIMITER command",
-                "After the CALL statement",
-                "Between the BEGIN and END keywords",
-                "Immediately after the procedure name definition"
-              ],
-              "answer_index": 2,
-              "explanation": "The lesson explains that between the 'BEGIN' and 'END' keywords is where you write the main body of your procedure.",
-              "difficulty": 0.3
-            },
-            {
-              "stem": "Regarding the execution of stored procedures, what does the lesson state is required?",
-              "options": [
-                "The procedure definition must be written before the call statement.",
-                "The delimiter must remain changed to '$$' for all subsequent SQL queries.",
-                "A UDF must be created as a prerequisite to every stored procedure.",
-                "The procedure must always be called with at least two input parameters."
-              ],
-              "answer_index": 0,
-              "explanation": "The lesson explicitly states that the definition for the procedure must be written before you write the call statement.",
-              "difficulty": 0.4
-            }
-          ]
-        },
-        {
-          "module_index": 4,
-          "title": "Module 5",
-          "competency_id": "C03",
-          "questions": [
-            {
-              "stem": "Which two variables are mentioned as inputs for the stored procedure in the movie schema example?",
-              "options": [
-                "The movie title and the release year",
-                "The age limit and the date for age calculation",
-                "The genre and the actor count",
-                "The database name and the table ID"
-              ],
-              "answer_index": 1,
-              "explanation": "The lesson states that the variables taken as inputs for the procedure are the age limit to enforce and the date on which to calculate the ages.",
-              "difficulty": 0.2
-            },
-            {
-              "stem": "According to the lesson, where is the code for a stored procedure written?",
-              "options": [
-                "Inside the 'Schemas' window",
-                "Within the 'Copy to Clipboard' function",
-                "Between the 'BEGIN' and 'END' keywords",
-                "Directly in the drop-down menu"
-              ],
-              "answer_index": 2,
-              "explanation": "The lesson explicitly states that the code for the procedure must be written between the 'BEGIN' and 'END' keywords.",
-              "difficulty": 0.3
-            },
-            {
-              "stem": "What action does the lesson suggest performing before creating a stored procedure?",
-              "options": [
-                "Refreshing the entire schema",
-                "Deleting the table views",
-                "Dropping the procedure if it already exists",
-                "Copying the create statement to the clipboard"
-              ],
-              "answer_index": 2,
-              "explanation": "The transcript states that, much like for UDFs, a line is added to drop the procedure if it already exists before creating it.",
-              "difficulty": 0.4
-            },
-            {
-              "stem": "What is the primary benefit of accessing the stored procedure via the 'Schemas' window menu?",
-              "options": [
-                "It allows you to increase the execution speed of the procedure.",
-                "It allows you to retrieve the creation statement even if you lack the original SQL file.",
-                "It allows you to automatically update the movie data to the current year.",
-                "It allows you to delete all functions within the schema."
-              ],
-              "answer_index": 1,
-              "explanation": "The lesson notes that this is beneficial because you can retrieve the creation statement even if you don't have the original SQL code file.",
-              "difficulty": 0.5
-            }
-          ]
-        },
-        {
-          "module_index": 5,
-          "title": "Module 6",
-          "competency_id": "C03",
-          "questions": [
-            {
-              "stem": "Regarding the return requirements of SQL objects, which of the following statements is correct according to the lesson?",
-              "options": [
-                "Stored procedures must return a value, while UDFs are optional.",
-                "UDFs must return a value to be used as a SQL column, while stored procedures have the option to return or not.",
-                "Both stored procedures and UDFs are required to return a value.",
-                "Neither stored procedures nor UDFs are required to return a value."
-              ],
-              "answer_index": 1,
-              "explanation": "The lesson states that for a UDF, it is mandatory to return something, whereas stored procedures give you the option to either return a value or not.",
-              "difficulty": 0.2
-            },
-            {
-              "stem": "Which of the following describes the difference in compilation between stored procedures and UDFs?",
-              "options": [
-                "Both are compiled every time they are executed.",
-                "Both are compiled only once.",
-                "Stored procedures are compiled once, while UDFs are compiled every time they are called or executed.",
-                "UDFs are compiled once, while stored procedures are compiled every time they are called."
-              ],
-              "answer_index": 2,
-              "explanation": "The transcript states that a stored procedure is only compiled once, while user-defined functions are compiled every time they are called or executed.",
-              "difficulty": 0.3
-            },
-            {
-              "stem": "Which capability is exclusive to stored procedures compared to UDFs?",
-              "options": [
-                "The ability to use SELECT clauses.",
-                "The ability to use input parameters.",
-                "The ability to use try-catch blocks for error handling.",
-                "The ability to call other functions."
-              ],
-              "answer_index": 2,
-              "explanation": "The lesson mentions that stored procedures can use try-catch blocks to handle errors and exceptions, which is something you cannot do in UDFs.",
-              "difficulty": 0.4
-            },
-            {
-              "stem": "When considering the scope of commands available to UDFs, which limitation is specified?",
-              "options": [
-                "UDFs can only use the SELECT clause.",
-                "UDFs can use SELECT, INSERT, UPDATE, and DELETE statements.",
-                "UDFs can only be used for DDL statements.",
-                "UDFs cannot use any DML or DDL statements."
-              ],
-              "answer_index": 0,
-              "explanation": "The transcript explicitly states that a UDF can only use the SELECT clause, while stored procedures have a variety of DDL and DML statements available.",
-              "difficulty": 0.3
-            }
-          ]
-        },
-        {
-          "module_index": 6,
-          "title": "Module 7",
-          "competency_id": "C03",
-          "questions": [
-            {
-              "stem": "According to the lesson, what is the primary benefit of indexing a column in a database table?",
-              "options": [
-                "It allows for faster data insertion into the table.",
-                "It makes the lookup process for specific values in that column more efficient.",
-                "It automatically sorts the table by all existing columns.",
-                "It reduces the total number of columns required in a table."
-              ],
-              "answer_index": 1,
-              "explanation": "The lesson states that indexing helps when you have a column you need to look up often, making that specific lookup more efficient.",
-              "difficulty": 0.2
-            },
-            {
-              "stem": "When a table is NOT sorted by the column you are querying, how does the compiler typically perform the search?",
-              "options": [
-                "It searches only the first and last rows of the table.",
-                "It compares the value in every single row from start to finish.",
-                "It stops searching immediately after finding one matching row.",
-                "It randomly samples rows until a match is found."
-              ],
-              "answer_index": 1,
-              "explanation": "The lesson explains that if a table is not sorted by the target column, the compiler must compare the value for each row from start to finish.",
-              "difficulty": 0.3
-            },
-            {
-              "stem": "In a table sorted by the 'language' column, why can the compiler stop searching after encountering a language other than 'English'?",
-              "options": [
-                "Because the compiler is programmed to stop after a fixed number of operations.",
-                "Because the table structure restricts the number of languages allowed.",
-                "Because once the target language changes, no further matches can exist in the sorted data.",
-                "Because it has reached the memory limit for the search operation."
-              ],
-              "answer_index": 2,
-              "explanation": "The lesson states that in a sorted table, once a different language is found, you know to stop because there is no possibility of another English movie appearing later.",
-              "difficulty": 0.4
-            },
-            {
-              "stem": "How does sorting a table by the queried column affect the search process?",
-              "options": [
-                "It shortens the search space and requires fewer operations.",
-                "It eliminates the need to use an index on the table.",
-                "It forces the compiler to re-index the entire table.",
-                "It makes the lookup slower but more accurate."
-              ],
-              "answer_index": 0,
-              "explanation": "The lesson explains that a sorted table shortens the search space, which results in performing fewer operations to complete the filtering.",
-              "difficulty": 0.3
-            }
-          ]
-        },
-        {
-          "module_index": 8,
-          "title": "Module 9",
-          "competency_id": "C03",
-          "questions": [
-            {
-              "stem": "According to the lesson, why is it important for officers to understand the execution order of SQL clauses?",
-              "options": [
-                "To ensure the query syntax matches the standard SQL documentation exactly.",
-                "To write the most efficient version of the query and get results faster.",
-                "To ensure that the SELECT clause is always prioritized by the compiler.",
-                "To prevent errors when writing the LIMIT clause at the beginning of a query."
-              ],
-              "answer_index": 1,
-              "explanation": "The lesson states that learning the execution order helps you write the best, most efficient version of your query to get answers quicker.",
-              "difficulty": 0.2
-            },
-            {
-              "stem": "Which clauses should be prioritized for optimization to achieve the best performance improvements, according to the lesson?",
-              "options": [
-                "SELECT and LIMIT clauses.",
-                "SELECT and FROM clauses.",
-                "FROM and WHERE clauses.",
-                "WHERE and LIMIT clauses."
-              ],
-              "answer_index": 2,
-              "explanation": "The lesson explains that optimizing the FROM and WHERE clauses saves more time than optimizing the SELECT clause because they are executed earlier.",
-              "difficulty": 0.3
-            },
-            {
-              "stem": "When is the LIMIT clause executed in a MySQL query?",
-              "options": [
-                "Before the WHERE clause to reduce the number of rows processed.",
-                "Immediately after the FROM clause to filter the tables.",
-                "Simultaneously with the SELECT clause.",
-                "After all other clauses in the query have been executed."
-              ],
-              "answer_index": 3,
-              "explanation": "The lesson explicitly states that in MySQL, LIMIT is executed last, after all other clauses in the query are executed.",
-              "difficulty": 0.2
-            },
-            {
-              "stem": "What is the impact of changing the number of rows specified in the LIMIT clause on query performance?",
-              "options": [
-                "It significantly reduces the processing time of the query.",
-                "It has almost no impact on how quickly the query runs and gets results.",
-                "It allows the compiler to optimize the SELECT clause more effectively.",
-                "It forces the WHERE clause to run after the LIMIT is applied."
-              ],
-              "answer_index": 1,
-              "explanation": "The lesson states that because LIMIT is executed last, playing around with the number of LIMIT rows has almost no impact on how quickly the query runs.",
-              "difficulty": 0.4
-            }
-          ]
-        },
-        {
-          "module_index": 9,
-          "title": "Module 10",
-          "competency_id": "C03",
-          "questions": [
-            {
-              "stem": "Which tables and columns are required to identify parties at fault for collisions in Los Angeles?",
-              "options": [
-                "The collisions table (at_fault column) and the parties table (county_location column).",
-                "The parties table (at_fault column) and the collisions table (county_location column).",
-                "The collisions table (case_id column) and the parties table (at_fault column).",
-                "The parties table (case_id column) and the collisions table (at_fault column)."
-              ],
-              "answer_index": 1,
-              "explanation": "The lesson states that the parties table contains the 'at_fault' column, while the collisions table contains the 'county_location' column required to identify collisions in Los Angeles.",
-              "difficulty": 0.2
-            },
-            {
-              "stem": "What was the result of creating an index on the 'case_id' column in the parties table?",
-              "options": [
-                "It allowed for more columns to be returned in the result set.",
-                "It increased the query execution time significantly.",
-                "It reduced the query execution time from 0.159 seconds to 0.0015 seconds.",
-                "It replaced the need to use a nested query altogether."
-              ],
-              "answer_index": 2,
-              "explanation": "The lesson explains that indexing the 'case_id' column made the nested query execution much faster, specifically reducing the time from 0.159 seconds to 0.0015 seconds.",
-              "difficulty": 0.3
-            },
-            {
-              "stem": "According to the lesson, why is a JOIN generally preferred over a nested query for efficiency?",
-              "options": [
-                "JOINs execute the WHERE condition before the FROM clause.",
-                "SQL internally uses an indexing mechanism when executing joins to match columns.",
-                "JOINs always require less memory than nested queries.",
-                "Nested queries cannot handle filtering by collision location."
-              ],
-              "answer_index": 1,
-              "explanation": "The lesson states that SQL internally uses an indexing mechanism to match columns during a join, making joins very efficient and generally preferred over nested queries.",
-              "difficulty": 0.5
-            },
-            {
-              "stem": "In the context of the lesson, what does the number '10' represent in the command to create an index?",
-              "options": [
-                "The number of tables to be joined.",
-                "The maximum number of rows to be indexed.",
-                "The first 10 characters of the case_id column used for the index.",
-                "The number of seconds saved by creating the index."
-              ],
-              "answer_index": 2,
-              "explanation": "The transcript explicitly states that the number 10 indicates that the first 10 characters of the case_id column are used to create the index.",
-              "difficulty": 0.4
-            }
-          ]
-        },
-        {
-          "module_index": 10,
-          "title": "Module 11",
-          "competency_id": "C03",
-          "questions": [
-            {
-              "stem": "According to the lesson, when should you use table aliases in your SQL statements?",
-              "options": [
-                "Whenever the table names are shorter than five characters.",
-                "Only when the query contains more than three joins.",
-                "Whenever a statement involves more than one source, such as a join.",
-                "Only when you are performing calculations on column variables."
-              ],
-              "answer_index": 2,
-              "explanation": "The lesson states that you should always use table aliases for SQL statements that involve more than one source, such as when a query has a join.",
-              "difficulty": 0.3
-            },
-            {
-              "stem": "Which of the following is the recommended casing convention for SQL according to the lesson?",
-              "options": [
-                "Keywords in lowercase, column and table names in uppercase.",
-                "Keywords in uppercase, column and table names in lowercase.",
-                "Keywords and column names both in uppercase.",
-                "Keywords and column names both in lowercase."
-              ],
-              "answer_index": 1,
-              "explanation": "The lesson specifies that all SQL keywords should be in capital letters, while column, table, and variable names should always be in lowercase.",
-              "difficulty": 0.2
-            },
-            {
-              "stem": "What is the primary reason the lesson advises using best practices like indentation and specific casing in SQL?",
-              "options": [
-                "SQL will produce errors if these formatting best practices are not followed.",
-                "These practices are mandatory requirements for SQL databases to process queries correctly.",
-                "The database engine runs significantly faster when code is properly indented and commented.",
-                "SQL will run without error regardless of these practices, but they make the code easier to comprehend."
-              ],
-              "answer_index": 3,
-              "explanation": "The lesson explains that SQL will still run without error if these practices aren't followed, but they are recommended because they help you comprehend and figure out what the code is doing more quickly.",
-              "difficulty": 0.4
-            },
-            {
-              "stem": "Regarding the SELECT clause, what does the lesson recommend to improve readability?",
-              "options": [
-                "Write all column names on a single line separated by commas for conciseness.",
-                "Group column names into pairs on the same line to reduce the number of lines.",
-                "Place each column name on a different line.",
-                "Always include comments before every column selected in the list."
-              ],
-              "answer_index": 2,
-              "explanation": "The lesson advises that instead of writing columns in one line, it helps to write all column names in different lines to make it easier to figure out what you are getting from the source table.",
-              "difficulty": 0.3
-            }
-          ]
-        },
-        {
-          "module_index": 11,
-          "title": "Module 12",
-          "competency_id": "C03",
-          "questions": [
-            {
-              "stem": "According to the lesson, what is the primary purpose of adding indentation to SQL queries?",
-              "options": [
-                "To optimize the execution speed of the database engine.",
-                "To improve the readability of the code.",
-                "To ensure that keywords follow the correct case convention.",
-                "To define the alias for the inner query."
-              ],
-              "answer_index": 1,
-              "explanation": "The lesson states that indentation makes it obvious what is being selected and helps with the readability of the code.",
-              "difficulty": 0.2
-            },
-            {
-              "stem": "Which logic is used to join the 'market fact full' table and the 'customer dimension' table?",
-              "options": [
-                "M.customer_ID = C.customer_ID",
-                "M.sales = C.sales",
-                "M.order_ID = C.order_ID",
-                "M.customer_name = C.customer_name"
-              ],
-              "answer_index": 0,
-              "explanation": "The lesson specifies the join logic as M.customer_ID being equal to C.customer_ID.",
-              "difficulty": 0.3
-            },
-            {
-              "stem": "What is the recommended best practice regarding the use of 'AS' keywords in aliases?",
-              "options": [
-                "The 'AS' keyword should always be omitted to save space.",
-                "The 'AS' keyword should be used only for outer queries.",
-                "The 'AS' keywords should be converted to the correct case.",
-                "The 'AS' keyword should be replaced with tabs for better readability."
-              ],
-              "answer_index": 2,
-              "explanation": "The lesson notes that many 'AS' keywords used to assign aliases were not in the right case and should be converted.",
-              "difficulty": 0.4
-            },
-            {
-              "stem": "Why does the instructor suggest that using column names with aliases (e.g., C.sales) is a best practice?",
-              "options": [
-                "It is required by the database engine to execute the query correctly.",
-                "It allows the query to run faster by bypassing schema checks.",
-                "It makes it easier to understand the source of each column later.",
-                "It is mandatory when using window functions."
-              ],
-              "answer_index": 2,
-              "explanation": "The lesson states that writing column names with aliases makes it easier to understand where each column came from later down the line.",
-              "difficulty": 0.5
-            }
-          ]
-        }
-      ]
-    },
-    "do_1134149423736668161390": {
-      "course_name": "A Course on Environmental Social and Governance",
-      "modules": [
-        {
-          "module_index": 1,
-          "title": "Index related institutions",
-          "competency_id": "C31",
-          "questions": [
-            {
-              "stem": "According to the transcript, which of the following is a primary objective of the Sustainability Accounting Standards Board (SASB)?",
-              "options": [
-                "To specifically monitor real estate sector energy usage.",
-                "To track communications and establish the basis for sustainability actions through industry-specific standards.",
-                "To mandate climate stress tests for all global financial institutions.",
-                "To provide a framework for the power generation sector's ESG risk atlas."
-              ],
-              "answer_index": 1,
-              "explanation": "The lesson states that the Sustainability Accounting Standards Board helps track communications and the basis for sustainability actions, with respect to specific industry standards that vary across sectors.",
-              "difficulty": 0.3
-            },
-            {
-              "stem": "What is the primary purpose of mandating 'climate stress tests' for industry, as discussed in the lesson?",
-              "options": [
-                "To provide a comprehensive understanding of the spread and depth of impacts infrastructure would be exposed to due to climate change.",
-                "To ensure that companies can immediately increase their stock dividends for individual investors.",
-                "To replace the need for materiality assessments within the power sector.",
-                "To allow financial regulators to audit the personal safety records of individual company employees."
-              ],
-              "answer_index": 0,
-              "explanation": "The transcript defines climate stress tests as a way to present a comprehensive understanding of the spread and depth of impacts infrastructure would be exposed to regarding climate change-related impacts.",
-              "difficulty": 0.4
-            },
-            {
-              "stem": "Regarding the Standard and Poor (S&P) 'ESG risk atlas' for the power generation sector, which of the following is true?",
-              "options": [
-                "It focuses exclusively on the total quantum of GHG emissions produced by a firm.",
-                "It is comprised of exactly five strands, including corporate purpose and risk management processes.",
-                "It excludes water resource sensitivity to maintain a focus on land use change.",
-                "It identifies 8 centers of activity around which an ESG profile emerges."
-              ],
-              "answer_index": 3,
-              "explanation": "The transcript specifies that while S&P looked at more than 50 firms, there are 8 important 'nuclei' or centers of activity around which the ESG profile emerges in their risk atlas.",
-              "difficulty": 0.5
-            },
-            {
-              "stem": "Which of the following does the lesson identify as a 'double whammy' related to climate risk disclosure?",
-              "options": [
-                "The pressure from both international courts and local police departments to cease operations.",
-                "The requirement to balance high environmental performance with the need for immediate financial dividends.",
-                "The need to evaluate if money is prepared for risk and the ability of investors to exert rights after the investment to ensure returns.",
-                "The conflict between the Global Reporting Initiative and the United Nations Principles for Responsible Investment."
-              ],
-              "answer_index": 2,
-              "explanation": "The lesson describes climate risk disclosure as a 'double whammy' involving investors assessing if they are prepared to expose their money to risks upfront, and ensuring they can exert their rights post-investment to protect those investments.",
-              "difficulty": 0.6
-            }
-          ]
-        },
-        {
-          "module_index": 3,
-          "title": "Industry Initiatives Inspire confidence of transitions.",
-          "competency_id": "C31",
-          "questions": [
-            {
-              "stem": "According to the lesson, what are the three \"roots of justice\" highlighted by the United Nations Global Compact in 2010?",
-              "options": [
-                "Mitigate, Adapt, and Finance",
-                "Protect, Respect, and Remedy",
-                "Transparency, Consistency, and Measurement",
-                "Energy Efficiency, Governance, and Stewardship"
-              ],
-              "answer_index": 1,
-              "explanation": "The lesson states that the United Nations Global Compact in 2010 highlighted the importance of the need for industry to protect, respect, and remedy.",
-              "difficulty": 0.2
-            },
-            {
-              "stem": "Which of the following is cited in the lesson as an interactive tool that allows users to locate plants and obtain data on coal types and carbon emissions?",
-              "options": [
-                "Banktrack.org",
-                "The Energy Charter",
-                "Worldcoal.org",
-                "The Energy Trilemma Index"
-              ],
-              "answer_index": 2,
-              "explanation": "The lesson identifies worldcoal.org as an information platform that serves as an interactive tool to locate plants, analyze coal types, and track carbon emissions.",
-              "difficulty": 0.3
-            },
-            {
-              "stem": "Based on the lesson, what is the significance of the \"Energy Trilemma Index\" tool?",
-              "options": [
-                "It provides a framework for oil companies to adhere to the gold standard of reporting.",
-                "It helps understand the impacts of policies and ranks how cross-cutting these impacts are across stakeholders.",
-                "It tracks the specific divestment strategies of international banks regarding fossil fuels.",
-                "It is a platform that enables deep dives into the dynamics of business ethics established in 1987."
-              ],
-              "answer_index": 1,
-              "explanation": "The lesson notes that the World Energy Council's energy trilemma index tool helps understand policy impacts and ranks how well these impacts are cross-cutting across industry and other stakeholders.",
-              "difficulty": 0.6
-            },
-            {
-              "stem": "In the context of the ESG framework discussed in the lesson, what does the term \"fungibility\" refer to?",
-              "options": [
-                "The standardization of audit templates across different global regions.",
-                "The ability of companies to swap environmental projects with social responsibility initiatives.",
-                "The concept that environmental, social, and governance performance is a transactable commodity that can fetch better returns.",
-                "The requirement that boards must include environmental activists in their decision-making processes."
-              ],
-              "answer_index": 2,
-              "explanation": "The lesson defines fungibility in the context of ESG as environmental, social, and governance performance being a transactable commodity that fetches better returns.",
-              "difficulty": 0.7
-            }
-          ]
-        }
-      ]
+ "_comment": "Module assessments generated from the iGOT lesson videos themselves by scripts/generate_video_quizzes.py: each video was transcribed and the questions written from that transcript, then put through the same validity gate as any other generated item. Committed so the app runs these assessments with no API key, no network and no cost - the key is only needed to regenerate.",
+ "courses": {
+  "do_11428343573406515212": {
+   "course_name": "Soft Skills",
+   "modules": [
+    {
+     "module_index": 0,
+     "title": "Introduction",
+     "competency_id": "C15",
+     "questions": [
+      {
+       "stem": "According to the lesson, what is the primary reason why soft skills are essential in the context of the Indian Railways?",
+       "options": [
+        "Because they are a requirement for getting promoted to a management position.",
+        "Because railway work cannot be performed single-handedly and requires cooperation.",
+        "Because hard skills are no longer considered necessary for railway operations.",
+        "Because they are the only way to effectively manage time and delegation."
+       ],
+       "answer_index": 1,
+       "explanation": "The lesson states that in Indian Railways, the importance of soft skills is immense because no work can be performed single-handedly and requires cooperation and support.",
+       "difficulty": 0.2
+      },
+      {
+       "stem": "How does the lesson characterize the historical focus on professional skills compared to the present scenario?",
+       "options": [
+        "Traditionally, there was too much focus on soft skills, whereas now we focus on hard skills.",
+        "Traditionally, we focused on hard skills, but today those alone are not enough.",
+        "Traditionally, both were ignored, but now soft skills are the only priority.",
+        "Traditionally, we focused on team management, whereas now we focus on delegation."
+       ],
+       "answer_index": 1,
+       "explanation": "The lesson states that traditionally, focus was on hard skills, but in the present scenario, that is not enough.",
+       "difficulty": 0.3
+      },
+      {
+       "stem": "Which of the following is explicitly listed as a soft skill in the lesson?",
+       "options": [
+        "Technical proficiency",
+        "Data analysis",
+        "Empathy",
+        "System architecture"
+       ],
+       "answer_index": 2,
+       "explanation": "The lesson lists communication, teamwork, time management, empathy, and delegation as diverse skills needed for career success.",
+       "difficulty": 0.2
+      },
+      {
+       "stem": "What observation does the lesson make regarding the current state of soft skills training?",
+       "options": [
+        "It is the primary focus of all professional development programs worldwide.",
+        "It is undervalued and receives less training despite being needed for efficient job performance.",
+        "It is widely available but generally considered less important than technical hard skills.",
+        "It is only relevant for senior management and not for sub-ordinates."
+       ],
+       "answer_index": 1,
+       "explanation": "The lesson states that the importance of soft skills is often undervalued and there is less training in the subject, even though they are needed for performing the job efficiently.",
+       "difficulty": 0.4
+      },
+      {
+       "stem": "According to the lesson, which soft skill is defined as the process of raising awareness about gender equality and encouraging behavior changes?",
+       "options": [
+        "Professionalism",
+        "Work Ethics",
+        "Gender sensitization",
+        "Interpersonal Skills"
+       ],
+       "answer_index": 2,
+       "explanation": "The lesson explicitly states that gender sensitization is the process of raising awareness about gender equality and encouraging behavior changes.",
+       "difficulty": 0.2
+      },
+      {
+       "stem": "Which of the following is NOT listed as a component of the 'Communication' soft skill for young managers?",
+       "options": [
+        "Oral and speaking capability",
+        "Written communication",
+        "Listening",
+        "Sense of humour"
+       ],
+       "answer_index": 3,
+       "explanation": "The lesson categorizes 'sense of humour' under Interpersonal Skills, while oral capability, written communication, and listening are listed under Communication.",
+       "difficulty": 0.5
+      },
+      {
+       "stem": "How does the lesson characterize communication as a process?",
+       "options": [
+        "A one-way process focused on speaking clearly",
+        "A two-way process involving both sending and receiving information",
+        "A hierarchical process reserved for senior leaders",
+        "A process primarily focused on writing concise reports"
+       ],
+       "answer_index": 1,
+       "explanation": "The lesson states that communication is a two-way process, involving both the sending and receiving of information.",
+       "difficulty": 0.3
+      },
+      {
+       "stem": "Which of the following is identified in the lesson as a method to build a foundation of trust and understanding for strong interpersonal relationships?",
+       "options": [
+        "Work ethics",
+        "Empathy",
+        "Flexibility",
+        "Gender sensitivity"
+       ],
+       "answer_index": 1,
+       "explanation": "The lesson lists five ways to build interpersonal relationships, one of which is empathy, defined as trying to understand and share the feelings of others.",
+       "difficulty": 0.4
+      }
+     ]
     }
+   ]
+  },
+  "do_1146492969644113921128": {
+   "course_name": "Leave Rules and Management in Government Service",
+   "modules": [
+    {
+     "module_index": 0,
+     "title": "Overview of Leaves",
+     "competency_id": "C32",
+     "questions": [
+      {
+       "stem": "Which of the following is true regarding the Central Civil Services (Leave) Rules, 1972?",
+       "options": [
+        "They apply to all government servants, including Railway employees.",
+        "They apply to all government servants, including members of All India Services.",
+        "They do not apply to Railway employees and members of All India Services.",
+        "They came into force on January 01, 1972."
+       ],
+       "answer_index": 2,
+       "explanation": "The lesson states that the rules govern all government servants with the exception of Railway employees and members of All India Services, who are governed by separate rules.",
+       "difficulty": 0.2
+      },
+      {
+       "stem": "Under the general conditions of leave, which of the following is accurate regarding Casual Leave (CL)?",
+       "options": [
+        "CL can be combined with any other kind of regular leave.",
+        "CL cannot be combined with any kind of leave.",
+        "CL can be combined with Special Casual Leave but not regular leave.",
+        "CL can be combined with Restricted Holidays."
+       ],
+       "answer_index": 1,
+       "explanation": "The lesson explicitly states that while regular leave can be combined with other leaves, 'CL cannot be combined with any kind of leave.'",
+       "difficulty": 0.4
+      },
+      {
+       "stem": "What is the consequence of being recalled from leave if the Government Servant is outside India?",
+       "options": [
+        "They must pay for their own passage back to India.",
+        "The time spent on the voyage to India does not count as duty.",
+        "They are provided free passage to India.",
+        "They are not entitled to leave salary from the date of recall."
+       ],
+       "answer_index": 2,
+       "explanation": "The transcript states that for leave outside India, the government servant is granted free passage to India upon being recalled.",
+       "difficulty": 0.6
+      },
+      {
+       "stem": "Regarding leave on a Medical Certificate, which of the following is correct according to Rule 19 (6)?",
+       "options": [
+        "The authority may waive the production of a medical certificate for leave not exceeding three days.",
+        "A medical certificate is never required for non-gazetted government servants.",
+        "Any leave granted without a medical certificate is automatically treated as medical leave.",
+        "A fitness certificate is not required to resume duty after medical leave."
+       ],
+       "answer_index": 0,
+       "explanation": "The lesson states that under Rule 19 (6), the competent authority may waive the medical certificate requirement for leave periods not exceeding three days, but such leave is not treated as medical leave.",
+       "difficulty": 0.5
+      },
+      {
+       "stem": "What is the rule regarding the accrual of Earned Leaves for an employee who joins in the middle of a six-month cycle?",
+       "options": [
+        "15 leaves are credited immediately upon joining.",
+        "2.5 leaves per completed calendar month are credited.",
+        "1/10th of their previous EOL is credited.",
+        "No leaves are credited until the next six-month cycle begins."
+       ],
+       "answer_index": 1,
+       "explanation": "The lesson states that in case an employee joins in the middle of the six months, 2.5 leaves per completed calendar month are credited to their account.",
+       "difficulty": 0.2
+      },
+      {
+       "stem": "How is the deduction calculated for Half Pay Leave (HPL) when an employee takes Commuted Leave?",
+       "options": [
+        "An equal number of days are deducted from the HPL balance.",
+        "1/18th of the commuted leave period is deducted.",
+        "Double the number of commuted leaves taken are deducted from the HPL balance.",
+        "Commuted leave does not impact the HPL balance."
+       ],
+       "answer_index": 2,
+       "explanation": "The transcript explicitly mentions that two times the number of commuted leaves are deducted from HPLs.",
+       "difficulty": 0.3
+      },
+      {
+       "stem": "Under what condition is the salary recovered if an employee resigns or retires while on Leave Not Due (LND)?",
+       "options": [
+        "The salary is always recovered regardless of the reason for leaving.",
+        "Salary is recovered unless the retirement is due to ill health, premature retirement, or death.",
+        "Salary is recovered only if the employee has less than one year of service.",
+        "Salary is never recovered if the employee provides a medical certificate."
+       ],
+       "answer_index": 1,
+       "explanation": "The lesson states that salary paid is recovered if the employee leaves service, but specifies that salary is not recovered when retirement is due to ill health, premature retirement, or in the event of death.",
+       "difficulty": 0.5
+      },
+      {
+       "stem": "What is the maximum duration of Extra-ordinary Leave (EOL) that can be granted to a permanent employee at a stretch?",
+       "options": [
+        "3 months",
+        "6 months",
+        "18 months",
+        "5 years"
+       ],
+       "answer_index": 3,
+       "explanation": "The transcript states that a maximum of 5 years of Extra-ordinary Leave at a stretch can be granted to permanent employees.",
+       "difficulty": 0.2
+      },
+      {
+       "stem": "What is the maximum duration of Maternity Leave granted to a female Government servant with less than two surviving children for childbirth?",
+       "options": [
+        "45 days",
+        "180 days",
+        "730 days",
+        "2 years"
+       ],
+       "answer_index": 1,
+       "explanation": "The lesson states that Maternity Leave is granted for a maximum period of 180 days for child birth to an employee with less than two surviving children.",
+       "difficulty": 0.2
+      },
+      {
+       "stem": "Under what condition can a male Government servant be granted Child Care Leave?",
+       "options": [
+        "If he has less than two surviving children.",
+        "If he is a single parent of a disabled child.",
+        "If his spouse is employed in the private sector.",
+        "He is not eligible for Child Care Leave under any circumstances."
+       ],
+       "answer_index": 1,
+       "explanation": "The lesson specifies that Child Care Leave is granted to female Government servants, but notes it may be granted to a single male employee in the case of disabled children.",
+       "difficulty": 0.6
+      },
+      {
+       "stem": "Which of the following is true regarding Paternity Leave?",
+       "options": [
+        "It is granted for 30 days within a period of 6 months.",
+        "It is only granted for biological children, not adopted children.",
+        "It is granted for 15 days within a period of 6 months.",
+        "It is granted to male Government servants regardless of the number of surviving children."
+       ],
+       "answer_index": 2,
+       "explanation": "The lesson states that Paternity Leave is granted for 15 days, within a period of 6 months, and is granted in case of adoption of a child as well.",
+       "difficulty": 0.4
+      },
+      {
+       "stem": "What is the maximum number of spells per calendar year for Child Care Leave for a single female employee?",
+       "options": [
+        "1 spell",
+        "2 spells",
+        "3 spells",
+        "6 spells"
+       ],
+       "answer_index": 3,
+       "explanation": "The lesson states that Child Care Leave cannot be granted in more than 3 spells in a calendar year, but it may be granted in six spells to a single female employee.",
+       "difficulty": 0.7
+      }
+     ]
+    }
+   ]
+  },
+  "do_113827558681935872125": {
+   "course_name": "Introduction to Leveraging AI and ChatGPT",
+   "modules": [
+    {
+     "module_index": 1,
+     "title": "Communicating with AI",
+     "competency_id": "C10",
+     "questions": [
+      {
+       "stem": "According to the lesson, what is the definition of a 'prompt' in the context of AI interaction?",
+       "options": [
+        "The process of training an AI model until a specific cutoff date",
+        "Any instruction or text written to the AI from the human side",
+        "The specific output or response generated by the artificial intelligence",
+        "The field of study focused on improving machine learning algorithms"
+       ],
+       "answer_index": 1,
+       "explanation": "The lesson explicitly defines a prompt as every interaction or instruction that comes from the human side to the AI.",
+       "difficulty": 0.2
+      },
+      {
+       "stem": "How does the AI respond to the use of repetition in prompts?",
+       "options": [
+        "It interprets repetition as a sign of an error and resets the context",
+        "It understands repetition, leading to different outcomes based on the degree of emphasized words",
+        "It treats repeated phrases as a command to cite specific government sources",
+        "It ignores repetition entirely to save processing power"
+       ],
+       "answer_index": 1,
+       "explanation": "The lesson states that AI understands repetition, citing that asking for 'beautiful' versus 'very, very, very unrealistically beautiful' leads to different outcomes.",
+       "difficulty": 0.4
+      },
+      {
+       "stem": "Why does the lesson advise against sharing confidential information with AI bots?",
+       "options": [
+        "Because all data shared in conversations is considered public and used in the research process",
+        "Because AI models are strictly limited to information available before September 2021",
+        "Because AI bots are incapable of processing confidential or sensitive data",
+        "Because Samsung and Apple have legally banned all AI usage globally"
+       ],
+       "answer_index": 0,
+       "explanation": "The lesson notes that all conversations shared with ChatGPT are public and that users are the 'beta trial' for these models, advising against sharing confidential info.",
+       "difficulty": 0.3
+      },
+      {
+       "stem": "What does the term 'hallucination' refer to in the context of AI?",
+       "options": [
+        "The AI's ability to express human-like emotions through flattery",
+        "The tendency of an AI to correct human code to be more readable",
+        "The AI lying or making up things that never happened",
+        "The process of the AI browsing the internet to verify sources"
+       ],
+       "answer_index": 2,
+       "explanation": "The lesson defines a lying AI as a hallucinating AI, specifically because it makes up things that never happened.",
+       "difficulty": 0.2
+      }
+     ]
+    },
+    {
+     "module_index": 2,
+     "title": "Way Forward",
+     "competency_id": "C10",
+     "questions": [
+      {
+       "stem": "Which of the following is mentioned as a key limitation or characteristic of Bard in the lesson?",
+       "options": [
+        "It has a usage limit of 25 prompts every 3 hours.",
+        "It does not keep your chat history.",
+        "It is powered by the Wolfram Alpha plugin.",
+        "It is available for a monthly fee of $20."
+       ],
+       "answer_index": 1,
+       "explanation": "The lesson explicitly states that Bard does not keep your chat history.",
+       "difficulty": 0.2
+      },
+      {
+       "stem": "According to the lesson, what is the primary difference between ChatGPT 3.5 and ChatGPT 4?",
+       "options": [
+        "ChatGPT 4 is free, whereas ChatGPT 3.5 requires a paid subscription.",
+        "ChatGPT 4 is limited to 25 prompts every 24 hours.",
+        "The difference in capability is more around reasoning than the quality of output in other aspects.",
+        "ChatGPT 3.5 has browsing capabilities, while ChatGPT 4 does not."
+       ],
+       "answer_index": 2,
+       "explanation": "The lesson states that the difference in capability between the models is more around reasoning rather than the quality of output in other aspects.",
+       "difficulty": 0.5
+      },
+      {
+       "stem": "What is identified as a reason for the prompt limitations on ChatGPT 4?",
+       "options": [
+        "The company is severely crunched on bandwidth.",
+        "The model is currently in a beta testing phase.",
+        "The system prioritizes users with the Wolfram Alpha plugin.",
+        "The model does not have browsing capabilities enabled for all users."
+       ],
+       "answer_index": 0,
+       "explanation": "The lesson states that ChatGPT 4 has a limit of 25 prompts per 3 hours because the company is severely crunched on bandwidth.",
+       "difficulty": 0.3
+      },
+      {
+       "stem": "Which statement regarding ChatGPT 4's features is supported by the transcript?",
+       "options": [
+        "It is restricted from accessing any web-based information.",
+        "It includes access to plugins like Wolfram Alpha.",
+        "It is recommended for obtaining reliable financial advice.",
+        "It is the version the training was primarily based on."
+       ],
+       "answer_index": 1,
+       "explanation": "The lesson notes that ChatGPT 4 has a set of plugins available, such as Wolfram Alpha, which also powers Siri.",
+       "difficulty": 0.4
+      }
+     ]
+    }
+   ]
+  },
+  "do_11391537250983936014": {
+   "course_name": "Advanced Concepts in SQL",
+   "modules": [
+    {
+     "module_index": 0,
+     "title": "Module 1",
+     "competency_id": "C03",
+     "questions": [
+      {
+       "stem": "According to the session, what is the primary benefit of using a stored procedure?",
+       "options": [
+        "To create standard SQL functions that are not already available in MySQL.",
+        "To store code that is run regularly, allowing for customization through parameterization.",
+        "To optimize database performance by indexing large tables.",
+        "To organize code by defining user-defined functions (UDFs)."
+       ],
+       "answer_index": 1,
+       "explanation": "The transcript states that a stored procedure is used to store code you run regularly, which can be parameterized to make it customizable and avoid rewriting code from scratch.",
+       "difficulty": 0.3
+      },
+      {
+       "stem": "What is the purpose of creating an index in MySQL, as mentioned in the lesson?",
+       "options": [
+        "To improve the readability and reusability of the code.",
+        "To help the SQL compiler understand the order of select statement clauses.",
+        "To assist with operations that require searching a large database.",
+        "To compare the efficiency of joins versus nested queries."
+       ],
+       "answer_index": 2,
+       "explanation": "The lesson explicitly states that for any operation requiring a search of a big database, it helps to make an index in MySQL.",
+       "difficulty": 0.2
+      },
+      {
+       "stem": "Why does the lesson suggest studying the order in which the SQL compiler executes select statement clauses?",
+       "options": [
+        "To help tune queries so the compiler can run them more efficiently.",
+        "To determine when to use a user-defined function versus a stored procedure.",
+        "To decide whether to use a join or a nested query.",
+        "To learn how to write more readable and reusable code."
+       ],
+       "answer_index": 0,
+       "explanation": "The transcript explains that understanding the execution order helps in tuning queries so that the SQL compiler has an easier job running them efficiently.",
+       "difficulty": 0.5
+      },
+      {
+       "stem": "How are user-defined functions (UDFs) described in the training session?",
+       "options": [
+        "As a method to parameterize code for daily report queries.",
+        "As a way to make the SQL compiler execute statements more efficiently.",
+        "As a tool to organize code and define functions not already available in MySQL.",
+        "As an alternative to using indexes for searching big databases."
+       ],
+       "answer_index": 2,
+       "explanation": "The transcript defines a UDF as something available in MySQL used to define functions for uses that are not already readily available through standard SQL functions.",
+       "difficulty": 0.4
+      },
+      {
+       "stem": "According to the lesson, what is a primary benefit of using User Defined Functions (UDFs)?",
+       "options": [
+        "They eliminate the need for SQL syntax",
+        "They improve code readability",
+        "They are mandatory for all MySQL calculations",
+        "They replace the need for parameters"
+       ],
+       "answer_index": 1,
+       "explanation": "The lesson explicitly states that one of the reasons to use UDFs is that they improve code readability.",
+       "difficulty": 0.2
+      },
+      {
+       "stem": "Which of the following is a mandatory requirement for the body of a MySQL UDF definition?",
+       "options": [
+        "It must contain at least two RETURN statements",
+        "It must exclude the use of parameters",
+        "It must contain one RETURN statement",
+        "It must use the 'SELECT' keyword inside the function body"
+       ],
+       "answer_index": 2,
+       "explanation": "The transcript states in the example section that the function body must contain one RETURN statement.",
+       "difficulty": 0.3
+      },
+      {
+       "stem": "What is the correct sequence of actions performed by a MySQL UDF?",
+       "options": [
+        "Perform calculations, accept parameters, and return a value",
+        "Accept parameters, perform actions, and return a result",
+        "Return a value, accept parameters, and perform complex calculations",
+        "Accept parameters, return a value, and then perform calculations"
+       ],
+       "answer_index": 1,
+       "explanation": "The lesson defines UDFs as functions that accept parameter(s), perform action(s), and return the result of the action as a value.",
+       "difficulty": 0.4
+      },
+      {
+       "stem": "In the provided example 'age_today', what is the purpose of the 'RETURNS INT' clause?",
+       "options": [
+        "It defines the data type of the result returned by the function",
+        "It declares the data type of the parameter being passed",
+        "It specifies the number of calculations to be performed",
+        "It indicates that the function body contains multiple return statements"
+       ],
+       "answer_index": 0,
+       "explanation": "The syntax section shows 'RETURNS datatype' as part of the function definition, which specifies the return type; in the example, 'RETURNS INT' defines that the function returns an integer.",
+       "difficulty": 0.5
+      },
+      {
+       "stem": "Which of the following is a key limitation of User Defined Functions (UDFs) mentioned in the lesson?",
+       "options": [
+        "UDFs cannot be used to query data from a table.",
+        "UDFs cannot execute code blocks or batches to perform actions like updating a source table.",
+        "UDFs cannot accept input parameters of any kind.",
+        "UDFs are object files that cannot be used in SELECT statements."
+       ],
+       "answer_index": 1,
+       "explanation": "The lesson states that UDFs cannot execute code blocks or code batches, meaning they cannot be used to perform tasks like updating or adding columns to a source table.",
+       "difficulty": 0.2
+      },
+      {
+       "stem": "What is defined as an object file in SQL that stores code blocks allowing for repeated execution?",
+       "options": [
+        "A UDF (User Defined Function)",
+        "A SQL built-in function like CONCAT or ABS",
+        "A Stored Procedure",
+        "A Delimiter"
+       ],
+       "answer_index": 2,
+       "explanation": "The lesson defines stored procedures as object files in SQL that store code blocks, allowing them to be run repeatedly with or without parameters.",
+       "difficulty": 0.1
+      },
+      {
+       "stem": "According to the provided syntax for creating a stored procedure, where should the main body of the procedure be written?",
+       "options": [
+        "Before the DELIMITER command",
+        "After the CALL statement",
+        "Between the BEGIN and END keywords",
+        "Immediately after the procedure name definition"
+       ],
+       "answer_index": 2,
+       "explanation": "The lesson explains that between the 'BEGIN' and 'END' keywords is where you write the main body of your procedure.",
+       "difficulty": 0.3
+      },
+      {
+       "stem": "Regarding the execution of stored procedures, what does the lesson state is required?",
+       "options": [
+        "The procedure definition must be written before the call statement.",
+        "The delimiter must remain changed to '$$' for all subsequent SQL queries.",
+        "A UDF must be created as a prerequisite to every stored procedure.",
+        "The procedure must always be called with at least two input parameters."
+       ],
+       "answer_index": 0,
+       "explanation": "The lesson explicitly states that the definition for the procedure must be written before you write the call statement.",
+       "difficulty": 0.4
+      },
+      {
+       "stem": "Which two variables are mentioned as inputs for the stored procedure in the movie schema example?",
+       "options": [
+        "The movie title and the release year",
+        "The age limit and the date for age calculation",
+        "The genre and the actor count",
+        "The database name and the table ID"
+       ],
+       "answer_index": 1,
+       "explanation": "The lesson states that the variables taken as inputs for the procedure are the age limit to enforce and the date on which to calculate the ages.",
+       "difficulty": 0.2
+      },
+      {
+       "stem": "According to the lesson, where is the code for a stored procedure written?",
+       "options": [
+        "Inside the 'Schemas' window",
+        "Within the 'Copy to Clipboard' function",
+        "Between the 'BEGIN' and 'END' keywords",
+        "Directly in the drop-down menu"
+       ],
+       "answer_index": 2,
+       "explanation": "The lesson explicitly states that the code for the procedure must be written between the 'BEGIN' and 'END' keywords.",
+       "difficulty": 0.3
+      },
+      {
+       "stem": "What action does the lesson suggest performing before creating a stored procedure?",
+       "options": [
+        "Refreshing the entire schema",
+        "Deleting the table views",
+        "Dropping the procedure if it already exists",
+        "Copying the create statement to the clipboard"
+       ],
+       "answer_index": 2,
+       "explanation": "The transcript states that, much like for UDFs, a line is added to drop the procedure if it already exists before creating it.",
+       "difficulty": 0.4
+      },
+      {
+       "stem": "What is the primary benefit of accessing the stored procedure via the 'Schemas' window menu?",
+       "options": [
+        "It allows you to increase the execution speed of the procedure.",
+        "It allows you to retrieve the creation statement even if you lack the original SQL file.",
+        "It allows you to automatically update the movie data to the current year.",
+        "It allows you to delete all functions within the schema."
+       ],
+       "answer_index": 1,
+       "explanation": "The lesson notes that this is beneficial because you can retrieve the creation statement even if you don't have the original SQL code file.",
+       "difficulty": 0.5
+      }
+     ]
+    },
+    {
+     "module_index": 1,
+     "title": "Module 6",
+     "competency_id": "C03",
+     "questions": [
+      {
+       "stem": "Regarding the return requirements of SQL objects, which of the following statements is correct according to the lesson?",
+       "options": [
+        "Stored procedures must return a value, while UDFs are optional.",
+        "UDFs must return a value to be used as a SQL column, while stored procedures have the option to return or not.",
+        "Both stored procedures and UDFs are required to return a value.",
+        "Neither stored procedures nor UDFs are required to return a value."
+       ],
+       "answer_index": 1,
+       "explanation": "The lesson states that for a UDF, it is mandatory to return something, whereas stored procedures give you the option to either return a value or not.",
+       "difficulty": 0.2
+      },
+      {
+       "stem": "Which of the following describes the difference in compilation between stored procedures and UDFs?",
+       "options": [
+        "Both are compiled every time they are executed.",
+        "Both are compiled only once.",
+        "Stored procedures are compiled once, while UDFs are compiled every time they are called or executed.",
+        "UDFs are compiled once, while stored procedures are compiled every time they are called."
+       ],
+       "answer_index": 2,
+       "explanation": "The transcript states that a stored procedure is only compiled once, while user-defined functions are compiled every time they are called or executed.",
+       "difficulty": 0.3
+      },
+      {
+       "stem": "Which capability is exclusive to stored procedures compared to UDFs?",
+       "options": [
+        "The ability to use SELECT clauses.",
+        "The ability to use input parameters.",
+        "The ability to use try-catch blocks for error handling.",
+        "The ability to call other functions."
+       ],
+       "answer_index": 2,
+       "explanation": "The lesson mentions that stored procedures can use try-catch blocks to handle errors and exceptions, which is something you cannot do in UDFs.",
+       "difficulty": 0.4
+      },
+      {
+       "stem": "When considering the scope of commands available to UDFs, which limitation is specified?",
+       "options": [
+        "UDFs can only use the SELECT clause.",
+        "UDFs can use SELECT, INSERT, UPDATE, and DELETE statements.",
+        "UDFs can only be used for DDL statements.",
+        "UDFs cannot use any DML or DDL statements."
+       ],
+       "answer_index": 0,
+       "explanation": "The transcript explicitly states that a UDF can only use the SELECT clause, while stored procedures have a variety of DDL and DML statements available.",
+       "difficulty": 0.3
+      },
+      {
+       "stem": "According to the lesson, what is the primary benefit of indexing a column in a database table?",
+       "options": [
+        "It allows for faster data insertion into the table.",
+        "It makes the lookup process for specific values in that column more efficient.",
+        "It automatically sorts the table by all existing columns.",
+        "It reduces the total number of columns required in a table."
+       ],
+       "answer_index": 1,
+       "explanation": "The lesson states that indexing helps when you have a column you need to look up often, making that specific lookup more efficient.",
+       "difficulty": 0.2
+      },
+      {
+       "stem": "When a table is NOT sorted by the column you are querying, how does the compiler typically perform the search?",
+       "options": [
+        "It searches only the first and last rows of the table.",
+        "It compares the value in every single row from start to finish.",
+        "It stops searching immediately after finding one matching row.",
+        "It randomly samples rows until a match is found."
+       ],
+       "answer_index": 1,
+       "explanation": "The lesson explains that if a table is not sorted by the target column, the compiler must compare the value for each row from start to finish.",
+       "difficulty": 0.3
+      },
+      {
+       "stem": "In a table sorted by the 'language' column, why can the compiler stop searching after encountering a language other than 'English'?",
+       "options": [
+        "Because the compiler is programmed to stop after a fixed number of operations.",
+        "Because the table structure restricts the number of languages allowed.",
+        "Because once the target language changes, no further matches can exist in the sorted data.",
+        "Because it has reached the memory limit for the search operation."
+       ],
+       "answer_index": 2,
+       "explanation": "The lesson states that in a sorted table, once a different language is found, you know to stop because there is no possibility of another English movie appearing later.",
+       "difficulty": 0.4
+      },
+      {
+       "stem": "How does sorting a table by the queried column affect the search process?",
+       "options": [
+        "It shortens the search space and requires fewer operations.",
+        "It eliminates the need to use an index on the table.",
+        "It forces the compiler to re-index the entire table.",
+        "It makes the lookup slower but more accurate."
+       ],
+       "answer_index": 0,
+       "explanation": "The lesson explains that a sorted table shortens the search space, which results in performing fewer operations to complete the filtering.",
+       "difficulty": 0.3
+      },
+      {
+       "stem": "According to the lesson, why is it important for officers to understand the execution order of SQL clauses?",
+       "options": [
+        "To ensure the query syntax matches the standard SQL documentation exactly.",
+        "To write the most efficient version of the query and get results faster.",
+        "To ensure that the SELECT clause is always prioritized by the compiler.",
+        "To prevent errors when writing the LIMIT clause at the beginning of a query."
+       ],
+       "answer_index": 1,
+       "explanation": "The lesson states that learning the execution order helps you write the best, most efficient version of your query to get answers quicker.",
+       "difficulty": 0.2
+      },
+      {
+       "stem": "Which clauses should be prioritized for optimization to achieve the best performance improvements, according to the lesson?",
+       "options": [
+        "SELECT and LIMIT clauses.",
+        "SELECT and FROM clauses.",
+        "FROM and WHERE clauses.",
+        "WHERE and LIMIT clauses."
+       ],
+       "answer_index": 2,
+       "explanation": "The lesson explains that optimizing the FROM and WHERE clauses saves more time than optimizing the SELECT clause because they are executed earlier.",
+       "difficulty": 0.3
+      },
+      {
+       "stem": "When is the LIMIT clause executed in a MySQL query?",
+       "options": [
+        "Before the WHERE clause to reduce the number of rows processed.",
+        "Immediately after the FROM clause to filter the tables.",
+        "Simultaneously with the SELECT clause.",
+        "After all other clauses in the query have been executed."
+       ],
+       "answer_index": 3,
+       "explanation": "The lesson explicitly states that in MySQL, LIMIT is executed last, after all other clauses in the query are executed.",
+       "difficulty": 0.2
+      },
+      {
+       "stem": "What is the impact of changing the number of rows specified in the LIMIT clause on query performance?",
+       "options": [
+        "It significantly reduces the processing time of the query.",
+        "It has almost no impact on how quickly the query runs and gets results.",
+        "It allows the compiler to optimize the SELECT clause more effectively.",
+        "It forces the WHERE clause to run after the LIMIT is applied."
+       ],
+       "answer_index": 1,
+       "explanation": "The lesson states that because LIMIT is executed last, playing around with the number of LIMIT rows has almost no impact on how quickly the query runs.",
+       "difficulty": 0.4
+      },
+      {
+       "stem": "Which tables and columns are required to identify parties at fault for collisions in Los Angeles?",
+       "options": [
+        "The collisions table (at_fault column) and the parties table (county_location column).",
+        "The parties table (at_fault column) and the collisions table (county_location column).",
+        "The collisions table (case_id column) and the parties table (at_fault column).",
+        "The parties table (case_id column) and the collisions table (at_fault column)."
+       ],
+       "answer_index": 1,
+       "explanation": "The lesson states that the parties table contains the 'at_fault' column, while the collisions table contains the 'county_location' column required to identify collisions in Los Angeles.",
+       "difficulty": 0.2
+      },
+      {
+       "stem": "What was the result of creating an index on the 'case_id' column in the parties table?",
+       "options": [
+        "It allowed for more columns to be returned in the result set.",
+        "It increased the query execution time significantly.",
+        "It reduced the query execution time from 0.159 seconds to 0.0015 seconds.",
+        "It replaced the need to use a nested query altogether."
+       ],
+       "answer_index": 2,
+       "explanation": "The lesson explains that indexing the 'case_id' column made the nested query execution much faster, specifically reducing the time from 0.159 seconds to 0.0015 seconds.",
+       "difficulty": 0.3
+      },
+      {
+       "stem": "According to the lesson, why is a JOIN generally preferred over a nested query for efficiency?",
+       "options": [
+        "JOINs execute the WHERE condition before the FROM clause.",
+        "SQL internally uses an indexing mechanism when executing joins to match columns.",
+        "JOINs always require less memory than nested queries.",
+        "Nested queries cannot handle filtering by collision location."
+       ],
+       "answer_index": 1,
+       "explanation": "The lesson states that SQL internally uses an indexing mechanism to match columns during a join, making joins very efficient and generally preferred over nested queries.",
+       "difficulty": 0.5
+      },
+      {
+       "stem": "In the context of the lesson, what does the number '10' represent in the command to create an index?",
+       "options": [
+        "The number of tables to be joined.",
+        "The maximum number of rows to be indexed.",
+        "The first 10 characters of the case_id column used for the index.",
+        "The number of seconds saved by creating the index."
+       ],
+       "answer_index": 2,
+       "explanation": "The transcript explicitly states that the number 10 indicates that the first 10 characters of the case_id column are used to create the index.",
+       "difficulty": 0.4
+      }
+     ]
+    },
+    {
+     "module_index": 2,
+     "title": "Module 11",
+     "competency_id": "C03",
+     "questions": [
+      {
+       "stem": "According to the lesson, when should you use table aliases in your SQL statements?",
+       "options": [
+        "Whenever the table names are shorter than five characters.",
+        "Only when the query contains more than three joins.",
+        "Whenever a statement involves more than one source, such as a join.",
+        "Only when you are performing calculations on column variables."
+       ],
+       "answer_index": 2,
+       "explanation": "The lesson states that you should always use table aliases for SQL statements that involve more than one source, such as when a query has a join.",
+       "difficulty": 0.3
+      },
+      {
+       "stem": "Which of the following is the recommended casing convention for SQL according to the lesson?",
+       "options": [
+        "Keywords in lowercase, column and table names in uppercase.",
+        "Keywords in uppercase, column and table names in lowercase.",
+        "Keywords and column names both in uppercase.",
+        "Keywords and column names both in lowercase."
+       ],
+       "answer_index": 1,
+       "explanation": "The lesson specifies that all SQL keywords should be in capital letters, while column, table, and variable names should always be in lowercase.",
+       "difficulty": 0.2
+      },
+      {
+       "stem": "What is the primary reason the lesson advises using best practices like indentation and specific casing in SQL?",
+       "options": [
+        "SQL will produce errors if these formatting best practices are not followed.",
+        "These practices are mandatory requirements for SQL databases to process queries correctly.",
+        "The database engine runs significantly faster when code is properly indented and commented.",
+        "SQL will run without error regardless of these practices, but they make the code easier to comprehend."
+       ],
+       "answer_index": 3,
+       "explanation": "The lesson explains that SQL will still run without error if these practices aren't followed, but they are recommended because they help you comprehend and figure out what the code is doing more quickly.",
+       "difficulty": 0.4
+      },
+      {
+       "stem": "Regarding the SELECT clause, what does the lesson recommend to improve readability?",
+       "options": [
+        "Write all column names on a single line separated by commas for conciseness.",
+        "Group column names into pairs on the same line to reduce the number of lines.",
+        "Place each column name on a different line.",
+        "Always include comments before every column selected in the list."
+       ],
+       "answer_index": 2,
+       "explanation": "The lesson advises that instead of writing columns in one line, it helps to write all column names in different lines to make it easier to figure out what you are getting from the source table.",
+       "difficulty": 0.3
+      },
+      {
+       "stem": "According to the lesson, what is the primary purpose of adding indentation to SQL queries?",
+       "options": [
+        "To optimize the execution speed of the database engine.",
+        "To improve the readability of the code.",
+        "To ensure that keywords follow the correct case convention.",
+        "To define the alias for the inner query."
+       ],
+       "answer_index": 1,
+       "explanation": "The lesson states that indentation makes it obvious what is being selected and helps with the readability of the code.",
+       "difficulty": 0.2
+      },
+      {
+       "stem": "Which logic is used to join the 'market fact full' table and the 'customer dimension' table?",
+       "options": [
+        "M.customer_ID = C.customer_ID",
+        "M.sales = C.sales",
+        "M.order_ID = C.order_ID",
+        "M.customer_name = C.customer_name"
+       ],
+       "answer_index": 0,
+       "explanation": "The lesson specifies the join logic as M.customer_ID being equal to C.customer_ID.",
+       "difficulty": 0.3
+      },
+      {
+       "stem": "What is the recommended best practice regarding the use of 'AS' keywords in aliases?",
+       "options": [
+        "The 'AS' keyword should always be omitted to save space.",
+        "The 'AS' keyword should be used only for outer queries.",
+        "The 'AS' keywords should be converted to the correct case.",
+        "The 'AS' keyword should be replaced with tabs for better readability."
+       ],
+       "answer_index": 2,
+       "explanation": "The lesson notes that many 'AS' keywords used to assign aliases were not in the right case and should be converted.",
+       "difficulty": 0.4
+      },
+      {
+       "stem": "Why does the instructor suggest that using column names with aliases (e.g., C.sales) is a best practice?",
+       "options": [
+        "It is required by the database engine to execute the query correctly.",
+        "It allows the query to run faster by bypassing schema checks.",
+        "It makes it easier to understand the source of each column later.",
+        "It is mandatory when using window functions."
+       ],
+       "answer_index": 2,
+       "explanation": "The lesson states that writing column names with aliases makes it easier to understand where each column came from later down the line.",
+       "difficulty": 0.5
+      }
+     ]
+    }
+   ]
+  },
+  "do_1134149423736668161390": {
+   "course_name": "A Course on Environmental Social and Governance",
+   "modules": [
+    {
+     "module_index": 0,
+     "title": "Index related institutions",
+     "competency_id": "C31",
+     "questions": [
+      {
+       "stem": "According to the transcript, which of the following is a primary objective of the Sustainability Accounting Standards Board (SASB)?",
+       "options": [
+        "To specifically monitor real estate sector energy usage.",
+        "To track communications and establish the basis for sustainability actions through industry-specific standards.",
+        "To mandate climate stress tests for all global financial institutions.",
+        "To provide a framework for the power generation sector's ESG risk atlas."
+       ],
+       "answer_index": 1,
+       "explanation": "The lesson states that the Sustainability Accounting Standards Board helps track communications and the basis for sustainability actions, with respect to specific industry standards that vary across sectors.",
+       "difficulty": 0.3
+      },
+      {
+       "stem": "What is the primary purpose of mandating 'climate stress tests' for industry, as discussed in the lesson?",
+       "options": [
+        "To provide a comprehensive understanding of the spread and depth of impacts infrastructure would be exposed to due to climate change.",
+        "To ensure that companies can immediately increase their stock dividends for individual investors.",
+        "To replace the need for materiality assessments within the power sector.",
+        "To allow financial regulators to audit the personal safety records of individual company employees."
+       ],
+       "answer_index": 0,
+       "explanation": "The transcript defines climate stress tests as a way to present a comprehensive understanding of the spread and depth of impacts infrastructure would be exposed to regarding climate change-related impacts.",
+       "difficulty": 0.4
+      },
+      {
+       "stem": "Regarding the Standard and Poor (S&P) 'ESG risk atlas' for the power generation sector, which of the following is true?",
+       "options": [
+        "It focuses exclusively on the total quantum of GHG emissions produced by a firm.",
+        "It is comprised of exactly five strands, including corporate purpose and risk management processes.",
+        "It excludes water resource sensitivity to maintain a focus on land use change.",
+        "It identifies 8 centers of activity around which an ESG profile emerges."
+       ],
+       "answer_index": 3,
+       "explanation": "The transcript specifies that while S&P looked at more than 50 firms, there are 8 important 'nuclei' or centers of activity around which the ESG profile emerges in their risk atlas.",
+       "difficulty": 0.5
+      },
+      {
+       "stem": "Which of the following does the lesson identify as a 'double whammy' related to climate risk disclosure?",
+       "options": [
+        "The pressure from both international courts and local police departments to cease operations.",
+        "The requirement to balance high environmental performance with the need for immediate financial dividends.",
+        "The need to evaluate if money is prepared for risk and the ability of investors to exert rights after the investment to ensure returns.",
+        "The conflict between the Global Reporting Initiative and the United Nations Principles for Responsible Investment."
+       ],
+       "answer_index": 2,
+       "explanation": "The lesson describes climate risk disclosure as a 'double whammy' involving investors assessing if they are prepared to expose their money to risks upfront, and ensuring they can exert their rights post-investment to protect those investments.",
+       "difficulty": 0.6
+      },
+      {
+       "stem": "According to the lesson, what are the three \"roots of justice\" highlighted by the United Nations Global Compact in 2010?",
+       "options": [
+        "Mitigate, Adapt, and Finance",
+        "Protect, Respect, and Remedy",
+        "Transparency, Consistency, and Measurement",
+        "Energy Efficiency, Governance, and Stewardship"
+       ],
+       "answer_index": 1,
+       "explanation": "The lesson states that the United Nations Global Compact in 2010 highlighted the importance of the need for industry to protect, respect, and remedy.",
+       "difficulty": 0.2
+      },
+      {
+       "stem": "Which of the following is cited in the lesson as an interactive tool that allows users to locate plants and obtain data on coal types and carbon emissions?",
+       "options": [
+        "Banktrack.org",
+        "The Energy Charter",
+        "Worldcoal.org",
+        "The Energy Trilemma Index"
+       ],
+       "answer_index": 2,
+       "explanation": "The lesson identifies worldcoal.org as an information platform that serves as an interactive tool to locate plants, analyze coal types, and track carbon emissions.",
+       "difficulty": 0.3
+      },
+      {
+       "stem": "Based on the lesson, what is the significance of the \"Energy Trilemma Index\" tool?",
+       "options": [
+        "It provides a framework for oil companies to adhere to the gold standard of reporting.",
+        "It helps understand the impacts of policies and ranks how cross-cutting these impacts are across stakeholders.",
+        "It tracks the specific divestment strategies of international banks regarding fossil fuels.",
+        "It is a platform that enables deep dives into the dynamics of business ethics established in 1987."
+       ],
+       "answer_index": 1,
+       "explanation": "The lesson notes that the World Energy Council's energy trilemma index tool helps understand policy impacts and ranks how well these impacts are cross-cutting across industry and other stakeholders.",
+       "difficulty": 0.6
+      },
+      {
+       "stem": "In the context of the ESG framework discussed in the lesson, what does the term \"fungibility\" refer to?",
+       "options": [
+        "The standardization of audit templates across different global regions.",
+        "The ability of companies to swap environmental projects with social responsibility initiatives.",
+        "The concept that environmental, social, and governance performance is a transactable commodity that can fetch better returns.",
+        "The requirement that boards must include environmental activists in their decision-making processes."
+       ],
+       "answer_index": 2,
+       "explanation": "The lesson defines fungibility in the context of ESG as environmental, social, and governance performance being a transactable commodity that fetches better returns.",
+       "difficulty": 0.7
+      }
+     ]
+    }
+   ]
   }
+ }
 }

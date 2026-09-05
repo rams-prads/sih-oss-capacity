@@ -40,6 +40,7 @@ import re
 import sys
 from pathlib import Path
 
+from app.engines.curriculum import regroup
 import httpx
 
 PORTAL = "https://portal.igotkarmayogi.gov.in"
@@ -273,6 +274,12 @@ def fetch_curriculum(client: httpx.Client, identifier: str, course_name: str) ->
 
     if not modules:
         return {}
+
+    # iGOT wraps most videos in a unit of their own, named after the video
+    # inside it. Ingested literally that gives a section per video, with the
+    # heading repeating the line beneath it. Courses with genuine grouping are
+    # left alone; the rest become the flat run they actually are.
+    modules = regroup(modules)
 
     outline = [m["title"] for m in modules]
     # An outline that only repeats the course title is not a contents page.
