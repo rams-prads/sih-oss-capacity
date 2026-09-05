@@ -28,6 +28,7 @@ const ICONS = {
   courses: "M4 5.5A1.5 1.5 0 0 1 5.5 4H10a2 2 0 0 1 2 2 2 2 0 0 1 2-2h4.5A1.5 1.5 0 0 1 20 5.5v11a1.5 1.5 0 0 1-1.5 1.5H14a2 2 0 0 0-2 2 2 2 0 0 0-2-2H5.5A1.5 1.5 0 0 1 4 16.5v-11Z",
   quiz: "M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6v.6M12 17h.01M4 12a8 8 0 1 0 16 0 8 8 0 0 0-16 0Z",
   admin: "M3 20h18M6 20v-7M11 20V7M16 20v-4M21 20V4",
+  profile: "M19 20v-1.8a4.2 4.2 0 0 0-4.2-4.2H9.2A4.2 4.2 0 0 0 5 18.2V20M12 10.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z",
   join: "M16 19v-1.5a3.5 3.5 0 0 0-3.5-3.5h-5A3.5 3.5 0 0 0 4 17.5V19M10 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7ZM19 8v6M22 11h-6",
 };
 
@@ -36,6 +37,7 @@ export const NAV = [
   { to: "/my-learning", label: "My Courses", icon: ICONS.courses, blurb: "Enrolled courses, videos and checkpoints" },
   { to: "/assess", label: "Quiz Generator", icon: ICONS.quiz, blurb: "Generate assessments from learning material" },
   { to: "/admin", label: "Admin", icon: ICONS.admin, blurb: "Department-wide capacity and cohort analytics" },
+  { to: "/profile", label: "My Profile", icon: ICONS.profile, blurb: "Your designation, study record and what has been measured" },
   { to: "/join", label: "Join", icon: ICONS.join, blurb: "Register an officer and measure where they start" },
 ];
 

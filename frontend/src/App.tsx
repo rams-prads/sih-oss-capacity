@@ -7,6 +7,7 @@ import Admin from "./pages/Admin";
 import Join from "./pages/Join";
 import Learner from "./pages/Learner";
 import MyLearning from "./pages/MyLearning";
+import Profile from "./pages/Profile";
 import Upload from "./pages/Upload";
 
 const DEMO_USER = "u-jso-anita";
@@ -63,6 +64,7 @@ export default function App() {
           <Route path="/my-learning" element={<MyLearning userId={userId} />} />
           <Route path="/assess" element={<Upload userId={userId} />} />
           <Route path="/admin" element={<Admin />} />
+          <Route path="/profile" element={<Profile userId={userId} user={active} />} />
           <Route path="/join" element={<Join onJoined={handleJoined} />} />
         </Routes>
       </main>
