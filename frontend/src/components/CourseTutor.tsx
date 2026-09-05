@@ -20,6 +20,51 @@ const OPENERS = [
  * course's videos and assessment attempts, so without a course there is nothing
  * to ground them in.
  */
+
+/**
+ * One tutor answer, with where it came from.
+ *
+ * The provenance line is not decoration. An answer drawn from a lesson
+ * transcript and one the model produced with no course material behind it are
+ * different claims, and the learner should be able to see which they have and
+ * go and check the quote.
+ */
+export function TutorAnswer({ reply }: { reply: TutorReply }) {
+  const provenance =
+    reply.source === "record"
+      ? "From your record on this course"
+      : reply.source === "lessons"
+        ? "From what these lessons say, quoted below"
+        : reply.source === "model"
+          ? "Answered by the configured model — no lesson covered this, so treat it with care"
+          : "Not answerable without a model";
+
+  return (
+    <>
+      <div className="rounded-xl rounded-bl-sm bg-ground px-3 py-2 text-xs leading-relaxed text-ink">
+        <p className="whitespace-pre-line">{reply.answer}</p>
+        <p className="mt-1.5 text-[11px] text-ink-3">{provenance}</p>
+      </div>
+
+      {reply.sources.length > 0 && (
+        <ul className="space-y-1">
+          {reply.sources.map((source) => (
+            <li
+              key={`${source.lesson_id}-${source.quote.slice(0, 24)}`}
+              className="rounded-lg border border-hairline bg-surface px-2.5 py-1.5 text-[11px] leading-relaxed text-ink-2"
+            >
+              <p className="font-medium text-ink">{source.lesson_title}</p>
+              <p className="mt-0.5 border-l-2 border-hairline-strong pl-2 italic text-ink-3">
+                {source.quote.length > 240 ? `${source.quote.slice(0, 240)}…` : source.quote}
+              </p>
+            </li>
+          ))}
+        </ul>
+      )}
+    </>
+  );
+}
+
 export function CourseTutor({
   userId,
   courses,
@@ -117,16 +162,7 @@ export function CourseTutor({
                 </p>
               ) : (
                 <div key={index} className="max-w-[92%] space-y-2">
-                  <div className="rounded-xl rounded-bl-sm bg-ground px-3 py-2 text-xs leading-relaxed text-ink">
-                    <p className="whitespace-pre-line">{turn.reply.answer}</p>
-                    <p className="mt-1.5 text-[11px] text-ink-3">
-                      {turn.reply.source === "record"
-                        ? "From your record on this course"
-                        : turn.reply.source === "model"
-                          ? "Answered by the configured model, using this course only"
-                          : "Not answerable without a model"}
-                    </p>
-                  </div>
+                  <TutorAnswer reply={turn.reply} />
 
                   {turn.reply.lessons_to_rewatch.length > 0 && (
                     <ul className="space-y-1">

@@ -24,6 +24,7 @@ from sqlalchemy.orm import Session
 from app.engines.progress import course_progress, derive_status, topic_mastery
 from app.models import (
     BankQuestion,
+    Lesson,
     Checkpoint,
     CheckpointAttempt,
     Competency,
@@ -53,6 +54,10 @@ class TutorReply:
     lessons_to_rewatch: list[dict] = field(default_factory=list)
     weak_topics: list[dict] = field(default_factory=list)
     suggestions: list[str] = field(default_factory=list)
+    # Passages of lesson video the answer was drawn from. An answer with no
+    # sources came from the record or was declined; it is never the model
+    # recalling the subject on its own.
+    sources: list[dict] = field(default_factory=list)
 
 
 def detect_intent(message: str) -> str:
@@ -192,6 +197,65 @@ def context_for_model(context: dict) -> str:
             f"Topic {row['topic_name']}: {row['accuracy_pct']}% accuracy over "
             f"{row['questions_answered']} questions ({row['verdict']})"
         )
+    return "\n".join(lines)
+
+
+
+# --- retrieval over what the lessons actually said -------------------------
+# iGOT publishes no transcripts, so these were produced from the videos and
+# embedded. Retrieval is what lets the tutor answer a subject question at all:
+# without it the context holds only the officer's record, so "what is a user
+# defined function" has no material to answer from and is always declined.
+RETRIEVE_PASSAGES = 4
+
+
+def retrieve_passages(db: Session, course_identifier: str, question: str) -> list[dict]:
+    """Passages of this course's lessons that bear on the question.
+
+    Scoped to the course: an officer asking inside a course wants an answer from
+    that course, not the closest sentence anywhere in the catalogue. Returns
+    nothing when no passage clears the relevance floor, which is the honest
+    outcome - handing the model a weak match is how it ends up answering from
+    its own knowledge and presenting that as what the lesson said.
+    """
+    try:
+        from app.engines.embeddings import search_transcripts
+
+        matches = search_transcripts(
+            db, question, limit=RETRIEVE_PASSAGES, course_identifier=course_identifier
+        )
+    except Exception:
+        # Embedding needs a key and a network. Losing retrieval degrades the
+        # tutor to record-only answers; it must not break the tutor.
+        return []
+
+    if not matches:
+        return []
+
+    titles = {
+        lesson.id: lesson.title
+        for lesson in db.scalars(
+            select(Lesson).where(Lesson.course_identifier == course_identifier)
+        ).all()
+    }
+    return [
+        {
+            "lesson_id": m.lesson_id,
+            "lesson_title": titles.get(m.lesson_id, "this course"),
+            "quote": m.text,
+            "score": round(m.score, 3),
+        }
+        for m in matches
+    ]
+
+
+def passages_for_model(passages: list[dict]) -> str:
+    """The retrieved material, labelled so the model can name the lesson."""
+    if not passages:
+        return ""
+    lines = ["", "What the lessons actually say. Answer from these, and name the lesson:"]
+    for passage in passages:
+        lines.append('[from "{0}"] {1}'.format(passage["lesson_title"], passage["quote"]))
     return "\n".join(lines)
 
 
@@ -392,14 +456,27 @@ def answer(db: Session, user_id: str, course_identifier: str, message: str, prov
     if intent in RECORD_ANSWERS:
         return RECORD_ANSWERS[intent](context)
 
-    # Open question: hand the model the same facts, never the whole database.
+    # Open question. The officer's record alone cannot answer a subject
+    # question, so pull the passages of lesson video that bear on it and hand
+    # those over too. Without this the tutor could only ever decline: the
+    # context held their progress and nothing the lessons actually said.
+    passages = retrieve_passages(db, course_identifier, message)
+    prompt_context = context_for_model(context) + passages_for_model(passages)
+
     try:
-        reply = provider.chat(context_for_model(context), message)
+        reply = provider.chat(prompt_context, message)
     except Exception:
         reply = ""
 
     if reply:
-        return TutorReply(answer=reply, source="model", intent="general")
+        return TutorReply(
+            answer=reply,
+            # "lessons" when the answer rests on retrieved course material,
+            # "model" when it does not - a distinction worth surfacing.
+            source="lessons" if passages else "model",
+            intent="general",
+            sources=passages,
+        )
 
     return TutorReply(
         answer=(

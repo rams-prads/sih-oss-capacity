@@ -33,6 +33,7 @@ from app.models import (
 from app.schemas import (
     TutorTopic,
     TutorReplyOut,
+    TutorSource,
     TutorLesson,
     TutorAskRequest,
     CheckpointItemResult,
@@ -406,6 +407,7 @@ def ask_tutor(
         source=reply.source,
         intent=reply.intent,
         lessons_to_rewatch=[TutorLesson(**lesson) for lesson in reply.lessons_to_rewatch],
+        sources=[TutorSource(**passage) for passage in reply.sources],
         weak_topics=[
             TutorTopic(
                 topic_id=row["topic_id"],

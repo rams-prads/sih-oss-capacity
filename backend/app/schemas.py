@@ -594,15 +594,31 @@ class TutorTopic(BaseModel):
     verdict: str
 
 
+class TutorSource(BaseModel):
+    """A passage of lesson video an answer was drawn from."""
+
+    lesson_id: int
+    lesson_title: str
+    quote: str
+    score: float = Field(description="Cosine similarity to the question")
+
+
 class TutorReplyOut(BaseModel):
     course_identifier: str
     course_name: str
     answer: str
-    source: str = Field(description="record | model | unanswered — where the answer came from")
+    source: str = Field(
+        description=(
+            "record | lessons | model | unanswered — where the answer came from. "
+            "'lessons' means it rests on retrieved passages of the course videos, "
+            "listed in sources."
+        )
+    )
     intent: str = "general"
     lessons_to_rewatch: list[TutorLesson] = []
     weak_topics: list[TutorTopic] = []
     suggestions: list[str] = []
+    sources: list[TutorSource] = []
 
 
 # --- psychometrics ---------------------------------------------------------

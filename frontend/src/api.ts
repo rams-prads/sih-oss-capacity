@@ -539,16 +539,29 @@ export interface TutorTopic {
   verdict: Verdict;
 }
 
+export interface TutorSource {
+  lesson_id: number;
+  lesson_title: string;
+  quote: string;
+  score: number;
+}
+
 export interface TutorReply {
   course_identifier: string;
   course_name: string;
   answer: string;
-  /** "record" = from this officer's own data, "model" = LLM, "unanswered" = declined. */
-  source: "record" | "model" | "unanswered";
+  /**
+   * "record"  = from this officer's own data
+   * "lessons" = grounded in retrieved passages of the course videos (see sources)
+   * "model"   = the model answered without course material to lean on
+   * "unanswered" = declined
+   */
+  source: "record" | "lessons" | "model" | "unanswered";
   intent: string;
   lessons_to_rewatch: TutorLesson[];
   weak_topics: TutorTopic[];
   suggestions: string[];
+  sources: TutorSource[];
 }
 
 export const askTutor = (courseIdentifier: string, userId: string, message: string) =>
