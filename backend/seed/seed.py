@@ -807,7 +807,13 @@ def run() -> None:
                         user_id=uid,
                         lesson_id=lesson.id,
                         course_identifier=course_id,
-                        completed_at=enrolled_at + timedelta(days=offset + 1),
+                        # Spread across the enrolment window rather than one
+                        # lesson a day from the moment of enrolling. An officer
+                        # studies in bursts with gaps between them, and the
+                        # activity calendar is only worth showing if the record
+                        # under it looks like study rather than a data import.
+                        completed_at=enrolled_at
+                        + timedelta(days=1 + offset * 2 + (offset // 3) * 3),
                     )
                 )
 

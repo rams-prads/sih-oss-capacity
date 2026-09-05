@@ -653,3 +653,30 @@ export const getAdminForecast = (department?: string, windowDays = 180) =>
       params: { ...(department ? { department } : {}), window_days: windowDays },
     })
     .then((r) => r.data);
+
+// --- learner activity calendar -------------------------------------------
+export interface ActivityDay {
+  date: string;
+  count: number;
+  lessons: number;
+  assessments: number;
+  prompts: number;
+}
+
+export interface LearnerActivity {
+  user_id: string;
+  start: string;
+  end: string;
+  days: ActivityDay[];
+  active_days: number;
+  total_actions: number;
+  current_streak: number;
+  longest_streak: number;
+  busiest_day: string;
+  busiest_count: number;
+}
+
+export const getActivity = (id: string, days = 364) =>
+  api
+    .get<LearnerActivity>(`/users/${id}/activity`, { params: { days } })
+    .then((r) => r.data);

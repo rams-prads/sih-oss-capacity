@@ -1,14 +1,23 @@
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { enrol, getEnrolments, getGaps, getProgression, getRecommendations } from "../api";
+import {
+  enrol,
+  getActivity,
+  getEnrolments,
+  getGaps,
+  getProgression,
+  getRecommendations,
+} from "../api";
 import type {
   Enrolment,
+  LearnerActivity,
   GapItem,
   GapReport,
   Progression,
   Recommendation,
   User,
 } from "../api";
+import { ActivityCalendar } from "../components/ActivityCalendar";
 import { CompetencyProfile } from "../components/CompetencyProfile";
 import { ReadinessBanner } from "../components/ReadinessBanner";
 import { RecommendationRow } from "../components/RecommendationRow";
@@ -22,6 +31,7 @@ export default function Learner({ userId, user }: { userId: string; user?: User 
   const [source, setSource] = useState("");
   const [enrolments, setEnrolments] = useState<Enrolment[]>([]);
   const [progression, setProgression] = useState<Progression | null>(null);
+  const [activity, setActivity] = useState<LearnerActivity | null>(null);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
 
@@ -29,17 +39,19 @@ export default function Learner({ userId, user }: { userId: string; user?: User 
     setLoading(true);
     setError("");
     try {
-      const [gaps, recommendations, enrolled, ahead] = await Promise.all([
+      const [gaps, recommendations, enrolled, ahead, record] = await Promise.all([
         getGaps(userId),
         getRecommendations(userId),
         getEnrolments(userId),
         getProgression(userId),
+        getActivity(userId),
       ]);
       setReport(gaps);
       setRecs(recommendations.recommendations);
       setSource(recommendations.source);
       setEnrolments(enrolled);
       setProgression(ahead);
+      setActivity(record);
     } catch {
       setError("Could not reach the platform API. Is the backend running on port 8000?");
     } finally {
@@ -100,6 +112,8 @@ export default function Learner({ userId, user }: { userId: string; user?: User 
           <CompetencyProfile items={report.items} onAssess={handleAssess} />
         )}
       </Card>
+
+      {activity && <ActivityCalendar activity={activity} />}
 
       <RecommendationShelf
         recommendations={recs}

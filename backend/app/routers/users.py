@@ -4,10 +4,12 @@ from __future__ import annotations
 from fastapi import APIRouter, HTTPException, status
 from sqlalchemy import select
 
+from app.engines.activity import activity
 from app.deps import CurrentUser, DbSession, create_access_token
 from app.models import Competency, Role, User, UserCompetency
 from app.security import verify_password
 from app.schemas import (
+    ActivityResponse,
     CompetencyOut,
     LoginRequest,
     RoleOut,
@@ -114,3 +116,20 @@ def login(payload: LoginRequest, db: DbSession):
 @router.get("/auth/me", response_model=UserOut)
 def me(user: CurrentUser):
     return _user_out(user)
+
+
+@router.get("/users/{user_id}/activity", response_model=ActivityResponse)
+def user_activity(user_id: str, db: DbSession, days: int = 364):
+    """A day-by-day record of this officer turning up.
+
+    Readiness says where someone stands; it says nothing about whether they are
+    studying. This counts what they actually did each day - videos watched,
+    assessments taken, in-video prompts answered - so consistency is visible
+    rather than inferred from a proficiency change weeks later.
+    """
+    from dataclasses import asdict
+
+    try:
+        return ActivityResponse(**asdict(activity(db, user_id, days)))
+    except KeyError as exc:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "User not found") from exc

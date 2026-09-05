@@ -763,3 +763,25 @@ class ForecastResponse(BaseModel):
     widening: list[str] = []
     stalling_courses: list[StallingCourseOut] = []
     note: str = ""
+
+
+# --- learner activity calendar -------------------------------------------
+class ActivityDayOut(BaseModel):
+    date: str
+    count: int
+    lessons: int
+    assessments: int
+    prompts: int
+
+
+class ActivityResponse(BaseModel):
+    user_id: str
+    start: str
+    end: str
+    days: list[ActivityDayOut] = []
+    active_days: int = 0
+    total_actions: int = 0
+    current_streak: int = 0
+    longest_streak: int = 0
+    busiest_day: str = ""
+    busiest_count: int = 0
