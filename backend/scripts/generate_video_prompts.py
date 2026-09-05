@@ -240,9 +240,21 @@ def main() -> None:
                     continue
 
                 # Embed the stems and drop questions that restate one already kept.
-                vectors = embed_texts(
-                    [c["stem"] for c in candidates], task_type="SEMANTIC_SIMILARITY"
-                )
+                # A refused embedding must not lose the lesson's other segments:
+                # keep the candidates unembedded, which costs de-duplication and
+                # variety for this segment only, and say so.
+                try:
+                    vectors = embed_texts(
+                        [c["stem"] for c in candidates], task_type="SEMANTIC_SIMILARITY"
+                    )
+                except Exception as exc:
+                    print(
+                        f"      embedding refused ({type(exc).__name__}); keeping all "
+                        "candidates for this segment, rerun to de-duplicate",
+                        file=sys.stderr,
+                        flush=True,
+                    )
+                    vectors = [[] for _ in candidates]
                 keep = deduplicate(list(zip([c["stem"] for c in candidates], vectors)))
                 dropped = len(candidates) - len(keep)
 

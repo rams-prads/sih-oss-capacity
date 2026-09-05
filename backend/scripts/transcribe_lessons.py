@@ -181,12 +181,16 @@ def main() -> None:
             for lesson in playable
             if str(lesson.id) not in store["lessons"]
         ]
+        # Count what is done BEFORE --limit trims the list, or a "--limit 1" run
+        # reports every other outstanding lesson as already transcribed.
+        outstanding = len(todo)
+        already = len(playable) - outstanding
         if args.limit:
             todo = todo[: args.limit]
 
         print(f"{scope}")
         print(f"  {len(lessons)} lessons, {len(playable)} with a video URL")
-        print(f"  {len(playable) - len(todo)} already transcribed, {len(todo)} to do")
+        print(f"  {already} already transcribed, {outstanding} outstanding, {len(todo)} this run")
 
         if args.dry_run:
             for lesson in todo:
