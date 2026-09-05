@@ -13,7 +13,8 @@ import type {
 } from "../api";
 import { CheckpointModal } from "../components/CheckpointModal";
 import { CourseTutor } from "../components/CourseTutor";
-import { CourseProgressCard } from "../components/CourseProgressCard";
+import { CoursePlayerView } from "../components/CoursePlayerView";
+import { EnrolledCourseCard } from "../components/EnrolledCourseCard";
 import { ProgressBar, STATUS_META } from "../components/Progress";
 import { TopicMasteryPanel } from "../components/TopicMasteryPanel";
 import { Card, Empty, ErrorNote, Spinner } from "../components/ui";
@@ -35,6 +36,9 @@ export default function MyLearning({ userId }: { userId: string }) {
   const [result, setResult] = useState<CheckpointResult | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
+  // Which course is open. Null shows the list; a course opens the two-pane
+  // player, so the outline is reachable without scrolling past everything.
+  const [openCourseId, setOpenCourseId] = useState<string | null>(null);
 
   const load = useCallback(async () => {
     try {
@@ -47,6 +51,7 @@ export default function MyLearning({ userId }: { userId: string }) {
   useEffect(() => {
     setData(null);
     setFilter("all");
+    setOpenCourseId(null);
     load();
   }, [load]);
 
@@ -103,6 +108,41 @@ export default function MyLearning({ userId }: { userId: string }) {
     completed: summary.completed,
     expired: summary.expired,
   };
+
+  const openCourse = courses.find((c) => c.course_identifier === openCourseId) ?? null;
+
+  // One course open takes the whole screen. Keeping the summary, the filters
+  // and the tutor above it would push the video down and reintroduce exactly
+  // the scrolling this layout removes.
+  if (openCourse) {
+    return (
+      <div className="space-y-5">
+        {error && <ErrorNote>{error}</ErrorNote>}
+
+        <CoursePlayerView
+          course={openCourse}
+          userId={userId}
+          busyLessonId={busyLessonId}
+          onBack={() => setOpenCourseId(null)}
+          onWatch={handleWatch}
+          onOpenCheckpoint={handleOpenCheckpoint}
+        />
+
+        {quiz && (
+          <CheckpointModal
+            quiz={quiz}
+            result={result}
+            submitting={submitting}
+            onSubmit={handleSubmit}
+            onClose={() => {
+              setQuiz(null);
+              setResult(null);
+            }}
+          />
+        )}
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-5">
@@ -200,15 +240,12 @@ export default function MyLearning({ userId }: { userId: string }) {
         {visible.length === 0 ? (
           <Empty>No courses in this category.</Empty>
         ) : (
-          <div className="space-y-3">
+          <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
             {visible.map((course) => (
-              <CourseProgressCard
-                userId={userId}
+              <EnrolledCourseCard
                 key={course.course_identifier}
                 course={course}
-                busyLessonId={busyLessonId}
-                onWatch={handleWatch}
-                onCheckpoint={handleOpenCheckpoint}
+                onOpen={() => setOpenCourseId(course.course_identifier)}
               />
             ))}
           </div>
