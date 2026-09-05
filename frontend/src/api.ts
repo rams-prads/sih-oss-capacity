@@ -559,3 +559,40 @@ export const askTutor = (courseIdentifier: string, userId: string, message: stri
       { params: { user_id: userId } },
     )
     .then((r) => r.data);
+
+// --- in-video retrieval prompts -------------------------------------------
+export interface VideoPrompt {
+  id: number;
+  lesson_id: number;
+  timestamp_seconds: number;
+  position_pct: number;
+  stem: string;
+  options: string[];
+}
+
+export interface LessonPrompts {
+  lesson_id: number;
+  lesson_title: string;
+  duration_min: number;
+  prompts: VideoPrompt[];
+  pool_size: number;
+  already_seen: number;
+  note: string;
+}
+
+export interface PromptAnswer {
+  prompt_id: number;
+  correct: boolean;
+  answer_index: number;
+  explanation: string;
+  quote: string;
+  graded: boolean;
+}
+
+export const getLessonPrompts = (lessonId: number, userId: string) =>
+  api.get<LessonPrompts>(`/lessons/${lessonId}/prompts`, { params: { user_id: userId } })
+    .then((r) => r.data);
+
+export const answerPrompt = (promptId: number, userId: string, chosen_index: number) =>
+  api.post<PromptAnswer>(`/prompts/${promptId}/answer`, { chosen_index },
+    { params: { user_id: userId } }).then((r) => r.data);

@@ -202,6 +202,7 @@ export default function MyLearning({ userId }: { userId: string }) {
           <div className="space-y-3">
             {visible.map((course) => (
               <CourseProgressCard
+                userId={userId}
                 key={course.course_identifier}
                 course={course}
                 busyLessonId={busyLessonId}

@@ -74,7 +74,7 @@ const noop = () => {};
 describe("CourseProgressCard", () => {
   it("states the progress in units, not just a percentage", () => {
     render(
-      <CourseProgressCard course={makeCourse()} busyLessonId={null} onWatch={noop} onCheckpoint={noop} />,
+      <CourseProgressCard userId="u-test" course={makeCourse()} busyLessonId={null} onWatch={noop} onCheckpoint={noop} />,
     );
     expect(screen.getByText("42% complete")).toBeInTheDocument();
     expect(screen.getByText(/4\/9 videos, 1\/3 checkpoints/)).toBeInTheDocument();
@@ -83,7 +83,7 @@ describe("CourseProgressCard", () => {
   it("offers exactly one next action", async () => {
     const onWatch = vi.fn();
     render(
-      <CourseProgressCard course={makeCourse()} busyLessonId={null} onWatch={onWatch} onCheckpoint={noop} />,
+      <CourseProgressCard userId="u-test" course={makeCourse()} busyLessonId={null} onWatch={onWatch} onCheckpoint={noop} />,
     );
     await userEvent.click(screen.getByRole("button", { name: /Watch next video/ }));
     expect(onWatch).toHaveBeenCalledWith(5);
@@ -95,7 +95,7 @@ describe("CourseProgressCard", () => {
       next_action: { kind: "checkpoint", label: "Checkpoint", lesson_id: null, checkpoint_id: 2 },
     });
     render(
-      <CourseProgressCard course={course} busyLessonId={null} onWatch={noop} onCheckpoint={onCheckpoint} />,
+      <CourseProgressCard userId="u-test" course={course} busyLessonId={null} onWatch={noop} onCheckpoint={onCheckpoint} />,
     );
     await userEvent.click(screen.getByRole("button", { name: /Take checkpoint/ }));
     expect(onCheckpoint).toHaveBeenCalledWith(2);
@@ -104,7 +104,7 @@ describe("CourseProgressCard", () => {
   it("offers no action on an expired course and says why", () => {
     const course = makeCourse({ status: "expired", next_action: null });
     render(
-      <CourseProgressCard course={course} busyLessonId={null} onWatch={noop} onCheckpoint={noop} />,
+      <CourseProgressCard userId="u-test" course={course} busyLessonId={null} onWatch={noop} onCheckpoint={noop} />,
     );
     expect(screen.queryByRole("button", { name: /Watch next video/ })).not.toBeInTheDocument();
     expect(screen.getByText(/Enrolment window closed/)).toBeInTheDocument();
@@ -113,7 +113,7 @@ describe("CourseProgressCard", () => {
   it("offers no action on a completed course", () => {
     const course = makeCourse({ status: "completed", progress_pct: 100, next_action: null });
     render(
-      <CourseProgressCard course={course} busyLessonId={null} onWatch={noop} onCheckpoint={noop} />,
+      <CourseProgressCard userId="u-test" course={course} busyLessonId={null} onWatch={noop} onCheckpoint={noop} />,
     );
     expect(screen.getByText(/All videos watched and all checkpoints passed/)).toBeInTheDocument();
   });
@@ -128,7 +128,7 @@ describe("CourseProgressCard", () => {
       url: "https://portal.igotkarmayogi.gov.in/public/toc/do_123/overview",
     });
     render(
-      <CourseProgressCard course={course} busyLessonId={null} onWatch={noop} onCheckpoint={noop} />,
+      <CourseProgressCard userId="u-test" course={course} busyLessonId={null} onWatch={noop} onCheckpoint={noop} />,
     );
     expect(screen.getByText("Measuring GDP")).toBeInTheDocument();
     expect(screen.getByText(/tracked there, not/)).toBeInTheDocument();
@@ -149,7 +149,7 @@ describe("CourseProgressCard", () => {
       url: "",
     });
     render(
-      <CourseProgressCard course={course} busyLessonId={null} onWatch={noop} onCheckpoint={noop} />,
+      <CourseProgressCard userId="u-test" course={course} busyLessonId={null} onWatch={noop} onCheckpoint={noop} />,
     );
     expect(screen.getByText(/publishes no module outline/)).toBeInTheDocument();
     expect(screen.queryByRole("link", { name: /Open on iGOT/ })).not.toBeInTheDocument();
@@ -160,7 +160,7 @@ describe("CourseProgressCard", () => {
     const course = makeCourse();
     course.modules[1].lessons[1].video_url = "https://portal.igotkarmayogi.gov.in/a.mp4";
     const { container } = render(
-      <CourseProgressCard course={course} busyLessonId={null} onWatch={onWatch} onCheckpoint={noop} />,
+      <CourseProgressCard userId="u-test" course={course} busyLessonId={null} onWatch={onWatch} onCheckpoint={noop} />,
     );
     await userEvent.click(screen.getByRole("button", { name: /Watch next video/ }));
     // Pressing the button must not claim the video was watched.
@@ -171,7 +171,7 @@ describe("CourseProgressCard", () => {
 
   it("marks a locked checkpoint as locked when its videos are unwatched", async () => {
     render(
-      <CourseProgressCard course={makeCourse()} busyLessonId={null} onWatch={noop} onCheckpoint={noop} />,
+      <CourseProgressCard userId="u-test" course={makeCourse()} busyLessonId={null} onWatch={noop} onCheckpoint={noop} />,
     );
     await userEvent.click(screen.getByRole("button", { name: /Show contents/ }));
     expect(screen.getByText(/Locked until videos are watched/)).toBeInTheDocument();

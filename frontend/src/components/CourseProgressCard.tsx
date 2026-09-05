@@ -1,6 +1,7 @@
 import { useState } from "react";
 import type { LearningCourse } from "../api";
 import { ProgressBar, StatusPill, UnitTrack } from "./Progress";
+import { LessonPlayer } from "./LessonPlayer";
 
 function fmtDate(iso: string | null) {
   if (!iso) return "";
@@ -13,11 +14,15 @@ function fmtDate(iso: string | null) {
 
 export function CourseProgressCard({
   course,
+  userId,
   busyLessonId,
   onWatch,
   onCheckpoint,
 }: {
   course: LearningCourse;
+  // Needed by the player: which in-video questions appear depends on what this
+  // officer has already been asked.
+  userId: string;
   busyLessonId: number | null;
   onWatch: (lessonId: number) => void;
   onCheckpoint: (checkpointId: number) => void;
@@ -232,22 +237,14 @@ export function CourseProgressCard({
                 {m.lessons
                   .filter((l) => playing === l.id && l.video_url)
                   .map((l) => (
-                    <li key={`player-${l.id}`} className="rounded-lg bg-black/90 p-1.5">
-                      <video
-                        key={l.id}
-                        src={l.video_url}
-                        controls
-                        autoPlay
-                        className="w-full rounded"
-                        // Reaching the end is the evidence. No self-reported ticking.
-                        onEnded={() => {
-                          if (!l.completed) onWatch(l.id);
-                        }}
+                    <li key={`player-${l.id}`}>
+                      <LessonPlayer
+                        lessonId={l.id}
+                        videoUrl={l.video_url}
+                        userId={userId}
+                        completed={l.completed}
+                        onFinished={() => onWatch(l.id)}
                       />
-                      <p className="px-1 py-1 text-[11px] text-ink-4">
-                        Streamed from iGOT Karmayogi. Watching to the end marks it complete
-                        here.
-                      </p>
                     </li>
                   ))}
 
