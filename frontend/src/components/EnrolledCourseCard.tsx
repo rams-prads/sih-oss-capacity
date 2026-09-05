@@ -33,13 +33,13 @@ export function EnrolledCourseCard({
       className="group flex cursor-pointer flex-col rounded-xl border border-hairline bg-surface p-4 shadow-sm transition hover:border-hairline-strong hover:shadow-md"
     >
       <div className="flex items-start justify-between gap-3">
-        <h3 className="min-w-0 text-xs font-semibold leading-snug text-ink">
+        <h3 className="min-w-0 text-sm font-semibold leading-snug text-ink">
           {course.course_name}
         </h3>
         <StatusPill status={course.status} />
       </div>
 
-      <p className="mt-1 truncate text-2xs text-ink-3">
+      <p className="mt-1.5 truncate text-xs text-ink-3">
         {course.provider}
         {course.competency_ids.length > 0 ? (
           <span className="ml-1.5 font-mono text-ink-4">
@@ -50,21 +50,21 @@ export function EnrolledCourseCard({
 
       <div className="mt-3 flex items-center gap-2.5">
         <ProgressBar value={course.progress_pct} status={course.status} />
-        <span className="shrink-0 text-2xs tabular-nums text-ink-2">
+        <span className="shrink-0 text-xs tabular-nums text-ink-2">
           {course.progress_pct}%
         </span>
       </div>
 
-      <div className="mt-2.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-2xs text-ink-3">
+      <div className="mt-2.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-ink-3">
         {hasCurriculum ? (
           <>
             <span className="inline-flex items-center gap-1 tabular-nums">
-              <ClockIcon className="text-[12px]" />
+              <ClockIcon className="text-[14px]" />
               {course.lessons_completed}/{course.lessons_total} videos
             </span>
             {course.checkpoints_total > 0 ? (
               <span className="inline-flex items-center gap-1 tabular-nums">
-                <QuestionMarkerIcon className="text-[12px]" />
+                <QuestionMarkerIcon className="text-[14px]" />
                 {course.checkpoints_passed}/{course.checkpoints_total} quizzes
               </span>
             ) : null}
@@ -80,10 +80,10 @@ export function EnrolledCourseCard({
       </div>
 
       <div className="mt-3 flex items-center justify-between border-t border-hairline pt-3">
-        <span className="truncate text-2xs text-ink-4">
+        <span className="truncate text-xs text-ink-4">
           {course.next_action ? course.next_action.label : "\u00a0"}
         </span>
-        <span className="inline-flex shrink-0 items-center gap-1 text-2xs font-medium text-ink-2 transition group-hover:text-ink">
+        <span className="inline-flex shrink-0 items-center gap-1 text-xs font-medium text-ink-2 transition group-hover:text-ink">
           {cta}
           <ChevronRightIcon className="text-[13px]" />
         </span>

@@ -236,7 +236,7 @@ export function ControlBar({
           <ForwardTenIcon />
         </PlayerButton>
 
-        <span className="ml-2.5 select-none text-xs tabular-nums text-white/70">
+        <span className="ml-3 select-none text-sm tabular-nums text-white/80">
           {formatTime(currentTime)}
           <span className="mx-1 text-white/35">/</span>
           {formatTime(duration)}

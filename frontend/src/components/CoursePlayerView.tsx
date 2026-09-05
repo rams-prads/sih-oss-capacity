@@ -61,7 +61,7 @@ export function CoursePlayerView({
       <header className="rounded-xl border border-hairline bg-surface px-5 py-4">
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div className="min-w-0">
-            <h1 className="text-base font-semibold leading-snug text-ink">
+            <h1 className="text-xl font-semibold leading-snug text-ink">
               {course.course_name}
             </h1>
             <p className="mt-1 text-xs text-ink-3">
@@ -86,7 +86,7 @@ export function CoursePlayerView({
             {course.progress_pct}%
           </span>
         </div>
-        <p className="mt-1.5 text-2xs text-ink-3">
+        <p className="mt-2 text-xs text-ink-3">
           {course.lessons_completed} of {course.lessons_total} videos
           {course.checkpoints_total > 0
             ? ` \u00b7 ${course.checkpoints_passed} of ${course.checkpoints_total} quizzes passed`
@@ -183,8 +183,8 @@ function LessonStage({
 
       <div className="flex flex-wrap items-start justify-between gap-3 rounded-xl border border-hairline bg-surface px-4 py-3">
         <div className="min-w-0">
-          <h2 className="text-sm font-semibold leading-snug text-ink">{lesson.title}</h2>
-          <p className="mt-1 inline-flex items-center gap-1.5 text-xs text-ink-3">
+          <h2 className="text-lg font-semibold leading-snug text-ink">{lesson.title}</h2>
+          <p className="mt-1.5 inline-flex items-center gap-2 text-xs text-ink-3">
             <ClockIcon className="text-[13px]" />
             {lesson.duration_min} min
             {lesson.completed ? (

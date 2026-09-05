@@ -52,8 +52,8 @@ export function CurriculumPanel({
   return (
     <aside className="flex h-full flex-col overflow-hidden rounded-xl border border-hairline bg-surface">
       <header className="border-b border-hairline px-4 py-3">
-        <h2 className="text-xs font-semibold text-ink">Course content</h2>
-        <p className="mt-0.5 text-2xs text-ink-3">
+        <h2 className="text-base font-semibold text-ink">Course content</h2>
+        <p className="mt-1 text-xs text-ink-3">
           {course.modules.length} module{course.modules.length === 1 ? "" : "s"}
           {" \u00b7 "}
           {course.lessons_total} video{course.lessons_total === 1 ? "" : "s"}
@@ -105,23 +105,23 @@ function ModuleSection({
         type="button"
         onClick={onToggle}
         aria-expanded={expanded}
-        className="flex w-full items-start gap-2.5 px-4 py-3 text-left transition hover:bg-raised"
+        className="flex w-full items-start gap-3 px-4 py-3.5 text-left transition hover:bg-raised"
       >
         <ChevronDownIcon
-          className={`mt-[3px] shrink-0 text-[15px] text-ink-4 transition-transform duration-200 ${
+          className={`mt-[3px] shrink-0 text-[17px] text-ink-4 transition-transform duration-200 ${
             expanded ? "" : "-rotate-90"
           }`}
         />
         <span className="min-w-0 flex-1">
-          <span className="block text-xs font-medium leading-snug text-ink">
+          <span className="block text-sm font-medium leading-snug text-ink">
             {module.title || module.topic_name}
           </span>
-          <span className="mt-0.5 block text-2xs tabular-nums text-ink-3">
+          <span className="mt-1 block text-xs tabular-nums text-ink-3">
             {module.lessons_completed}/{module.lessons_total} watched
             {minutes > 0 ? ` \u00b7 ${minutes} min` : ""}
           </span>
         </span>
-        {done ? <CheckCircleIcon className="mt-[2px] shrink-0 text-[15px] text-chakra" /> : null}
+        {done ? <CheckCircleIcon className="mt-[2px] shrink-0 text-[17px] text-chakra" /> : null}
       </button>
 
       {expanded ? (
@@ -134,23 +134,23 @@ function ModuleSection({
                   type="button"
                   onClick={() => onSelectLesson(lesson.id)}
                   aria-current={current ? "true" : undefined}
-                  className={`flex w-full items-center gap-2.5 border-l-2 py-2 pl-4 pr-3 text-left transition ${
+                  className={`flex w-full items-center gap-2.5 border-l-2 py-2.5 pl-4 pr-3 text-left transition ${
                     current
                       ? "border-saffron bg-saffron-soft"
                       : "border-transparent hover:bg-raised"
                   }`}
                 >
                   {current ? (
-                    <PlayCircleIcon className="shrink-0 text-[16px] text-saffron" />
+                    <PlayCircleIcon className="shrink-0 text-[18px] text-saffron" />
                   ) : locked ? (
-                    <LockIcon className="shrink-0 text-[14px] text-ink-4" />
+                    <LockIcon className="shrink-0 text-[16px] text-ink-4" />
                   ) : lesson.completed ? (
-                    <CheckCircleIcon className="shrink-0 text-[16px] text-chakra" />
+                    <CheckCircleIcon className="shrink-0 text-[18px] text-chakra" />
                   ) : (
-                    <CircleIcon className="shrink-0 text-[16px] text-hairline-strong" />
+                    <CircleIcon className="shrink-0 text-[18px] text-hairline-strong" />
                   )}
                   <span
-                    className={`min-w-0 flex-1 truncate text-2xs leading-snug ${
+                    className={`min-w-0 flex-1 truncate text-sm leading-snug ${
                       current
                         ? "font-medium text-ink"
                         : lesson.completed
@@ -160,8 +160,8 @@ function ModuleSection({
                   >
                     {lesson.title}
                   </span>
-                  <span className="inline-flex shrink-0 items-center gap-1 text-2xs tabular-nums text-ink-4">
-                    <ClockIcon className="text-[12px]" />
+                  <span className="inline-flex shrink-0 items-center gap-1 text-xs tabular-nums text-ink-4">
+                    <ClockIcon className="text-[14px]" />
                     {lesson.duration_min}
                   </span>
                 </button>
@@ -175,23 +175,23 @@ function ModuleSection({
                 type="button"
                 disabled={!module.checkpoint_unlocked}
                 onClick={() => onOpenCheckpoint(module.checkpoint_id as number)}
-                className={`flex w-full items-center gap-2.5 border-l-2 border-transparent py-2 pl-4 pr-3 text-left transition ${
+                className={`flex w-full items-center gap-2.5 border-l-2 border-transparent py-2.5 pl-4 pr-3 text-left transition ${
                   module.checkpoint_unlocked
                     ? "hover:bg-raised"
                     : "cursor-not-allowed opacity-60"
                 }`}
               >
                 {module.checkpoint_passed ? (
-                  <CheckCircleIcon className="shrink-0 text-[16px] text-chakra" />
+                  <CheckCircleIcon className="shrink-0 text-[18px] text-chakra" />
                 ) : module.checkpoint_unlocked ? (
-                  <QuestionMarkerIcon className="shrink-0 text-[16px] text-ink-3" />
+                  <QuestionMarkerIcon className="shrink-0 text-[18px] text-ink-3" />
                 ) : (
-                  <LockIcon className="shrink-0 text-[14px] text-ink-4" />
+                  <LockIcon className="shrink-0 text-[16px] text-ink-4" />
                 )}
-                <span className="min-w-0 flex-1 truncate text-2xs text-ink-2">
+                <span className="min-w-0 flex-1 truncate text-sm text-ink-2">
                   {module.lessons_total === 0 ? "Final assessment" : "Checkpoint quiz"}
                 </span>
-                <span className="shrink-0 text-2xs tabular-nums text-ink-4">
+                <span className="shrink-0 text-xs tabular-nums text-ink-4">
                   {module.best_score_pct !== null
                     ? `${module.best_score_pct}%`
                     : `pass ${module.pass_pct}%`}
