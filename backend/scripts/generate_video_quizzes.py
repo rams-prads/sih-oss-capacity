@@ -46,9 +46,11 @@ API = "https://generativelanguage.googleapis.com"
 UPLOAD_URL = f"{API}/upload/v1beta/files"
 INLINE_LIMIT = 18_000_000          # above this the File API is required
 # iGOT video runs about 23 MB per minute, so a 10 minute lesson is a quarter of a
-# gigabyte to pull down and push back up. Past this it is not worth the wait for a
-# demo batch; the module simply uses its other lessons.
-SIZE_LIMIT = 260_000_000
+# gigabyte to pull down and push back up. This caps how long one batch will wait,
+# not what the API can take: Gemini's File API accepts up to 2 GB, so raising
+# MAX_VIDEO_MB is a patience decision. The longest iGOT lessons run near 300 MB,
+# and at the original 260 MB seven of them were silently skipped.
+SIZE_LIMIT = int(os.environ.get("MAX_VIDEO_MB", "400")) * 1_000_000
 # Processing scales with file size. The first attempt polled for 90 seconds total
 # and every large lesson silently returned nothing.
 POLL_ATTEMPTS = 150

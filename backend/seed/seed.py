@@ -18,6 +18,7 @@ from sqlalchemy import select  # noqa: E402
 from app.db import Base, SessionLocal, engine  # noqa: E402
 from app.security import hash_password  # noqa: E402
 from app.models import (  # noqa: E402
+    VideoPrompt,
     LessonTranscript,
     TranscriptChunk,
     AssessmentResult,
@@ -544,6 +545,48 @@ def load_transcripts(db) -> tuple[int, int]:
 
 
 
+
+def load_video_prompts(db) -> int:
+    """Load the committed in-video retrieval prompts.
+
+    Ungraded questions shown partway through a lesson video. Generated once by
+    scripts/generate_video_prompts.py from the transcripts, then committed, so a
+    clone gets them without a key.
+    """
+    path = Path(__file__).resolve().parent / "igot_video_prompts.json"
+    if not path.is_file():
+        return 0
+
+    data = json.loads(path.read_text(encoding="utf-8"))
+    known = {lesson.id for lesson in db.scalars(select(Lesson)).all()}
+
+    written = 0
+    for entry in data.get("lessons", {}).values():
+        lesson_id = entry.get("lesson_id")
+        if lesson_id not in known:
+            continue
+        for prompt in entry.get("prompts", []):
+            db.add(
+                VideoPrompt(
+                    lesson_id=lesson_id,
+                    course_identifier=entry["course_identifier"],
+                    segment_index=prompt.get("segment_index", 0),
+                    position_pct=prompt.get("position_pct", 0.0),
+                    timestamp_seconds=prompt.get("timestamp_seconds", 0),
+                    stem=prompt["stem"],
+                    options=prompt["options"],
+                    answer_index=prompt["answer_index"],
+                    explanation=prompt.get("explanation", ""),
+                    quotes=prompt.get("quote", ""),
+                    embedding=prompt.get("embedding"),
+                )
+            )
+            written += 1
+    db.flush()
+    return written
+
+
+
 def run() -> None:
     Base.metadata.drop_all(bind=engine)
     Base.metadata.create_all(bind=engine)
@@ -758,6 +801,7 @@ def run() -> None:
                 enrolment.completed_at = enrolment.enrolled_at + timedelta(days=30)
 
         n_transcripts, n_chunks = load_transcripts(db)
+        n_prompts = load_video_prompts(db)
 
         db.commit()
 
@@ -766,6 +810,7 @@ def run() -> None:
         f"{len(USERS)} officers, {len(LEARNING)} enrolments. "
         f"Catalogue is real: {igot_lessons} video lessons across iGOT courses, "
         f"{n_transcripts} transcripts ({n_chunks} embedded chunks), "
+        f"{n_prompts} in-video prompts, "
         f"{igot_quizzes} final assessments, {question_count} authored bank questions, "
         f"{video_questions} questions generated from {video_topics} lesson videos."
     )

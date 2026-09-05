@@ -358,3 +358,67 @@ class TranscriptChunk(Base):
     dimensions: Mapped[int] = mapped_column(Integer, default=0)
 
     transcript: Mapped[LessonTranscript] = relationship(back_populates="chunks")
+
+
+# --- in-video retrieval prompts --------------------------------------------
+class VideoPrompt(Base):
+    """A short question anchored to a moment inside a lesson video.
+
+    Modelled on the in-video quizzes MOOC platforms use: a question appears
+    partway through the lecture, about what was just said. Coursera reports that
+    74% of viewers who start a video attempt its in-video quiz, and that the
+    commonest behaviour around one is seeking BACKWARDS to rewatch. That is the
+    point of it - the question sends the learner back into the material.
+
+    Deliberately separate from Checkpoint, which gates a module, is scored, and
+    feeds the competency estimate. These are ungraded and optional. Letting an
+    optional question the learner can rewind and look up feed a proficiency
+    measurement would quietly corrupt it, so it does not.
+    """
+
+    __tablename__ = "video_prompts"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    lesson_id: Mapped[int] = mapped_column(ForeignKey("lessons.id"), nullable=False, index=True)
+    course_identifier: Mapped[str] = mapped_column(String(64), nullable=False, index=True)
+
+    # Which passage of the transcript the question came from, and where in the
+    # video that passage falls. The timestamp is estimated from the passage's
+    # position in the transcript against the lesson's duration: speech rate is
+    # roughly constant, and the transcripts carry no timings of their own.
+    segment_index: Mapped[int] = mapped_column(Integer, default=0)
+    position_pct: Mapped[float] = mapped_column(Float, default=0.0)
+    timestamp_seconds: Mapped[int] = mapped_column(Integer, default=0)
+    source_chunk_id: Mapped[int | None] = mapped_column(
+        ForeignKey("transcript_chunks.id"), nullable=True
+    )
+
+    stem: Mapped[str] = mapped_column(Text, nullable=False)
+    options: Mapped[list[str]] = mapped_column(JSON, nullable=False)
+    answer_index: Mapped[int] = mapped_column(Integer, nullable=False)
+    explanation: Mapped[str] = mapped_column(Text, default="")
+    quotes: Mapped[str] = mapped_column(Text, default="")
+
+    # Used to keep a pool varied and to avoid serving two questions that are the
+    # same question in different words.
+    embedding: Mapped[list[float] | None] = mapped_column(JSON, nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=_utcnow)
+
+
+class VideoPromptAnswer(Base):
+    """One ungraded answer to an in-video prompt.
+
+    Recorded so the learner can see what they have practised and so the tutor
+    knows what they got wrong, but excluded from the competency estimate - see
+    VideoPrompt for why.
+    """
+
+    __tablename__ = "video_prompt_answers"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    user_id: Mapped[str] = mapped_column(ForeignKey("users.id"), nullable=False, index=True)
+    prompt_id: Mapped[int] = mapped_column(ForeignKey("video_prompts.id"), nullable=False)
+    lesson_id: Mapped[int] = mapped_column(ForeignKey("lessons.id"), nullable=False, index=True)
+    chosen_index: Mapped[int] = mapped_column(Integer, nullable=False)
+    correct: Mapped[bool] = mapped_column(Boolean, default=False)
+    answered_at: Mapped[datetime] = mapped_column(DateTime, default=_utcnow)

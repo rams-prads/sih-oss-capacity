@@ -670,3 +670,40 @@ class ValidationOut(BaseModel):
     holdout_pct: float
     models: list[ModelScore]
     note: str
+
+
+# --- in-video prompts ------------------------------------------------------
+class VideoPromptOut(BaseModel):
+    id: int
+    lesson_id: int
+    timestamp_seconds: int = Field(description="When in the video to pause")
+    position_pct: float
+    stem: str
+    options: list[str]
+    # answer_index is deliberately absent: the learner sees it only on answering.
+
+
+class LessonPromptsOut(BaseModel):
+    lesson_id: int
+    lesson_title: str = ""
+    duration_min: int = 0
+    prompts: list[VideoPromptOut]
+    pool_size: int = Field(description="Questions available across all viewings")
+    already_seen: int = Field(description="How many this officer has met before")
+    note: str
+
+
+class AnswerPromptRequest(BaseModel):
+    chosen_index: int
+
+
+class AnswerPromptOut(BaseModel):
+    prompt_id: int
+    correct: bool
+    answer_index: int
+    explanation: str = ""
+    quote: str = ""
+    graded: bool = Field(
+        default=False,
+        description="Always false: in-video prompts never affect the competency estimate",
+    )

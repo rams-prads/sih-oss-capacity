@@ -22,6 +22,7 @@ from app.routers import (
     psychometrics,
     quiz,
     users,
+    video_prompts,
 )
 
 settings = get_settings()
@@ -59,6 +60,7 @@ app.include_router(gaps.router, prefix=api)
 app.include_router(quiz.router, prefix=api)
 app.include_router(learning.router, prefix=api)
 app.include_router(psychometrics.router, prefix=api)
+app.include_router(video_prompts.router, prefix=api)
 app.include_router(admin.router, prefix=api)
 # Sandbox that speaks the Sunbird contract over HTTP (see routers/mock_sunbird.py)
 app.include_router(mock_sunbird.router)
