@@ -19,7 +19,7 @@ export function RecommendationRow({
   onEnrol: (identifier: string) => void;
 }) {
   const { course } = rec;
-  const hours = Math.round(course.duration_min / 60);
+  const hours = course.duration_min >= 60 ? Math.round(course.duration_min / 60) : 0;
 
   return (
     <li className="py-3 first:pt-0 last:pb-0">

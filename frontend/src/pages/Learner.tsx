@@ -12,7 +12,8 @@ import type {
 import { CompetencyProfile } from "../components/CompetencyProfile";
 import { ReadinessBanner } from "../components/ReadinessBanner";
 import { RecommendationRow } from "../components/RecommendationRow";
-import { Badge, Card, Empty, ErrorNote, Meta, Spinner } from "../components/ui";
+import { RecommendationShelf } from "../components/RecommendationShelf";
+import { Badge, Card, Empty, ErrorNote, Spinner } from "../components/ui";
 
 export default function Learner({ userId, user }: { userId: string; user?: User }) {
   const navigate = useNavigate();
@@ -67,6 +68,11 @@ export default function Learner({ userId, user }: { userId: string; user?: User 
   // The profile answers "where am I short"; this answers "where do I not know",
   // which is a different call to action and worth its own count.
   const needAssessment = report.items.filter((i) => i.recommended_action === "assess").length;
+  // Recommendations carry competency ids; the gap report is where their names
+  // live. Anything outside this officer's own requirements falls back to the
+  // code rather than being dropped.
+  const competencyName = (id: string) =>
+    report.items.find((i) => i.competency_id === id)?.competency_name ?? id;
   const avgProgress = enrolments.length
     ? Math.round(enrolments.reduce((s, e) => s + e.progress_pct, 0) / enrolments.length)
     : 0;
@@ -84,44 +90,26 @@ export default function Learner({ userId, user }: { userId: string; user?: User 
         ]}
       />
 
-      {/* The profile and the training that answers it, side by side. They were
-          a full page apart, so the reason for a course was off screen by the
-          time you reached it. */}
-      <div className="grid items-start gap-5 xl:grid-cols-[minmax(0,1.65fr)_minmax(0,1fr)]">
-        <Card
-          title="Competency profile"
-          subtitle="What your role requires, against what you have. Ordered by the shortfall that matters most to the role."
-        >
-          {report.items.length === 0 ? (
-            <Empty>No competencies are recorded for this role.</Empty>
-          ) : (
-            <CompetencyProfile items={report.items} onAssess={handleAssess} />
-          )}
-        </Card>
+      <Card
+        title="Competency profile"
+        subtitle="What your role requires, against what you have. Ordered by the shortfall that matters most to the role."
+      >
+        {report.items.length === 0 ? (
+          <Empty>No competencies are recorded for this role.</Empty>
+        ) : (
+          <CompetencyProfile items={report.items} onAssess={handleAssess} />
+        )}
+      </Card>
 
-        <Card
-          title="Recommended training"
-          subtitle="Matched to the gaps above"
-          right={
-            <Meta>{source === "sunbird" ? "Sunbird gateway" : "Sunbird sandbox"}</Meta>
-          }
-        >
-          {recs.length === 0 ? (
-            <Empty>No training needed — every role requirement is met.</Empty>
-          ) : (
-            <ul className="divide-y divide-hairline">
-              {recs.slice(0, 5).map((rec) => (
-                <RecommendationRow
-                  key={rec.course.identifier}
-                  rec={rec}
-                  enrolled={enrolledIds.has(rec.course.identifier)}
-                  onEnrol={handleEnrol}
-                />
-              ))}
-            </ul>
-          )}
-        </Card>
-      </div>
+      <RecommendationShelf
+        recommendations={recs}
+        gaps={report.items}
+        enrolledIds={enrolledIds}
+        roleName={user?.role_name ?? report.role_name}
+        source={source}
+        competencyName={competencyName}
+        onEnrol={handleEnrol}
+      />
 
       {progression && !progression.at_top_of_ladder && progression.items.length > 0 && (
         <Card
