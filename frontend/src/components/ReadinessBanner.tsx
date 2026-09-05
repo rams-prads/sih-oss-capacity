@@ -27,14 +27,14 @@ export function ReadinessBanner({
     <section className="overflow-hidden rounded-xl border border-hairline bg-surface">
       <div className="flex flex-col gap-5 p-5 lg:flex-row lg:items-center">
         <div className="lg:w-72 lg:shrink-0">
-          <p className="text-2xs font-semibold uppercase tracking-[0.08em] text-ink-4">
+          <p className="text-xs font-semibold uppercase tracking-[0.08em] text-ink-4">
             Role readiness
           </p>
           <p className="mt-1 flex items-baseline gap-2">
             <span className="text-2xl font-semibold tabular-nums text-ink">
               {report.readiness_pct}%
             </span>
-            <span className="truncate text-xs text-ink-3">{roleName}</span>
+            <span className="truncate text-sm text-ink-3">{roleName}</span>
           </p>
 
           <div className="mt-2.5 h-2 overflow-hidden rounded-full bg-ashoka-soft">
@@ -44,7 +44,7 @@ export function ReadinessBanner({
             />
           </div>
 
-          <p className="mt-2 text-2xs leading-relaxed text-ink-3">
+          <p className="mt-2 text-xs leading-relaxed text-ink-3">
             {measured ? (
               <>
                 <span className="font-medium text-ink-2">
@@ -67,8 +67,8 @@ export function ReadinessBanner({
         <dl className="grid flex-1 grid-cols-2 gap-x-6 gap-y-4 border-hairline sm:grid-cols-4 lg:border-l lg:pl-6">
           {facts.map((fact) => (
             <div key={fact.label}>
-              <dt className="text-2xs text-ink-4">{fact.label}</dt>
-              <dd className="mt-0.5 text-base font-semibold tabular-nums text-ink">
+              <dt className="text-xs text-ink-4">{fact.label}</dt>
+              <dd className="mt-1 text-lg font-semibold tabular-nums text-ink">
                 {fact.value}
               </dd>
             </div>
