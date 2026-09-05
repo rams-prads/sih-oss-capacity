@@ -198,8 +198,12 @@ def main() -> None:
     if args.limit:
         todo = todo[: args.limit]
 
-    print(scope)
-    print(f"  {len(transcripts)} transcripts, {len(store['lessons'])} already done, {len(todo)} to do")
+    print(scope, flush=True)
+    print(
+        f"  {len(transcripts)} transcripts, {len(store['lessons'])} already done, "
+        f"{len(todo)} to do",
+        flush=True,
+    )
 
     if args.dry_run:
         for key, entry in todo:

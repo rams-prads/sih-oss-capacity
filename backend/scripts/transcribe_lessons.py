@@ -188,8 +188,8 @@ def main() -> None:
         if args.limit:
             todo = todo[: args.limit]
 
-        print(f"{scope}")
-        print(f"  {len(lessons)} lessons, {len(playable)} with a video URL")
+        print(f"{scope}", flush=True)
+        print(f"  {len(lessons)} lessons, {len(playable)} with a video URL", flush=True)
         print(f"  {already} already transcribed, {outstanding} outstanding, {len(todo)} this run")
 
         if args.dry_run:
