@@ -1,4 +1,5 @@
 import type { CompetencyStat, HeatmapCell } from "../api";
+import { CheckCircleIcon } from "./icons";
 
 /**
  * Gap intensity is magnitude, so it gets a sequential ramp: one hue, light to
@@ -75,7 +76,7 @@ export function Heatmap({
                       className={`flex h-7 items-center justify-center rounded-md text-[11px] font-semibold tabular-nums transition-transform duration-[140ms] [transition-timing-function:var(--ease-out)] hover:scale-[1.12] ${SHADES[Math.min(cell.gap, 4)]}`}
                       title={`${userName} — ${cid}: attained ${cell.attained_level}, target ${cell.target_level}`}
                     >
-                      {cell.gap === 0 ? "✓" : cell.gap}
+                      {cell.gap === 0 ? <CheckCircleIcon className="text-[12px]" /> : cell.gap}
                     </div>
                   </td>
                 );
@@ -92,7 +93,7 @@ export function Heatmap({
             <span
               className={`grid h-4 w-6 place-items-center rounded text-[10px] font-semibold ${shade}`}
             >
-              {i === 0 ? "✓" : i}
+              {i === 0 ? <CheckCircleIcon className="text-[11px]" /> : i}
             </span>
             {i === 0 ? "met" : i === 4 ? "4 (widest)" : ""}
           </span>

@@ -1,14 +1,20 @@
 import { useState } from "react";
 import { answerPrompt } from "../api";
 import type { PromptAnswer, VideoPrompt } from "../api";
+import { CheckCircleIcon, QuestionMarkerIcon, ReplayTenIcon } from "./icons";
+
+function stamp(seconds: number) {
+  return `${Math.floor(seconds / 60)}:${String(Math.floor(seconds % 60)).padStart(2, "0")}`;
+}
 
 /**
  * The question that interrupts a lesson.
  *
- * Ungraded and skippable by design. The learner is mid-lecture, so this stays
- * one question, states plainly that it does not count, and offers to jump back
- * in the video rather than just marking them wrong: rewatching the passage is
- * the behaviour this is meant to cause.
+ * Ungraded and skippable by design, and it says so plainly: a learner who
+ * believes this counts will treat it as an exam and look the answer up. It
+ * stays one question, and offers to jump back to where the answer was
+ * explained rather than only marking them wrong, because rewatching the
+ * passage is the behaviour this exists to cause.
  */
 export function InVideoPrompt({
   prompt,
@@ -35,84 +41,93 @@ export function InVideoPrompt({
     }
   }
 
-  const stamp = `${Math.floor(prompt.timestamp_seconds / 60)}:${String(
-    prompt.timestamp_seconds % 60,
-  ).padStart(2, "0")}`;
-
   return (
-    <div className="absolute inset-0 z-20 flex items-center justify-center bg-slate-900/80 p-4">
-      <div className="w-full max-w-xl rounded-xl bg-white p-5 shadow-xl">
-        <div className="flex items-center justify-between gap-3">
-          <p className="text-xs font-medium uppercase tracking-wide text-slate-500">
-            Quick check &middot; {stamp}
+    <div className="absolute inset-0 z-20 grid place-items-center bg-ink/80 p-4 backdrop-blur-[2px]">
+      <div className="w-full max-w-xl overflow-hidden rounded-xl bg-surface shadow-lg ring-1 ring-hairline">
+        <header className="flex items-center gap-2 border-b border-hairline px-5 py-3">
+          <QuestionMarkerIcon className="text-[15px] text-saffron" />
+          <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-ink-3">
+            Quick check
           </p>
-          <span className="rounded-full bg-slate-100 px-2 py-0.5 text-[11px] text-slate-600">
-            Practice only, not scored
+          <span className="text-[11px] tabular-nums text-ink-4">{stamp(prompt.timestamp_seconds)}</span>
+          <span className="ml-auto rounded-full bg-ashoka-soft px-2.5 py-1 text-[11px] font-medium text-ink-3">
+            Practice, not scored
           </span>
-        </div>
+        </header>
 
-        <p className="mt-2 text-sm font-medium text-slate-900">{prompt.stem}</p>
+        <div className="px-5 py-4">
+          <p className="text-[13px] font-medium leading-snug text-ink">{prompt.stem}</p>
 
-        <div className="mt-3 space-y-1.5">
-          {prompt.options.map((option, index) => {
-            const isAnswer = result && index === result.answer_index;
-            const isWrongPick = result && index === chosen && !result.correct;
-            return (
-              <label
-                key={index}
-                className={`flex cursor-pointer items-start gap-2.5 rounded-lg border px-3 py-2 text-sm transition ${
-                  isAnswer
-                    ? "border-teal-500 bg-teal-50"
-                    : isWrongPick
-                      ? "border-rose-400 bg-rose-50"
-                      : chosen === index
-                        ? "border-slate-900 bg-slate-50"
-                        : "border-slate-200 hover:border-slate-300"
-                }`}
-              >
-                <input
-                  type="radio"
-                  name={`prompt-${prompt.id}`}
-                  disabled={Boolean(result)}
-                  checked={chosen === index}
-                  onChange={() => setChosen(index)}
-                  className="mt-0.5 accent-slate-900"
-                />
-                <span className="text-slate-700">{option}</span>
-              </label>
-            );
-          })}
-        </div>
-
-        {result && (
-          <div
-            className={`mt-3 rounded-lg px-3 py-2 text-sm ${
-              result.correct ? "bg-teal-50 text-teal-800" : "bg-amber-50 text-amber-800"
-            }`}
-          >
-            <p className="font-medium">{result.correct ? "That's right." : "Not quite."}</p>
-            {result.explanation && <p className="mt-1 text-xs">{result.explanation}</p>}
-            {result.quote && (
-              <p className="mt-1.5 border-l-2 border-current/30 pl-2 text-xs italic">
-                “{result.quote}”
-              </p>
-            )}
+          <div className="mt-3 space-y-1.5">
+            {prompt.options.map((option, index) => {
+              const isAnswer = result && index === result.answer_index;
+              const isWrongPick = result && index === chosen && !result.correct;
+              return (
+                <label
+                  key={index}
+                  className={`flex cursor-pointer items-start gap-2.5 rounded-lg border px-3 py-2
+                    text-[13px] leading-snug transition ${
+                      isAnswer
+                        ? "border-chakra/40 bg-chakra-soft"
+                        : isWrongPick
+                          ? "border-alert/40 bg-alert-soft"
+                          : chosen === index
+                            ? "border-ashoka bg-raised"
+                            : "border-hairline hover:border-hairline-strong hover:bg-raised"
+                    } ${result ? "cursor-default" : ""}`}
+                >
+                  <input
+                    type="radio"
+                    name={`prompt-${prompt.id}`}
+                    disabled={Boolean(result)}
+                    checked={chosen === index}
+                    onChange={() => setChosen(index)}
+                    className="mt-[3px] h-3.5 w-3.5 accent-ashoka"
+                  />
+                  <span className="text-ink-2">{option}</span>
+                  {isAnswer && <CheckCircleIcon className="ml-auto mt-[1px] text-[15px] text-chakra" />}
+                </label>
+              );
+            })}
           </div>
-        )}
 
-        <div className="mt-4 flex flex-wrap items-center gap-2">
+          {result && (
+            <div
+              className={`mt-3 rounded-lg px-3 py-2.5 text-[12px] leading-relaxed ${
+                result.correct
+                  ? "bg-chakra-soft text-chakra"
+                  : "bg-saffron-soft text-saffron-ink"
+              }`}
+            >
+              <p className="font-semibold">
+                {result.correct ? "Correct." : "Not quite."}
+              </p>
+              {result.explanation && <p className="mt-1 text-ink-2">{result.explanation}</p>}
+              {result.quote && (
+                <p className="mt-2 border-l-2 border-current/25 pl-2.5 italic text-ink-3">
+                  {result.quote}
+                </p>
+              )}
+            </div>
+          )}
+        </div>
+
+        <footer className="flex flex-wrap items-center gap-2 border-t border-hairline bg-raised px-5 py-3">
           {!result ? (
             <>
               <button
+                type="button"
                 onClick={submit}
                 disabled={chosen === null || busy}
-                className="rounded-lg bg-slate-900 px-4 py-2 text-sm font-medium text-white transition hover:bg-slate-700 disabled:bg-slate-300"
+                className="rounded-lg bg-ashoka px-4 py-2 text-[13px] font-medium text-white
+                  transition hover:bg-ashoka-2 disabled:bg-hairline-strong disabled:text-ink-4"
               >
-                {busy ? "Checking…" : "Check"}
+                {busy ? "Checking" : "Check answer"}
               </button>
               <button
+                type="button"
                 onClick={onDismiss}
-                className="rounded-lg px-3 py-2 text-sm text-slate-500 hover:text-slate-800"
+                className="rounded-lg px-3 py-2 text-[13px] text-ink-3 transition hover:text-ink"
               >
                 Skip
               </button>
@@ -120,23 +135,26 @@ export function InVideoPrompt({
           ) : (
             <>
               <button
+                type="button"
                 onClick={onDismiss}
-                className="rounded-lg bg-slate-900 px-4 py-2 text-sm font-medium text-white hover:bg-slate-700"
+                className="rounded-lg bg-ashoka px-4 py-2 text-[13px] font-medium text-white transition hover:bg-ashoka-2"
               >
-                Continue watching
+                Continue
               </button>
               {!result.correct && onRewatch && (
                 <button
+                  type="button"
                   onClick={() => onRewatch(result.rewatch_from_seconds)}
-                  className="rounded-lg border border-slate-300 px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50"
+                  className="inline-flex items-center gap-1.5 rounded-lg border border-hairline-strong
+                    bg-surface px-3 py-2 text-[13px] font-medium text-ink-2 transition hover:bg-raised"
                 >
-                  Rewatch from {Math.floor(result.rewatch_from_seconds / 60)}:
-                  {String(result.rewatch_from_seconds % 60).padStart(2, "0")}
+                  <ReplayTenIcon className="text-[15px]" />
+                  Rewatch from {stamp(result.rewatch_from_seconds)}
                 </button>
               )}
             </>
           )}
-        </div>
+        </footer>
       </div>
     </div>
   );

@@ -2,6 +2,16 @@ import { useState } from "react";
 import type { LearningCourse } from "../api";
 import { ProgressBar, StatusPill, UnitTrack } from "./Progress";
 import { LessonPlayer } from "./LessonPlayer";
+import {
+  CheckCircleIcon,
+  ChevronDownIcon,
+  CircleIcon,
+  ClockIcon,
+  ExternalLinkIcon,
+  LockIcon,
+  QuestionMarkerIcon,
+  PlayCircleIcon,
+} from "./icons";
 
 function fmtDate(iso: string | null) {
   if (!iso) return "";
@@ -91,7 +101,8 @@ export function CourseProgressCard({
                   rel="noreferrer"
                   className="ml-1 font-medium text-ashoka-2 underline underline-offset-2 hover:text-ashoka"
                 >
-                  Open on iGOT &rarr;
+                  Open on iGOT
+                  <ExternalLinkIcon className="ml-1 text-[13px]" />
                 </a>
               )}
             </p>
@@ -176,9 +187,17 @@ export function CourseProgressCard({
           {hasCurriculum && (
             <button
               onClick={() => setOpen((v) => !v)}
-              className="ml-auto rounded-lg border border-hairline-strong px-2.5 py-1.5 text-xs font-medium text-ink-2 hover:bg-raised"
+              aria-expanded={open}
+              className="ml-auto inline-flex items-center gap-1.5 rounded-lg border border-hairline-strong
+                px-2.5 py-1.5 text-xs font-medium text-ink-2 transition hover:bg-raised"
             >
               {open ? "Hide" : "Show"} contents
+              <span className="text-ink-4">
+                {course.lessons_total} video{course.lessons_total === 1 ? "" : "s"}
+              </span>
+              <ChevronDownIcon
+                className={`text-[14px] transition-transform duration-200 ${open ? "rotate-180" : ""}`}
+              />
             </button>
           )}
         </div>
@@ -201,19 +220,39 @@ export function CourseProgressCard({
                 {m.lessons.map((l) => (
                   <li
                     key={l.id}
-                    className="flex items-center gap-2.5 rounded-lg bg-surface px-2.5 py-1.5 text-xs ring-1 ring-hairline"
+                    className={`flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-xs ring-1 transition
+                      ${
+                        playing === l.id
+                          ? "bg-saffron-soft ring-saffron/30"
+                          : "bg-surface ring-hairline hover:bg-raised"
+                      }`}
                   >
+                    {/* State reads at a glance: filled when watched, hollow when
+                        not, a play mark on the one currently open. */}
+                    {playing === l.id ? (
+                      <PlayCircleIcon className="shrink-0 text-[17px] text-saffron" />
+                    ) : locked ? (
+                      <LockIcon className="shrink-0 text-[15px] text-ink-4" />
+                    ) : l.completed ? (
+                      <CheckCircleIcon className="shrink-0 text-[17px] text-chakra" />
+                    ) : (
+                      <CircleIcon className="shrink-0 text-[17px] text-hairline-strong" />
+                    )}
                     <span
-                      className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-[10px] font-bold text-white ${
-                        l.completed ? "bg-chakra" : "bg-hairline-strong"
+                      className={`min-w-0 truncate ${
+                        playing === l.id
+                          ? "font-medium text-ink"
+                          : l.completed
+                            ? "text-ink-3"
+                            : "text-ink"
                       }`}
                     >
-                      {l.completed ? "\u2713" : ""}
-                    </span>
-                    <span className={l.completed ? "text-ink-3" : "text-ink"}>
                       {l.title}
                     </span>
-                    <span className="ml-auto shrink-0 text-ink-4">{l.duration_min} min</span>
+                    <span className="ml-auto inline-flex shrink-0 items-center gap-1 tabular-nums text-ink-4">
+                      <ClockIcon className="text-[13px]" />
+                      {l.duration_min} min
+                    </span>
                     {!locked && l.video_url && (
                       <button
                         onClick={() => setPlaying(playing === l.id ? null : l.id)}
@@ -258,13 +297,13 @@ export function CourseProgressCard({
                         : "bg-ground ring-hairline"
                   }`}
                 >
-                  <span
-                    className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-[10px] font-bold text-white ${
-                      m.checkpoint_passed ? "bg-chakra" : "bg-hairline-strong"
-                    }`}
-                  >
-                    {m.checkpoint_passed ? "\u2713" : ""}
-                  </span>
+                  {m.checkpoint_passed ? (
+                    <CheckCircleIcon className="shrink-0 text-[17px] text-chakra" />
+                  ) : m.checkpoint_unlocked ? (
+                    <QuestionMarkerIcon className="shrink-0 text-[17px] text-ink-3" />
+                  ) : (
+                    <LockIcon className="shrink-0 text-[15px] text-ink-4" />
+                  )}
                   <span className="font-medium text-ink">
                     {m.lessons_total === 0 ? "Final assessment" : "Checkpoint quiz"}, pass at{" "}
                     {m.pass_pct}%

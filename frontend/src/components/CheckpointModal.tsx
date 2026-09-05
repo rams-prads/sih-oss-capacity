@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import type { CheckpointQuiz, CheckpointResult } from "../api";
+import { CheckCircleIcon, CloseIcon, CrossCircleIcon } from "./icons";
 import { VERDICT_META } from "./Progress";
 
 export function CheckpointModal({
@@ -20,7 +21,7 @@ export function CheckpointModal({
   );
   const answered = answers.filter((a) => a >= 0).length;
 
-  // Escape closes it. A modal that traps the user until they find the ✕ is the
+  // Escape closes it. A modal that traps the user until they find the close control is the
   // kind of thing nobody praises and everybody notices.
   useEffect(() => {
     function onKey(event: KeyboardEvent) {
@@ -57,7 +58,7 @@ export function CheckpointModal({
             className="rounded-lg px-2 py-1 text-sm text-ink-4 hover:bg-ground hover:text-ink-2"
             aria-label="Close"
           >
-            ✕
+            <CloseIcon />
           </button>
         </header>
 
@@ -153,7 +154,7 @@ export function CheckpointModal({
                       item.correct ? "bg-chakra" : "bg-alert"
                     }`}
                   >
-                    {item.correct ? "\u2713" : "\u2715"}
+                    {item.correct ? <CheckCircleIcon /> : <CrossCircleIcon />}
                   </span>
                   <div className="min-w-0">
                     <p className="font-medium text-ink">

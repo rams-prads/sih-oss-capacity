@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import { api, getCompetencies, getGaps, PROFICIENCY } from "../api";
 import type { Competency, QuizGeneration, SubmitResult } from "../api";
 import { Badge, Card, ErrorNote, Spinner, Stat } from "../components/ui";
+import { CheckCircleIcon, CrossCircleIcon } from "../components/icons";
 
 type Stage = "upload" | "generating" | "quiz" | "result";
 
@@ -271,7 +272,7 @@ export default function Upload({ userId }: { userId: string }) {
                       result.per_item[i] ? "bg-chakra" : "bg-alert-soft0"
                     }`}
                   >
-                    {result.per_item[i] ? "\u2713" : "\u2715"}
+                    {result.per_item[i] ? <CheckCircleIcon /> : <CrossCircleIcon />}
                   </span>
                   <div>
                     <p className="font-medium text-ink">{q.stem}</p>
