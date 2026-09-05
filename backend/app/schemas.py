@@ -785,3 +785,52 @@ class ActivityResponse(BaseModel):
     longest_streak: int = 0
     busiest_day: str = ""
     busiest_count: int = 0
+
+
+# --- assessing one competency straight from the bank -----------------------
+class CompetencyAssessmentQuestion(BaseModel):
+    id: int
+    topic_id: str
+    topic_name: str
+    stem: str
+    options: list[str]
+    difficulty: float
+
+
+class CompetencyAssessmentOut(BaseModel):
+    user_id: str
+    competency_id: str
+    competency_name: str
+    target_level: int
+    attained_level: int
+    gap: int
+    evidence: str
+    attempt_no: int
+    questions: list[CompetencyAssessmentQuestion]
+
+
+class CompetencyAssessmentSubmitRequest(BaseModel):
+    answers: list[int]
+
+
+class CompetencyAssessmentResultOut(BaseModel):
+    competency_id: str
+    competency_name: str
+    score_pct: float
+    correct_count: int
+    total: int
+    target_level: int
+    level_before: int
+    level_after: int
+    gap_before: int
+    gap_after: int
+    evidence_before: str
+    evidence_after: str
+    confidence_pct: float
+    level_low: int
+    level_high: int
+    questions_answered: int
+    readiness_before: float
+    readiness_after: float
+    recommended_action: str
+    items: list[CheckpointItemResult]

@@ -63,7 +63,7 @@ export default function Learner({ userId, user }: { userId: string; user?: User 
   }
 
   function handleAssess(item: GapItem) {
-    navigate("/assess", { state: { competencyId: item.competency_id } });
+    navigate(`/assess/${item.competency_id}`);
   }
 
   if (error) return <ErrorNote>{error}</ErrorNote>;

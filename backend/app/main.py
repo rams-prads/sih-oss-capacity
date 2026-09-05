@@ -15,6 +15,7 @@ from app.config import get_settings
 from app.db import init_db
 from app.routers import (
     admin,
+    assessment,
     gaps,
     learning,
     mock_sunbird,
@@ -57,6 +58,7 @@ api = "/api"
 app.include_router(users.router, prefix=api)
 app.include_router(onboarding.router, prefix=api)
 app.include_router(gaps.router, prefix=api)
+app.include_router(assessment.router, prefix=api)
 app.include_router(quiz.router, prefix=api)
 app.include_router(learning.router, prefix=api)
 app.include_router(psychometrics.router, prefix=api)

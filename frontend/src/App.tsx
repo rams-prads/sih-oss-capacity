@@ -4,6 +4,7 @@ import { getUsers, setActiveUser } from "./api";
 import type { User } from "./api";
 import { NAV, Rail, UserMenu } from "./components/Shell";
 import Admin from "./pages/Admin";
+import CompetencyAssessment from "./pages/CompetencyAssessment";
 import Join from "./pages/Join";
 import Learner from "./pages/Learner";
 import MyLearning from "./pages/MyLearning";
@@ -63,6 +64,10 @@ export default function App() {
           <Route path="/learner" element={<Learner userId={userId} user={active} />} />
           <Route path="/my-learning" element={<MyLearning userId={userId} />} />
           <Route path="/assess" element={<Upload userId={userId} />} />
+          <Route
+            path="/assess/:competencyId"
+            element={<CompetencyAssessment userId={userId} />}
+          />
           <Route path="/admin" element={<Admin />} />
           <Route path="/profile" element={<Profile userId={userId} user={active} />} />
           <Route path="/join" element={<Join onJoined={handleJoined} />} />

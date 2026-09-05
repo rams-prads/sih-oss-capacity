@@ -106,7 +106,7 @@ function CompetencyRow({
             onClick={() => onAssess(item)}
             className="rounded-lg border border-hairline-strong px-2.5 py-1 text-2xs font-medium text-ink-2 transition hover:bg-raised"
           >
-            Assess
+            Take test
           </button>
         )}
       </div>

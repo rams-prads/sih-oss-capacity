@@ -680,3 +680,75 @@ export const getActivity = (id: string, days = 364) =>
   api
     .get<LearnerActivity>(`/users/${id}/activity`, { params: { days } })
     .then((r) => r.data);
+
+// --- assessing one competency from the question bank -----------------------
+export interface CompetencyAssessmentQuestion {
+  id: number;
+  topic_id: string;
+  topic_name: string;
+  stem: string;
+  options: string[];
+  difficulty: number;
+}
+
+export interface CompetencyAssessment {
+  user_id: string;
+  competency_id: string;
+  competency_name: string;
+  target_level: number;
+  attained_level: number;
+  gap: number;
+  evidence: Evidence;
+  attempt_no: number;
+  questions: CompetencyAssessmentQuestion[];
+}
+
+export interface CompetencyAssessmentItem {
+  question_id: number;
+  stem: string;
+  options: string[];
+  your_answer: number;
+  answer_index: number;
+  correct: boolean;
+  explanation: string;
+}
+
+export interface CompetencyAssessmentResult {
+  competency_id: string;
+  competency_name: string;
+  score_pct: number;
+  correct_count: number;
+  total: number;
+  target_level: number;
+  level_before: number;
+  level_after: number;
+  gap_before: number;
+  gap_after: number;
+  evidence_before: Evidence;
+  evidence_after: Evidence;
+  confidence_pct: number;
+  level_low: number;
+  level_high: number;
+  questions_answered: number;
+  readiness_before: number;
+  readiness_after: number;
+  recommended_action: string;
+  items: CompetencyAssessmentItem[];
+}
+
+export const getCompetencyAssessment = (userId: string, competencyId: string) =>
+  api
+    .get<CompetencyAssessment>(`/competency-assessment/${userId}/${competencyId}`)
+    .then((r) => r.data);
+
+export const submitCompetencyAssessment = (
+  userId: string,
+  competencyId: string,
+  answers: number[],
+) =>
+  api
+    .post<CompetencyAssessmentResult>(
+      `/competency-assessment/${userId}/${competencyId}/submit`,
+      { answers },
+    )
+    .then((r) => r.data);
