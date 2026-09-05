@@ -611,3 +611,45 @@ export const getLessonPrompts = (lessonId: number, userId: string) =>
 export const answerPrompt = (promptId: number, userId: string, chosen_index: number) =>
   api.post<PromptAnswer>(`/prompts/${promptId}/answer`, { chosen_index },
     { params: { user_id: userId } }).then((r) => r.data);
+
+// --- admin: capacity forecast --------------------------------------------
+export interface CompetencyForecast {
+  competency_id: string;
+  competency_name: string;
+  officers_below_target: number;
+  total_gap_levels: number;
+  levels_gained: number;
+  observations: number;
+  levels_per_month: number;
+  /** null when the record cannot support a rate — stalled, or too few observations. */
+  months_to_close: number | null;
+  /** The arithmetic behind the projection, in words, so it can be checked. */
+  basis: string;
+}
+
+export interface StallingCourse {
+  course_identifier: string;
+  course_name: string;
+  enrolled: number;
+  completed: number;
+  expired: number;
+  avg_progress_pct: number;
+}
+
+export interface CapacityForecast {
+  department: string;
+  window_days: number;
+  observed_from: string;
+  officers: number;
+  competencies: CompetencyForecast[];
+  widening: string[];
+  stalling_courses: StallingCourse[];
+  note: string;
+}
+
+export const getAdminForecast = (department?: string, windowDays = 180) =>
+  api
+    .get<CapacityForecast>("/admin/forecast", {
+      params: { ...(department ? { department } : {}), window_days: windowDays },
+    })
+    .then((r) => r.data);

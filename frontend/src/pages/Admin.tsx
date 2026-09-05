@@ -10,25 +10,28 @@ import {
   YAxis,
 } from "recharts";
 import {
+  getAdminForecast,
   getAdminLearning,
   getAdminOverview,
   getDepartments,
   restoreToken,
   setToken,
 } from "../api";
-import type { AdminLearningOverview, AdminOverview } from "../api";
+import type { AdminLearningOverview, AdminOverview, CapacityForecast } from "../api";
 import { AdminSignIn } from "../components/AdminSignIn";
+import { CapacityForecastPanel } from "../components/CapacityForecast";
 import { Heatmap } from "../components/Heatmap";
 import { AtRiskList, CourseRollupTable, TopicRollupTable } from "../components/LearningRollup";
 import { Card, Empty, ErrorNote, Spinner, Stat } from "../components/ui";
 
-type Tab = "capacity" | "learning";
+type Tab = "capacity" | "learning" | "forecast";
 
 export default function Admin() {
   const [signedIn, setSignedIn] = useState(() => Boolean(restoreToken()));
   const [tab, setTab] = useState<Tab>("capacity");
   const [overview, setOverview] = useState<AdminOverview | null>(null);
   const [learning, setLearning] = useState<AdminLearningOverview | null>(null);
+  const [forecast, setForecast] = useState<CapacityForecast | null>(null);
   const [departments, setDepartments] = useState<string[]>([]);
   const [department, setDepartment] = useState("");
   const [error, setError] = useState("");
@@ -43,11 +46,13 @@ export default function Admin() {
     setError("");
     setOverview(null);
     setLearning(null);
+    setForecast(null);
     const scope = department || undefined;
-    Promise.all([getAdminOverview(scope), getAdminLearning(scope)])
-      .then(([o, l]) => {
+    Promise.all([getAdminOverview(scope), getAdminLearning(scope), getAdminForecast(scope)])
+      .then(([o, l, f]) => {
         setOverview(o);
         setLearning(l);
+        setForecast(f);
       })
       .catch((e) => {
         if ((e as { response?: { status?: number } })?.response?.status === 401) {
@@ -64,6 +69,7 @@ export default function Admin() {
     setSignedIn(false);
     setOverview(null);
     setLearning(null);
+    setForecast(null);
   }
 
   if (!signedIn) return <AdminSignIn onSignedIn={() => setSignedIn(true)} />;
@@ -86,6 +92,7 @@ export default function Admin() {
           {([
             ["capacity", "Competency capacity"],
             ["learning", "Training progress"],
+            ["forecast", "Capacity forecast"],
           ] as [Tab, string][]).map(([key, label]) => (
             <button
               key={key}
@@ -121,7 +128,13 @@ export default function Admin() {
         </div>
       </div>
 
-      {tab === "learning" ? (
+      {tab === "forecast" ? (
+        forecast ? (
+          <CapacityForecastPanel forecast={forecast} />
+        ) : (
+          <Spinner label="Projecting capacity" />
+        )
+      ) : tab === "learning" ? (
         <LearningTab data={learning} />
       ) : (
       <>
