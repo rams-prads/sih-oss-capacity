@@ -296,7 +296,10 @@ class MetricsOut(BaseModel):
     catalogue_size: int
     catalogue_coverage_pct: float
     assessments_taken: int
-    mcq_validity_rate_pct: float
+    # None until at least one MCQ has been generated. A gate that has judged
+    # nothing has no pass rate, and reporting that as 0.0 says the opposite
+    # of what it means - that everything generated was rejected.
+    mcq_validity_rate_pct: float | None = None
     avg_gap_closure_pct: float
     avg_readiness_pct: float
 
@@ -819,6 +822,7 @@ class CompetencyAssessmentResultOut(BaseModel):
     score_pct: float
     correct_count: int
     total: int
+    passed: bool
     target_level: int
     level_before: int
     level_after: int
@@ -833,4 +837,68 @@ class CompetencyAssessmentResultOut(BaseModel):
     readiness_before: float
     readiness_after: float
     recommended_action: str
+    # Empty on a sitting that did not pass: revealing the correct answers to a
+    # question this officer just got wrong, on a bank shallow enough to repeat,
+    # would let "fail on purpose to see the key, then answer for real" replace
+    # actually knowing the material. See routers/assessment.py.
     items: list[CheckpointItemResult]
+
+
+# --- officer feedback -------------------------------------------------------
+class FeedbackCreate(BaseModel):
+    category: str = Field(
+        default="other",
+        description="course_content | assessments | platform | data_accuracy | other",
+    )
+    subject: str = Field(default="", max_length=200)
+    # A floor, because "doesn't work" is not a report anybody can act on, and a
+    # ceiling so one submission cannot fill the inbox.
+    message: str = Field(min_length=10, max_length=4000)
+    rating: int | None = Field(default=None, ge=1, le=5)
+
+
+class FeedbackOut(BaseModel):
+    id: int
+    user_id: str
+    user_name: str = ""
+    role_name: str = ""
+    department: str = ""
+    category: str
+    category_label: str = ""
+    subject: str = ""
+    message: str
+    rating: int | None = None
+    status: str = Field(description="new | reviewed | actioned")
+    admin_note: str = ""
+    handled_at: datetime | None = None
+    created_at: datetime
+
+
+class FeedbackUpdate(BaseModel):
+    """Either field alone is a valid edit - a note can be added without moving
+    the status, and the status can move without a note."""
+
+    status: str | None = None
+    admin_note: str | None = Field(default=None, max_length=4000)
+
+
+class FeedbackCategoryCount(BaseModel):
+    category: str
+    label: str
+    count: int
+    new_count: int
+    avg_rating: float | None = None
+
+
+class FeedbackInbox(BaseModel):
+    """The administrator's view. The counts describe the whole inbox rather than
+    the filtered page, so filtering never changes the numbers being filtered."""
+
+    total: int
+    new_count: int
+    reviewed_count: int
+    actioned_count: int
+    rated_count: int = 0
+    avg_rating: float | None = None
+    by_category: list[FeedbackCategoryCount] = []
+    items: list[FeedbackOut] = []

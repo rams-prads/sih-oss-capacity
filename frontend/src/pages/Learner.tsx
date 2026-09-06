@@ -16,6 +16,7 @@ import type {
   User,
 } from "../api";
 import { CompetencyProfile } from "../components/CompetencyProfile";
+import { CompetencyRadar } from "../components/CompetencyRadar";
 import { ReadinessBanner } from "../components/ReadinessBanner";
 import { RecommendationRow } from "../components/RecommendationRow";
 import { RecommendationShelf } from "../components/RecommendationShelf";
@@ -85,20 +86,37 @@ export default function Learner({ userId, user }: { userId: string; user?: User 
 
   return (
     <div className="space-y-5">
-      <ReadinessBanner
-        report={report}
-        roleName={user?.role_name ?? report.role_name}
-        facts={[
-          { label: "Open gaps", value: `${openGaps.length} of ${report.items.length}` },
-          { label: "Needing assessment", value: String(needAssessment) },
-          { label: "Courses enrolled", value: String(enrolments.length) },
-          { label: "Course progress", value: `${avgProgress}%` },
-        ]}
-      />
+      {/* The shape of the shortfall on the left, the single number it rolls up
+          to on the right. The radar is the wider of the two because a circle
+          needs the room to keep eight axis labels legible; the readiness column
+          is text and reads fine narrow. */}
+      <div className="grid gap-5 lg:grid-cols-[minmax(0,1.55fr)_minmax(0,1fr)]">
+        <Card
+          title="Competency shape"
+          subtitle="Where the role sets the bar, against where you stand on each of its competencies."
+        >
+          {report.items.length === 0 ? (
+            <Empty>No competencies are recorded for this role.</Empty>
+          ) : (
+            <CompetencyRadar items={report.items} />
+          )}
+        </Card>
+
+        <ReadinessBanner
+          report={report}
+          roleName={user?.role_name ?? report.role_name}
+          facts={[
+            { label: "Open gaps", value: `${openGaps.length} of ${report.items.length}` },
+            { label: "Needing assessment", value: String(needAssessment) },
+            { label: "Courses enrolled", value: String(enrolments.length) },
+            { label: "Course progress", value: `${avgProgress}%` },
+          ]}
+        />
+      </div>
 
       <Card
         title="Competency profile"
-        subtitle="What your role requires, against what you have. Ordered by the shortfall that matters most to the role."
+        subtitle="The same eight, rung by rung. Ordered by the shortfall that matters most to the role; the ringed level is the one it asks for."
       >
         {report.items.length === 0 ? (
           <Empty>No competencies are recorded for this role.</Empty>

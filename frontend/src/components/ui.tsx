@@ -24,9 +24,11 @@ export function Card({
   /** Drop the body padding, for tables and lists that manage their own. */
   flush?: boolean;
 }) {
+  const hasHeader = Boolean(title || right);
+
   return (
     <section className={`rounded-2xl border border-hairline bg-surface ${className}`}>
-      {(title || right) && (
+      {hasHeader && (
         <header className="flex items-start justify-between gap-4 px-6 pb-4 pt-5">
           <div className="min-w-0">
             {title && <h2 className="text-[15px] font-semibold text-ink">{title}</h2>}
@@ -37,7 +39,10 @@ export function Card({
           {right && <div className="shrink-0">{right}</div>}
         </header>
       )}
-      <div className={flush ? "" : "px-6 pb-6"}>{children}</div>
+      {/* With a header, its pt-5 opens the card and the body only closes it.
+          Without one, the body is the card - so it needs the top padding too,
+          or the first line of content sits flush against the border. */}
+      <div className={flush ? "" : hasHeader ? "px-6 pb-6" : "p-6"}>{children}</div>
     </section>
   );
 }

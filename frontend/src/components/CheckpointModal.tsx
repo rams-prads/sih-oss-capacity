@@ -7,12 +7,17 @@ export function CheckpointModal({
   quiz,
   result,
   submitting,
+  error,
   onSubmit,
   onClose,
 }: {
   quiz: CheckpointQuiz;
   result: CheckpointResult | null;
   submitting: boolean;
+  /** Why a submission did not count - a locked module, a rejected answer, or
+   *  a retry inside the cooldown. It belongs in here: the page behind this
+   *  panel is covered, so an error rendered there is an error nobody sees. */
+  error?: string;
   onSubmit: (answers: number[]) => void;
   onClose: () => void;
 }) {
@@ -99,17 +104,24 @@ export function CheckpointModal({
               </ol>
             </div>
 
-            <footer className="flex items-center gap-3 border-t border-hairline px-5 py-3.5">
-              <button
-                disabled={answered < answers.length || submitting}
-                onClick={() => onSubmit(answers)}
-                className="rounded-lg bg-ashoka px-4 py-2 text-sm font-medium text-white transition hover:bg-ashoka-2 disabled:cursor-not-allowed disabled:bg-hairline-strong"
-              >
-                {submitting ? "Submitting…" : "Submit"}
-              </button>
-              <span className="text-xs text-ink-3">
-                {answered} of {answers.length} answered
-              </span>
+            <footer className="border-t border-hairline px-5 py-3.5">
+              {error && (
+                <p className="mb-3 rounded-lg bg-alert-soft px-3 py-2 text-sm text-alert">
+                  {error}
+                </p>
+              )}
+              <div className="flex items-center gap-3">
+                <button
+                  disabled={answered < answers.length || submitting}
+                  onClick={() => onSubmit(answers)}
+                  className="rounded-lg bg-ashoka px-4 py-2 text-sm font-medium text-white transition hover:bg-ashoka-2 disabled:cursor-not-allowed disabled:bg-hairline-strong"
+                >
+                  {submitting ? "Submitting…" : "Submit"}
+                </button>
+                <span className="text-xs text-ink-3">
+                  {answered} of {answers.length} answered
+                </span>
+              </div>
             </footer>
           </>
         ) : (
@@ -146,6 +158,21 @@ export function CheckpointModal({
               </p>
             </div>
 
+            {/* A failed attempt reports the score and nothing item by item.
+                Showing the correct option for each question is what let one
+                deliberate failure buy the answers to a retry. */}
+            {result.items.length === 0 ? (
+              <div className="px-5 py-5">
+                <p className="text-sm font-medium text-ink">
+                  The answers stay covered until you pass.
+                </p>
+                <p className="mt-1.5 text-sm leading-relaxed text-ink-3">
+                  Go back over the module's videos and try again — a retry draws
+                  fresh questions where the topic has them, so a pass has to come
+                  from the material rather than from remembering this page.
+                </p>
+              </div>
+            ) : (
             <div className="max-h-[55vh] space-y-3 overflow-y-auto px-5 py-4">
               {result.items.map((item, i) => (
                 <div key={item.question_id} className="flex gap-3 text-sm">
@@ -177,6 +204,7 @@ export function CheckpointModal({
                 </div>
               ))}
             </div>
+            )}
 
             <footer className="border-t border-hairline px-5 py-3.5">
               <button

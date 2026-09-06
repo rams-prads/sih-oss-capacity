@@ -99,7 +99,7 @@ export default function CompetencyAssessment({ userId }: { userId: string }) {
             label="Score"
             value={`${result.score_pct}%`}
             hint={`${result.correct_count} of ${result.total} correct`}
-            tone={result.score_pct >= 60 ? "good" : "warn"}
+            tone={result.passed ? "good" : "warn"}
           />
           <Stat
             label="Proficiency"
@@ -164,6 +164,22 @@ export default function CompetencyAssessment({ userId }: { userId: string }) {
           </div>
         </Card>
 
+        {/* Withheld on a sitting that did not pass. These questions come from
+            the same per-topic bank the next sitting draws from, so handing back
+            the correct option for each one would make failing on purpose the
+            cheapest way to pass later. */}
+        {result.items.length === 0 ? (
+          <Card title="Review">
+            <p className="text-sm font-medium text-ink">
+              The answers stay covered until you pass a sitting.
+            </p>
+            <p className="mt-1.5 text-sm leading-relaxed text-ink-2">
+              You scored {result.score_pct}%. Work through the recommended training and
+              sit it again — your record keeps every answer either way, so the estimate
+              above already counts this attempt.
+            </p>
+          </Card>
+        ) : (
         <Card
           title="Review"
           subtitle="Harder items move the estimate more, so a wrong answer on an easy question costs more than one on a hard question."
@@ -200,6 +216,7 @@ export default function CompetencyAssessment({ userId }: { userId: string }) {
             ))}
           </ol>
         </Card>
+        )}
       </div>
     );
   }

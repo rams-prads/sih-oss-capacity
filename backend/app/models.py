@@ -430,3 +430,47 @@ class VideoPromptAnswer(Base):
     chosen_index: Mapped[int] = mapped_column(Integer, nullable=False)
     correct: Mapped[bool] = mapped_column(Boolean, default=False)
     answered_at: Mapped[datetime] = mapped_column(DateTime, default=_utcnow)
+
+
+# --- officer feedback -------------------------------------------------------
+FEEDBACK_CATEGORIES: dict[str, str] = {
+    "course_content": "Course content",
+    "assessments": "Assessments and quizzes",
+    "platform": "Platform and usability",
+    "data_accuracy": "My record looks wrong",
+    "other": "Something else",
+}
+
+# new -> reviewed -> actioned. Three states because two cannot distinguish
+# "somebody has read this" from "somebody has done something about it", and
+# that distinction is the whole reason an officer bothers to write in again.
+FEEDBACK_STATUSES: tuple[str, ...] = ("new", "reviewed", "actioned")
+
+
+class Feedback(Base):
+    """One piece of feedback from an officer, and what the administration did.
+
+    The reply lives on the same row rather than in a separate thread table: this
+    is a suggestion box, not a correspondence system, and one round trip -
+    somebody wrote in, somebody answered - is what it has to carry. Keeping the
+    answer here is what lets the officer see their own submission come back
+    marked reviewed, which is the difference between a feedback form and a
+    feedback form nobody uses twice.
+    """
+
+    __tablename__ = "feedback"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    user_id: Mapped[str] = mapped_column(ForeignKey("users.id"), nullable=False, index=True)
+    category: Mapped[str] = mapped_column(String(32), default="other", index=True)
+    subject: Mapped[str] = mapped_column(String(200), default="")
+    message: Mapped[str] = mapped_column(Text, nullable=False)
+    # Optional on purpose. Forcing a satisfaction score out of somebody
+    # reporting one specific defect produces a number that measures nothing.
+    rating: Mapped[int | None] = mapped_column(Integer, nullable=True)
+
+    status: Mapped[str] = mapped_column(String(16), default="new", index=True)
+    admin_note: Mapped[str] = mapped_column(Text, default="")
+    handled_by: Mapped[str | None] = mapped_column(ForeignKey("users.id"), nullable=True)
+    handled_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=_utcnow)

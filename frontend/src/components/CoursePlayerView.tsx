@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { LearningCourse, LessonItem } from "../api";
 import { CurriculumPanel } from "./CurriculumPanel";
 import { LessonPlayer } from "./LessonPlayer";
@@ -17,6 +17,7 @@ export function CoursePlayerView({
   course,
   userId,
   busyLessonId,
+  focusLesson,
   onBack,
   onWatch,
   onOpenCheckpoint,
@@ -24,6 +25,12 @@ export function CoursePlayerView({
   course: LearningCourse;
   userId: string;
   busyLessonId: number | null;
+  /** A lesson somewhere else asked to have put on screen - the tutor, today.
+   *  Carries a sequence number because the same lesson can be asked for twice:
+   *  after wandering off to another video, a second request for the one you
+   *  were sent to first still has to move the player, and a bare id would look
+   *  unchanged. */
+  focusLesson?: { lessonId: number; seq: number } | null;
   onBack: () => void;
   onWatch: (lessonId: number) => void;
   onOpenCheckpoint: (checkpointId: number) => void;
@@ -41,6 +48,15 @@ export function CoursePlayerView({
     const unwatched = lessons.find((l) => !l.completed);
     return unwatched?.id ?? lessons[0]?.id ?? null;
   });
+
+  // Only ever a selection. Watching is what records a lesson as watched, and
+  // nothing that merely navigates may touch that record.
+  useEffect(() => {
+    if (!focusLesson) return;
+    if (lessons.some((l) => l.id === focusLesson.lessonId)) {
+      setSelectedId(focusLesson.lessonId);
+    }
+  }, [focusLesson, lessons]);
 
   const selected = lessons.find((l) => l.id === selectedId) ?? null;
   const position = selected ? lessons.findIndex((l) => l.id === selected.id) : -1;

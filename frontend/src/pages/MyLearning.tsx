@@ -12,7 +12,7 @@ import type {
   LearningDashboard,
 } from "../api";
 import { CheckpointModal } from "../components/CheckpointModal";
-import { CourseTutor } from "../components/CourseTutor";
+import { CourseTutorLauncher } from "../components/CourseTutor";
 import { CoursePlayerView } from "../components/CoursePlayerView";
 import { EnrolledCourseCard } from "../components/EnrolledCourseCard";
 import { ProgressBar, STATUS_META } from "../components/Progress";
@@ -39,6 +39,11 @@ export default function MyLearning({ userId }: { userId: string }) {
   // Which course is open. Null shows the list; a course opens the two-pane
   // player, so the outline is reachable without scrolling past everything.
   const [openCourseId, setOpenCourseId] = useState<string | null>(null);
+  // A lesson the tutor asked to have opened, and a counter that makes a repeat
+  // request for the same lesson still register as a request.
+  const [focusLesson, setFocusLesson] = useState<{ lessonId: number; seq: number } | null>(
+    null,
+  );
 
   const load = useCallback(async () => {
     try {
@@ -71,6 +76,21 @@ export default function MyLearning({ userId }: { userId: string }) {
     } finally {
       setBusyLessonId(null);
     }
+  }
+
+  /**
+   * Put a lesson on screen, from the tutor's "Open".
+   *
+   * Navigation only. This was wired to handleWatch, which posts the completion
+   * endpoint: asking the tutor what to revise and pressing Open marked the
+   * video watched without playing a second of it, and moved the course
+   * progress bar with it. Progress has to mean the officer watched the thing.
+   */
+  function handleOpenLesson(courseIdentifier: string, lessonId: number) {
+    setError("");
+    setOpenCourseId(courseIdentifier);
+    setFocusLesson((current) => ({ lessonId, seq: (current?.seq ?? 0) + 1 }));
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   async function handleOpenCheckpoint(checkpointId: number) {
@@ -123,6 +143,7 @@ export default function MyLearning({ userId }: { userId: string }) {
           course={openCourse}
           userId={userId}
           busyLessonId={busyLessonId}
+          focusLesson={focusLesson}
           onBack={() => setOpenCourseId(null)}
           onWatch={handleWatch}
           onOpenCheckpoint={handleOpenCheckpoint}
@@ -133,12 +154,25 @@ export default function MyLearning({ userId }: { userId: string }) {
             quiz={quiz}
             result={result}
             submitting={submitting}
+            error={error}
             onSubmit={handleSubmit}
             onClose={() => {
               setQuiz(null);
               setResult(null);
+              setError("");
             }}
           />
+        )}
+
+        {courses.length > 0 && (
+          <ErrorBoundary label="The tutor">
+            <CourseTutorLauncher
+              userId={userId}
+              courses={courses}
+              activeCourseId={openCourse.course_identifier}
+              onOpenLesson={handleOpenLesson}
+            />
+          </ErrorBoundary>
         )}
       </div>
     );
@@ -252,12 +286,6 @@ export default function MyLearning({ userId }: { userId: string }) {
         )}
       </Card>
 
-      {courses.length > 0 && (
-        <ErrorBoundary label="The tutor">
-          <CourseTutor userId={userId} courses={courses} onWatchLesson={handleWatch} />
-        </ErrorBoundary>
-      )}
-
       <Card
         title="Topic record"
         subtitle="Accuracy on checkpoint questions you have answered, weakest first"
@@ -270,12 +298,24 @@ export default function MyLearning({ userId }: { userId: string }) {
           quiz={quiz}
           result={result}
           submitting={submitting}
+          error={error}
           onSubmit={handleSubmit}
           onClose={() => {
             setQuiz(null);
             setResult(null);
+            setError("");
           }}
         />
+      )}
+
+      {courses.length > 0 && (
+        <ErrorBoundary label="The tutor">
+          <CourseTutorLauncher
+            userId={userId}
+            courses={courses}
+            onOpenLesson={handleOpenLesson}
+          />
+        </ErrorBoundary>
       )}
     </div>
   );

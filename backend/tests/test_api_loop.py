@@ -217,8 +217,9 @@ def test_admin_overview_and_metrics(client):
     assert metrics["roles"] == 17
     # The catalogue is refreshed from the live iGOT API, so its exact size moves.
     assert metrics["catalogue_size"] > 100
-    # No generated quizzes yet, so the validity rate has nothing to report on.
-    assert metrics["mcq_validity_rate_pct"] == 0.0
+    # No generated quizzes yet, so the validity rate has nothing to report on -
+    # and says so, rather than reporting a 0% pass rate it did not measure.
+    assert metrics["mcq_validity_rate_pct"] is None
 
     upload = client.post(
         "/api/materials", files={"file": ("s.txt", io.BytesIO(SAMPLE.encode()), "text/plain")}

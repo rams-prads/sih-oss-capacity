@@ -11,6 +11,7 @@ os.environ["DATABASE_URL"] = f"sqlite:///{_TMP_DB.as_posix()}"
 os.environ["KARMAYOGI_MODE"] = "mock"
 os.environ["LLM_PROVIDER"] = "stub"
 os.environ["PBKDF2_ITERATIONS"] = "1000"   # keeps re-seeding fast; not a production value
+os.environ["CHECKPOINT_COOLDOWN_SECONDS"] = "0"   # tests submit attempts back to back
 
 import pytest  # noqa: E402
 from fastapi.testclient import TestClient  # noqa: E402

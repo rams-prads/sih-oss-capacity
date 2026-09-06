@@ -18,7 +18,9 @@ from __future__ import annotations
 from fastapi import APIRouter, HTTPException, status
 from sqlalchemy import select
 
+from app.config import get_settings
 from app.deps import DbSession
+from app.engines.attempt_throttle import seconds_until_next_attempt
 from app.engines.gap import compute_gaps
 from app.models import (
     BankQuestion,
@@ -202,6 +204,40 @@ def submit_competency_assessment(
             status.HTTP_400_BAD_REQUEST,
             f"Expected {len(rows)} answers, received {len(payload.answers)}",
         )
+    for position, (answer, question) in enumerate(zip(payload.answers, rows), start=1):
+        if not 0 <= answer < len(question.options):
+            raise HTTPException(
+                status.HTTP_400_BAD_REQUEST,
+                f"Question {position} has no option {answer}.",
+            )
+
+    # Ordered, because the most recent sitting is what the cooldown is measured
+    # from and an autoincrement id is the only column guaranteed to say which
+    # that is. Read before anything is scored, so a throttled request costs
+    # nothing and cannot leave a half-written attempt behind.
+    prior = list(
+        db.scalars(
+            select(CheckpointAttempt)
+            .where(
+                CheckpointAttempt.user_id == user_id,
+                CheckpointAttempt.course_identifier == SELF_COURSE,
+                CheckpointAttempt.topic_id.in_(list(topics)),
+            )
+            .order_by(CheckpointAttempt.id)
+        ).all()
+    )
+    if prior:
+        wait = seconds_until_next_attempt(
+            prior[-1].created_at,
+            cooldown_seconds=get_settings().checkpoint_cooldown_seconds,
+        )
+        if wait > 0:
+            seconds = int(wait) + 1
+            raise HTTPException(
+                status.HTTP_429_TOO_MANY_REQUESTS,
+                f"Another sitting is available in {seconds} second"
+                f"{'' if seconds == 1 else 's'}.",
+            )
 
     # Read the before-state while the new attempt is still unwritten.
     before_report, before_item = _state(db, user_id, competency_id)
@@ -241,14 +277,7 @@ def submit_competency_assessment(
         counts[entry["topic_id"]] = counts.get(entry["topic_id"], 0) + 1
     dominant = max(counts, key=lambda t: (counts[t], t))
     checkpoint = _checkpoint_for(db, topics[dominant])
-
-    prior = db.scalars(
-        select(CheckpointAttempt).where(
-            CheckpointAttempt.user_id == user_id,
-            CheckpointAttempt.course_identifier == SELF_COURSE,
-            CheckpointAttempt.topic_id.in_(list(topics)),
-        )
-    ).all()
+    passed = score >= checkpoint.pass_pct
 
     db.add(
         CheckpointAttempt(
@@ -257,7 +286,7 @@ def submit_competency_assessment(
             course_identifier=SELF_COURSE,
             topic_id=dominant,
             score_pct=score,
-            passed=score >= checkpoint.pass_pct,
+            passed=passed,
             attempt_no=len(prior) + 1,
             items=items,
         )
@@ -272,6 +301,7 @@ def submit_competency_assessment(
         score_pct=score,
         correct_count=correct_count,
         total=len(items),
+        passed=passed,
         target_level=after_item.target_level if after_item else 0,
         level_before=before_item.attained_level if before_item else 0,
         level_after=after_item.attained_level if after_item else 0,
@@ -286,5 +316,10 @@ def submit_competency_assessment(
         readiness_before=before_report.readiness_pct,
         readiness_after=after_report.readiness_pct,
         recommended_action=after_item.recommended_action if after_item else "assess",
-        items=results,
+        # Withheld unless the sitting passed - the same reasoning as a course
+        # checkpoint, and more pressing here: these questions come from the
+        # same shallow per-topic bank, and this route is the one that carries
+        # the most weight, since it is what turns a self-reported level into a
+        # measured one.
+        items=results if passed else [],
     )

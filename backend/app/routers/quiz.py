@@ -163,6 +163,14 @@ def submit_quiz(quiz_id: str, user_id: str, payload: SubmitQuizRequest, db: DbSe
             status.HTTP_400_BAD_REQUEST,
             f"Expected {len(questions)} answers, received {len(payload.answers)}",
         )
+    # An index outside the options scored as merely wrong, silently accepting a
+    # payload no version of the interface can produce.
+    for position, (answer, question) in enumerate(zip(payload.answers, questions), start=1):
+        if not 0 <= answer < len(question.options):
+            raise HTTPException(
+                status.HTTP_400_BAD_REQUEST,
+                f"Question {position} has no option {answer}.",
+            )
 
     per_item = [ans == q.answer_index for ans, q in zip(payload.answers, questions)]
     difficulties = [q.difficulty for q in questions]

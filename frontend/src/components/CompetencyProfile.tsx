@@ -5,16 +5,21 @@ import { ActionChip, EvidenceChip } from "./Evidence";
 /**
  * Every competency the role requires, one row each.
  *
- * This replaces a radar chart sitting beside a list of the same eight items.
- * The radar cost half the page - a circle in a rectangle wastes its corners,
- * and eight axes need a lot of height to stay legible - to say what the list
- * beside it already said. Radar also, as its own documentation puts it,
- * "prioritises pattern recognition over precise value comparison", and the only
- * question being asked here is precisely a comparison: how far below the target
- * am I, and on which of these does that matter most.
+ * The level is drawn as a row of numbered circles rather than a filled bar.
+ * A bar is a continuous quantity, and this is not one: an officer is at
+ * Working or at Proficient, never four fifths of the way between them. The bar
+ * invited a reading the assessment cannot support - that 62% of a bar means
+ * something - where a lit circle says only what we actually know, which is
+ * which of five named rungs the evidence puts them on.
  *
- * A bar reads that at a glance and fills the rectangle it is given.
+ * The target is the ringed circle rather than a separate mark floating over a
+ * track, so "where I need to be" is one of the same rungs and not a different
+ * kind of thing.
  */
+
+/** The rungs, low to high. One circle each - see LevelDots. */
+const LEVELS = PROFICIENCY.map((name, level) => ({ name, level }));
+
 export function CompetencyProfile({
   items,
   onAssess,
@@ -22,12 +27,17 @@ export function CompetencyProfile({
   items: GapItem[];
   onAssess?: (item: GapItem) => void;
 }) {
+  if (items.length === 0) return <ul className="divide-y divide-hairline" />;
+
   return (
-    <ul className="divide-y divide-hairline">
-      {items.map((item) => (
-        <CompetencyRow key={item.competency_id} item={item} onAssess={onAssess} />
-      ))}
-    </ul>
+    <>
+      <ul className="divide-y divide-hairline">
+        {items.map((item) => (
+          <CompetencyRow key={item.competency_id} item={item} onAssess={onAssess} />
+        ))}
+      </ul>
+      <LevelLegend />
+    </>
   );
 }
 
@@ -39,7 +49,6 @@ function CompetencyRow({
   onAssess?: (item: GapItem) => void;
 }) {
   const measured = item.evidence === "measured" || item.evidence === "provisional";
-  const pct = (level: number) => `${(level / 4) * 100}%`;
 
   return (
     <li className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-x-4 gap-y-2 py-3 sm:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)_auto]">
@@ -60,38 +69,9 @@ function CompetencyRow({
         </p>
       </div>
 
-      {/* The bar. Attained fills from the left; the target is a line across it,
-          so "short of where I need to be" is the visible gap between them. */}
       <div className="col-span-2 sm:col-span-1">
-        <div className="relative h-6">
-          <div className="absolute inset-x-0 top-1/2 h-2 -translate-y-1/2 overflow-hidden rounded-full bg-ashoka-soft">
-            {/* Where the evidence could reach, when it is not certain. */}
-            {measured && item.level_high > item.attained_level && (
-              <div
-                className="absolute inset-y-0 bg-ashoka/15"
-                title={`The evidence supports ${PROFICIENCY[item.level_low]} to ${PROFICIENCY[item.level_high]}`}
-                style={{
-                  left: pct(item.level_low),
-                  width: pct(item.level_high - item.level_low),
-                }}
-              />
-            )}
-            <div
-              className={`absolute inset-y-0 left-0 rounded-full ${
-                item.meets_target ? "bg-chakra" : "bg-ashoka"
-              }`}
-              style={{ width: pct(item.attained_level) }}
-            />
-          </div>
-
-          {/* The target, as a line to reach rather than another bar. */}
-          <span
-            className="absolute top-1/2 h-4 w-0.5 -translate-y-1/2 rounded bg-ink"
-            style={{ left: pct(item.target_level) }}
-            title={`Target: ${PROFICIENCY[item.target_level]}`}
-          />
-        </div>
-        <p className="mt-0.5 text-2xs tabular-nums text-ink-4">
+        <LevelDots item={item} />
+        <p className="mt-2 text-2xs tabular-nums text-ink-4">
           {PROFICIENCY[item.attained_level]}
           {!item.meets_target && ` \u2192 needs ${PROFICIENCY[item.target_level]}`}
           {item.meets_target && " \u00b7 target met"}
@@ -112,4 +92,94 @@ function CompetencyRow({
       </div>
     </li>
   );
+}
+
+/**
+ * The five rungs of the scale, lit up to the level attained.
+ *
+ * Three states, and each is a different claim:
+ *   reached  - the evidence puts the officer at or above this rung.
+ *   possible - above the reported level, but still inside the range the
+ *              evidence supports. Drawn hollow because it is a maybe, and a
+ *              solid circle would assert something we have not measured.
+ *   empty    - not reached.
+ *
+ * The target rung is outlined. Outline rather than ring so it composes with the
+ * hollow "possible" treatment instead of fighting it for the same shadow slot.
+ */
+export function LevelDots({ item }: { item: GapItem }) {
+  const measured = item.evidence === "measured" || item.evidence === "provisional";
+
+  return (
+    <div
+      role="img"
+      aria-label={dotsLabel(item)}
+      title={dotsLabel(item)}
+      className="flex items-center gap-2"
+    >
+      {LEVELS.map(({ level }) => {
+        const reached = level <= item.attained_level;
+        // Only the headroom above the reported level is worth drawing: it is
+        // the part a reader would otherwise assume had been ruled out.
+        const possible = !reached && measured && level <= item.level_high;
+        const isTarget = level === item.target_level;
+        const state = reached ? "reached" : possible ? "possible" : "empty";
+
+        const fill = reached
+          ? item.meets_target
+            ? "bg-chakra text-white"
+            : "bg-ashoka text-white"
+          : possible
+            ? "bg-surface text-ashoka ring-1 ring-inset ring-ashoka/40"
+            : "bg-ashoka-soft text-ink-4";
+
+        return (
+          <span
+            key={level}
+            data-level={level}
+            data-state={state}
+            data-target={isTarget ? "true" : undefined}
+            className={`flex h-5 w-5 items-center justify-center rounded-full text-[10px] font-semibold tabular-nums transition-colors ${fill} ${
+              isTarget ? "outline-2 outline-offset-2 outline-ink" : ""
+            }`}
+          >
+            {level + 1}
+          </span>
+        );
+      })}
+    </div>
+  );
+}
+
+function LevelLegend() {
+  return (
+    <p className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-hairline pt-3 text-2xs text-ink-4">
+      <span className="flex items-center gap-2">
+        <span className="h-3 w-3 rounded-full bg-ashoka" />
+        attained
+      </span>
+      <span className="flex items-center gap-2">
+        <span className="h-3 w-3 rounded-full bg-surface ring-1 ring-inset ring-ashoka/40" />
+        within the evidence range
+      </span>
+      <span className="flex items-center gap-2">
+        <span className="h-3 w-3 rounded-full bg-ashoka-soft outline-2 outline-offset-2 outline-ink" />
+        target
+      </span>
+      <span className="text-ink-4/80">
+        {LEVELS.map((l) => `${l.level + 1} ${l.name}`).join(" \u00b7 ")}
+      </span>
+    </p>
+  );
+}
+
+function dotsLabel(item: GapItem): string {
+  const at = `Level ${item.attained_level + 1} of ${LEVELS.length}, ${PROFICIENCY[item.attained_level]}`;
+  const target = `target level ${item.target_level + 1}, ${PROFICIENCY[item.target_level]}`;
+  if (item.evidence === "measured" || item.evidence === "provisional") {
+    return `${at}; the evidence supports ${PROFICIENCY[item.level_low]} to ${
+      PROFICIENCY[item.level_high]
+    }; ${target}`;
+  }
+  return `${at}; ${target}`;
 }

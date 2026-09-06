@@ -167,12 +167,17 @@ def department_overview(
     )
 
 
-def _mcq_validity_rate(db: Session) -> float:
-    """% of generated MCQs that passed the quality gate (spec 13)."""
+def _mcq_validity_rate(db: Session) -> float | None:
+    """% of generated MCQs that passed the quality gate (spec 13).
+
+    None, not zero, when nothing has been generated yet: a quality gate that has
+    judged no items does not have a 0% pass rate, and a dashboard reading 0.0
+    would report the one thing that is certainly untrue.
+    """
     accepted = db.scalar(select(func.count()).select_from(Question)) or 0
     rejected = db.scalar(select(func.coalesce(func.sum(Quiz.rejected_count), 0))) or 0
     attempted = accepted + rejected
-    return round(100 * accepted / attempted, 1) if attempted else 0.0
+    return round(100 * accepted / attempted, 1) if attempted else None
 
 
 @router.get("/admin/metrics", response_model=MetricsOut)

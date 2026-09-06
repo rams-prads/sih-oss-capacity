@@ -15,6 +15,8 @@ import type {
   User,
 } from "../api";
 import { ActivityCalendar } from "../components/ActivityCalendar";
+import { FeedbackPanel } from "../components/Feedback";
+import { ErrorBoundary } from "../components/ErrorBoundary";
 import { Badge, Card, Empty, ErrorNote, Spinner } from "../components/ui";
 
 type Designation = { id: string; name: string; stream: string; grade: number };
@@ -79,32 +81,35 @@ export default function Profile({ userId, user }: { userId: string; user?: User 
   const strongest = [...measured].sort((a, b) => b.attained_level - a.attained_level)[0];
   const weakest = [...measured].sort((a, b) => a.attained_level - b.attained_level)[0];
 
+  // Only what the identity block does not already say. Designation, grade,
+  // stream and department are all in the two lines under the name; repeating
+  // them as four more cells filled the card without informing anyone, and a
+  // reader who saw "Junior Statistical Officer" twice had to check whether the
+  // two were saying different things.
   const facts: [string, string][] = [
     ["Email", user?.email || "—"],
     ["Officer ID", report.user_id],
-    ["Department", report.department],
-    ["Designation", report.role_name],
-    ["Stream", designation?.stream ?? "—"],
-    ["Grade", designation ? String(designation.grade) : "—"],
   ];
 
   return (
     <div className="space-y-5">
       <Card>
-        <div className="flex flex-wrap items-start gap-5">
-          <span className="grid h-16 w-16 shrink-0 place-items-center rounded-2xl bg-ashoka text-xl font-semibold text-white">
+        <div className="flex flex-wrap items-start gap-x-6 gap-y-5">
+          <span className="grid h-20 w-20 shrink-0 place-items-center rounded-2xl bg-ashoka text-2xl font-semibold tracking-wide text-white">
             {initials}
           </span>
 
           <div className="min-w-0 flex-1">
-            <h2 className="text-xl font-semibold leading-tight text-ink">{report.user_name}</h2>
-            <p className="mt-0.5 text-sm text-ink-2">
+            <h2 className="truncate text-2xl font-semibold leading-tight text-ink">
+              {report.user_name}
+            </h2>
+            <p className="mt-1.5 text-base leading-snug text-ink-2">
               {report.role_name}
-              {designation ? ` · grade ${designation.grade} · ${designation.stream}` : ""}
+              {designation ? ` · grade ${designation.grade} · ${designation.stream} stream` : ""}
             </p>
-            <p className="mt-0.5 text-xs text-ink-3">{report.department}</p>
+            <p className="mt-1 text-sm leading-snug text-ink-3">{report.department}</p>
 
-            <div className="mt-3 flex flex-wrap gap-1.5">
+            <div className="mt-3.5 flex flex-wrap gap-2">
               {user?.is_admin && <Badge tone="amber">Administrator</Badge>}
               {progression && !progression.at_top_of_ladder && progression.next_role_name && (
                 <Badge tone="blue">Next: {progression.next_role_name}</Badge>
@@ -113,36 +118,51 @@ export default function Profile({ userId, user }: { userId: string; user?: User 
                 <Badge tone="teal">{activity.current_streak}-day streak</Badge>
               )}
             </div>
+
+            {/* Packed left rather than spread across the card. As a full-width
+                two-column grid these two short values left a hole at the
+                half-way mark; flowing them keeps the trailing space at the end
+                of the line, where it reads as margin instead of omission. */}
+            <dl className="mt-5 flex flex-wrap gap-x-12 gap-y-3 border-t border-hairline pt-4">
+              {facts.map(([label, value]) => (
+                <div key={label} className="min-w-0">
+                  <dt className="text-xs font-medium uppercase tracking-[0.08em] text-ink-4">
+                    {label}
+                  </dt>
+                  <dd className="mt-1 truncate text-base text-ink" title={value}>
+                    {value}
+                  </dd>
+                </div>
+              ))}
+            </dl>
           </div>
 
-          <div className="shrink-0 text-right">
-            <p className="text-2xs uppercase tracking-wide text-ink-3">Role readiness</p>
-            <p className="text-3xl font-semibold tabular-nums text-ink">
+          {/* Readiness is the one number carried over from the dashboard, so it
+              is set off by a rule that runs the height of the card. The rule is
+              what makes the space beside it read as a deliberate division
+              rather than as a layout that ran out of content. */}
+          <div className="flex shrink-0 flex-col justify-center self-stretch border-hairline sm:border-l sm:pl-6">
+            <p className="text-xs font-semibold uppercase tracking-[0.08em] text-ink-4">
+              Role readiness
+            </p>
+            <p className="mt-2 text-[2.75rem] font-semibold leading-none tracking-[-0.02em] tabular-nums text-ink">
               {report.readiness_pct}%
             </p>
             {/* Readiness is only as good as the evidence under it, and a profile
                 is the right place to say so plainly. */}
-            <p className="mt-0.5 text-2xs text-ink-4">
+            <p className="mt-2 text-sm text-ink-3">
               {report.evidence_coverage_pct}% of it measured
             </p>
           </div>
         </div>
-
-        <dl className="mt-5 grid gap-x-8 gap-y-3 border-t border-hairline pt-4 sm:grid-cols-2 lg:grid-cols-3">
-          {facts.map(([label, value]) => (
-            <div key={label}>
-              <dt className="text-2xs uppercase tracking-wide text-ink-3">{label}</dt>
-              <dd className="mt-0.5 truncate text-sm text-ink" title={value}>
-                {value}
-              </dd>
-            </div>
-          ))}
-        </dl>
       </Card>
 
       <ActivityCalendar activity={activity} />
 
-      <div className="grid gap-5 lg:grid-cols-2">
+      {/* items-start, so each card is the height of what it holds. Stretched to
+          match its taller neighbour, the shorter one carried a band of empty
+          card below its last line that read as content failing to load. */}
+      <div className="grid items-start gap-5 lg:grid-cols-2">
         <Card
           title="What has been measured"
           subtitle="Levels an assessment established, against levels nobody has tested yet."
@@ -153,9 +173,11 @@ export default function Profile({ userId, user }: { userId: string; user?: User 
               ["Provisional", report.provisional_competencies, "text-saffron-ink"],
               ["Unverified", report.unverified_competencies, "text-ink-3"],
             ].map(([label, value, tone]) => (
-              <div key={String(label)} className="rounded-xl bg-raised px-3 py-3">
-                <p className={`text-2xl font-semibold tabular-nums ${tone}`}>{String(value)}</p>
-                <p className="mt-0.5 text-2xs text-ink-3">{String(label)}</p>
+              <div key={String(label)} className="rounded-xl bg-raised px-3 py-4">
+                <p className={`text-[28px] font-semibold leading-none tabular-nums ${tone}`}>
+                  {String(value)}
+                </p>
+                <p className="mt-1.5 text-xs text-ink-3">{String(label)}</p>
               </div>
             ))}
           </div>
@@ -165,7 +187,7 @@ export default function Profile({ userId, user }: { userId: string; user?: User 
               Nothing has been assessed yet, so nothing here is a claim about what you know.
             </Empty>
           ) : (
-            <ul className="mt-4 space-y-2">
+            <ul className="mt-5 border-t border-hairline">
               {[
                 ["Strongest measured", strongest],
                 ["Weakest measured", weakest],
@@ -173,9 +195,9 @@ export default function Profile({ userId, user }: { userId: string; user?: User 
                 item && typeof item !== "string" ? (
                   <li
                     key={String(label)}
-                    className="flex items-baseline justify-between gap-3 border-b border-hairline pb-2 text-xs last:border-0"
+                    className="flex items-baseline justify-between gap-3 border-b border-hairline py-3 text-sm last:border-0"
                   >
-                    <span className="text-ink-3">{String(label)}</span>
+                    <span className="shrink-0 text-ink-3">{String(label)}</span>
                     <span className="min-w-0 flex-1 truncate text-right text-ink">
                       {item.competency_name}
                     </span>
@@ -200,27 +222,31 @@ export default function Profile({ userId, user }: { userId: string; user?: User 
               ["In progress", learning.summary.in_progress],
               ["Expired", learning.summary.expired],
             ].map(([label, value]) => (
-              <div key={String(label)} className="rounded-xl bg-raised px-3 py-3">
-                <p className="text-2xl font-semibold tabular-nums text-ink">{String(value)}</p>
-                <p className="mt-0.5 text-2xs text-ink-3">{String(label)}</p>
+              <div key={String(label)} className="rounded-xl bg-raised px-3 py-4">
+                <p className="text-[28px] font-semibold leading-none tabular-nums text-ink">
+                  {String(value)}
+                </p>
+                <p className="mt-1.5 text-xs text-ink-3">{String(label)}</p>
               </div>
             ))}
           </div>
 
-          <dl className="mt-4 space-y-2 text-xs">
-            <div className="flex items-baseline justify-between border-b border-hairline pb-2">
+          <dl className="mt-5 border-t border-hairline text-sm">
+            <div className="flex items-baseline justify-between gap-4 border-b border-hairline py-3">
               <dt className="text-ink-3">Videos watched</dt>
-              <dd className="tabular-nums text-ink">
+              <dd className="font-medium tabular-nums text-ink">
                 {learning.summary.lessons_completed} of {learning.summary.lessons_total}
               </dd>
             </div>
-            <div className="flex items-baseline justify-between border-b border-hairline pb-2">
+            <div className="flex items-baseline justify-between gap-4 border-b border-hairline py-3">
               <dt className="text-ink-3">Assessments passed</dt>
-              <dd className="tabular-nums text-ink">{learning.summary.checkpoints_passed}</dd>
+              <dd className="font-medium tabular-nums text-ink">
+                {learning.summary.checkpoints_passed}
+              </dd>
             </div>
-            <div className="flex items-baseline justify-between">
+            <div className="flex items-baseline justify-between gap-4 py-3">
               <dt className="text-ink-3">Average assessment score</dt>
-              <dd className="tabular-nums text-ink">
+              <dd className="font-medium tabular-nums text-ink">
                 {learning.summary.avg_checkpoint_score !== null
                   ? `${learning.summary.avg_checkpoint_score}%`
                   : "not assessed yet"}
@@ -229,6 +255,14 @@ export default function Profile({ userId, user }: { userId: string; user?: User 
           </dl>
         </Card>
       </div>
+
+      {/* Last on the page on purpose. Everything above is the platform's account
+          of this officer; this is the officer's account of the platform, and it
+          reads as a reply to what they have just been shown. Boundaried because
+          a profile must still render if the feedback service is down. */}
+      <ErrorBoundary label="The feedback form">
+        <FeedbackPanel />
+      </ErrorBoundary>
     </div>
   );
 }

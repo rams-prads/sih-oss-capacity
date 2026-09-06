@@ -220,6 +220,13 @@ h1, h2, h3 { letter-spacing: -0.018em; }
    starts at 0.96 rather than 0 - nothing appears out of nothing. */
 .panel-in { animation: panel-in 220ms var(--ease-out); }
 
+/* The tutor panel hangs off its own button in the bottom-right corner, so it
+   grows out of that corner rather than out of the middle of itself. */
+.dock-in {
+  transform-origin: bottom right;
+  animation: panel-in 200ms var(--ease-out);
+}
+
 /* Reduced motion drops movement, not feedback: opacity and colour still carry
    meaning, so only translation and scaling go. */
 @media (prefers-reduced-motion: reduce) {

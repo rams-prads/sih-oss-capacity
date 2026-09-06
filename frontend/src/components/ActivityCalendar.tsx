@@ -18,6 +18,22 @@ import { Card, Meta } from "./ui";
 const WEEKDAY_LABELS = ["", "Mon", "", "Wed", "", "Fri", ""];
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
+/**
+ * One square, the gap after it, and the gutter the weekday labels sit in.
+ *
+ * The month labels are absolutely positioned by column index, so they have to
+ * advance by exactly the same pitch the columns do. That pitch used to be a
+ * literal 14 in the label maths and an 11px square plus a 3px gap in the grid -
+ * two places to change and one to forget. It lives here now.
+ *
+ * The square is sized so that a year of them very nearly spans the panel: at
+ * 11px the grid filled two thirds of its card and the rest was a hole.
+ */
+const CELL = 14;
+const GAP = 4;
+const PITCH = CELL + GAP;
+const GUTTER = 36;
+
 /** Four steps is enough to read intensity; more turns a calendar into a gradient. */
 function level(count: number, busiest: number): 0 | 1 | 2 | 3 | 4 {
   if (count <= 0) return 0;
@@ -95,7 +111,7 @@ export function ActivityCalendar({ activity }: { activity: LearnerActivity }) {
         </span>
       }
     >
-      <div className="mb-4 grid grid-cols-2 gap-x-6 gap-y-2 sm:grid-cols-4">
+      <div className="mb-6 grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-4">
         {[
           ["Days studied", String(activity.active_days), "in the last year"],
           ["Things done", String(activity.total_actions), "videos and assessments"],
@@ -112,47 +128,60 @@ export function ActivityCalendar({ activity }: { activity: LearnerActivity }) {
           ],
         ].map(([label, value, hint]) => (
           <div key={label}>
-            <p className="text-2xs uppercase tracking-wide text-ink-3">{label}</p>
-            <p className="mt-0.5 text-xl font-semibold tabular-nums text-ink">{value}</p>
-            <p className="text-2xs text-ink-4">{hint}</p>
+            <p className="text-xs font-medium uppercase tracking-[0.08em] text-ink-4">{label}</p>
+            <p className="mt-1.5 text-[28px] font-semibold leading-none tabular-nums text-ink">
+              {value}
+            </p>
+            <p className="mt-1.5 text-xs text-ink-3">{hint}</p>
           </div>
         ))}
       </div>
 
       <div className="overflow-x-auto pb-1">
-        <div className="inline-block min-w-full">
+        {/* Shrink-wrapped to the grid, not stretched to the card. Stretched, the
+            legend's justify-end threw it against the far edge of the panel,
+            hundreds of pixels from the squares it explains. */}
+        <div className="inline-block">
           {/* Month labels, aligned to the week column each month starts in. */}
-          <div className="relative mb-1 ml-8 h-4">
+          <div className="relative mb-1.5 h-4" style={{ marginLeft: GUTTER }}>
             {monthMarks.map((mark) => (
               <span
                 key={`${mark.label}-${mark.index}`}
-                className="absolute text-2xs text-ink-3"
-                style={{ left: `${mark.index * 14}px` }}
+                className="absolute text-xs text-ink-3"
+                style={{ left: `${mark.index * PITCH}px` }}
               >
                 {mark.label}
               </span>
             ))}
           </div>
 
-          <div className="flex gap-[3px]">
-            <div className="mr-1 flex w-7 shrink-0 flex-col gap-[3px]">
+          <div className="flex" style={{ gap: GAP }}>
+            <div
+              className="flex shrink-0 flex-col"
+              style={{ gap: GAP, width: GUTTER - GAP }}
+            >
               {WEEKDAY_LABELS.map((label, i) => (
-                <span key={i} className="h-[11px] text-2xs leading-[11px] text-ink-4">
+                <span
+                  key={i}
+                  className="text-xs text-ink-4"
+                  style={{ height: CELL, lineHeight: `${CELL}px` }}
+                >
                   {label}
                 </span>
               ))}
             </div>
 
             {weeks.map((week, wi) => (
-              <div key={wi} className="flex flex-col gap-[3px]">
+              <div key={wi} className="flex flex-col" style={{ gap: GAP }}>
                 {week.map((day, di) =>
                   day === null ? (
-                    <span key={di} className="h-[11px] w-[11px]" />
+                    <span key={di} style={{ height: CELL, width: CELL }} />
                   ) : (
                     <span
                       key={di}
                       title={describe(day)}
-                      className={`h-[11px] w-[11px] rounded-[2px] ${FILL[level(day.count, busiest)]}`}
+                      className={`rounded-[3px] ${FILL[level(day.count, busiest)]}`}
+                      style={{ height: CELL, width: CELL }}
                     />
                   ),
                 )}
@@ -160,10 +189,14 @@ export function ActivityCalendar({ activity }: { activity: LearnerActivity }) {
             ))}
           </div>
 
-          <div className="mt-2 flex items-center justify-end gap-1.5 text-2xs text-ink-4">
+          <div className="mt-3 flex items-center justify-end gap-1.5 text-xs text-ink-4">
             <span>Less</span>
             {[0, 1, 2, 3, 4].map((l) => (
-              <span key={l} className={`h-[11px] w-[11px] rounded-[2px] ${FILL[l]}`} />
+              <span
+                key={l}
+                className={`rounded-[3px] ${FILL[l]}`}
+                style={{ height: CELL, width: CELL }}
+              />
             ))}
             <span>More</span>
           </div>

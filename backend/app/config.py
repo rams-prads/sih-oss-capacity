@@ -53,6 +53,12 @@ class Settings:
 
     max_upload_bytes: int = int(os.environ.get("MAX_UPLOAD_BYTES", str(8 * 1024 * 1024)))
 
+    # Minimum gap between checkpoint or self-assessment sittings, in seconds -
+    # see engines/attempt_throttle.py for why this exists. Zero in tests
+    # (conftest sets this) so the suite never has to sleep real wall-clock
+    # time to exercise a legitimate two-attempt flow.
+    checkpoint_cooldown_seconds: int = int(os.environ.get("CHECKPOINT_COOLDOWN_SECONDS", "20"))
+
     # Password hashing cost. Tests lower it; never lower it in a deployment.
     pbkdf2_iterations: int = int(os.environ.get("PBKDF2_ITERATIONS", "200000"))
 

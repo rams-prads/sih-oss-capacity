@@ -1,7 +1,8 @@
 """The learning dashboard and the video-to-checkpoint loop over the API."""
-from sqlalchemy import select
+from sqlalchemy import func, select
 
 from app.db import SessionLocal
+from app.engines.checkpoint_rotation import CHECKPOINT_QUIZ_SIZE
 from app.models import BankQuestion, Checkpoint
 
 # Resolved from the response rather than named: the catalogue comes from iGOT.
@@ -45,6 +46,24 @@ def _watch_all(client, user, course):
                 client.post(f"/api/users/{user}/lessons/{lesson['id']}/complete").json()
             )
     return seen
+
+
+def _deep_checkpoint(db) -> Checkpoint:
+    """A checkpoint whose topic holds more bank questions than one quiz needs -
+    the only kind where a retry has anything different to draw from. The
+    video-generated assessments are the ones deep enough; the hand-authored
+    bank is exactly one quiz per topic by design."""
+    counts = dict(
+        db.execute(
+            select(BankQuestion.topic_id, func.count(BankQuestion.id)).group_by(
+                BankQuestion.topic_id
+            )
+        ).all()
+    )
+    for checkpoint in db.scalars(select(Checkpoint)).all():
+        if counts.get(checkpoint.topic_id, 0) > CHECKPOINT_QUIZ_SIZE:
+            return checkpoint
+    raise AssertionError("no seeded checkpoint has a bank deeper than one quiz")
 
 
 def _assessable(body):
@@ -104,7 +123,11 @@ def test_checkpoint_is_locked_until_its_videos_are_watched(client):
         f"/api/checkpoints/{module['checkpoint_id']}", params={"user_id": "u-jso-anita"}
     )
     assert response.status_code == 409
-    assert "videos in this module first" in response.json()["detail"]
+    detail = response.json()["detail"]
+    # A refusal that says "watch all 0 videos" tells the officer to do nothing
+    # and try again, so the count it names has to be the one being gated on.
+    assert "videos in" in detail and "first" in detail
+    assert "all 0 videos" not in detail
 
 
 def test_watching_videos_moves_progress_and_unlocks_the_checkpoint(client):
@@ -151,8 +174,9 @@ def test_failing_then_passing_a_checkpoint(client):
     assert failed["passed"] is False
     assert failed["score_pct"] == 25.0
     assert failed["course_progress_pct"] == before_pct
-    assert len(failed["items"]) == 4
-    assert any(not i["correct"] and i["explanation"] for i in failed["items"])
+    # The review is withheld on a failure: handing back the correct option for
+    # each question is what let a deliberate failure buy the answer key.
+    assert failed["items"] == []
 
     passed = client.post(
         f"/api/checkpoints/{checkpoint_id}/submit",
@@ -163,7 +187,11 @@ def test_failing_then_passing_a_checkpoint(client):
     assert passed["score_pct"] == 100.0
     assert passed["attempt_no"] == 2
     assert passed["course_progress_pct"] > before_pct
-    # Mastery counts both sittings: 1 + 4 correct of 8 answered.
+    # Passing releases the full review, explanations and all.
+    assert len(passed["items"]) == 4
+    assert all(i["explanation"] for i in passed["items"])
+    # Mastery counts both sittings: 1 + 4 correct of 8 answered. The failed
+    # attempt's answers were withheld from the officer, never from the record.
     assert passed["topic_accuracy_pct"] == 62.5
 
 
@@ -173,17 +201,165 @@ def test_lesson_completion_requires_enrolment(client):
 
 
 def test_answer_count_must_match(client):
-    body = client.get("/api/users/u-si-lalita/learning").json()
+    user = "u-si-lalita"
+    body = client.get(f"/api/users/{user}/learning").json()
     course = _assessable(body)
     checkpoint_id = next(
         m["checkpoint_id"] for m in course["modules"] if m["checkpoint_id"] is not None
     )
+    _watch_all(client, user, course)   # the gate is checked before the payload
     response = client.post(
         f"/api/checkpoints/{checkpoint_id}/submit",
-        params={"user_id": "u-si-lalita"},
+        params={"user_id": user},
         json={"answers": [0, 1]},
     )
     assert response.status_code == 400
+
+
+def test_a_retry_on_a_deep_bank_asks_different_questions(client, db):
+    """The fix this feature exists for: fail a checkpoint whose topic can
+    actually support rotation, and the retry must not be the same four."""
+    user = "u-jso-anita"
+    checkpoint = _deep_checkpoint(db)
+    client.post(
+        f"/api/users/{user}/enrolments",
+        json={"course_identifier": checkpoint.course_identifier},
+    )
+
+    course = _course(client.get(f"/api/users/{user}/learning").json(), checkpoint.course_identifier)
+    module = next(m for m in course["modules"] if m["checkpoint_id"] == checkpoint.id)
+    for lesson in module["lessons"]:
+        client.post(f"/api/users/{user}/lessons/{lesson['id']}/complete")
+
+    first = client.get(
+        f"/api/checkpoints/{checkpoint.id}", params={"user_id": user}
+    ).json()
+    # Capped at one quiz's worth even though the bank holds more - a checkpoint
+    # this deep used to serve every question it had, every time.
+    assert len(first["questions"]) == CHECKPOINT_QUIZ_SIZE
+
+    client.post(
+        f"/api/checkpoints/{checkpoint.id}/submit",
+        params={"user_id": user},
+        json={"answers": [0] * len(first["questions"])},
+    )
+
+    second = client.get(
+        f"/api/checkpoints/{checkpoint.id}", params={"user_id": user}
+    ).json()
+    assert second["attempt_no"] == 2
+    assert len(second["questions"]) == CHECKPOINT_QUIZ_SIZE
+    first_ids = {q["id"] for q in first["questions"]}
+    second_ids = {q["id"] for q in second["questions"]}
+    assert second_ids != first_ids, "retry served the identical question set"
+
+
+def test_a_shallow_bank_still_serves_its_whole_set_every_attempt(client):
+    """Where the bank is exactly one quiz's worth - most topics today - a
+    retry cannot rotate, and must not appear to by reordering or dropping
+    the one question it has of some type. This is the invariant that keeps
+    test_failing_then_passing_a_checkpoint's answer key valid across two
+    attempts, made explicit as its own test."""
+    user = "u-jso-anita"
+    course = _assessable(client.get(f"/api/users/{user}/learning").json())
+    checkpoint_id = _assessed_module(course)["checkpoint_id"]
+    _watch_all(client, user, course)
+
+    first = client.get(
+        f"/api/checkpoints/{checkpoint_id}", params={"user_id": user}
+    ).json()
+    client.post(
+        f"/api/checkpoints/{checkpoint_id}/submit",
+        params={"user_id": user},
+        json={"answers": [0] * len(first["questions"])},
+    )
+    second = client.get(
+        f"/api/checkpoints/{checkpoint_id}", params={"user_id": user}
+    ).json()
+
+    assert [q["id"] for q in second["questions"]] == [q["id"] for q in first["questions"]]
+
+
+def test_submitting_a_locked_checkpoint_is_refused(client):
+    """The gate has to hold on the submission, not only on opening the quiz.
+
+    Only the GET checked it, so posting straight to /submit skipped the videos
+    entirely and still scored, still moved the measured level, and still
+    counted toward course progress."""
+    user = "u-si-lalita"
+    course = _assessable(client.get(f"/api/users/{user}/learning").json())
+    module = _assessed_module(course)
+    assert module["checkpoint_unlocked"] is False
+
+    response = client.post(
+        f"/api/checkpoints/{module['checkpoint_id']}/submit",
+        params={"user_id": user},
+        json={"answers": [0] * CHECKPOINT_QUIZ_SIZE},
+    )
+    assert response.status_code == 409
+    detail = response.json()["detail"]
+    assert "videos in" in detail and "first" in detail
+    assert "all 0 videos" not in detail
+
+    # And nothing was recorded for the attempt that was refused.
+    board = _course(
+        client.get(f"/api/users/{user}/learning").json(), course["course_identifier"]
+    )
+    assert board["progress_pct"] == course["progress_pct"]
+
+
+def test_an_answer_outside_the_options_is_refused(client):
+    user = "u-jso-anita"
+    course = _assessable(client.get(f"/api/users/{user}/learning").json())
+    checkpoint_id = _assessed_module(course)["checkpoint_id"]
+    _watch_all(client, user, course)
+
+    for bad in ([-1, 0, 0, 0], [0, 0, 0, 99]):
+        response = client.post(
+            f"/api/checkpoints/{checkpoint_id}/submit",
+            params={"user_id": user},
+            json={"answers": bad},
+        )
+        assert response.status_code == 400, bad
+        assert "no option" in response.json()["detail"]
+
+
+def test_attempts_are_throttled(client, monkeypatch):
+    """Guessing works about one attempt in twenty, so the defence is spacing
+    the attempts rather than capping them.
+
+    The suite runs with the cooldown at zero (conftest) so every other test can
+    submit back to back; this one turns it on to exercise the real path."""
+    from app.config import get_settings
+
+    monkeypatch.setattr(get_settings(), "checkpoint_cooldown_seconds", 60)
+
+    user = "u-jso-anita"
+    course = _assessable(client.get(f"/api/users/{user}/learning").json())
+    checkpoint_id = _assessed_module(course)["checkpoint_id"]
+    _watch_all(client, user, course)
+
+    answers = [0] * CHECKPOINT_QUIZ_SIZE
+    first = client.post(
+        f"/api/checkpoints/{checkpoint_id}/submit",
+        params={"user_id": user},
+        json={"answers": answers},
+    )
+    assert first.status_code == 200
+
+    second = client.post(
+        f"/api/checkpoints/{checkpoint_id}/submit",
+        params={"user_id": user},
+        json={"answers": answers},
+    )
+    assert second.status_code == 429
+    assert "available in" in second.json()["detail"]
+
+    # The refused attempt left no trace: still one sitting on the record.
+    quiz = client.get(
+        f"/api/checkpoints/{checkpoint_id}", params={"user_id": user}
+    ).json()
+    assert quiz["attempt_no"] == 2
 
 
 def test_topic_mastery_endpoint(client):

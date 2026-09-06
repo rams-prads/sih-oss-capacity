@@ -33,28 +33,22 @@ export function AdminSignIn({ onSignedIn }: { onSignedIn: (user: User) => void }
   }
 
   return (
-    <div className="mx-auto max-w-md rounded-xl border border-hairline bg-surface p-6 shadow-sm">
-      <h2 className="font-semibold text-ink">Administrator sign-in</h2>
-      <p className="mt-1 text-sm text-ink-3">
-        Department analytics show every officer's record, so they require a sign-in
-        rather than the profile switcher.
-      </p>
-
-      <form onSubmit={submit} className="mt-4 space-y-3">
+    <div>
+      <form onSubmit={submit} className="space-y-4">
         <div>
-          <label className="mb-1 block text-xs font-medium text-ink-2" htmlFor="uid">
+          <label className="mb-1.5 block text-xs font-medium text-ink-2" htmlFor="uid">
             Officer id
           </label>
           <input
             id="uid"
             value={userId}
             onChange={(e) => setUserId(e.target.value)}
-            className="w-full rounded-lg border border-hairline-strong px-3 py-2 text-sm"
+            className="w-full rounded-lg border border-hairline-strong bg-surface px-3 py-2.5 text-sm text-ink"
             autoComplete="username"
           />
         </div>
         <div>
-          <label className="mb-1 block text-xs font-medium text-ink-2" htmlFor="pwd">
+          <label className="mb-1.5 block text-xs font-medium text-ink-2" htmlFor="pwd">
             Password
           </label>
           <input
@@ -62,7 +56,7 @@ export function AdminSignIn({ onSignedIn }: { onSignedIn: (user: User) => void }
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full rounded-lg border border-hairline-strong px-3 py-2 text-sm"
+            className="w-full rounded-lg border border-hairline-strong bg-surface px-3 py-2.5 text-sm text-ink"
             autoComplete="current-password"
           />
         </div>
@@ -74,15 +68,16 @@ export function AdminSignIn({ onSignedIn }: { onSignedIn: (user: User) => void }
         <button
           type="submit"
           disabled={busy || !password}
-          className="w-full rounded-lg bg-ashoka px-4 py-2 text-sm font-medium text-white transition hover:bg-ashoka-2 disabled:bg-hairline-strong"
+          className="press w-full rounded-lg bg-ashoka px-4 py-2.5 text-sm font-medium text-white transition hover:bg-ashoka-2 disabled:bg-hairline-strong"
         >
           {busy ? "Signing in…" : "Sign in"}
         </button>
       </form>
 
-      <p className="mt-4 border-t border-hairline pt-3 text-xs text-ink-4">
-        Demo credentials: <code>u-admin-meera</code> / <code>admin123</code>. Seeded
-        officers use <code>officer123</code> and are not administrators.
+      <p className="mt-5 border-t border-hairline pt-4 text-xs leading-relaxed text-ink-4">
+        Demo credentials: <code className="text-ink-3">u-admin-meera</code> /{" "}
+        <code className="text-ink-3">admin123</code>. Seeded officers use{" "}
+        <code className="text-ink-3">officer123</code> and are not administrators.
       </p>
     </div>
   );

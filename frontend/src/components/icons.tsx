@@ -254,3 +254,14 @@ export function CloseIcon(props: IconProps) {
     </Svg>
   );
 }
+
+/** The tutor. A speech bubble with a tail, and three dots for a conversation
+ *  rather than a notice - this opens something you talk to. */
+export function ChatIcon(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <path d="M20 12.5a7 7 0 0 1-7 7H8.6L4.5 21.5l.9-3.6A7 7 0 0 1 11 4.5h2a7 7 0 0 1 7 7Z" />
+      <path d="M9 12h.01M12 12h.01M15 12h.01" />
+    </Svg>
+  );
+}

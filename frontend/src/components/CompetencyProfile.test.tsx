@@ -25,8 +25,8 @@ function gap(over: Partial<GapItem> = {}): GapItem {
   };
 }
 
-const width = (el: Element | null) => (el as HTMLElement)?.style.width;
-const left = (el: Element | null) => (el as HTMLElement)?.style.left;
+const dots = (c: HTMLElement) => Array.from(c.querySelectorAll("[data-level]"));
+const states = (c: HTMLElement) => dots(c).map((d) => d.getAttribute("data-state"));
 
 describe("CompetencyProfile", () => {
   it("shows every competency the role requires", () => {
@@ -39,21 +39,39 @@ describe("CompetencyProfile", () => {
     expect(screen.getByText("Data Quality")).toBeInTheDocument();
   });
 
-  it("states the level in words, not only as a bar", () => {
+  it("states the level in words, not only as circles", () => {
     render(<CompetencyProfile items={[gap()]} />);
-    expect(screen.getByText(/Aware/)).toBeInTheDocument();
-    expect(screen.getByText(/needs Proficient/)).toBeInTheDocument();
+    // Scoped to the row: the legend below the list names every level too.
+    const row = within(screen.getByRole("listitem"));
+    expect(row.getByText(/Aware/)).toBeInTheDocument();
+    expect(row.getByText(/needs Proficient/)).toBeInTheDocument();
   });
 
-  it("fills the bar in proportion to the level attained", () => {
-    const { container } = render(<CompetencyProfile items={[gap({ attained_level: 2 })]} />);
-    // Level 2 of a 0-4 scale is half the bar.
-    expect(width(container.querySelector(".bg-ashoka"))).toBe("50%");
+  it("gives the scale one circle per named level", () => {
+    const { container } = render(<CompetencyProfile items={[gap()]} />);
+    // Five rungs, because the scale has five names - Unaware to Expert.
+    expect(dots(container)).toHaveLength(5);
   });
 
-  it("places the target as a line at its own level", () => {
+  it("lights every circle up to the level attained", () => {
+    // level_high caps the "possible" rungs, so this isolates "reached".
+    const { container } = render(
+      <CompetencyProfile items={[gap({ attained_level: 2, level_high: 2 })]} />,
+    );
+    expect(states(container)).toEqual([
+      "reached",
+      "reached",
+      "reached",
+      "empty",
+      "empty",
+    ]);
+  });
+
+  it("rings the target level rather than marking a point on a track", () => {
     const { container } = render(<CompetencyProfile items={[gap({ target_level: 3 })]} />);
-    expect(left(container.querySelector(".bg-ink"))).toBe("75%");
+    const ringed = dots(container).filter((d) => d.getAttribute("data-target") === "true");
+    expect(ringed).toHaveLength(1);
+    expect(ringed[0].getAttribute("data-level")).toBe("3");
   });
 
   it("colours a met target differently from a shortfall", () => {
@@ -67,16 +85,28 @@ describe("CompetencyProfile", () => {
   it("draws the range the evidence supports, not just a point", () => {
     const { container } = render(
       <CompetencyProfile
-        items={[gap({ evidence: "provisional", attained_level: 3, level_low: 1, level_high: 4 })]}
+        items={[gap({ evidence: "provisional", attained_level: 2, level_low: 1, level_high: 4 })]}
       />,
     );
-    const band = screen.getByTitle(/evidence supports/);
-    expect(left(band)).toBe("25%");
-    expect(width(band)).toBe("75%");
+    // Reported at level 3 of 5, but the evidence cannot rule out the two above
+    // it - so those are drawn hollow rather than left dark or filled in.
+    expect(states(container)).toEqual([
+      "reached",
+      "reached",
+      "reached",
+      "possible",
+      "possible",
+    ]);
+    expect(screen.getByTitle(/evidence supports/)).toBeInTheDocument();
   });
 
   it("draws no range for a level nobody measured", () => {
-    render(<CompetencyProfile items={[gap({ evidence: "self_reported" })]} />);
+    const { container } = render(
+      <CompetencyProfile
+        items={[gap({ evidence: "self_reported", attained_level: 1, level_high: 4 })]}
+      />,
+    );
+    expect(states(container)).toEqual(["reached", "reached", "empty", "empty", "empty"]);
     expect(screen.queryByTitle(/evidence supports/)).not.toBeInTheDocument();
   });
 
@@ -99,7 +129,7 @@ describe("CompetencyProfile", () => {
     const { unmount } = render(
       <CompetencyProfile items={[gap({ recommended_action: "assess" })]} onAssess={onAssess} />,
     );
-    await userEvent.click(screen.getAllByRole("button", { name: "Assess" })[0]);
+    await userEvent.click(screen.getAllByRole("button", { name: "Take test" })[0]);
     expect(onAssess).toHaveBeenCalled();
     unmount();
   });
@@ -111,7 +141,7 @@ describe("CompetencyProfile", () => {
         onAssess={() => {}}
       />,
     );
-    expect(screen.queryByRole("button", { name: "Assess" })).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Take test" })).not.toBeInTheDocument();
   });
 
   it("renders nothing rather than breaking on an empty role", () => {

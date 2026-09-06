@@ -2,9 +2,46 @@ import axios from "axios";
 
 export const api = axios.create({ baseURL: "/api" });
 
-/** Demo identity: the seeded officer whose dashboard we are viewing. */
-export function setActiveUser(userId: string) {
-  api.defaults.headers.common["X-User-Id"] = userId;
+const OFFICER_KEY = "oss.officer";
+
+/**
+ * Demo identity: the seeded officer whose dashboard we are viewing.
+ *
+ * This is the officer half of the session and deliberately carries no password.
+ * The officer screens only ever show that officer's own record, so the sign-in
+ * is a choice of profile rather than a claim of identity - which is exactly
+ * what the demo needs. The admin screens aggregate the whole cadre, so they
+ * take a real password and a bearer token instead; see setToken below.
+ *
+ * Passing null signs the officer out.
+ */
+export function setActiveUser(userId: string | null) {
+  if (userId) {
+    api.defaults.headers.common["X-User-Id"] = userId;
+    try {
+      localStorage.setItem(OFFICER_KEY, userId);
+    } catch {
+      /* private browsing: the choice simply does not outlive the tab */
+    }
+  } else {
+    delete api.defaults.headers.common["X-User-Id"];
+    try {
+      localStorage.removeItem(OFFICER_KEY);
+    } catch {
+      /* ignore */
+    }
+  }
+}
+
+/** Re-arm the header on boot, so a reload does not land back on the login page. */
+export function restoreActiveUser(): string | null {
+  try {
+    const userId = localStorage.getItem(OFFICER_KEY);
+    if (userId) api.defaults.headers.common["X-User-Id"] = userId;
+    return userId;
+  } catch {
+    return null;
+  }
 }
 
 export const PROFICIENCY = ["Unaware", "Aware", "Working", "Proficient", "Expert"];
@@ -72,7 +109,7 @@ export interface Course {
   eligibility: string;
   duration_days: number;
   batch_size: number;
-  /** The course on the iGOT portal. Empty for NSSTA programmes and sandbox courses. */
+  /** The course on the iGOT portal. Empty for NSSTA programmes, which are not on it. */
   url: string;
   /** Module titles from iGOT. Empty when the course publishes none worth showing. */
   outline: string[];
@@ -228,7 +265,7 @@ export interface LessonItem {
   title: string;
   duration_min: number;
   completed: boolean;
-  /** The mp4 iGOT serves, played in place. Empty for authored sandbox lessons. */
+  /** The mp4 iGOT serves, played in place. Empty for a lesson that publishes none. */
   video_url: string;
 }
 
@@ -396,6 +433,10 @@ export function restoreToken(): string | null {
     return null;
   }
 }
+
+/** Who the stored bearer token belongs to. Used to restore an admin session on
+ *  boot: the token survives a reload but the user object behind it does not. */
+export const getMe = () => api.get<User>("/auth/me").then((r) => r.data);
 
 export const login = (user_id: string, password: string) =>
   api.post<{ access_token: string; user: User }>("/auth/login", { user_id, password })
@@ -719,6 +760,7 @@ export interface CompetencyAssessmentResult {
   score_pct: number;
   correct_count: number;
   total: number;
+  passed: boolean;
   target_level: number;
   level_before: number;
   level_after: number;
@@ -733,6 +775,9 @@ export interface CompetencyAssessmentResult {
   readiness_before: number;
   readiness_after: number;
   recommended_action: string;
+  /** Empty unless the sitting passed - the server withholds the answers to
+   *  questions that were missed, so a failed sitting cannot be used to read
+   *  the key off a bank the next one draws from again. */
   items: CompetencyAssessmentItem[];
 }
 
@@ -752,3 +797,84 @@ export const submitCompetencyAssessment = (
       { answers },
     )
     .then((r) => r.data);
+
+// --- officer feedback -----------------------------------------------------
+export type FeedbackStatus = "new" | "reviewed" | "actioned";
+
+/** The categories the server files submissions under, in the order it lists
+ *  them. Kept as a constant rather than fetched: it is a fixed part of the
+ *  form, and a select box that populates a beat after the page does reads as a
+ *  page still loading. */
+export const FEEDBACK_CATEGORIES: { value: string; label: string }[] = [
+  { value: "course_content", label: "Course content" },
+  { value: "assessments", label: "Assessments and quizzes" },
+  { value: "platform", label: "Platform and usability" },
+  { value: "data_accuracy", label: "My record looks wrong" },
+  { value: "other", label: "Something else" },
+];
+
+export const FEEDBACK_STATUS_LABELS: Record<FeedbackStatus, string> = {
+  new: "Awaiting review",
+  reviewed: "Reviewed",
+  actioned: "Actioned",
+};
+
+export interface Feedback {
+  id: number;
+  user_id: string;
+  user_name: string;
+  role_name: string;
+  department: string;
+  category: string;
+  category_label: string;
+  subject: string;
+  message: string;
+  rating: number | null;
+  status: FeedbackStatus;
+  /** The administration's reply, shown back to the officer who wrote in. */
+  admin_note: string;
+  handled_at: string | null;
+  created_at: string;
+}
+
+export interface FeedbackCategoryCount {
+  category: string;
+  label: string;
+  count: number;
+  new_count: number;
+  avg_rating: number | null;
+}
+
+export interface FeedbackInbox {
+  total: number;
+  new_count: number;
+  reviewed_count: number;
+  actioned_count: number;
+  rated_count: number;
+  avg_rating: number | null;
+  by_category: FeedbackCategoryCount[];
+  items: Feedback[];
+}
+
+export interface FeedbackPayload {
+  category: string;
+  subject: string;
+  message: string;
+  rating: number | null;
+}
+
+/** Attributed to the signed-in officer by the server, from the session header -
+ *  the body carries no user id, so nobody can write in as somebody else. */
+export const submitFeedback = (payload: FeedbackPayload) =>
+  api.post<Feedback>("/feedback", payload).then((r) => r.data);
+
+export const getMyFeedback = () =>
+  api.get<Feedback[]>("/feedback/mine").then((r) => r.data);
+
+export const getFeedbackInbox = (params: { status?: string; category?: string } = {}) =>
+  api.get<FeedbackInbox>("/admin/feedback", { params }).then((r) => r.data);
+
+export const handleFeedback = (
+  id: number,
+  patch: { status?: FeedbackStatus; admin_note?: string },
+) => api.patch<Feedback>(`/admin/feedback/${id}`, patch).then((r) => r.data);

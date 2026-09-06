@@ -159,10 +159,14 @@ echo  ------------------------------------------------------------
 echo   Web app    http://localhost:5173
 echo   API docs   http://localhost:8000/docs
 echo.
-echo   Learner    pick any officer from the "Viewing as" menu.
-echo   Admin      the Department view needs a sign-in:
+echo   Sign in    the app opens on a login page with two sides.
+echo   Officer    pick any seeded officer - no password needed. Switch
+echo              profiles later from the "Viewing as" menu in the header.
+echo   Admin      the Department and Feedback views need a real sign-in:
 echo                u-admin-meera  /  admin123
 echo              Other officers use officer123 and are not admins.
+echo   New here   "Join" on the login page registers an officer and
+echo              measures their starting levels with a baseline quiz.
 echo.
 echo   Two windows are now running the servers. Close them, or run
 echo   "start.bat stop", to shut everything down.

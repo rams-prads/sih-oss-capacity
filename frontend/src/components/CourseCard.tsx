@@ -18,11 +18,11 @@ export function CourseCard({
   // something the platform cannot do, so it asks for a nomination instead.
   const isProgramme = course.source === "nssta";
 
-  // Three provenances, and the badge has to tell them apart: courses fetched
-  // from the live iGOT catalogue, TPAC-approved NSSTA programmes, and the
-  // authored sandbox courses that carry this app's own videos and checkpoints.
-  // Labelling a sandbox course "iGOT Karmayogi" would misrepresent it now that
-  // real iGOT content sits beside it.
+  // The catalogue has two provenances and the badge has to tell them apart:
+  // courses fetched from the live iGOT catalogue, and TPAC-approved NSSTA
+  // programmes, which are a different kind of thing entirely. The third branch
+  // is a fallback for a source neither seed supplies today - better an honest
+  // "not from the real catalogue" than silently labelling it iGOT.
   const origin = isProgramme
     ? { label: "NSSTA · TPAC approved", tone: "amber" as const }
     : course.source === "igot"

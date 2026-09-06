@@ -1,6 +1,28 @@
 import { useEffect, useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
 import type { User } from "../api";
+import logo from "../assets/karmayogi-logo.png";
+import mark from "../assets/karmayogi-mark.png";
+
+/**
+ * The emblem behind a page that has no application chrome to carry it.
+ *
+ * The emblem alone, without its wordmark: these pages put a panel over the
+ * middle of the logo, and a wordmark cut in half by a panel reads as a mistake
+ * rather than as a watermark. A watermark is scenery - it has to survive being
+ * ignored, so it never competes with the content for contrast, never
+ * intercepts a click, and sits behind everything on its own layer.
+ */
+export function Watermark() {
+  return (
+    <div
+      className="pointer-events-none fixed inset-0 -z-10 grid select-none place-items-center overflow-hidden"
+      aria-hidden
+    >
+      <img src={logo} alt="" className="w-[min(92vw,860px)] max-w-none opacity-[0.08]" />
+    </div>
+  );
+}
 
 /* ---------------------------------------------------------------------------
    Icons. Inline rather than a package: five 20px glyphs do not justify a
@@ -30,53 +52,67 @@ const ICONS = {
   admin: "M3 20h18M6 20v-7M11 20V7M16 20v-4M21 20V4",
   profile: "M19 20v-1.8a4.2 4.2 0 0 0-4.2-4.2H9.2A4.2 4.2 0 0 0 5 18.2V20M12 10.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z",
   join: "M16 19v-1.5a3.5 3.5 0 0 0-3.5-3.5h-5A3.5 3.5 0 0 0 4 17.5V19M10 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7ZM19 8v6M22 11h-6",
+  feedback: "M20 12a7 7 0 0 1-7 7H8.5L4.5 21.5l.9-3.5A7 7 0 0 1 11 4.5h2a7 7 0 0 1 7 7.5Z",
 };
 
-export const NAV = [
+export type NavItem = { to: string; label: string; icon: string; blurb: string };
+
+/**
+ * Two navigations, because there are two applications behind one door.
+ *
+ * An officer's screens show that officer's own record; the admin screens
+ * aggregate every officer's. They were one rail with an "Admin" item in the
+ * middle of it, which put a link the signed-in officer could not open next to
+ * five they could, and made the whole cadre's data look like one more tab of
+ * their own. Each side now has its own rail and sees only its own routes.
+ */
+export const OFFICER_NAV: NavItem[] = [
   { to: "/learner", label: "Dashboard", icon: ICONS.dashboard, blurb: "Gaps, profile and recommended training" },
   { to: "/my-learning", label: "My Courses", icon: ICONS.courses, blurb: "Enrolled courses, videos and checkpoints" },
   { to: "/assess", label: "Quiz Generator", icon: ICONS.quiz, blurb: "Generate assessments from learning material" },
-  { to: "/admin", label: "Admin", icon: ICONS.admin, blurb: "Department-wide capacity and cohort analytics" },
   { to: "/profile", label: "My Profile", icon: ICONS.profile, blurb: "Your designation, study record and what has been measured" },
-  { to: "/join", label: "Join", icon: ICONS.join, blurb: "Register an officer and measure where they start" },
+];
+// Registration is not in this list on purpose. It is how somebody who has no
+// account gets one, so it belongs to the login page and not to the workspace
+// of an officer who plainly already has one.
+
+export const ADMIN_NAV: NavItem[] = [
+  { to: "/admin", label: "Capacity", icon: ICONS.admin, blurb: "Department-wide capacity and cohort analytics" },
+  // Kept out of the Capacity screen's tab strip: everything there is an
+  // aggregate the platform computed about officers, and this is the one place
+  // officers speak for themselves.
+  { to: "/admin/feedback", label: "Feedback", icon: ICONS.feedback, blurb: "What officers have written in about, and what was done" },
 ];
 
 /* ---------------------------------------------------------------------------
    The rail
    --------------------------------------------------------------------------- */
 
-export function Rail() {
+export function Rail({ items }: { items: NavItem[] }) {
   return (
     <aside className="rail fixed inset-y-0 left-0 z-40 flex w-[4.5rem] flex-col items-center gap-1 bg-ink py-4">
+      {/* The nib from the Karmayogi Bharat emblem, on white. The mark's own
+          blue is close enough to the rail's navy to vanish against it, so the
+          tile is the light ground the mark was drawn for. */}
       <span
-        className="mb-3 grid h-10 w-10 place-items-center rounded-xl bg-saffron text-white"
-        title="Competency Platform"
+        className="mb-3 grid h-10 w-10 place-items-center rounded-xl bg-white"
+        title="Karmayogi Bharat · Competency Platform"
       >
-        <svg viewBox="0 0 24 24" className="h-[22px] w-[22px]" aria-hidden>
-          <circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" strokeWidth="1.5" />
-          <circle cx="12" cy="12" r="1.6" fill="currentColor" />
-          {Array.from({ length: 8 }, (_, i) => (
-            <line
-              key={i}
-              x1="12"
-              y1="12"
-              x2="12"
-              y2="4"
-              stroke="currentColor"
-              strokeWidth="0.9"
-              strokeLinecap="round"
-              transform={`rotate(${i * 45} 12 12)`}
-              opacity="0.8"
-            />
-          ))}
-        </svg>
+        <img src={mark} alt="" className="h-[26px] w-auto" />
       </span>
 
       <nav className="flex flex-col items-center gap-1">
-        {NAV.map((item) => (
+        {items.map((item) => (
           <NavLink
             key={item.to}
             to={item.to}
+            // Exact matching for anything another item sits beneath, or /admin
+            // would light up alongside Feedback on /admin/feedback and the rail
+            // would claim you were in two places.
+            end={
+              item.to === "/assess" ||
+              items.some((other) => other.to !== item.to && other.to.startsWith(`${item.to}/`))
+            }
             aria-label={item.label}
             className={({ isActive }) =>
               `tip-host press relative grid h-11 w-11 place-items-center rounded-xl ${
@@ -208,6 +244,45 @@ export function UserMenu({
           </div>
         </div>
       )}
+    </div>
+  );
+}
+
+/* ---------------------------------------------------------------------------
+   Session controls
+
+   Sign-out lives in the header on both sides rather than inside a page, so it
+   sits in the same place whichever half of the application you are in.
+   --------------------------------------------------------------------------- */
+
+export function SignOutButton({ onClick }: { onClick: () => void }) {
+  return (
+    <button
+      onClick={onClick}
+      className="press rounded-xl border border-hairline bg-surface px-3 py-2 text-xs font-medium text-ink-2 hover:border-hairline-strong hover:bg-raised"
+    >
+      Sign out
+    </button>
+  );
+}
+
+/**
+ * Who is signed in on the admin side.
+ *
+ * Not the officer switcher: an administrator is signed in with a password and
+ * cannot become someone else without signing out, so offering a menu here
+ * would promise something the session does not allow.
+ */
+export function AdminIdentity({ user }: { user: User | null }) {
+  return (
+    <div className="flex items-center gap-2.5 rounded-xl border border-hairline bg-surface py-1.5 pl-1.5 pr-3">
+      <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-saffron text-2xs font-semibold text-white">
+        {user ? initials(user.name) : "—"}
+      </span>
+      <span className="hidden text-left leading-tight sm:block">
+        <span className="block text-xs font-medium text-ink">{user?.name ?? "Administrator"}</span>
+        <span className="block text-2xs text-ink-3">Administrator</span>
+      </span>
     </div>
   );
 }

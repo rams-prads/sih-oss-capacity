@@ -14,11 +14,8 @@ import {
   getAdminLearning,
   getAdminOverview,
   getDepartments,
-  restoreToken,
-  setToken,
 } from "../api";
 import type { AdminLearningOverview, AdminOverview, CapacityForecast } from "../api";
-import { AdminSignIn } from "../components/AdminSignIn";
 import { CapacityForecastPanel } from "../components/CapacityForecast";
 import { Heatmap } from "../components/Heatmap";
 import { AtRiskList, CourseRollupTable, TopicRollupTable } from "../components/LearningRollup";
@@ -26,8 +23,15 @@ import { Card, Empty, ErrorNote, Spinner, Stat } from "../components/ui";
 
 type Tab = "capacity" | "learning" | "forecast";
 
-export default function Admin() {
-  const [signedIn, setSignedIn] = useState(() => Boolean(restoreToken()));
+/**
+ * Department-wide analytics.
+ *
+ * The sign-in gate that used to live at the top of this component has moved to
+ * the route: this page is only mounted for a signed-in administrator, so it no
+ * longer has to ask. What it does still own is the case where the token stops
+ * being good underneath it - onSignedOut hands that back to the app.
+ */
+export default function Admin({ onSignedOut }: { onSignedOut: () => void }) {
   const [tab, setTab] = useState<Tab>("capacity");
   const [overview, setOverview] = useState<AdminOverview | null>(null);
   const [learning, setLearning] = useState<AdminLearningOverview | null>(null);
@@ -37,12 +41,10 @@ export default function Admin() {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    if (!signedIn) return;
     getDepartments().then(setDepartments).catch(() => setDepartments([]));
-  }, [signedIn]);
+  }, []);
 
   useEffect(() => {
-    if (!signedIn) return;
     setError("");
     setOverview(null);
     setLearning(null);
@@ -55,24 +57,16 @@ export default function Admin() {
         setForecast(f);
       })
       .catch((e) => {
+        // The guard admitted us, so a 401 here means the token stopped being
+        // good mid-session. The app clears it and sends us back to the door.
         if ((e as { response?: { status?: number } })?.response?.status === 401) {
-          setToken(null);
-          setSignedIn(false);
+          onSignedOut();
         } else {
           setError("Could not load department analytics.");
         }
       });
-  }, [department, signedIn]);
+  }, [department, onSignedOut]);
 
-  function signOut() {
-    setToken(null);
-    setSignedIn(false);
-    setOverview(null);
-    setLearning(null);
-    setForecast(null);
-  }
-
-  if (!signedIn) return <AdminSignIn onSignedIn={() => setSignedIn(true)} />;
   if (error) return <ErrorNote>{error}</ErrorNote>;
   if (!overview || !learning) return <Spinner label="Aggregating capacity across the cadre" />;
 
@@ -119,12 +113,6 @@ export default function Admin() {
               </option>
             ))}
           </select>
-          <button
-            onClick={signOut}
-            className="rounded-lg border border-hairline-strong px-3 py-2 text-xs font-medium text-ink-2 hover:bg-raised"
-          >
-            Sign out
-          </button>
         </div>
       </div>
 

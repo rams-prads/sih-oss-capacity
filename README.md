@@ -21,25 +21,29 @@ Competencies) as used by Mission Karmayogi and the Karmayogi Qualification Frame
 | **Gap engine** | Ranks each officer's shortfall per competency, weighted by how critical that competency is to their role. |
 | **Recommendation engine** | Matches gap competencies to real iGOT courses and NSSTA TPAC programmes through the Sunbird API contract, favouring courses that close several gaps at once and spreading the list across an officer's gaps rather than the catalogue's deepest subject. |
 | **Career progression** | Training for the designation *above* the one held — derived from the stream and grade ladder, counting only what the step up newly demands. |
+| **Onboarding** | A new officer registers with their designation and sits a short baseline assessment, so their starting proficiency is measured rather than assumed. |
 | **Assessment loop** | Upload a PDF or text file, generate MCQs tagged to a competency, take the quiz, and watch attained proficiency — and the gap — update. |
-| **Learner dashboard** | Target vs attained radar, ranked gaps, recommended courses and enrolment. Tabs: My Dashboard · My Courses · Quiz Generator · Admin Dashboard. |
+| **Competency self-assessment** | Sit an assessment for one competency straight from the gap it belongs to, and see what the sitting moved: level, gap and role readiness, before and after. |
+| **Learner dashboard** | Target vs attained radar, ranked gaps, recommended courses and enrolment. Officer tabs: Dashboard · My Courses · Quiz Generator · My Profile. |
 | **My Courses** | Every enrolled, completed and expired course, with progress derived from videos watched and checkpoints passed, plus a topic-by-topic record of what the officer gets right and wrong. |
-| **Admin analytics** | Department-wide competency heatmap, top capacity gaps, and cohort training recommendations. |
+| **Course tutor** | A question box on a course that answers from that course's own transcripts, quoting the lesson it drew on rather than free-associating. |
+| **My Profile** | An officer's designation and grade, their year of study as a day-by-day calendar, what has actually been measured about them, and the feedback form. |
+| **Feedback loop** | An officer writes to the training administration and can see their own submission come back marked reviewed or actioned, with the reply against the words it answers. |
+| **Admin analytics** | Department-wide competency heatmap, top capacity gaps, cohort training recommendations, and a forecast of where the cadre's capacity is heading. |
 | **Department training view** | Weakest topics across the cadre, courses that stall, and enrolments about to lapse. Requires an administrator sign-in. |
+| **Feedback inbox** | The whole cadre's feedback as a worked queue — opening on what has not been dealt with, filtered by status and category, and answered. Requires an administrator sign-in. |
 
 ---
 
 ## Data sources
 
-The catalogue is **287 courses from two real sources**, plus a small authored set that
-carries this app's own lessons and quizzes. Every course states which it came from, and
-the UI badges them apart.
+The catalogue is **282 courses from two real sources**. Nothing in it is invented:
+every course states which source it came from, and the UI badges them apart.
 
 | Source | Count | What it is |
 |---|---|---|
-| **iGOT Karmayogi** | 261 | Fetched from the live iGOT content search API. Real identifiers, titles, providers and durations — NEGD MeitY, ISTM, DoPT, ISRO, IIT Kanpur, UpGrad, and MoSPI's own Capacity Development Division. |
+| **iGOT Karmayogi** | 262 | Fetched from the live iGOT content search API. Real identifiers, titles, providers and durations — NEGD MeitY, ISTM, DoPT, ISRO, IIT Kanpur, UpGrad, and MoSPI's own Capacity Development Division. |
 | **NSSTA (TPAC-approved)** | 20 | Programmes from the published NSSTA Advance Training Calendar FY 2025-26, approved by the Training Programme Approval Committee. Real venues, cadres, durations and batch sizes. |
-| **Sandbox** | 26 | Authored courses that carry the curriculum, videos and checkpoint question bank the *My Courses* screen runs on. Clearly labelled; not presented as real catalogue content. |
 
 ### iGOT Karmayogi
 
@@ -75,15 +79,15 @@ authored courses use.
 
 Each ingested course ends in **one final assessment** rather than a quiz per module. The
 videos come from iGOT; the questions come from our own authored bank, so a course can only
-be assessed on a competency we hold questions for - 86 courses qualify. The rest carry
+be assessed on a competency we hold questions for - 82 courses qualify. The rest carry
 video progress and no quiz, which is honest and better than generating filler. iGOT's own
 quiz leaf is a Sunbird `questionset` and is auth-gated, so it cannot be ingested.
 
 **Course pages and outlines.** Every real course links to its page on the portal
 (`/public/toc/{identifier}/overview`), derived from the identifier rather than stored, so
 it stays correct across refreshes. The Sunbird course hierarchy endpoint is public on the
-same terms as search, so the ingest also pulls each course's **module titles** — 236 of
-the 261 real courses carry an outline, shown under *What it covers*.
+same terms as search, so the ingest also pulls each course's **module titles** — the same
+174 courses that carry video also carry an outline, shown under *What it covers*.
 
 Modules only, deliberately. Lesson titles come back around half useful: *Database Design
 and Introduction to MySQL* names all 68 of its lessons `SQL_Resource1`…`SQL_Resource68`,
@@ -159,7 +163,7 @@ cd backend
 python -m venv .venv
 .venv/Scripts/activate          # Windows;  source .venv/bin/activate on macOS/Linux
 pip install -r requirements.txt
-python -m seed.seed             # 36 competencies, 17 designations, 9 officers, 287 courses
+python -m seed.seed             # 36 competencies, 17 designations, 9 officers, 282 courses
 uvicorn app.main:app --reload --port 8000
 ```
 
@@ -174,8 +178,8 @@ npm run dev                     # http://localhost:5173
 **Tests**
 
 ```bash
-cd backend && python -m pytest      # 93 tests
-cd frontend && npm test             # 31 component tests
+cd backend && python -m pytest      # 329 tests
+cd frontend && npm test             # 156 component tests
 ```
 
 **With Docker**
@@ -202,6 +206,8 @@ Everything is environment-driven; see `.env.example`.
 | `SUNBIRD_BASE` / `SUNBIRD_API_KEY` / `SUNBIRD_USER_TOKEN` | — | Required when mode is `sunbird` |
 | `LLM_PROVIDER` | `stub` | `stub`, `openai`, `gemini`, `ollama` |
 | `LLM_MODEL`, `OPENAI_API_KEY`, `GEMINI_API_KEY` | — | Per provider |
+| `DEMO_HEADER_AUTH` | `true` | Lets `X-User-Id` pick a seeded officer without a login. Never grants admin. |
+| `CHECKPOINT_COOLDOWN_SECONDS` | `20` | Minimum gap between two assessment sittings; `0` disables |
 
 `stub` is a deterministic offline generator so the demo never depends on a network
 call. Set `LLM_PROVIDER=openai` (or `gemini`/`ollama`) with a key in `.env` for
@@ -212,19 +218,28 @@ sits behind `LLMProvider`.
 
 ## Accounts and access
 
-The app signs in with an officer id and password (PBKDF2-SHA256, `app/security.py`).
-Production would federate to Keycloak as iGOT does; nothing outside that one module
-touches hashing.
+**Two applications behind one door.** The landing page at `/login` opens onto both,
+and each route guards itself: an officer page never renders without an officer
+session, an administrator page never renders without an administrator one.
+
+| Side | How you get in | Why |
+|---|---|---|
+| **Officer** | Pick a seeded profile — no password | These screens only ever show that officer's own record, so signing in is a choice of profile rather than a claim of identity. A judge can switch freely. |
+| **Administrator** | Officer id and password, returns a bearer token | These screens aggregate every officer's record, so they need a real credential. |
+| **New officer** | *Join* from the login page: designation, password, then a baseline assessment | Registration stands outside both applications — it is how somebody with no record gets one. |
+
+Passwords are PBKDF2-SHA256 (`app/security.py`). Production would federate to Keycloak
+as iGOT does; nothing outside that one module touches hashing.
 
 | Account | Password | Access |
 |---|---|---|
 | `u-admin-meera` | `admin123` | Administrator |
 | every other seeded officer | `officer123` | Learner only |
 
-For convenience during a demo, an `X-User-Id` header selects any seeded officer
-without a login, so a judge can switch profiles freely. **That shortcut is never
-accepted by the administrator endpoints** — department analytics expose every
-officer's record, so they require a real token from a password login:
+Under the UI, the officer session is an `X-User-Id` header and the administrator session
+is a JWT. **The header is never accepted by the administrator endpoints** — department
+analytics expose every officer's record, so they require a real token from a password
+login:
 
 ```
 no credentials                  -> 401
@@ -307,7 +322,8 @@ against current readiness.
 ```
 Anita Deshmukh, JSO  →  Senior Statistical Officer
   needs: Statistical Analysis 2→3, Leadership & Team Management 0→2
-  offers: NSSTA Survey Methodology and Data Analysis; NSSTA Team Building and Leadership
+  offers: Soft Skills; Strategic Planning and Growth (iGOT);
+          Survey Methodology and Data Analysis (NSSTA)
 
 Farah Qureshi, ASO   →  Section Officer
   needs: Financial Management & GFR 0→3, Leadership 0→2
@@ -319,10 +335,10 @@ administrative ladder the OSS actually runs on:
 
 | Domain | Competencies |
 |---|---|
-| **Statistical** (14) | Survey design and sampling, questionnaire and CAPI operations, data quality, statistical analysis, national accounts, price indices, SDG indicators, NIC/NCO classification, big data, GIS, SDMX metadata, and labour, agricultural and industrial statistics. |
-| **Technical** (8) | R/Python, SQL and database management, data visualisation, AI/ML, cloud and government cloud, cybersecurity and data privacy, DPI and e-governance. |
+| **Statistical** (15) | Survey design and sampling, questionnaire and CAPI operations, data quality, statistical analysis, national accounts, price indices, SDG indicators, NIC/NCO classification, data ethics and the Collection of Statistics Act, big data, GIS, SDMX metadata, and labour, agricultural and industrial statistics. |
+| **Technical** (7) | R/Python, SQL and database management, data visualisation, AI/ML, cloud and government cloud, cybersecurity and data privacy, DPI and e-governance. |
 | **Behavioural / managerial** (8) | Analytical thinking and communication, leadership and team management, project management, decision making and change management, strategic planning and governance, stakeholder management and coordination, risk management, institutional leadership. |
-| **Administrative / policy** | Office procedures and noting & drafting, government rules and public administration, financial management and GFR, HR and establishment, parliamentary procedures, policy analysis and formulation. |
+| **Administrative / policy** (6) | Office procedures and noting & drafting, government rules and public administration, financial management and GFR, HR and establishment, parliamentary procedures, policy analysis and formulation. |
 
 The technical, digital-governance and behavioural competencies are not decorative: they
 are what NSSTA's own calendar trains — machine learning with Python at IIT Madras,
@@ -332,29 +348,41 @@ leadership at IIM Ahmedabad, agricultural and labour statistics at NSSTA itself.
 
 ## Demo path (4–5 minutes)
 
-Start both servers, open `http://localhost:5173`, and leave the officer selector on
-**Anita Deshmukh — JSO**.
+Start both servers, open `http://localhost:5173`, and sign in on the officer side as
+**Anita Deshmukh — JSO**. (No password: the officer side is a choice of profile. The
+administrator side, in step 5, is a real sign-in.)
 
-1. **My Dashboard.** The radar shows target vs attained across the eight
+1. **Dashboard.** The radar shows target vs attained across the eight
    competencies her JSO designation requires; readiness is 53.0%. The gap engine puts **Survey Design & Sampling
    Methodology** and **Data Quality Assurance** at the top, both weighted gap 2.0.
 2. **Recommended training.** The top cards are real iGOT courses, ranked because they
    close several of her gaps at once. Note the badges: courses are
-   marked **iGOT Karmayogi**, **NSSTA · TPAC approved** or **Sandbox**, and the NSSTA
+   marked **iGOT Karmayogi** or **NSSTA · TPAC approved**, and the NSSTA
    ones ask to *request nomination* rather than offering enrolment. Each of her top
    gaps gets two routes rather than the catalogue's deepest subject taking every slot.
    Enrol in one.
-3. **Assessment.** Upload `demo/sampling-methodology.pdf`, choose **C01**, generate.
+3. **Quiz Generator.** Upload `demo/sampling-methodology.pdf`, choose **C01**, generate.
    Answer the questions, submit — attained proficiency rises, the gap shrinks, and
-   role readiness is recomputed on screen.
+   role readiness is recomputed on screen. (Or *Assess* a gap straight from the
+   dashboard, which sits an assessment on the authored bank for that one competency
+   and reports exactly what the sitting moved.)
 4. **My Courses.** All four course states on one screen: one in progress, one not
-   started, one completed, one expired. Open *Foundations of Survey Design*, watch the
-   two remaining videos in module 2 — the bar moves each time — and the checkpoint
-   unlocks. Take it; the topic record updates with what was right and wrong.
-5. **Admin Dashboard.** The heatmap shows capacity across the cadre, the bar chart
-   ranks department-wide gaps, and each top gap gets a costed cohort training
-   recommendation.
-6. **Integration.** Show `backend/app/integration/sunbird.py` and run the two-terminal
+   started, one completed, one expired. Open *Handling Unit Level Data of Household
+   Consumption Expenditure Survey* — real iGOT video, played in place — and watch the
+   two remaining lessons. The bar moves each time, and at three of three the **final
+   assessment** unlocks. Take it; the topic record updates with what was right and
+   wrong. Fail it deliberately and note that the answers are *not* handed back, and
+   that an immediate retry is refused.
+5. **My Profile.** Anita's designation and grade, her year of study as a day-by-day
+   calendar, and what has actually been measured about her. Leave a line of feedback
+   at the bottom — it is about to reappear on the other side.
+6. **Administrator.** Sign out, then sign in as `u-admin-meera` / `admin123`. This is a
+   separate application with its own rail: the heatmap shows capacity across the cadre,
+   the bar chart ranks department-wide gaps, each top gap gets a costed cohort training
+   recommendation, and the forecast projects where the cadre is heading. Open
+   **Feedback** to find Anita's message, and answer it — the reply lands back on her
+   profile.
+7. **Integration.** Show `backend/app/integration/sunbird.py` and run the two-terminal
    proof above.
 
 `demo/` contains the sample material in both PDF and text form.
@@ -363,14 +391,16 @@ Start both servers, open `http://localhost:5173`, and leave the officer selector
 
 ## My Courses: curriculum, checkpoints and topic record
 
-The 26 authored sandbox courses carry a curriculum. Each is **three modules of three video
-lessons**, and every module ends in a
-**checkpoint quiz** that unlocks only once its videos are watched. Pass mark is 60%,
-and a checkpoint can be retaken until it is passed.
+**174 of the 262 iGOT courses carry a curriculum** — real modules and real video, 1,103
+lessons in all, ingested from the Sunbird hierarchy endpoint. Courses are whatever shape
+iGOT published them in, from a single lesson to 68 of them. **82 of those courses** also
+carry a **final assessment**, drawn from our own authored question bank, and it unlocks
+only once the videos are watched. Pass mark is 60%, and an assessment can be retaken
+until it is passed.
 
-**Progress is always derived, never stored by hand.** A course is 12 units — 9 videos
-plus 3 checkpoints — and the bar shows completed units. There is no endpoint that sets
-a progress percentage, so the number on screen can only be earned.
+**Progress is always derived, never stored by hand.** A course is its lessons plus its
+assessments, and the bar shows completed units out of that total. There is no endpoint
+that sets a progress percentage, so the number on screen can only be earned.
 
 Status follows from the same data, in this order:
 
@@ -385,10 +415,12 @@ A finished course never flips to expired when its date passes.
 
 ### Topic record
 
-Checkpoint questions come from an **authored, topic-tagged question bank** (180 items
-across 45 topics, three for each of the 15 competencies the sandbox curriculum covers), not from the LLM — so the same question means the same thing every
-time and mastery is measured against stable items. Every answer is stored with its
-topic, giving a running accuracy per topic:
+Checkpoint questions come from an **authored, topic-tagged question bank** — 180 items
+across 45 topics, three topics for each of the 15 competencies the curriculum covers —
+not from the LLM, so the same question means the same thing every time and mastery is
+measured against stable items. A further 76 items across 8 topics are generated from
+lesson video transcripts, giving **256 questions across 53 topics** in total. Every
+answer is stored with its topic, giving a running accuracy per topic:
 
 - **Strong** 80%+ · **Developing** 50–79% · **Needs work** below 50%
 
@@ -399,15 +431,36 @@ but the record remains honest about what they know.
 The LLM upload-to-quiz flow is unchanged and still available for ad-hoc material; it
 just no longer carries the weight of measuring topic mastery.
 
+### Keeping a score worth having
+
+A measured proficiency is only worth more than a self-reported one if the measurement
+cannot be gamed. Four rules, all enforced server-side rather than by the interface:
+
+| Rule | Why |
+|---|---|
+| **The module gate is checked on submission, not just on opening** | A request posted straight to `/submit` used to skip the videos entirely and still score, still move the officer's measured level and still count toward course progress. A rule the UI follows and the API does not is not a rule. |
+| **Answers are withheld from a sitting that did not pass** | Every attempt used to hand back the correct option and its explanation whatever the score, so one deliberate failure revealed the key to a bank shallow enough to ask again. What is *stored* is untouched — the estimator still sees every response. |
+| **Questions rotate between attempts** | A retry drew the same four questions, having just shown the answer to each. Where a topic's bank is deeper than one quiz, the least-asked items come first, so a question only resurfaces after everything else has been asked — and difficulty mix is held fixed across the rotation, so attempt 1 and attempt 40 are the same test. |
+| **A cooldown between sittings** | Guessing through a four-item quiz works about one attempt in twenty; what defeats that is spacing the attempts, not a harder bank. Deliberately a cooldown and not an attempt cap — a cap punishes an officer who genuinely studied and came back. `CHECKPOINT_COOLDOWN_SECONDS`, 20s by default. |
+
+Every checkpoint is also capped at **four questions**, which is what this platform's own
+psychometrics assume everywhere else (`engines/irt.py`, `engines/psychometrics.py`) and
+what leaves a deeper bank room to rotate.
+
 ### Endpoints
 
 | Method | Path | Purpose |
 |---|---|---|
 | `GET` | `/api/users/{id}/learning` | The whole dashboard in one call |
 | `POST` | `/api/users/{id}/lessons/{lesson_id}/complete` | Mark a video watched |
+| `GET` | `/api/courses/{identifier}` | One course with its curriculum |
 | `GET` | `/api/checkpoints/{id}?user_id=` | Fetch a module quiz (409 while locked) |
-| `POST` | `/api/checkpoints/{id}/submit?user_id=` | Score it and record the topics |
+| `POST` | `/api/checkpoints/{id}/submit?user_id=` | Score it and record the topics (409 locked, 429 inside the cooldown) |
+| `GET` | `/api/lessons/{lesson_id}/prompts` | In-video practice prompts for one lesson |
+| `POST` | `/api/prompts/{prompt_id}/answer` | Record an answer to one |
+| `POST` | `/api/courses/{identifier}/tutor` | Ask the course tutor, answered from that course's transcripts |
 | `GET` | `/api/users/{id}/topic-mastery` | Topic accuracy, weakest first |
+| `GET` | `/api/users/{id}/activity` | A year of study, one entry per day |
 | `GET` | `/api/admin/learning` | Department rollup: weak topics, stalled courses, lapsing enrolments (admin only) |
 
 ---
@@ -418,7 +471,8 @@ just no longer carries the weight of measuring topic mastery.
 
 - **Catalogue coverage** — % of role-required competencies with at least one matching
   course (100% on the seeded catalogue).
-- **MCQ validity rate** — % of generated items that pass the quality gate.
+- **MCQ validity rate** — % of generated items that pass the quality gate. `null`
+  until something has been generated: a gate that has judged nothing has no pass rate.
 - **Average gap closure** — mean proportion of the remaining proficiency headroom
   closed per assessment.
 - **Average role readiness** — across all seeded officers.
@@ -430,9 +484,13 @@ just no longer carries the weight of measuring topic mastery.
 | Method | Path | Purpose |
 |---|---|---|
 | `GET` | `/health` | Active catalogue and LLM backends |
-| `GET` | `/api/competencies`, `/api/roles` | FRAC taxonomy |
+| `GET` | `/api/competencies`, `/api/roles`, `/api/departments` | FRAC taxonomy |
 | `GET` | `/api/users`, `/api/users/{id}` | Officers and their proficiencies |
-| `GET` | `/api/gaps/{user_id}` | **Ranked competency gaps** |
+| `POST` | `/api/users` | **Register a new officer** |
+| `POST` | `/api/auth/login` · `GET` `/api/auth/me` | Password sign-in, and who the token belongs to |
+| `GET` | `/api/assessment/{user_id}` | **Baseline assessment for a new officer** |
+| `POST` | `/api/assessment/{user_id}/submit` | Score it and write the starting FRAC levels |
+| `GET` | `/api/gaps/{user_id}`, `/api/gaps/{user_id}/top` | **Ranked competency gaps** |
 | `GET` | `/api/recommendations/{user_id}` | **Courses matched to gaps** |
 | `GET` | `/api/progression/{user_id}` | **Training for the next designation up** |
 | `GET` | `/api/courses` | Catalogue search by competency |
@@ -440,9 +498,18 @@ just no longer carries the weight of measuring topic mastery.
 | `POST` | `/api/materials` | Upload PDF/TXT |
 | `POST` | `/api/quizzes` | Generate MCQs for a competency |
 | `POST` | `/api/quizzes/{id}/submit` | Score and re-estimate proficiency |
+| `GET` | `/api/competency-assessment/{user_id}/{competency_id}` | **Sit an assessment for one competency** |
+| `POST` | `/api/competency-assessment/{user_id}/{competency_id}/submit` | Score it and report what it moved |
+| `GET` | `/api/users/{id}/ability` | IRT ability estimate and its standard error |
+| `POST` | `/api/feedback` · `GET` `/api/feedback/mine` | Write to the training administration, and read the reply |
 | `GET` | `/api/admin/overview` | Heatmap, top gaps, cohort training |
 | `GET` | `/api/admin/metrics` | Headline metrics |
+| `GET` | `/api/admin/forecast` | Where the cadre's capacity is heading |
+| `GET` | `/api/admin/calibration`, `/api/admin/validation` | Item calibration and the MCQ quality gate |
+| `GET` | `/api/admin/feedback` · `PATCH` `/api/admin/feedback/{id}` | The feedback inbox, and answering it |
 | `*` | `/mock-sunbird/...` | Sandbox speaking the Sunbird contract |
+
+Everything under `/api/admin` requires an administrator bearer token.
 
 Interactive docs at `http://localhost:8000/docs`.
 
@@ -453,23 +520,38 @@ Interactive docs at `http://localhost:8000/docs`.
 ```
 backend/
   app/
-    engines/     gap.py · recommend.py · assessment.py     ← the core
-                 progression.py                            ← the next designation
-    integration/ base.py · mock.py · sunbird.py            ← the Sunbird seam
-    llm/         base.py · providers.py                    ← swappable generation
-    quiz/        service.py                                ← extract, chunk, validate
-    routers/     users · gaps · quiz · admin · mock_sunbird
-    engines/     progress.py                              ← derived progress
-  scripts/       fetch_igot.py                            ← live iGOT ingest
-  seed/          seed.py · igot_courses_seed.json (26 sandbox + 261 iGOT)
+    engines/     gap.py · recommend.py · assessment.py       ← the core
+                 progression.py                              ← the next designation
+                 progress.py · activity.py                   ← derived progress
+                 irt.py · psychometrics.py · calibration.py   ← measurement
+                 checkpoint_rotation.py · attempt_throttle.py ← assessment integrity
+                 curriculum.py · video_prompts.py · tutor.py  ← course delivery
+                 forecast.py · validation.py · embeddings.py
+    integration/ base.py · mock.py · sunbird.py              ← the Sunbird seam
+    llm/         base.py · providers.py                      ← swappable generation
+    quiz/        service.py                                  ← extract, chunk, validate
+    routers/     users · onboarding · gaps · assessment · quiz · learning
+                 psychometrics · video_prompts · admin · feedback · mock_sunbird
+  scripts/       fetch_igot.py                               ← live iGOT ingest
+                 transcribe_lessons.py · generate_video_prompts.py
+                 generate_video_quizzes.py
+  seed/          seed.py · igot_courses_seed.json (262 iGOT courses)
                  nssta_tpac_seed.json (20 TPAC programmes)
-                 curriculum.json · question_bank.json (180 items)
-  tests/         93 tests
+                 curriculum.json · question_bank.json (180 authored items)
+                 igot_transcripts.json · igot_video_prompts.json
+                 igot_video_questions.json
+  tests/         27 files, 329 tests
 frontend/
-  src/pages/     Learner.tsx · MyLearning.tsx · Upload.tsx · Admin.tsx
-  src/components/Radar · Heatmap · GapList · CourseCard · Progress
-                 CourseProgressCard · CheckpointModal · TopicMasteryPanel
-                 LearningRollup · AdminSignIn · ui  (31 tests)
+  src/pages/     Login · Join · Learner · MyLearning · Upload
+                 CompetencyAssessment · Profile · Admin · AdminFeedback
+  src/components/Shell · CompetencyRadar · CompetencyProfile · Heatmap
+                 CourseCard · RecommendationCard · RecommendationShelf
+                 CoursePlayerView · LessonPlayer · PlayerControls · InVideoPrompt
+                 CurriculumPanel · CheckpointModal · CourseTutor
+                 Progress · TopicMasteryPanel · ActivityCalendar · Evidence
+                 ReadinessBanner · CapacityForecast · LearningRollup
+                 Feedback · AdminSignIn · ErrorBoundary · icons · ui
+                 (18 files, 156 tests)
 demo/            sample material for the assessment demo
 ```
 
@@ -483,8 +565,8 @@ TypeScript · Vite · Tailwind CSS 4 · Recharts.
 Deliberately **not** built: live iGOT *enrolment* (the catalogue is real; writing
 enrolments back needs Keycloak credentials), self-hosted Sunbird, real SSO/Keycloak
 (the app uses a lightweight JWT and the Sunbird token is mocked), mobile apps, virtual
-labs, a learner-facing AI assistant, multilingual content, and multi-tenant onboarding.
+labs, multilingual content, and multi-tenant onboarding.
 
-The competency taxonomy is 26 real competencies and 3 real roles drawn from the
+The competency taxonomy is 36 competencies across 17 designations, drawn from the
 problem statement's four domains and NSSTA's published calendar, rather than an
 impressive-looking invented list.

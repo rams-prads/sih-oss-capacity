@@ -16,6 +16,7 @@ from app.db import init_db
 from app.routers import (
     admin,
     assessment,
+    feedback,
     gaps,
     learning,
     mock_sunbird,
@@ -64,6 +65,7 @@ app.include_router(learning.router, prefix=api)
 app.include_router(psychometrics.router, prefix=api)
 app.include_router(video_prompts.router, prefix=api)
 app.include_router(admin.router, prefix=api)
+app.include_router(feedback.router, prefix=api)
 # Sandbox that speaks the Sunbird contract over HTTP (see routers/mock_sunbird.py)
 app.include_router(mock_sunbird.router)
 

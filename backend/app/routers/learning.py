@@ -6,9 +6,12 @@ from datetime import datetime, timezone
 from fastapi import APIRouter, HTTPException, status
 from sqlalchemy import select
 
+from app.config import get_settings
 from app.deps import DbSession, KarmayogiDep
 from app.engines import tutor
 from app.llm.providers import get_llm_provider
+from app.engines.attempt_throttle import seconds_until_next_attempt
+from app.engines.checkpoint_rotation import BankItem, select_checkpoint_questions
 from app.engines.progress import (
     COMPLETED,
     EXPIRED,
@@ -57,6 +60,8 @@ def _aware(value: datetime | None) -> datetime | None:
 
 
 def _checkpoint_questions(db: DbSession, topic_id: str) -> list[BankQuestion]:
+    """Every question this topic's bank holds - the pool a checkpoint draws
+    from, not necessarily what any one attempt is served."""
     return list(
         db.scalars(
             select(BankQuestion)
@@ -64,6 +69,148 @@ def _checkpoint_questions(db: DbSession, topic_id: str) -> list[BankQuestion]:
             .order_by(BankQuestion.id)
         ).all()
     )
+
+
+def _prior_attempts(
+    db: DbSession, user_id: str, checkpoint_id: int
+) -> list[CheckpointAttempt]:
+    """This officer's sittings of one checkpoint, oldest first.
+
+    Ordered by primary key rather than created_at: two attempts made in the
+    same test, or the same second of wall-clock time, must still resolve to a
+    stable order, and an autoincrement id is guaranteed unique where a
+    timestamp is not.
+    """
+    return list(
+        db.scalars(
+            select(CheckpointAttempt)
+            .where(
+                CheckpointAttempt.user_id == user_id,
+                CheckpointAttempt.checkpoint_id == checkpoint_id,
+            )
+            .order_by(CheckpointAttempt.id)
+        ).all()
+    )
+
+
+def _require_unlocked(db: DbSession, user_id: str, checkpoint: Checkpoint) -> None:
+    """Refuse a checkpoint whose module has not been watched through.
+
+    Enforced on submission as well as on opening. Only the GET checked this,
+    so the gate was advisory: a request posted straight to /submit skipped the
+    videos entirely and still scored, still moved the officer's measured level
+    and still counted toward course progress. A rule the UI follows and the API
+    does not is not a rule.
+    """
+    progress = course_progress(db, user_id, checkpoint.course_identifier)
+    module = next(
+        (m for m in progress["modules"] if m["checkpoint_id"] == checkpoint.id), None
+    )
+    if module and not module["checkpoint_unlocked"]:
+        # The message has to name whatever the gate actually measures. A module
+        # with videos of its own gates on those; a module with none is an
+        # ingested course's final assessment, which progress.py gates on the
+        # whole course. Reading the module's own counts in that second case
+        # produced "Watch all 0 videos in this module first (0 done)" - a
+        # refusal that tells the officer to do nothing and try again.
+        if module["lessons_total"]:
+            total, done, scope = (
+                module["lessons_total"],
+                module["lessons_completed"],
+                "this module",
+            )
+        else:
+            total, done, scope = (
+                progress["lessons_total"],
+                progress["lessons_completed"],
+                "this course",
+            )
+        raise HTTPException(
+            status.HTTP_409_CONFLICT,
+            f"Watch all {total} videos in {scope} first ({done} done).",
+        )
+
+
+def _require_cooldown_elapsed(prior: list[CheckpointAttempt]) -> None:
+    """Refuse a sitting that follows the last one too closely.
+
+    Guessing your way through a four-item checkpoint works about one attempt
+    in twenty. Spacing the attempts is what makes that impractical without
+    capping how many times a genuinely struggling officer may try.
+    """
+    if not prior:
+        return
+    wait = seconds_until_next_attempt(
+        prior[-1].created_at,
+        cooldown_seconds=get_settings().checkpoint_cooldown_seconds,
+    )
+    if wait > 0:
+        seconds = int(wait) + 1
+        raise HTTPException(
+            status.HTTP_429_TOO_MANY_REQUESTS,
+            f"Another attempt is available in {seconds} second"
+            f"{'' if seconds == 1 else 's'}.",
+        )
+
+
+def _validate_answers(answers: list[int], questions: list[BankQuestion]) -> None:
+    """Every answer must name an option that exists on its own question.
+
+    An index outside the options used to score as merely wrong, which quietly
+    accepted a payload no version of the interface can produce - and left the
+    review screen indexing past the end of the options array to render it.
+    """
+    if len(answers) != len(questions):
+        raise HTTPException(
+            status.HTTP_400_BAD_REQUEST,
+            f"Expected {len(questions)} answers, received {len(answers)}",
+        )
+    for position, (answer, question) in enumerate(zip(answers, questions), start=1):
+        if not 0 <= answer < len(question.options):
+            raise HTTPException(
+                status.HTTP_400_BAD_REQUEST,
+                f"Question {position} has no option {answer}.",
+            )
+
+
+def _select_checkpoint_questions(
+    db: DbSession,
+    checkpoint: Checkpoint,
+    prior: list[CheckpointAttempt],
+) -> list[BankQuestion]:
+    """What this attempt should ask, given everything this officer was asked
+    before.
+
+    GET builds this to show the quiz; POST rebuilds it to score the answers
+    against. Both calls pass the same `prior` - the attempts recorded before
+    this one began - so as long as no other attempt is written in between,
+    the two independently arrive at an identical list without either one
+    trusting the other's account of it. That is the same assumption the
+    self-assessment router already makes for the same reason (see its
+    `_questions` docstring); this does not introduce a new one.
+    """
+    bank = _checkpoint_questions(db, checkpoint.topic_id)
+    if not bank:
+        return []
+
+    by_id = {q.id: q for q in bank}
+    times_seen: dict[int, int] = {}
+    last_seen_attempt: dict[int, int] = {}
+    for attempt_index, attempt in enumerate(prior, start=1):
+        for entry in attempt.items:
+            question_id = entry.get("question_id")
+            if question_id is None:
+                continue
+            times_seen[question_id] = times_seen.get(question_id, 0) + 1
+            last_seen_attempt[question_id] = attempt_index
+
+    chosen = select_checkpoint_questions(
+        [BankItem(q.id, q.difficulty) for q in bank],
+        times_seen,
+        last_seen_attempt,
+        attempt_no=len(prior) + 1,
+    )
+    return [by_id[item.id] for item in chosen]
 
 
 @router.get("/users/{user_id}/learning", response_model=LearningDashboard)
@@ -224,30 +371,16 @@ def get_checkpoint(checkpoint_id: int, user_id: str, db: DbSession):
     if checkpoint is None:
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Checkpoint not found")
 
-    progress = course_progress(db, user_id, checkpoint.course_identifier)
-    module = next(
-        (m for m in progress["modules"] if m["checkpoint_id"] == checkpoint_id), None
-    )
-    if module and not module["checkpoint_unlocked"]:
-        raise HTTPException(
-            status.HTTP_409_CONFLICT,
-            f"Watch all {module['lessons_total']} videos in this module first "
-            f"({module['lessons_completed']} done).",
-        )
+    _require_unlocked(db, user_id, checkpoint)
 
-    questions = _checkpoint_questions(db, checkpoint.topic_id)
+    prior = _prior_attempts(db, user_id, checkpoint_id)
+    questions = _select_checkpoint_questions(db, checkpoint, prior)
     if not questions:
         raise HTTPException(
             status.HTTP_404_NOT_FOUND, "No questions are available for this topic yet"
         )
 
     topic = db.get(Topic, checkpoint.topic_id)
-    prior = db.scalars(
-        select(CheckpointAttempt).where(
-            CheckpointAttempt.user_id == user_id,
-            CheckpointAttempt.checkpoint_id == checkpoint_id,
-        )
-    ).all()
     enrolment = db.scalar(
         select(Enrolment).where(
             Enrolment.user_id == user_id,
@@ -284,12 +417,15 @@ def submit_checkpoint(
     if db.get(User, user_id) is None:
         raise HTTPException(status.HTTP_404_NOT_FOUND, "User not found")
 
-    questions = _checkpoint_questions(db, checkpoint.topic_id)
-    if len(payload.answers) != len(questions):
-        raise HTTPException(
-            status.HTTP_400_BAD_REQUEST,
-            f"Expected {len(questions)} answers, received {len(payload.answers)}",
-        )
+    # Same gate as opening it: a submission is the thing that actually counts,
+    # so it is the one that most needs checking.
+    _require_unlocked(db, user_id, checkpoint)
+
+    prior = _prior_attempts(db, user_id, checkpoint_id)
+    _require_cooldown_elapsed(prior)
+
+    questions = _select_checkpoint_questions(db, checkpoint, prior)
+    _validate_answers(payload.answers, questions)
 
     items = []
     results = []
@@ -313,13 +449,6 @@ def submit_checkpoint(
     correct_count = sum(1 for i in items if i["correct"])
     score = round(100 * correct_count / len(items), 1)
     passed = score >= checkpoint.pass_pct
-
-    prior = db.scalars(
-        select(CheckpointAttempt).where(
-            CheckpointAttempt.user_id == user_id,
-            CheckpointAttempt.checkpoint_id == checkpoint_id,
-        )
-    ).all()
 
     db.add(
         CheckpointAttempt(
@@ -365,7 +494,13 @@ def submit_checkpoint(
         course_status=course_status,
         topic_accuracy_pct=topic_row["accuracy_pct"] if topic_row else score,
         topic_verdict=topic_row["verdict"] if topic_row else classify(score),
-        items=results,
+        # Withheld unless the officer passed. Every attempt used to return the
+        # correct option and its explanation for all four questions whatever
+        # the score, so one deliberate failure handed over the answer key to a
+        # bank shallow enough that the retry would ask them again. What is
+        # stored is untouched - the estimator still sees every response - this
+        # is only about what the sitting hands back.
+        items=results if passed else [],
     )
 
 
