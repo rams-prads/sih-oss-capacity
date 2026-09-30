@@ -88,11 +88,17 @@ def test_enrolment_round_trip(client):
     assert after["status"] == "in_progress"
 
 
-def test_upload_generate_take_quiz_shrinks_the_gap(client):
-    """AC 8.3 + 8.4: upload -> MCQs -> score -> attained level rises -> gap shrinks."""
+def test_upload_generate_take_quiz_is_practice_only(client):
+    """AC 8.3: upload -> MCQs -> score, and the competency record does not move.
+
+    A perfect score on generated questions is the strongest pull this route could
+    ever exert on the record, so it is the case worth pinning: if 100% leaves the
+    level, the gap and the readiness untouched, nothing here can move them.
+    """
     user_id = "u-jso-anita"  # C01 attained 1, JSO target 3
     before = client.get(f"/api/gaps/{user_id}").json()
-    prior_gap = next(i for i in before["items"] if i["competency_id"] == "C01")["gap"]
+    before_item = next(i for i in before["items"] if i["competency_id"] == "C01")
+    prior_gap = before_item["gap"]
     assert prior_gap > 0
 
     upload = client.post(
@@ -138,14 +144,18 @@ def test_upload_generate_take_quiz_shrinks_the_gap(client):
     ).json()
 
     assert result["score_pct"] == 100.0
-    assert result["new_level"] > result["prior_level"]
-    assert result["new_gap"] < result["prior_gap"]
     assert len(result["review"]) == len(answers)
+    # Reported back as the officer's standing, not as something this sitting set.
+    assert result["attained_level"] == before_item["attained_level"]
+    assert result["gap"] == prior_gap
+    assert "new_level" not in result and "prior_level" not in result
 
     after = client.get(f"/api/gaps/{user_id}").json()
-    new_gap = next(i for i in after["items"] if i["competency_id"] == "C01")["gap"]
-    assert new_gap < prior_gap
-    assert after["readiness_pct"] > before["readiness_pct"]
+    after_item = next(i for i in after["items"] if i["competency_id"] == "C01")
+    assert after_item["attained_level"] == before_item["attained_level"]
+    assert after_item["gap"] == prior_gap
+    assert after_item["evidence"] == before_item["evidence"]
+    assert after["readiness_pct"] == before["readiness_pct"]
 
 
 def test_quiz_rejects_a_mismatched_answer_count(client):

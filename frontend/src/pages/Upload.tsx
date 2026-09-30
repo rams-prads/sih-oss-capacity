@@ -1,12 +1,22 @@
 import { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { api, getCompetencies, getGaps, PROFICIENCY } from "../api";
+import { api, getCompetencies, PROFICIENCY } from "../api";
 import type { Competency, QuizGeneration, SubmitResult } from "../api";
 import { Badge, Card, ErrorNote, Spinner, Stat } from "../components/ui";
 import { CheckCircleIcon, CrossCircleIcon } from "../components/icons";
 
 type Stage = "upload" | "generating" | "quiz" | "result";
 
+/**
+ * Practice, and the page says so at every step.
+ *
+ * Questions here are written by a model from whatever document the officer
+ * uploaded, so a score is not evidence about them - it is feedback on that
+ * document. Nothing a sitting produces reaches the competency record. The page
+ * states that before the quiz is generated and again on the result, because a
+ * page that looks like an assessment and is scored like one will be read as one
+ * unless it says otherwise.
+ */
 export default function Upload({ userId }: { userId: string }) {
   const preselected = (useLocation().state as { competencyId?: string } | null)?.competencyId;
 
@@ -18,7 +28,6 @@ export default function Upload({ userId }: { userId: string }) {
   const [generation, setGeneration] = useState<QuizGeneration | null>(null);
   const [answers, setAnswers] = useState<number[]>([]);
   const [result, setResult] = useState<SubmitResult | null>(null);
-  const [readiness, setReadiness] = useState<{ before: number; after: number } | null>(null);
   const [stage, setStage] = useState<Stage>("upload");
   const [error, setError] = useState("");
   const fileInput = useRef<HTMLInputElement>(null);
@@ -50,7 +59,6 @@ export default function Upload({ userId }: { userId: string }) {
     setStage("generating");
     setError("");
     try {
-      const before = await getGaps(userId);
       const { data } = await api.post<QuizGeneration>("/quizzes", {
         source_material_id: materialId,
         competency_id: competencyId,
@@ -58,7 +66,6 @@ export default function Upload({ userId }: { userId: string }) {
       });
       setGeneration(data);
       setAnswers(new Array(data.quiz.questions.length).fill(-1));
-      setReadiness({ before: before.readiness_pct, after: before.readiness_pct });
       setStage("quiz");
     } catch (e) {
       setError(apiError(e, "Question generation failed."));
@@ -74,12 +81,10 @@ export default function Upload({ userId }: { userId: string }) {
         { answers },
         { params: { user_id: userId } },
       );
-      const after = await getGaps(userId);
       setResult(data);
-      setReadiness((r) => (r ? { ...r, after: after.readiness_pct } : null));
       setStage("result");
     } catch (e) {
-      setError(apiError(e, "Could not submit the assessment."));
+      setError(apiError(e, "Could not score this practice quiz."));
     }
   }
 
@@ -101,8 +106,8 @@ export default function Upload({ userId }: { userId: string }) {
 
       {(stage === "upload" || stage === "generating") && (
         <Card
-          title="Assess a competency from learning material"
-          subtitle="Upload a PDF or text file. Questions are generated and tagged to the competency you select, then your attained proficiency is re-estimated from how you answer."
+          title="Practise from your own learning material"
+          subtitle="Upload a PDF or text file and get practice questions written from it. This is for rehearsal only - your score is not recorded and your competency levels do not change. To move your record, take a test from the question bank on My Competencies."
         >
           <div className="grid gap-5 md:grid-cols-2">
             <div>
@@ -124,7 +129,7 @@ export default function Upload({ userId }: { userId: string }) {
             <div className="space-y-3">
               <div>
                 <label className="mb-1.5 block text-xs font-medium text-ink-2">
-                  Competency assessed
+                  Competency practised
                 </label>
                 <select
                   value={competencyId}
@@ -160,7 +165,7 @@ export default function Upload({ userId }: { userId: string }) {
             onClick={handleGenerate}
             className="mt-5 rounded-lg bg-ashoka px-4 py-2 text-sm font-medium text-white transition hover:bg-ashoka-2 disabled:cursor-not-allowed disabled:bg-hairline-strong"
           >
-            {stage === "generating" ? "Generating questions" : "Generate assessment"}
+            {stage === "generating" ? "Generating questions" : "Generate practice quiz"}
           </button>
           {stage === "generating" && <Spinner label="Reading the material and writing items" />}
         </Card>
@@ -172,6 +177,9 @@ export default function Upload({ userId }: { userId: string }) {
           subtitle={`${generation.generated} items generated, ${generation.rejected} rejected by the quality gate (${generation.validity_rate}% valid)`}
           right={<Badge tone="blue">{generation.quiz.generator}</Badge>}
         >
+          <p className="mb-4 rounded-lg border border-hairline bg-raised px-3 py-2 text-xs text-ink-2">
+            Practice only - nothing you answer here changes your competency record.
+          </p>
           <ol className="space-y-5">
             {generation.quiz.questions.map((q, qi) => (
               <li key={q.id}>
@@ -212,7 +220,7 @@ export default function Upload({ userId }: { userId: string }) {
               onClick={handleSubmit}
               className="rounded-lg bg-ashoka px-4 py-2 text-sm font-medium text-white transition hover:bg-ashoka-2 disabled:cursor-not-allowed disabled:bg-hairline-strong"
             >
-              Submit assessment
+              Check my answers
             </button>
             <span className="text-xs text-ink-3">
               {answers.filter((a) => a >= 0).length} of {answers.length} answered
@@ -223,44 +231,36 @@ export default function Upload({ userId }: { userId: string }) {
 
       {stage === "result" && result && (
         <>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-4 sm:grid-cols-3">
             <Stat
-              label="Score"
+              label="Practice score"
               value={`${result.score_pct}%`}
               hint={`${result.correct_count} of ${result.total} correct`}
               tone={result.score_pct >= 60 ? "good" : "warn"}
             />
+            {/* Stated as a single unchanged value, not a before/after arrow.
+                An arrow would imply this sitting had a say in it. */}
             <Stat
               label="Attained proficiency"
-              value={`${PROFICIENCY[result.prior_level]} \u2192 ${PROFICIENCY[result.new_level]}`}
-              hint={competencyName}
-              tone={result.new_level > result.prior_level ? "good" : "default"}
+              value={PROFICIENCY[result.attained_level]}
+              hint="unchanged - practice is not recorded"
             />
             <Stat
               label="Competency gap"
-              value={`${result.prior_gap} \u2192 ${result.new_gap}`}
-              hint={result.new_gap < result.prior_gap ? "gap reduced" : "unchanged"}
-              tone={result.new_gap < result.prior_gap ? "good" : "warn"}
+              value={`${result.gap}`}
+              hint={`${competencyName}, needs ${PROFICIENCY[result.target_level]}`}
             />
-            {readiness && (
-              <Stat
-                label="Role readiness"
-                value={`${readiness.before}% \u2192 ${readiness.after}%`}
-                hint="recomputed by the gap engine"
-                tone={readiness.after > readiness.before ? "good" : "default"}
-              />
-            )}
           </div>
 
           <Card
             title="Review"
-            subtitle="Difficulty-weighted scoring means harder items move your proficiency estimate more."
+            subtitle="Practice only. This score is feedback on the material you uploaded, not a measurement of you - it is not stored and it has not moved your record. Take a test from the question bank on My Competencies to change your assessed level."
             right={
               <button
                 onClick={reset}
                 className="rounded-lg border border-hairline-strong px-3 py-1.5 text-xs font-medium text-ink-2 hover:bg-raised"
               >
-                Assess another competency
+                Practise another competency
               </button>
             }
           >

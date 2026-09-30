@@ -1,18 +1,27 @@
-"""Upload -> generate MCQs -> take quiz -> re-estimate proficiency (spec 8.3, 8.4)."""
+"""Upload -> generate MCQs -> practise (spec 8.3).
+
+This is a practice tool and only a practice tool. The questions are written by a
+model from a document the officer chose, so nothing about a sitting here is
+comparable between two officers: the material is arbitrary, the difficulty
+labels are the generator's own guess, and there is no bank, no calibration and
+no throttle behind it. Scoring a competency on that would put an unverifiable
+number into the record the gap engine, the forecast and the admin heatmap all
+read, so a sitting here writes nothing at all - no UserCompetency level, no
+AssessmentResult. Measured evidence comes from routers/assessment.py and from
+course checkpoints, both of which draw on the calibrated bank.
+"""
 from __future__ import annotations
 
 import uuid
-from datetime import datetime, timezone
 
 from fastapi import APIRouter, File, HTTPException, UploadFile, status
 from sqlalchemy import select
 
 from app.config import get_settings
 from app.deps import DbSession
-from app.engines.assessment import score_pct, update_attained_level
+from app.engines.assessment import score_pct
 from app.llm.providers import get_llm_provider
 from app.models import (
-    AssessmentResult,
     Competency,
     Question,
     Quiz,
@@ -104,7 +113,7 @@ def generate_quiz(payload: GenerateQuizRequest, db: DbSession):
         id=str(uuid.uuid4()),
         source_material_id=material.id,
         competency_id=competency.id,
-        title=f"{competency.name} - assessment",
+        title=f"{competency.name} - practice quiz",
         generator=provider.name,
         rejected_count=rejected,
     )
@@ -145,10 +154,11 @@ def get_quiz(quiz_id: str, db: DbSession):
 
 @router.post("/quizzes/{quiz_id}/submit", response_model=SubmitQuizOut)
 def submit_quiz(quiz_id: str, user_id: str, payload: SubmitQuizRequest, db: DbSession):
-    """Score a quiz and re-estimate the officer's attained proficiency.
+    """Score a practice sitting. Read-only with respect to the officer's record.
 
-    This is the loop that makes the gap engine self-updating: assessment evidence
-    feeds back into UserCompetency, so the next gap computation reflects it.
+    The user is still resolved, and their standing still read back, so the page
+    can name the competency and say what the practice left untouched - but
+    nothing in this function writes to it.
     """
     quiz = db.get(Quiz, quiz_id)
     if quiz is None:
@@ -173,24 +183,16 @@ def submit_quiz(quiz_id: str, user_id: str, payload: SubmitQuizRequest, db: DbSe
             )
 
     per_item = [ans == q.answer_index for ans, q in zip(payload.answers, questions)]
-    difficulties = [q.difficulty for q in questions]
 
+    # Read only. A missing link is reported as level 0 rather than created,
+    # because creating one is itself a claim about the officer.
     link = db.scalar(
         select(UserCompetency).where(
             UserCompetency.user_id == user_id,
             UserCompetency.competency_id == quiz.competency_id,
         )
     )
-    if link is None:
-        link = UserCompetency(
-            user_id=user_id, competency_id=quiz.competency_id, attained_level=0
-        )
-        db.add(link)
-
-    prior_level = link.attained_level
-    new_level = update_attained_level(prior_level, per_item, difficulties)
-    link.attained_level = new_level
-    link.last_assessed_at = datetime.now(timezone.utc)
+    attained = link.attained_level if link else 0
 
     requirement = db.scalar(
         select(RoleRequirement).where(
@@ -200,31 +202,17 @@ def submit_quiz(quiz_id: str, user_id: str, payload: SubmitQuizRequest, db: DbSe
     )
     target = requirement.target_level if requirement else 0
 
-    result = AssessmentResult(
-        user_id=user_id,
-        quiz_id=quiz_id,
-        competency_id=quiz.competency_id,
-        score_pct=score_pct(per_item),
-        per_item=per_item,
-        prior_level=prior_level,
-        new_level=new_level,
-    )
-    db.add(result)
-    db.commit()
-
     competency = db.get(Competency, quiz.competency_id)
     return SubmitQuizOut(
         quiz_id=quiz_id,
         competency_id=quiz.competency_id,
         competency_name=competency.name if competency else quiz.competency_id,
-        score_pct=result.score_pct,
+        score_pct=score_pct(per_item),
         correct_count=sum(1 for c in per_item if c),
         total=len(per_item),
         per_item=per_item,
-        prior_level=prior_level,
-        new_level=new_level,
-        level_changed=new_level != prior_level,
-        prior_gap=max(0, target - prior_level),
-        new_gap=max(0, target - new_level),
+        attained_level=attained,
+        target_level=target,
+        gap=max(0, target - attained),
         review=[QuestionWithAnswer.model_validate(q) for q in questions],
     )
