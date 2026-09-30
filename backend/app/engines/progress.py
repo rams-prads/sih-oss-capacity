@@ -10,10 +10,13 @@ from __future__ import annotations
 from collections import defaultdict
 from datetime import datetime, timezone
 
-from sqlalchemy import select
+from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
+from app.engines.checkpoint_rotation import CHECKPOINT_QUIZ_SIZE
+from app.engines.video_titles import recovered_titles
 from app.models import (
+    BankQuestion,
     Checkpoint,
     CheckpointAttempt,
     Enrolment,
@@ -37,6 +40,9 @@ def _aware(value: datetime | None) -> datetime | None:
 
 def course_progress(db: Session, user_id: str, course_identifier: str) -> dict:
     """One course's state for one learner."""
+    # Where iGOT published a lesson as "Video 3", the video's own title card
+    # names it instead - see engines/video_titles.
+    recovered = recovered_titles(db, course_identifier)
     lessons = db.scalars(
         select(Lesson)
         .where(Lesson.course_identifier == course_identifier)
@@ -90,6 +96,18 @@ def course_progress(db: Session, user_id: str, course_identifier: str) -> dict:
         lessons_by_module[lesson.module_index].append(lesson)
 
     topic_names = {t.id: t.name for t in db.scalars(select(Topic)).all()}
+    # How many questions each checkpoint asks: its topic's whole bank when that
+    # is small, and a quiz's worth of it when the bank is larger. The outline
+    # says so before a learner opens it, the way iGOT's own player does.
+    topics_here = {c.topic_id for c in checkpoints}
+    bank_sizes = {
+        topic_id: count
+        for topic_id, count in db.execute(
+            select(BankQuestion.topic_id, func.count())
+            .where(BankQuestion.topic_id.in_(topics_here))
+            .group_by(BankQuestion.topic_id)
+        ).all()
+    } if topics_here else {}
     checkpoint_by_module = {c.module_index: c for c in checkpoints}
     all_lessons_done = bool(lessons) and all(
         lesson.id in done_lesson_ids for lesson in lessons
@@ -124,11 +142,17 @@ def course_progress(db: Session, user_id: str, course_identifier: str) -> dict:
                 ),
                 "checkpoint_id": checkpoint.id if checkpoint else None,
                 "pass_pct": checkpoint.pass_pct if checkpoint else 0,
+                "question_count": (
+                    min(CHECKPOINT_QUIZ_SIZE, bank_sizes.get(checkpoint.topic_id, 0))
+                    if checkpoint
+                    else 0
+                ),
                 "lessons": [
                     {
                         "id": lesson.id,
                         "position": lesson.position,
-                        "title": lesson.title,
+                        "title": recovered.get(lesson.id, lesson.title),
+                        "title_from": "video" if lesson.id in recovered else "catalogue",
                         "duration_min": lesson.duration_min,
                         "completed": lesson.id in done_lesson_ids,
                         "video_url": lesson.video_url,

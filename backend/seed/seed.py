@@ -344,6 +344,28 @@ LEARNING = [
 ]
 
 
+# --- Recent study for the demo profile ------------------------------------
+# Every history above is weeks or months old. That is true to how the seed is
+# built and no use on the day of a demonstration: every dashboard would open on
+# a streak of zero and an empty week. So the demo profile has also been studying
+# lately - one video a day for the last six days, ending yesterday - which means
+# the first video watched on stage makes it a seven-day streak.
+#
+# Videos only. Lessons do not feed the ability estimate (engines/psychometrics.py
+# reads assessment attempts), so readiness and every gap figure are exactly what
+# they would be without this block. Dates are relative to when the seed runs:
+# re-seed on the morning of a demonstration.
+#
+# Keyed on competency like LEARNING, and the course is chosen the way an officer
+# would choose one: the video course that covers the most of their open gaps.
+#
+# (officer, competency, days ago each video was watched, days since enrolment,
+#  days until the window closes)
+RECENT_STUDY = [
+    ("u-jso-anita", "C03", [6, 5, 4, 3, 2, 1], 7, 60),
+]
+
+
 def load_curriculum(db, now):
     """Topics and the authored question bank.
 
@@ -855,6 +877,54 @@ def run() -> None:
                         )
                     )
 
+        officers = {row[0]: row for row in USERS}
+        for uid, competency_id, days_ago, enrolled_ago, expires_in in RECENT_STUDY:
+            _, _, role_id, _, _, levels = officers[uid]
+            open_gaps = {
+                cid for cid, target, _ in ROLES[role_id][4] if levels.get(cid, 0) < target
+            }
+            tags = {c["identifier"]: set(c.get("se_competencies", [])) for c in catalogue["content"]}
+            taken = used_per_user.setdefault(uid, set())
+            candidates = [
+                c
+                for c in courses_by_competency.get(competency_id, [])
+                if c not in taken
+                # Longer than the days studied, so the course is still in progress.
+                and len(lessons_by_course.get(c, [])) > len(days_ago)
+            ]
+            if not candidates:
+                continue  # no real course fits; skip rather than invent one
+            course_id = min(
+                candidates,
+                key=lambda c: (
+                    -len(tags.get(c, set()) & open_gaps),
+                    len(tags.get(c, set()) - open_gaps),
+                    _demo_rank(c),
+                ),
+            )
+            taken.add(course_id)
+            enrolled_at = now - timedelta(days=enrolled_ago)
+            db.add(
+                Enrolment(
+                    user_id=uid,
+                    course_identifier=course_id,
+                    course_name=course_names.get(course_id, ""),
+                    status="enrolled",
+                    progress_pct=0,
+                    enrolled_at=enrolled_at,
+                    expires_at=now + timedelta(days=expires_in),
+                )
+            )
+            for lesson, ago in zip(lessons_by_course[course_id], days_ago):
+                db.add(
+                    LessonProgress(
+                        user_id=uid,
+                        lesson_id=lesson.id,
+                        course_identifier=course_id,
+                        completed_at=now - timedelta(days=ago),
+                    )
+                )
+
         for i, (uid, competency_id, score, prior, new) in enumerate(HISTORY):
             correct = round(score / 100 * 8)
             db.add(
@@ -892,7 +962,7 @@ def run() -> None:
 
     print(
         f"Seeded {len(COMPETENCIES)} competencies, {len(ROLES)} roles, "
-        f"{len(USERS)} officers, {len(LEARNING)} enrolments. "
+        f"{len(USERS)} officers, {len(LEARNING) + len(RECENT_STUDY)} enrolments. "
         f"Catalogue is real: {igot_lessons} video lessons across iGOT courses, "
         f"{n_transcripts} transcripts ({n_chunks} embedded chunks), "
         f"{n_prompts} in-video prompts, "

@@ -78,8 +78,11 @@ def _assessable(body):
 def test_dashboard_reports_every_status(client):
     body = client.get("/api/users/u-jso-anita/learning").json()
     summary = body["summary"]
-    assert summary["enrolled"] == 4
-    assert summary["in_progress"] == 1
+    # Five, not four: besides one course in each state, the seed gives the demo
+    # officer a second course in progress - the recent study that opens the
+    # demonstration on a live streak (RECENT_STUDY in seed/seed.py).
+    assert summary["enrolled"] == 5
+    assert summary["in_progress"] == 2
     assert summary["completed"] == 1
     assert summary["expired"] == 1
     assert summary["not_started"] == 1

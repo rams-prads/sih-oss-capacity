@@ -27,6 +27,7 @@ from app.models import (
     BankQuestion,
     Checkpoint,
     CheckpointAttempt,
+    Competency,
     Enrolment,
     Lesson,
     LessonProgress,
@@ -34,6 +35,8 @@ from app.models import (
     User,
 )
 from app.schemas import (
+    CompetencyRef,
+    KcmTagOut,
     TutorTopic,
     TutorReplyOut,
     TutorSource,
@@ -225,6 +228,7 @@ def learning_dashboard(user_id: str, db: DbSession, client: KarmayogiDep):
     ).all()
 
     now = datetime.now(timezone.utc)
+    known = {c.id: c for c in db.scalars(select(Competency)).all()}
     courses: list[LearningCourse] = []
     counts = {NOT_STARTED: 0, IN_PROGRESS: 0, COMPLETED: 0, EXPIRED: 0}
     lessons_done = lessons_total = checkpoints_passed = 0
@@ -254,6 +258,28 @@ def learning_dashboard(user_id: str, db: DbSession, client: KarmayogiDep):
                 course_name=enrolment.course_name or (catalogue.name if catalogue else ""),
                 provider=catalogue.provider if catalogue else "iGOT Karmayogi",
                 competency_ids=catalogue.competency_ids if catalogue else [],
+                description=catalogue.description if catalogue else "",
+                competencies=[
+                    CompetencyRef(
+                        id=cid,
+                        name=known[cid].name if cid in known else cid,
+                        type=known[cid].type.value if cid in known else "",
+                    )
+                    for cid in (catalogue.competency_ids if catalogue else [])
+                ],
+                target_level=catalogue.target_level if catalogue else 0,
+                duration_min=catalogue.duration_min if catalogue else 0,
+                learning_outcomes=catalogue.learning_outcomes if catalogue else [],
+                keywords=catalogue.keywords if catalogue else [],
+                languages=catalogue.languages if catalogue else [],
+                difficulty=catalogue.difficulty if catalogue else "",
+                rating=catalogue.rating if catalogue else 0,
+                rating_count=catalogue.rating_count if catalogue else 0,
+                certificate=catalogue.certificate if catalogue else False,
+                published_on=catalogue.published_on if catalogue else "",
+                author=catalogue.author if catalogue else "",
+                sector=catalogue.sector if catalogue else "",
+                kcm=[KcmTagOut(**tag.model_dump()) for tag in (catalogue.kcm if catalogue else [])],
                 outline=catalogue.outline if catalogue else [],
                 url=catalogue.url if catalogue else "",
                 source=catalogue.source if catalogue else "igot",

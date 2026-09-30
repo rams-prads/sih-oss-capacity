@@ -12,10 +12,39 @@ Karmayogi Bharat credentials; this repo ships with the sandbox path enabled.
 """
 from __future__ import annotations
 
+import html
+import re
 from datetime import datetime, timezone
 from typing import Any, Protocol, runtime_checkable
 
 from pydantic import BaseModel
+
+# iGOT keeps a course's learning outcomes in its `instructions` field, as the
+# HTML its own course page renders. Only a bullet list is an outcome list:
+# a handful of courses use the same field for a case-study synopsis or a
+# contact address, and neither is a promise about what the learner will be
+# able to do.
+_BULLET = re.compile(r"<li[^>]*>(.*?)</li>", re.S | re.I)
+_TAG = re.compile(r"<[^>]+>")
+
+
+def learning_outcomes(instructions: str) -> list[str]:
+    """What the course says the learner will be able to do, as written."""
+    outcomes = []
+    for fragment in _BULLET.findall(instructions or ""):
+        text = html.unescape(_TAG.sub(" ", fragment)).replace("\xa0", " ")
+        text = " ".join(text.split()).strip(" -\u2013\u2014\u2022")
+        if text:
+            outcomes.append(text)
+    return outcomes
+
+
+class KcmTag(BaseModel):
+    """One Karmayogi Competency Model entry, by iGOT's own names."""
+
+    area: str = ""
+    theme: str = ""
+    sub_theme: str = ""
 
 
 class Course(BaseModel):
@@ -38,6 +67,21 @@ class Course(BaseModel):
     batch_size: int = 0
     url: str = ""                 # the course on the iGOT portal
     outline: list[str] = []       # module titles, from the Sunbird hierarchy
+
+    # What the course page on iGOT shows, fetched verbatim by
+    # scripts/fetch_igot_about.py. Every one of these is optional: a course the
+    # API says nothing about simply shows less.
+    learning_outcomes: list[str] = []
+    keywords: list[str] = []
+    languages: list[str] = []
+    difficulty: str = ""          # iGOT's own: Beginner | Intermediate | Advanced
+    rating: float = 0
+    rating_count: int = 0
+    certificate: bool = False     # a certificate on completion
+    published_on: str = ""        # ISO date the course was last published
+    author: str = ""              # the named author, where iGOT publishes one
+    sector: str = ""
+    kcm: list[KcmTag] = []
 
 
 class EnrolmentRecord(BaseModel):
@@ -118,4 +162,15 @@ def course_from_sunbird(node: dict[str, Any]) -> Course:
         batch_size=int(node.get("batch_size") or 0),
         url=course_url(node.get("identifier", ""), node.get("source") or "igot"),
         outline=list(node.get("outline") or []),
+        learning_outcomes=learning_outcomes(node.get("instructions") or ""),
+        keywords=list(node.get("keywords") or []),
+        languages=list(node.get("languages") or []),
+        difficulty=node.get("difficulty") or "",
+        rating=float(node.get("rating") or 0),
+        rating_count=int(node.get("rating_count") or 0),
+        certificate=bool(node.get("certificate")),
+        published_on=node.get("published_on") or "",
+        author=node.get("author") or "",
+        sector=node.get("sector") or "",
+        kcm=[KcmTag(**row) for row in (node.get("kcm") or [])],
     )
