@@ -20,6 +20,7 @@ from app.routers import (
     gaps,
     learning,
     mock_sunbird,
+    momentum,
     onboarding,
     psychometrics,
     quiz,
@@ -62,6 +63,7 @@ app.include_router(gaps.router, prefix=api)
 app.include_router(assessment.router, prefix=api)
 app.include_router(quiz.router, prefix=api)
 app.include_router(learning.router, prefix=api)
+app.include_router(momentum.router, prefix=api)
 app.include_router(psychometrics.router, prefix=api)
 app.include_router(video_prompts.router, prefix=api)
 app.include_router(admin.router, prefix=api)

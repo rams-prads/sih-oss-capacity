@@ -26,6 +26,7 @@ from sqlalchemy.orm import Session
 from app.models import (
     AssessmentResult,
     CheckpointAttempt,
+    Lesson,
     LessonProgress,
     User,
 )
@@ -40,6 +41,9 @@ class ActivityDay:
     lessons: int
     assessments: int
     prompts: int
+    # The running time of the videos watched that day. Only videos carry a
+    # length; an assessment or an answered prompt adds to the count, not here.
+    minutes: int = 0
 
 
 @dataclass
@@ -62,24 +66,45 @@ def _as_date(value: datetime | None) -> date | None:
     return (value.replace(tzinfo=None) if value.tzinfo else value).date()
 
 
-def activity(db: Session, user_id: str, days: int = DEFAULT_DAYS) -> ActivityOut:
-    """Per-day activity for one officer, plus the streaks that follow from it."""
+def activity(
+    db: Session, user_id: str, days: int = DEFAULT_DAYS, today: date | None = None
+) -> ActivityOut:
+    """Per-day activity for one officer, plus the streaks that follow from it.
+
+    `today` exists so the momentum engine can ask for the same record as of a
+    fixed date - and so its streak is this streak, computed here, rather than a
+    second implementation that could disagree with the calendar.
+    """
     if db.get(User, user_id) is None:
         raise KeyError(f"Unknown user: {user_id}")
 
-    today = datetime.now(timezone.utc).date()
+    today = today or datetime.now(timezone.utc).date()
     start = today - timedelta(days=days - 1)
 
     lessons: dict[date, int] = defaultdict(int)
+    minutes: dict[date, int] = defaultdict(int)
     assessments: dict[date, int] = defaultdict(int)
     prompts: dict[date, int] = defaultdict(int)
 
-    for row in db.scalars(
+    watched = db.scalars(
         select(LessonProgress).where(LessonProgress.user_id == user_id)
-    ).all():
+    ).all()
+    durations = (
+        dict(
+            db.execute(
+                select(Lesson.id, Lesson.duration_min).where(
+                    Lesson.id.in_({row.lesson_id for row in watched})
+                )
+            ).all()
+        )
+        if watched
+        else {}
+    )
+    for row in watched:
         day = _as_date(row.completed_at)
         if day and start <= day <= today:
             lessons[day] += 1
+            minutes[day] += durations.get(row.lesson_id) or 0
 
     for row in db.scalars(
         select(CheckpointAttempt).where(CheckpointAttempt.user_id == user_id)
@@ -122,6 +147,7 @@ def activity(db: Session, user_id: str, days: int = DEFAULT_DAYS) -> ActivityOut
                 lessons=lesson_count,
                 assessments=assessment_count,
                 prompts=prompt_count,
+                minutes=minutes.get(day, 0),
             )
         )
 

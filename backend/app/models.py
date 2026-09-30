@@ -6,11 +6,12 @@ Proficiency is an integer 0-4: 0 Unaware, 1 Aware, 2 Working, 3 Proficient, 4 Ex
 from __future__ import annotations
 
 import enum
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 
 from sqlalchemy import (
     JSON,
     Boolean,
+    Date,
     DateTime,
     Enum,
     Float,
@@ -473,4 +474,37 @@ class Feedback(Base):
     admin_note: Mapped[str] = mapped_column(Text, default="")
     handled_by: Mapped[str | None] = mapped_column(ForeignKey("users.id"), nullable=True)
     handled_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=_utcnow)
+
+
+# --- learning goals ---------------------------------------------------------
+DEFAULT_WEEKLY_DAYS = 3
+DEFAULT_DAILY_POINTS = 20
+
+
+class LearningGoal(Base):
+    """The targets an officer has set for their own study, from a given week on.
+
+    One row per change rather than one row per officer. Goals are judged week by
+    week, and a week has to be judged against the goal that was in force during
+    it: overwriting a single row would quietly re-mark every past week the moment
+    somebody changed their target, and a goal met in March would stop being met.
+
+    Nothing else about the momentum record is stored - points, streaks, quests
+    and achievements are all derived from what the officer actually did (see
+    engines/momentum.py). This is the one input that is a choice rather than an
+    event, so it is the one thing that needs a table.
+    """
+
+    __tablename__ = "learning_goals"
+    __table_args__ = (
+        UniqueConstraint("user_id", "effective_from", name="uq_goal_user_week"),
+    )
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    user_id: Mapped[str] = mapped_column(ForeignKey("users.id"), nullable=False, index=True)
+    weekly_days_target: Mapped[int] = mapped_column(Integer, default=DEFAULT_WEEKLY_DAYS)
+    daily_points_target: Mapped[int] = mapped_column(Integer, default=DEFAULT_DAILY_POINTS)
+    # Always a Monday: goals change at week boundaries, never mid-week.
+    effective_from: Mapped[date] = mapped_column(Date, nullable=False)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=_utcnow)

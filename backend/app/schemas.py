@@ -1,7 +1,7 @@
 """Pydantic v2 schemas for the REST surface."""
 from __future__ import annotations
 
-from datetime import datetime
+from datetime import date, datetime
 
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -230,6 +230,13 @@ class SubmitQuizRequest(BaseModel):
 
 
 class SubmitQuizOut(BaseModel):
+    """The outcome of a practice sitting - a score, and nothing that was moved.
+
+    The levels here are read back from the officer's record after scoring, not
+    computed from it. They are reported so the page can state plainly what the
+    practice did not change. See routers/quiz.py.
+    """
+
     quiz_id: str
     competency_id: str
     competency_name: str
@@ -237,11 +244,9 @@ class SubmitQuizOut(BaseModel):
     correct_count: int
     total: int
     per_item: list[bool]
-    prior_level: int
-    new_level: int
-    level_changed: bool
-    prior_gap: int
-    new_gap: int
+    attained_level: int
+    target_level: int
+    gap: int
     review: list[QuestionWithAnswer] = []
 
 
@@ -321,6 +326,9 @@ class LessonOut(BaseModel):
     id: int
     position: int
     title: str
+    # "catalogue" - the name iGOT published; "video" - the video's own title
+    # card, used where the published name was a placeholder like "Video 3".
+    title_from: str = "catalogue"
     duration_min: int
     completed: bool
     video_url: str = ""
@@ -335,6 +343,9 @@ class ModuleOut(BaseModel):
     # the course has a single assessment at the end.
     checkpoint_id: int | None = None
     pass_pct: int = 0
+    # How many questions the quiz asks - the bank when it is small, a quiz's
+    # worth of it otherwise.
+    question_count: int = 0
     lessons: list[LessonOut]
     lessons_completed: int
     lessons_total: int
@@ -351,11 +362,44 @@ class NextAction(BaseModel):
     checkpoint_id: int | None = None
 
 
+class CompetencyRef(BaseModel):
+    id: str
+    name: str
+    type: str = ""
+
+
+class KcmTagOut(BaseModel):
+    """iGOT's own competency labels for the course: area, theme, sub-theme."""
+
+    area: str = ""
+    theme: str = ""
+    sub_theme: str = ""
+
+
 class LearningCourse(BaseModel):
     course_identifier: str
     course_name: str
     provider: str = "iGOT Karmayogi"
     competency_ids: list[str] = []
+    # What the catalogue says the course is, for the about panel beside the
+    # player: iGOT's own description, the competencies it is tagged with, the
+    # level it builds towards and its running time.
+    description: str = ""
+    competencies: list[CompetencyRef] = []
+    target_level: int = 0
+    duration_min: int = 0
+    # The rest of what iGOT publishes about the course.
+    learning_outcomes: list[str] = []
+    keywords: list[str] = []
+    languages: list[str] = []
+    difficulty: str = ""
+    rating: float = 0
+    rating_count: int = 0
+    certificate: bool = False
+    published_on: str = ""
+    author: str = ""
+    sector: str = ""
+    kcm: list[KcmTagOut] = []
     status: str = Field(description="not_started | in_progress | completed | expired")
     progress_pct: int
     lessons_completed: int
@@ -775,6 +819,7 @@ class ActivityDayOut(BaseModel):
     lessons: int
     assessments: int
     prompts: int
+    minutes: int = 0
 
 
 class ActivityResponse(BaseModel):
@@ -902,3 +947,247 @@ class FeedbackInbox(BaseModel):
     avg_rating: float | None = None
     by_category: list[FeedbackCategoryCount] = []
     items: list[FeedbackOut] = []
+
+
+# --- learning momentum: goals, points, streaks, quests -----------------------
+class PointRuleOut(BaseModel):
+    kind: str
+    label: str
+    points: int
+    note: str = ""
+
+
+class LedgerLineOut(BaseModel):
+    at: datetime
+    kind: str
+    label: str
+    points: int
+    bonus: bool = False
+
+
+class PointsOut(BaseModel):
+    total: int
+    today: int
+    this_week: int
+
+
+class GoalSettingOut(BaseModel):
+    weekly_days_target: int
+    daily_points_target: int
+    # None while the officer is on the platform default rather than a goal they set.
+    effective_from: date | None = None
+
+
+class LearningGoalUpdate(BaseModel):
+    """A weekly goal below two days is not a goal, and one above a hundred points
+    a day is a second job; the ranges keep the choice meaningful."""
+
+    weekly_days_target: int = Field(ge=2, le=7)
+    daily_points_target: int = Field(ge=10, le=100)
+
+
+class DailyGoalOut(BaseModel):
+    target: int
+    earned: int
+    pct: int
+    met: bool
+    remaining: int
+    suggestion: str
+
+
+class WeekDayOut(BaseModel):
+    day: date
+    weekday: str
+    active: bool
+    points: int
+    goal_met: bool
+    is_today: bool
+    is_future: bool
+
+
+class WeeklyGoalOut(BaseModel):
+    week_start: date
+    week_end: date
+    days: list[WeekDayOut]
+    active_days: int
+    target: int
+    pct: int
+    met: bool
+    remaining_days: int
+    days_left: int = Field(description="Days still open to study on this week")
+    on_track: bool
+    effort_remaining_min: int = Field(
+        description="Remaining study days times the officer's typical unwatched lesson length"
+    )
+    points: int
+    items_completed: int = Field(
+        default=0, description="Videos watched, assessments sat and questions answered this week"
+    )
+    minutes_learned: int = Field(
+        default=0, description="Running time of the videos watched this week"
+    )
+
+
+class StreakOut(BaseModel):
+    current: int
+    longest: int
+    studied_today: bool
+    at_risk: bool = Field(description="A live streak that today has not extended yet")
+    next_milestone: int
+
+
+class QuestCta(BaseModel):
+    kind: str = Field(description="course | assessment | recommendations | courses")
+    course_identifier: str | None = None
+    lesson_id: int | None = None
+    competency_id: str | None = None
+
+
+class QuestOut(BaseModel):
+    id: str
+    kind: str = Field(description="learn | measure | review")
+    title: str
+    detail: str
+    points: int
+    done: bool
+    cta: QuestCta | None = None
+
+
+class ChallengeOut(BaseModel):
+    id: str
+    title: str
+    detail: str
+    progress: int
+    target: int
+    unit: str
+    reward: int
+    done: bool
+
+
+class AchievementOut(BaseModel):
+    id: str
+    title: str
+    description: str
+    unlocked: bool
+    progress: int
+    target: int
+    unlocked_on: date | None = None
+
+
+class CohortOut(BaseModel):
+    """Where the officer stands in their department this week. Deliberately
+    anonymous: a rank and a count, never a colleague's name or id."""
+
+    department: str
+    rank: int
+    of: int
+    points_this_week: int
+    colleagues_studying: int
+
+
+class MomentumOut(BaseModel):
+    user_id: str
+    generated_at: datetime
+    today: date
+    points: PointsOut
+    rules: list[PointRuleOut]
+    recent: list[LedgerLineOut]
+    goal: GoalSettingOut
+    pending_goal: GoalSettingOut | None = None
+    daily_goal: DailyGoalOut
+    weekly_goal: WeeklyGoalOut
+    streak: StreakOut
+    quests: list[QuestOut]
+    weekly_challenge: ChallengeOut
+    achievements: list[AchievementOut]
+    cohort: CohortOut
+
+
+class ContinueLearningOut(BaseModel):
+    course_identifier: str
+    course_name: str
+    provider: str = "iGOT Karmayogi"
+    status: str
+    progress_pct: int
+    lessons_completed: int
+    lessons_total: int
+    lessons_remaining: int
+    minutes_remaining: int
+    next_kind: str = Field(description="lesson | checkpoint")
+    next_label: str
+    next_lesson_id: int | None = None
+    next_checkpoint_id: int | None = None
+    next_minutes: int | None = None
+    last_studied_on: date | None = None
+    builds: list[str] = []
+    closes_gap: str | None = None
+    points_available: int
+
+
+class BestActionOut(BaseModel):
+    kind: str = Field(description="assess | continue | start | progress | maintain")
+    headline: str
+    reason: str
+    competency_id: str | None = None
+    competency_name: str | None = None
+    attained_level: int | None = None
+    target_level: int | None = None
+    evidence: str | None = None
+    course: CourseOut | None = None
+    enrolled: bool = False
+    course_progress_pct: int | None = None
+    lesson_id: int | None = None
+    points: int
+    cta_label: str
+
+
+class NextActionOut(BaseModel):
+    user_id: str
+    continue_learning: ContinueLearningOut | None = None
+    best_action: BestActionOut
+
+
+class EngagementWeekOut(BaseModel):
+    week_start: date
+    active_officers: int
+    actions: int
+    points: int
+
+
+class TopLearnerOut(BaseModel):
+    user_id: str
+    name: str
+    role_name: str
+    department: str
+    points_this_week: int
+    study_days_this_week: int
+    current_streak: int
+
+
+class StudiedCourseOut(BaseModel):
+    course_identifier: str
+    course_name: str
+    lessons_watched: int
+    officers: int
+
+
+class EngagementOverview(BaseModel):
+    department: str
+    officer_count: int
+    week_start: date
+    active_this_week: int
+    active_last_week: int
+    goal_met_this_week: int
+    goal_met_last_week: int
+    goal_attainment_pct: float
+    goal_attainment_last_week_pct: float
+    streak_2_plus: int
+    streak_7_plus: int
+    assessments_this_week: int
+    videos_this_week: int
+    points_this_week: int
+    officers_improved: int
+    weeks: list[EngagementWeekOut]
+    top_learners: list[TopLearnerOut]
+    most_studied_courses: list[StudiedCourseOut]
+    note: str = ""
