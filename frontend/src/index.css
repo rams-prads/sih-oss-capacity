@@ -104,6 +104,10 @@ h1, h2, h3 { letter-spacing: -0.018em; }
   border-radius: 6px;
 }
 
+/* A spoke of the competency radar rings the point it reads out; an outline
+   here would box the whole invisible wedge the spoke listens on. */
+[data-axis]:focus-visible { outline: none; }
+
 ::selection { background: color-mix(in oklab, var(--color-saffron) 22%, transparent); }
 
 /* ---------------------------------------------------------------------------
@@ -227,12 +231,92 @@ h1, h2, h3 { letter-spacing: -0.018em; }
   animation: panel-in 200ms var(--ease-out);
 }
 
+/* ---------------------------------------------------------------------------
+   Momentum feedback. Each of these marks a change the officer caused - a goal
+   filling, a quest ticking, a badge arriving - and plays once when it happens.
+   None loops, and none plays merely because a page was opened.
+   --------------------------------------------------------------------------- */
+
+@keyframes pop {
+  0%   { opacity: 0; transform: scale(0.6); }
+  60%  { opacity: 1; transform: scale(1.08); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes toast-in {
+  from { opacity: 0; transform: translateY(-10px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes skeleton {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.55; }
+}
+
+/* A row the competency snapshot sent the reader to: a wash that says "here",
+   then gets out of the way. The shadow carries the wash past the row's edges. */
+@keyframes row-flash {
+  0%, 55% {
+    background-color: rgba(79, 143, 224, 0.13);
+    box-shadow: 0 0 0 10px rgba(79, 143, 224, 0.13);
+  }
+  100% {
+    background-color: transparent;
+    box-shadow: 0 0 0 10px transparent;
+  }
+}
+
+.row-flash { animation: row-flash 2.6s ease-out; }
+
+/* A day still to come in the week chart: a slot with nothing in it yet,
+   hatched so it cannot be mistaken for a day that passed with no study. */
+.hatch-slot {
+  background-image: repeating-linear-gradient(
+    135deg,
+    rgba(30, 58, 99, 0.13) 0 1.5px,
+    transparent 1.5px 6px
+  );
+}
+
+/* The resume button breathes once a few seconds, to say "this is where you
+   were". It is the only looping motion on the page, and reduced motion stops it. */
+@keyframes halo {
+  0%   { transform: scale(1); opacity: 0.55; }
+  70%  { transform: scale(1.55); opacity: 0; }
+  100% { transform: scale(1.55); opacity: 0; }
+}
+.halo { animation: halo 2.8s var(--ease-out) infinite; }
+
+/* The card's title button is stretched over the whole card; the card draws
+   the focus ring, so the title's own outline would only box the text. */
+.card-link:focus-visible { outline: none; }
+
+/* ...and it must not shrink when pressed. The press effect scales a button by
+   3%, which pulls the stretched overlay out from under the pointer: the mouse
+   goes down on the link and up on whatever is beneath it, and the browser
+   fires the click on their common ancestor instead of the link. Every press
+   away from the card's centre was lost that way. */
+.card-link:active { transform: none; }
+
+/* The same trap, one step smaller: a full-width row is wide enough that a 3%
+   press scale pulls its left and right edges several pixels inward, so a press
+   near an edge lands on the row and the release lands on its parent - and the
+   browser fires the click on neither. Rows keep the colour change and drop the
+   scale; a button the size of its own label is unaffected. */
+button.w-full:active { transform: none; }
+
+.pop { animation: pop 320ms var(--ease-out) both; }
+.toast-in { transform-origin: top right; animation: toast-in 240ms var(--ease-out); }
+.skeleton { animation: skeleton 1.4s ease-in-out infinite; }
+
 /* Reduced motion drops movement, not feedback: opacity and colour still carry
    meaning, so only translation and scaling go. */
 @media (prefers-reduced-motion: reduce) {
   .rise,
   .stagger > * { animation: none; }
-  .menu-in, .panel-in { animation: fade 160ms var(--ease-out); }
+  .menu-in, .panel-in, .toast-in, .pop { animation: fade 160ms var(--ease-out); }
+  .skeleton { animation: none; }
+  .halo { animation: none; opacity: 0; }
   .press:active { transform: none; }
   .tip { transition-delay: 0ms; }
 

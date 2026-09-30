@@ -265,3 +265,182 @@ export function ChatIcon(props: IconProps) {
     </Svg>
   );
 }
+
+/* --- learning momentum ---------------------------------------------------- */
+
+/** A streak. Outlined with a drop at its heart, so it reads at 14px without
+ *  turning into a blob, and never as the emoji it replaces. */
+export function FlameIcon(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <path d="M12 3c.6 2.7 2.4 4.3 3.8 6 1.3 1.6 2.2 3.1 2.2 5.2a6 6 0 0 1-12 0c0-2.1 1-3.8 2.3-5.1.2 1.3.9 2.3 2 2.6C10 8.6 10.6 5.4 12 3Z" />
+      <path d="M12 19a2.3 2.3 0 0 1-2.3-2.3c0-1.2 1-2.2 2.3-3.4 1.3 1.2 2.3 2.2 2.3 3.4A2.3 2.3 0 0 1 12 19Z" />
+    </Svg>
+  );
+}
+
+/** A goal. */
+export function TargetIcon(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <circle cx="12" cy="12" r="9" />
+      <circle cx="12" cy="12" r="5" />
+      <circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none" />
+    </Svg>
+  );
+}
+
+/** Learning Points. */
+export function SparkIcon(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <path d="M11 3.5c.5 3.9 2.6 6 6.5 6.5-3.9.5-6 2.6-6.5 6.5-.5-3.9-2.6-6-6.5-6.5 3.9-.5 6-2.6 6.5-6.5Z" />
+      <path d="M18 15c.2 1.2.9 1.9 2 2-1.1.2-1.8.9-2 2-.2-1.1-.9-1.8-2-2 1.1-.1 1.8-.8 2-2Z" />
+    </Svg>
+  );
+}
+
+/** An achievement. */
+export function MedalIcon(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <path d="M8.5 3.5h7l-2.3 5.6" />
+      <path d="m8.5 3.5 2.3 5.6" />
+      <circle cx="12" cy="14.8" r="5.7" />
+      <circle cx="12" cy="14.8" r="2.3" />
+    </Svg>
+  );
+}
+
+/** The next best action: a direction, not a destination. */
+export function CompassIcon(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <circle cx="12" cy="12" r="9" />
+      <path d="m15.6 8.4-2.3 4.9-4.9 2.3 2.3-4.9 4.9-2.3Z" />
+    </Svg>
+  );
+}
+
+export function CalendarCheckIcon(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <rect x="4" y="5.5" width="16" height="14.5" rx="2" />
+      <path d="M4 10h16M8.5 3.5v4M15.5 3.5v4" />
+      <path d="m9.3 15 1.9 1.9 3.6-3.8" />
+    </Svg>
+  );
+}
+
+export function ArrowRightIcon(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <path d="M5 12h14" />
+      <path d="m13.5 6.5 5.5 5.5-5.5 5.5" />
+    </Svg>
+  );
+}
+
+/** Goal settings: two sliders, because a goal is a pair of dials. */
+export function SlidersIcon(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <path d="M4 7h9M17 7h3M4 17h3M11 17h9" />
+      <circle cx="15" cy="7" r="2" />
+      <circle cx="9" cy="17" r="2" />
+    </Svg>
+  );
+}
+
+/** More about this. A lower-case i in a circle. */
+export function InfoIcon(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M12 11v5.5" />
+      <circle cx="12" cy="7.8" r="1" fill="currentColor" stroke="none" />
+    </Svg>
+  );
+}
+
+/** A plain tick, for a list row where a filled circle would be too heavy. */
+export function CheckIcon(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <path d="m5.5 12.5 4 4 9-9.5" />
+    </Svg>
+  );
+}
+
+export function TrendUpIcon(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <path d="m4 16.5 5.5-5.5 3.5 3.5L20 7.5" />
+      <path d="M14.5 7.5H20V13" />
+    </Svg>
+  );
+}
+
+export function BookOpenIcon(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <path d="M12 6.5C10.3 5.2 8 4.5 4.5 4.5V18c3.5 0 5.8.7 7.5 2 1.7-1.3 4-2 7.5-2V4.5c-3.5 0-5.8.7-7.5 2Z" />
+      <path d="M12 6.5V20" />
+    </Svg>
+  );
+}
+
+export function LayersIcon(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <path d="m12 4 8.5 4.5L12 13 3.5 8.5 12 4Z" />
+      <path d="m3.5 12.5 8.5 4.5 8.5-4.5" />
+    </Svg>
+  );
+}
+
+export function ClipboardCheckIcon(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <rect x="5" y="4.5" width="14" height="16" rx="2" />
+      <path d="M9 4.5v-.7a.8.8 0 0 1 .8-.8h4.4a.8.8 0 0 1 .8.8v.7" />
+      <path d="m9 13 2.2 2.2 4.3-4.2" />
+    </Svg>
+  );
+}
+
+/** Evidence-backed: a level that rests on measurement. */
+export function ShieldCheckIcon(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <path d="M12 3.5 5 6.2v5.3c0 4.3 2.9 7.8 7 9 4.1-1.2 7-4.7 7-9V6.2L12 3.5Z" />
+      <path d="m9 12.2 2.1 2.1 4-4.1" />
+    </Svg>
+  );
+}
+
+export function StarIcon(props: IconProps) {
+  return (
+    <Svg {...props} filled>
+      <path d="m12 3.6 2.6 5.3 5.8.8-4.2 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8L3.6 9.7l5.8-.8L12 3.6Z" />
+    </Svg>
+  );
+}
+
+export function GlobeIcon(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M3.5 12h17M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18" />
+    </Svg>
+  );
+}
+
+export function SearchIcon(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <circle cx="11" cy="11" r="6.5" />
+      <path d="m20 20-4.2-4.2" />
+    </Svg>
+  );
+}

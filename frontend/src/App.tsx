@@ -20,7 +20,9 @@ import {
   Watermark,
 } from "./components/Shell";
 import type { NavItem } from "./components/Shell";
+import { LearningWeekMenu } from "./components/LearningWeek";
 import { Spinner } from "./components/ui";
+import { MomentumProvider } from "./momentum/MomentumProvider";
 import Admin from "./pages/Admin";
 import AdminFeedback from "./pages/AdminFeedback";
 import CompetencyAssessment from "./pages/CompetencyAssessment";
@@ -153,6 +155,7 @@ export default function App() {
         current={current}
         right={
           <div className="flex items-center gap-2">
+            <LearningWeekMenu />
             <UserMenu users={users} userId={officerId} onSelect={switchOfficer} />
             <SignOutButton onClick={signOutOfficer} />
           </div>
@@ -197,6 +200,10 @@ export default function App() {
   const home = officerId ? "/learner" : admin ? "/admin" : "/login";
 
   return (
+    // Momentum belongs to the officer session and outlives any one page, so a
+    // video finished inside a course can be compared with the record as it
+    // stood before - see MomentumProvider.
+    <MomentumProvider userId={officerId}>
     <Routes>
       <Route
         path="/login"
@@ -251,6 +258,7 @@ export default function App() {
       <Route path="/" element={<Navigate to={home} replace />} />
       <Route path="*" element={<Navigate to={home} replace />} />
     </Routes>
+    </MomentumProvider>
   );
 }
 
@@ -276,18 +284,18 @@ function Chrome({
   const location = useLocation();
 
   return (
-    <div className="min-h-screen pl-[4.5rem]">
+    <div className="min-h-screen pb-16 sm:pb-0 sm:pl-[4.5rem]">
       <Rail items={items} />
 
       {/* The header carries the page name and who is signed in, and nothing
           else. Navigation lives in the rail, so this row does not compete. */}
       <header className="sticky top-0 z-30 border-b border-hairline bg-ground/80 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-[82rem] items-center gap-6 px-8 py-4">
+        <div className="mx-auto flex max-w-[82rem] items-center gap-3 px-4 py-3 sm:gap-6 sm:px-8 sm:py-4">
           <div className="mr-auto min-w-0">
             <h1 className="truncate text-[19px] font-semibold leading-tight text-ink">
               {current?.label ?? "Competency Platform"}
             </h1>
-            <p className="mt-0.5 truncate text-2xs leading-tight text-ink-3">
+            <p className="mt-0.5 hidden truncate text-2xs leading-tight text-ink-3 sm:block">
               {current?.blurb ?? "Official Statistical System · MoSPI"}
             </p>
           </div>
@@ -296,11 +304,11 @@ function Chrome({
       </header>
 
       {/* Keyed on pathname so each screen enters rather than snapping in. */}
-      <main key={location.pathname} className="rise mx-auto max-w-[82rem] px-8 py-7">
+      <main key={location.pathname} className="rise mx-auto max-w-[82rem] px-4 py-5 sm:px-8 sm:py-7">
         {children}
       </main>
 
-      <footer className="mx-auto max-w-[82rem] px-8 pb-10">
+      <footer className="mx-auto max-w-[82rem] px-4 pb-10 sm:px-8">
         <p className="border-t border-hairline pt-5 text-2xs leading-relaxed text-ink-4">
           {FOOTER}
         </p>
@@ -317,7 +325,7 @@ function PublicFrame({ children }: { children: ReactNode }) {
       <Watermark />
 
       <header className="border-b border-hairline bg-surface/80 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-[62rem] items-center justify-between gap-6 px-8 py-4">
+        <div className="mx-auto flex max-w-[62rem] items-center justify-between gap-4 px-4 py-4 sm:gap-6 sm:px-8">
           <div className="min-w-0">
             <h1 className="truncate text-[19px] font-semibold leading-tight text-ink">
               Register an officer
@@ -339,11 +347,11 @@ function PublicFrame({ children }: { children: ReactNode }) {
           middle of the watermark. Anchored to the top it sat above the
           emblem's fan and left the mouse and its cord adrift in the empty half
           of the page below. */}
-      <main className="rise mx-auto flex w-full max-w-[62rem] flex-1 flex-col justify-center px-8 py-10">
+      <main className="rise mx-auto flex w-full max-w-[62rem] flex-1 flex-col justify-center px-4 py-8 sm:px-8 sm:py-10">
         {children}
       </main>
 
-      <footer className="mx-auto w-full max-w-[62rem] px-8 pb-10">
+      <footer className="mx-auto w-full max-w-[62rem] px-4 pb-10 sm:px-8">
         <p className="border-t border-hairline pt-5 text-2xs leading-relaxed text-ink-4">
           {FOOTER}
         </p>

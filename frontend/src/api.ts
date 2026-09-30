@@ -166,11 +166,10 @@ export interface SubmitResult {
   correct_count: number;
   total: number;
   per_item: boolean[];
-  prior_level: number;
-  new_level: number;
-  level_changed: boolean;
-  prior_gap: number;
-  new_gap: number;
+  /** The officer's standing, read back unchanged - practice never moves it. */
+  attained_level: number;
+  target_level: number;
+  gap: number;
   review: (Question & { answer_index: number; explanation: string })[];
 }
 
@@ -263,6 +262,9 @@ export interface LessonItem {
   id: number;
   position: number;
   title: string;
+  /** "catalogue" - the name iGOT published; "video" - the video's own title card,
+   *  used where iGOT published a placeholder like "Video 3". */
+  title_from?: "catalogue" | "video";
   duration_min: number;
   completed: boolean;
   /** The mp4 iGOT serves, played in place. Empty for a lesson that publishes none. */
@@ -277,6 +279,8 @@ export interface ModuleItem {
   /** null for an ingested iGOT module: the course is assessed once, at the end. */
   checkpoint_id: number | null;
   pass_pct: number;
+  /** How many questions the quiz asks. */
+  question_count?: number;
   lessons: LessonItem[];
   lessons_completed: number;
   lessons_total: number;
@@ -293,11 +297,42 @@ export interface NextAction {
   checkpoint_id: number | null;
 }
 
+export interface CompetencyRef {
+  id: string;
+  name: string;
+  type?: string;
+}
+
+/** One Karmayogi Competency Model entry, in iGOT's own words. */
+export interface KcmTag {
+  area: string;
+  theme: string;
+  sub_theme?: string;
+}
+
 export interface LearningCourse {
   course_identifier: string;
   course_name: string;
   provider: string;
   competency_ids: string[];
+  /** What the catalogue says about the course, for the about panel. All of it
+   *  published by iGOT and fetched verbatim. */
+  description?: string;
+  competencies?: CompetencyRef[];
+  target_level?: number;
+  duration_min?: number;
+  learning_outcomes?: string[];
+  keywords?: string[];
+  languages?: string[];
+  /** iGOT's own: Beginner | Intermediate | Advanced. */
+  difficulty?: string;
+  rating?: number;
+  rating_count?: number;
+  certificate?: boolean;
+  published_on?: string;
+  author?: string;
+  sector?: string;
+  kcm?: KcmTag[];
   status: CourseStatus;
   progress_pct: number;
   lessons_completed: number;
@@ -702,6 +737,8 @@ export interface ActivityDay {
   lessons: number;
   assessments: number;
   prompts: number;
+  /** Running time of the videos watched that day. Absent from an older API. */
+  minutes?: number;
 }
 
 export interface LearnerActivity {
@@ -878,3 +915,254 @@ export const handleFeedback = (
   id: number,
   patch: { status?: FeedbackStatus; admin_note?: string },
 ) => api.patch<Feedback>(`/admin/feedback/${id}`, patch).then((r) => r.data);
+
+// --- learning momentum: goals, points, streak, quests ----------------------
+/**
+ * Everything here is derived on the server from what the officer actually did -
+ * videos watched, assessments sat, in-video questions answered. There is no
+ * call that awards a point: the only write is the officer's own goal.
+ */
+export interface PointRule {
+  kind: string;
+  label: string;
+  points: number;
+  note: string;
+}
+
+export interface LedgerLine {
+  at: string;
+  kind: string;
+  label: string;
+  points: number;
+  bonus: boolean;
+}
+
+export interface GoalSetting {
+  weekly_days_target: number;
+  daily_points_target: number;
+  /** null while the officer is on the platform default. */
+  effective_from: string | null;
+}
+
+export interface DailyGoal {
+  target: number;
+  earned: number;
+  pct: number;
+  met: boolean;
+  remaining: number;
+  suggestion: string;
+}
+
+export interface WeekDay {
+  day: string;
+  weekday: string;
+  active: boolean;
+  points: number;
+  goal_met: boolean;
+  is_today: boolean;
+  is_future: boolean;
+}
+
+export interface WeeklyGoal {
+  week_start: string;
+  week_end: string;
+  days: WeekDay[];
+  active_days: number;
+  target: number;
+  pct: number;
+  met: boolean;
+  remaining_days: number;
+  days_left: number;
+  on_track: boolean;
+  effort_remaining_min: number;
+  points: number;
+  /** Videos watched, assessments sat and questions answered this week. */
+  items_completed: number;
+  /** Running time of the videos watched this week. */
+  minutes_learned: number;
+}
+
+export interface Streak {
+  current: number;
+  longest: number;
+  studied_today: boolean;
+  at_risk: boolean;
+  next_milestone: number;
+}
+
+export type QuestCtaKind = "course" | "assessment" | "recommendations" | "courses";
+
+export interface Quest {
+  id: string;
+  kind: "learn" | "measure" | "review";
+  title: string;
+  detail: string;
+  points: number;
+  done: boolean;
+  cta: {
+    kind: QuestCtaKind;
+    course_identifier: string | null;
+    lesson_id: number | null;
+    competency_id: string | null;
+  } | null;
+}
+
+export interface WeeklyChallenge {
+  id: string;
+  title: string;
+  detail: string;
+  progress: number;
+  target: number;
+  unit: string;
+  reward: number;
+  done: boolean;
+}
+
+export interface Achievement {
+  id: string;
+  title: string;
+  description: string;
+  unlocked: boolean;
+  progress: number;
+  target: number;
+  unlocked_on: string | null;
+}
+
+/** Deliberately anonymous: a rank and a count, never a colleague's name. */
+export interface Cohort {
+  department: string;
+  rank: number;
+  of: number;
+  points_this_week: number;
+  colleagues_studying: number;
+}
+
+export interface Momentum {
+  user_id: string;
+  generated_at: string;
+  today: string;
+  points: { total: number; today: number; this_week: number };
+  rules: PointRule[];
+  recent: LedgerLine[];
+  goal: GoalSetting;
+  pending_goal: GoalSetting | null;
+  daily_goal: DailyGoal;
+  weekly_goal: WeeklyGoal;
+  streak: Streak;
+  quests: Quest[];
+  weekly_challenge: WeeklyChallenge;
+  achievements: Achievement[];
+  cohort: Cohort;
+}
+
+export interface ContinueLearning {
+  course_identifier: string;
+  course_name: string;
+  provider: string;
+  status: CourseStatus;
+  progress_pct: number;
+  lessons_completed: number;
+  lessons_total: number;
+  lessons_remaining: number;
+  minutes_remaining: number;
+  next_kind: "lesson" | "checkpoint";
+  next_label: string;
+  next_lesson_id: number | null;
+  next_checkpoint_id: number | null;
+  next_minutes: number | null;
+  last_studied_on: string | null;
+  builds: string[];
+  closes_gap: string | null;
+  points_available: number;
+}
+
+export type BestActionKind = "assess" | "continue" | "start" | "progress" | "maintain";
+
+export interface BestAction {
+  kind: BestActionKind;
+  headline: string;
+  reason: string;
+  competency_id: string | null;
+  competency_name: string | null;
+  attained_level: number | null;
+  target_level: number | null;
+  evidence: Evidence | null;
+  course: Course | null;
+  enrolled: boolean;
+  course_progress_pct: number | null;
+  lesson_id: number | null;
+  points: number;
+  cta_label: string;
+}
+
+export interface NextActionPlan {
+  user_id: string;
+  continue_learning: ContinueLearning | null;
+  best_action: BestAction;
+}
+
+export const getMomentum = (id: string) =>
+  api.get<Momentum>(`/users/${id}/momentum`).then((r) => r.data);
+
+export const getNextAction = (id: string) =>
+  api.get<NextActionPlan>(`/users/${id}/next-action`).then((r) => r.data);
+
+/** A raised goal applies this week; a lowered one from next Monday. */
+export const setLearningGoal = (
+  id: string,
+  goal: { weekly_days_target: number; daily_points_target: number },
+) => api.put<Momentum>(`/users/${id}/learning-goal`, goal).then((r) => r.data);
+
+// --- admin: learning engagement --------------------------------------------
+export interface EngagementWeek {
+  week_start: string;
+  active_officers: number;
+  actions: number;
+  points: number;
+}
+
+export interface TopLearner {
+  user_id: string;
+  name: string;
+  role_name: string;
+  department: string;
+  points_this_week: number;
+  study_days_this_week: number;
+  current_streak: number;
+}
+
+export interface StudiedCourse {
+  course_identifier: string;
+  course_name: string;
+  lessons_watched: number;
+  officers: number;
+}
+
+export interface EngagementOverview {
+  department: string;
+  officer_count: number;
+  week_start: string;
+  active_this_week: number;
+  active_last_week: number;
+  goal_met_this_week: number;
+  goal_met_last_week: number;
+  goal_attainment_pct: number;
+  goal_attainment_last_week_pct: number;
+  streak_2_plus: number;
+  streak_7_plus: number;
+  assessments_this_week: number;
+  videos_this_week: number;
+  points_this_week: number;
+  officers_improved: number;
+  weeks: EngagementWeek[];
+  top_learners: TopLearner[];
+  most_studied_courses: StudiedCourse[];
+  note: string;
+}
+
+export const getAdminEngagement = (department?: string) =>
+  api
+    .get<EngagementOverview>("/admin/engagement", {
+      params: department ? { department } : {},
+    })
+    .then((r) => r.data);

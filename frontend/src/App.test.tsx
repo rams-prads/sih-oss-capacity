@@ -32,12 +32,15 @@ const anita = {
 };
 const meera = { ...anita, id: "u-admin-meera", name: "Meera Nair", is_admin: true };
 
+import { makeMomentum } from "./test/momentum";
+
 vi.mock("./api", async (importOriginal) => {
   const actual = await importOriginal<typeof import("./api")>();
   return {
     ...actual,
     getUsers: vi.fn(async () => [anita, meera]),
     getMe: vi.fn(async () => meera),
+    getMomentum: vi.fn(async () => makeMomentum({ user_id: "u-jso-anita" })),
   };
 });
 
@@ -137,6 +140,25 @@ describe("routing and session guards", () => {
     // where somebody is creating a record in the first place.
     expect(screen.queryByLabelText("Dashboard")).not.toBeInTheDocument();
     expect(screen.getByText("Back to sign in")).toBeInTheDocument();
+  });
+
+  it("keeps the officer's learning week in the header, behind one small button", async () => {
+    setActiveUser("u-jso-anita");
+    renderAt("/learner");
+    await screen.findByText("LEARNER PAGE");
+    // The streak is a statement about one officer's record, so it lives with
+    // the officer session, and stays out of the page until it is asked for.
+    const button = await screen.findByRole("button", { name: /Learning streak: 2 days/ });
+    expect(screen.queryByRole("dialog", { name: "Your learning week" })).not.toBeInTheDocument();
+    await userEvent.click(button);
+    expect(screen.getByRole("dialog", { name: "Your learning week" })).toBeInTheDocument();
+  });
+
+  it("keeps an officer's streak out of the administrator's header", async () => {
+    setToken("tok123");
+    renderAt("/admin");
+    await screen.findByText("ADMIN PAGE");
+    expect(screen.queryByRole("button", { name: /Learning streak/ })).not.toBeInTheDocument();
   });
 
   it("signs the officer out back to the door", async () => {

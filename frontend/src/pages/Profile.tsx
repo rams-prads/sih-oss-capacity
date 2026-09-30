@@ -14,10 +14,12 @@ import type {
   Progression,
   User,
 } from "../api";
+import { AchievementsPanel } from "../components/AchievementBadge";
 import { ActivityCalendar } from "../components/ActivityCalendar";
 import { FeedbackPanel } from "../components/Feedback";
 import { ErrorBoundary } from "../components/ErrorBoundary";
 import { Badge, Card, Empty, ErrorNote, Spinner } from "../components/ui";
+import { useMomentum } from "../momentum/MomentumProvider";
 
 type Designation = { id: string; name: string; stream: string; grade: number };
 
@@ -37,6 +39,7 @@ export default function Profile({ userId, user }: { userId: string; user?: User 
   const [progression, setProgression] = useState<Progression | null>(null);
   const [designations, setDesignations] = useState<Designation[]>([]);
   const [error, setError] = useState("");
+  const { momentum } = useMomentum();
 
   const load = useCallback(async () => {
     setError("");
@@ -117,6 +120,7 @@ export default function Profile({ userId, user }: { userId: string; user?: User 
               {activity.current_streak > 0 && (
                 <Badge tone="teal">{activity.current_streak}-day streak</Badge>
               )}
+
             </div>
 
             {/* Packed left rather than spread across the card. As a full-width
@@ -158,6 +162,14 @@ export default function Profile({ userId, user }: { userId: string; user?: User 
       </Card>
 
       <ActivityCalendar activity={activity} />
+
+      {/* Under the calendar, because both are the same record read two ways:
+          the days an officer turned up, and what those days added up to. */}
+      {momentum && (
+        <ErrorBoundary label="Achievements">
+          <AchievementsPanel momentum={momentum} />
+        </ErrorBoundary>
+      )}
 
       {/* items-start, so each card is the height of what it holds. Stretched to
           match its taller neighbour, the shorter one carried a band of empty

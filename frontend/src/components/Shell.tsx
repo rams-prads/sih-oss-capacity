@@ -69,7 +69,7 @@ export type NavItem = { to: string; label: string; icon: string; blurb: string }
 export const OFFICER_NAV: NavItem[] = [
   { to: "/learner", label: "Dashboard", icon: ICONS.dashboard, blurb: "Gaps, profile and recommended training" },
   { to: "/my-learning", label: "My Courses", icon: ICONS.courses, blurb: "Enrolled courses, videos and checkpoints" },
-  { to: "/assess", label: "Quiz Generator", icon: ICONS.quiz, blurb: "Generate assessments from learning material" },
+  { to: "/assess", label: "Quiz Generator", icon: ICONS.quiz, blurb: "Practise from your own learning material - not recorded" },
   { to: "/profile", label: "My Profile", icon: ICONS.profile, blurb: "Your designation, study record and what has been measured" },
 ];
 // Registration is not in this list on purpose. It is how somebody who has no
@@ -88,20 +88,27 @@ export const ADMIN_NAV: NavItem[] = [
    The rail
    --------------------------------------------------------------------------- */
 
+/**
+ * One navigation, two shapes. On a phone it is a tab bar along the bottom -
+ * where a thumb reaches, and where a 72px rail would otherwise eat a fifth of
+ * the width. From a tablet up it is the rail. It is the same element restyled,
+ * not two navigations, so there is never a second set of links for assistive
+ * technology to read out or for a test to trip over.
+ */
 export function Rail({ items }: { items: NavItem[] }) {
   return (
-    <aside className="rail fixed inset-y-0 left-0 z-40 flex w-[4.5rem] flex-col items-center gap-1 bg-ink py-4">
+    <aside className="rail fixed inset-x-0 bottom-0 z-40 flex h-16 items-center bg-ink px-2 pb-[env(safe-area-inset-bottom)] sm:inset-y-0 sm:right-auto sm:h-auto sm:w-[4.5rem] sm:flex-col sm:gap-1 sm:px-0 sm:py-4 sm:pb-4">
       {/* The nib from the Karmayogi Bharat emblem, on white. The mark's own
           blue is close enough to the rail's navy to vanish against it, so the
           tile is the light ground the mark was drawn for. */}
       <span
-        className="mb-3 grid h-10 w-10 place-items-center rounded-xl bg-white"
+        className="mb-3 hidden h-10 w-10 place-items-center rounded-xl bg-white sm:grid"
         title="Karmayogi Bharat · Competency Platform"
       >
         <img src={mark} alt="" className="h-[26px] w-auto" />
       </span>
 
-      <nav className="flex flex-col items-center gap-1">
+      <nav className="flex w-full items-center justify-around gap-1 sm:w-auto sm:flex-col sm:justify-start">
         {items.map((item) => (
           <NavLink
             key={item.to}
@@ -115,15 +122,21 @@ export function Rail({ items }: { items: NavItem[] }) {
             }
             aria-label={item.label}
             className={({ isActive }) =>
-              `tip-host press relative grid h-11 w-11 place-items-center rounded-xl ${
+              `tip-host press relative flex h-12 min-w-0 flex-1 flex-col items-center justify-center gap-0.5 rounded-xl sm:grid sm:h-11 sm:w-11 sm:flex-none sm:place-items-center ${
                 isActive
                   ? "bg-saffron text-white"
-                  : "text-white/45 hover:bg-white/10 hover:text-white"
+                  : "text-white/60 hover:bg-white/10 hover:text-white sm:text-white/45"
               }`
             }
           >
             <Icon path={item.icon} className="h-[19px] w-[19px]" />
-            <span className="tip" role="tooltip">
+            {/* Visible under the icon on a phone, where there is no hover to
+                reveal a tooltip; hidden from assistive technology, which
+                already has the link's own label. */}
+            <span aria-hidden className="max-w-full truncate px-1 text-[10px] font-medium leading-none sm:hidden">
+              {item.label}
+            </span>
+            <span className="tip max-sm:hidden" role="tooltip">
               {item.label}
             </span>
           </NavLink>
@@ -185,16 +198,19 @@ export function UserMenu({
         onClick={() => setOpen((v) => !v)}
         aria-haspopup="menu"
         aria-expanded={open}
-        className="press flex items-center gap-2.5 rounded-xl border border-hairline bg-surface py-1.5 pl-1.5 pr-2.5 hover:border-hairline-strong"
+        className="press flex items-center gap-2.5 rounded-xl border border-hairline bg-surface py-1.5 pl-1.5 pr-1.5 hover:border-hairline-strong lg:pr-2.5"
       >
         <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-ink text-2xs font-semibold text-white">
           {active ? initials(active.name) : "—"}
         </span>
-        <span className="hidden text-left leading-tight sm:block">
-          <span className="block text-xs font-medium text-ink">
+        {/* The name needs a desktop's width; below that the initials stand in,
+            and the button keeps its full name for assistive technology. */}
+        <span className="sr-only lg:hidden">{active?.name ?? "Select officer"}</span>
+        <span className="hidden max-w-[14rem] text-left leading-tight lg:block">
+          <span className="block truncate text-xs font-medium text-ink">
             {active?.name ?? "Select officer"}
           </span>
-          <span className="block text-2xs text-ink-3">{active?.role_name ?? ""}</span>
+          <span className="block truncate text-2xs text-ink-3">{active?.role_name ?? ""}</span>
         </span>
         <svg viewBox="0 0 12 12" className="h-3 w-3 shrink-0 text-ink-4" aria-hidden>
           <path d="M3 4.5 6 7.5l3-3" {...stroke} strokeWidth={1.4} />
@@ -204,7 +220,7 @@ export function UserMenu({
       {open && (
         <div
           role="menu"
-          className="menu-in absolute right-0 z-50 mt-2 w-72 overflow-hidden rounded-xl border border-hairline bg-surface shadow-[var(--shadow-lg)]"
+          className="menu-in absolute right-0 z-50 mt-2 w-[min(18rem,calc(100vw-2rem))] overflow-hidden rounded-xl border border-hairline bg-surface shadow-[var(--shadow-lg)]"
         >
           <p className="border-b border-hairline px-3 py-2 text-2xs font-medium uppercase tracking-[0.08em] text-ink-3">
             Viewing as
@@ -259,7 +275,7 @@ export function SignOutButton({ onClick }: { onClick: () => void }) {
   return (
     <button
       onClick={onClick}
-      className="press rounded-xl border border-hairline bg-surface px-3 py-2 text-xs font-medium text-ink-2 hover:border-hairline-strong hover:bg-raised"
+      className="press shrink-0 whitespace-nowrap rounded-xl border border-hairline bg-surface px-2.5 py-2 text-xs font-medium text-ink-2 hover:border-hairline-strong hover:bg-raised sm:px-3"
     >
       Sign out
     </button>

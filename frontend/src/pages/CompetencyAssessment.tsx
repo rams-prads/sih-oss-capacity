@@ -8,6 +8,7 @@ import {
 import type { CompetencyAssessment, CompetencyAssessmentResult } from "../api";
 import { CheckCircleIcon, CrossCircleIcon } from "../components/icons";
 import { Badge, Card, ErrorNote, Spinner, Stat } from "../components/ui";
+import { useMomentum } from "../momentum/MomentumProvider";
 
 /**
  * Sitting an assessment for one competency, straight from the question bank.
@@ -26,6 +27,7 @@ export default function CompetencyAssessment({ userId }: { userId: string }) {
   const [result, setResult] = useState<CompetencyAssessmentResult | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
+  const { celebrate } = useMomentum();
 
   const load = useCallback(async () => {
     setError("");
@@ -51,7 +53,11 @@ export default function CompetencyAssessment({ userId }: { userId: string }) {
     setSubmitting(true);
     setError("");
     try {
-      setResult(await submitCompetencyAssessment(userId, competencyId, answers));
+      const outcome = await submitCompetencyAssessment(userId, competencyId, answers);
+      setResult(outcome);
+      celebrate(
+        outcome.level_after > outcome.level_before ? "Competency improved" : "Assessment recorded",
+      );
     } catch (e) {
       const detail = (e as { response?: { data?: { detail?: string } } })?.response?.data
         ?.detail;
@@ -62,8 +68,9 @@ export default function CompetencyAssessment({ userId }: { userId: string }) {
   }
 
   // Not every competency has bank questions written for it yet. That is a real
-  // state, not a failure, and the generator can still assess it from a document
-  // the officer supplies - so this offers that rather than stopping here.
+  // state, not a failure. Nothing can measure this competency until the bank
+  // covers it, but the officer can still study for it - so this offers the
+  // practice generator, named as practice so it is not mistaken for the test.
   if (error && !quiz)
     return (
       <div className="space-y-4">
@@ -73,7 +80,7 @@ export default function CompetencyAssessment({ userId }: { userId: string }) {
             onClick={() => navigate("/assess", { state: { competencyId } })}
             className="rounded-lg bg-ashoka px-4 py-2 text-sm font-medium text-white transition hover:bg-ashoka-2"
           >
-            Assess from your own material
+            Practise from your own material
           </button>
           <button
             onClick={() => navigate("/learner")}
@@ -189,7 +196,7 @@ export default function CompetencyAssessment({ userId }: { userId: string }) {
               <li key={item.question_id} className="flex gap-3 text-sm">
                 <span
                   className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-xs font-bold text-white ${
-                    item.correct ? "bg-chakra" : "bg-alert-soft0"
+                    item.correct ? "bg-chakra" : "bg-alert"
                   }`}
                 >
                   {item.correct ? <CheckCircleIcon /> : <CrossCircleIcon />}

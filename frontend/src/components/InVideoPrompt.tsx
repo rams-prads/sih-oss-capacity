@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { answerPrompt } from "../api";
 import type { PromptAnswer, VideoPrompt } from "../api";
+import { useMomentum } from "../momentum/MomentumProvider";
 import { CheckCircleIcon, QuestionMarkerIcon, ReplayTenIcon } from "./icons";
 
 function stamp(seconds: number) {
@@ -30,12 +31,17 @@ export function InVideoPrompt({
   const [chosen, setChosen] = useState<number | null>(null);
   const [result, setResult] = useState<PromptAnswer | null>(null);
   const [busy, setBusy] = useState(false);
+  const { refresh } = useMomentum();
 
   async function submit() {
     if (chosen === null) return;
     setBusy(true);
     try {
       setResult(await answerPrompt(prompt.id, userId, chosen));
+      // The answer counts towards today, but a toast over a paused video
+      // would interrupt the very moment this question exists to create, so
+      // the record is re-read quietly instead.
+      refresh();
     } finally {
       setBusy(false);
     }
