@@ -8,6 +8,39 @@ import { CentrePlay, ControlBar } from "./PlayerControls";
 const IDLE_MS = 2600;
 
 /**
+ * The level the officer last chose.
+ *
+ * Every lesson mounts a video element of its own, which starts at full volume,
+ * so without this a level set once is undone by the next video. Kept in the
+ * browser because it is a preference of this person on this machine and belongs
+ * nowhere near the record; storage is guarded because a private window can
+ * refuse it, and a refusal only costs the memory of it.
+ */
+const VOLUME_KEY = "oss.volume";
+
+let rememberedVolume = read();
+
+function read(): number {
+  try {
+    const stored = Number(localStorage.getItem(VOLUME_KEY));
+    return Number.isFinite(stored) && stored > 0 && stored <= 1 ? stored : 1;
+  } catch {
+    return 1;
+  }
+}
+
+function rememberVolume(value: number, muted: boolean) {
+  // Muting is not a level, and must not be remembered as silence.
+  if (muted || value <= 0) return;
+  rememberedVolume = value;
+  try {
+    localStorage.setItem(VOLUME_KEY, String(value));
+  } catch {
+    // A private window can refuse storage; the level still holds for this visit.
+  }
+}
+
+/**
  * A lesson video that stops to ask what was just said.
  *
  * The browser's own controls are replaced for two reasons, both of which broke
@@ -49,6 +82,7 @@ export function LessonPlayer({
   const [duration, setDuration] = useState(0);
   const [buffered, setBuffered] = useState(0);
   const [muted, setMuted] = useState(false);
+  const [volume, setVolume] = useState(rememberedVolume);
   const [speed, setSpeed] = useState(1);
   const [fullscreen, setFullscreen] = useState(false);
   const [chromeVisible, setChromeVisible] = useState(true);
@@ -117,7 +151,19 @@ export function LessonPlayer({
 
   const toggleMute = useCallback(() => {
     const video = videoRef.current;
-    if (video) video.muted = !video.muted;
+    if (!video) return;
+    // Unmuting a video whose level was dragged to nothing has to give it a
+    // level back, or the button appears to do nothing.
+    if (video.muted && video.volume === 0) video.volume = 0.5;
+    video.muted = !video.muted;
+  }, []);
+
+  const changeVolume = useCallback((value: number) => {
+    const video = videoRef.current;
+    if (!video) return;
+    video.volume = value;
+    // Dragging to nothing is muting, and dragging back up is unmuting.
+    video.muted = value === 0;
   }, []);
 
   const toggleFullscreen = useCallback(async () => {
@@ -220,9 +266,18 @@ export function LessonPlayer({
           }}
           onTimeUpdate={handleTimeUpdate}
           onProgress={handleTimeUpdate}
-          onLoadedMetadata={(e) => setDuration(e.currentTarget.duration)}
           onRateChange={(e) => setSpeed(e.currentTarget.playbackRate)}
-          onVolumeChange={(e) => setMuted(e.currentTarget.muted)}
+          onVolumeChange={(e) => {
+            setMuted(e.currentTarget.muted);
+            setVolume(e.currentTarget.volume);
+            rememberVolume(e.currentTarget.volume, e.currentTarget.muted);
+          }}
+          // Each lesson mounts its own video element, so the level the officer
+          // chose is put back rather than starting at full every time.
+          onLoadedMetadata={(e) => {
+            e.currentTarget.volume = rememberedVolume;
+            setDuration(e.currentTarget.duration);
+          }}
           // Reaching the end is the evidence. No self-reported ticking.
           onEnded={() => {
             setPlaying(false);
@@ -247,6 +302,7 @@ export function LessonPlayer({
               duration={duration}
               buffered={buffered}
               muted={muted}
+              volume={volume}
               fullscreen={fullscreen}
               speed={speed}
               prompts={prompts}
@@ -255,6 +311,7 @@ export function LessonPlayer({
               onSkip={skip}
               onSeek={seek}
               onToggleMute={toggleMute}
+              onVolume={changeVolume}
               onToggleFullscreen={toggleFullscreen}
               onSpeed={(rate) => {
                 const video = videoRef.current;

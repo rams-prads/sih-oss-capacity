@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { LearningCourse, ModuleItem } from "../api";
+import { isPlaceholderSection } from "./sections";
 import {
   CheckCircleIcon,
   ChevronDownIcon,
@@ -34,11 +35,15 @@ export function CurriculumPanel({
   // Open the module holding the current lesson, and the first otherwise, so the
   // panel never opens fully collapsed.
   const [open, setOpen] = useState<Set<number>>(() => {
-    const holding = course.modules.find((m) =>
-      m.lessons.some((l) => l.id === selectedLessonId),
-    );
+    const holding = course.modules.find((m) => m.lessons.some((l) => l.id === selectedLessonId));
     return new Set<number>([holding?.module_index ?? course.modules[0]?.module_index ?? 0]);
   });
+
+  // With every section named after the position of what is inside it, the
+  // headings say nothing and the videos read better as one list.
+  const flat = !course.modules.some(
+    (module) => module.lessons.length > 0 && !isPlaceholderSection(module.title),
+  );
 
   function toggle(index: number) {
     setOpen((current) => {
@@ -54,26 +59,44 @@ export function CurriculumPanel({
       <header className="border-b border-hairline px-4 py-3">
         <h2 className="text-base font-semibold text-ink">Course content</h2>
         <p className="mt-1 text-xs text-ink-3">
-          {course.modules.length} module{course.modules.length === 1 ? "" : "s"}
-          {" \u00b7 "}
+          {/* Sections are only worth counting when they are named. */}
+          {!flat && (
+            <>
+              {course.modules.length} module{course.modules.length === 1 ? "" : "s"}
+              {" \u00b7 "}
+            </>
+          )}
           {course.lessons_total} video{course.lessons_total === 1 ? "" : "s"}
+          {course.checkpoints_total > 0 &&
+            ` \u00b7 ${course.checkpoints_total} quiz${course.checkpoints_total === 1 ? "" : "zes"}`}
         </p>
       </header>
 
       {/* Its own scroll region: the video beside it must never move. */}
       <div className="min-h-0 flex-1 overflow-y-auto">
-        {course.modules.map((module) => (
-          <ModuleSection
-            key={module.module_index}
-            module={module}
-            expanded={open.has(module.module_index)}
-            locked={course.status === "expired"}
-            selectedLessonId={selectedLessonId}
-            onToggle={() => toggle(module.module_index)}
-            onSelectLesson={onSelectLesson}
-            onOpenCheckpoint={onOpenCheckpoint}
-          />
-        ))}
+        {flat
+          ? course.modules.map((module) => (
+              <ModuleItems
+                key={module.module_index}
+                module={module}
+                locked={course.status === "expired"}
+                selectedLessonId={selectedLessonId}
+                onSelectLesson={onSelectLesson}
+                onOpenCheckpoint={onOpenCheckpoint}
+              />
+            ))
+          : course.modules.map((module) => (
+              <ModuleSection
+                key={module.module_index}
+                module={module}
+                expanded={open.has(module.module_index)}
+                locked={course.status === "expired"}
+                selectedLessonId={selectedLessonId}
+                onToggle={() => toggle(module.module_index)}
+                onSelectLesson={onSelectLesson}
+                onOpenCheckpoint={onOpenCheckpoint}
+              />
+            ))}
       </div>
     </aside>
   );
@@ -125,82 +148,113 @@ function ModuleSection({
       </button>
 
       {expanded ? (
-        <ul className="pb-1">
-          {module.lessons.map((lesson) => {
-            const current = lesson.id === selectedLessonId;
-            return (
-              <li key={lesson.id}>
-                <button
-                  type="button"
-                  onClick={() => onSelectLesson(lesson.id)}
-                  aria-current={current ? "true" : undefined}
-                  className={`flex w-full items-center gap-2.5 border-l-2 py-2.5 pl-4 pr-3 text-left transition ${
-                    current
-                      ? "border-ashoka bg-ashoka-soft"
-                      : "border-transparent hover:bg-raised"
-                  }`}
-                >
-                  {current ? (
-                    <PlayCircleIcon className="shrink-0 text-[18px] text-ashoka" />
-                  ) : locked ? (
-                    <LockIcon className="shrink-0 text-[16px] text-ink-4" />
-                  ) : lesson.completed ? (
-                    <CheckCircleIcon className="shrink-0 text-[18px] text-chakra" />
-                  ) : (
-                    <CircleIcon className="shrink-0 text-[18px] text-hairline-strong" />
-                  )}
-                  <span
-                    className={`min-w-0 flex-1 truncate text-sm leading-snug ${
-                      current
-                        ? "font-medium text-ink"
-                        : lesson.completed
-                          ? "text-ink-3"
-                          : "text-ink-2"
-                    }`}
-                  >
-                    {lesson.title}
-                  </span>
-                  <span className="inline-flex shrink-0 items-center gap-1 text-xs tabular-nums text-ink-4">
-                    <ClockIcon className="text-[14px]" />
-                    {lesson.duration_min}
-                  </span>
-                </button>
-              </li>
-            );
-          })}
-
-          {module.checkpoint_id !== null ? (
-            <li>
-              <button
-                type="button"
-                disabled={!module.checkpoint_unlocked}
-                onClick={() => onOpenCheckpoint(module.checkpoint_id as number)}
-                className={`flex w-full items-center gap-2.5 border-l-2 border-transparent py-2.5 pl-4 pr-3 text-left transition ${
-                  module.checkpoint_unlocked
-                    ? "hover:bg-raised"
-                    : "cursor-not-allowed opacity-60"
-                }`}
-              >
-                {module.checkpoint_passed ? (
-                  <CheckCircleIcon className="shrink-0 text-[18px] text-chakra" />
-                ) : module.checkpoint_unlocked ? (
-                  <QuestionMarkerIcon className="shrink-0 text-[18px] text-ink-3" />
-                ) : (
-                  <LockIcon className="shrink-0 text-[16px] text-ink-4" />
-                )}
-                <span className="min-w-0 flex-1 truncate text-sm text-ink-2">
-                  {module.lessons_total === 0 ? "Final assessment" : "Checkpoint quiz"}
-                </span>
-                <span className="shrink-0 text-xs tabular-nums text-ink-4">
-                  {module.best_score_pct !== null
-                    ? `${module.best_score_pct}%`
-                    : `pass ${module.pass_pct}%`}
-                </span>
-              </button>
-            </li>
-          ) : null}
-        </ul>
+        <ModuleItems
+          module={module}
+          locked={locked}
+          selectedLessonId={selectedLessonId}
+          onSelectLesson={onSelectLesson}
+          onOpenCheckpoint={onOpenCheckpoint}
+        />
       ) : null}
     </section>
+  );
+}
+
+/**
+ * The rows of one section: its videos, then the quiz that closes it. Rendered
+ * inside a section when the sections are named, and one after another with no
+ * headings at all when they are not.
+ */
+function ModuleItems({
+  module,
+  locked,
+  selectedLessonId,
+  onSelectLesson,
+  onOpenCheckpoint,
+}: {
+  module: ModuleItem;
+  locked: boolean;
+  selectedLessonId: number | null;
+  onSelectLesson: (lessonId: number) => void;
+  onOpenCheckpoint: (checkpointId: number) => void;
+}) {
+  return (
+    <ul className="pb-1">
+      {module.lessons.map((lesson) => {
+        const current = lesson.id === selectedLessonId;
+        return (
+          <li key={lesson.id}>
+            <button
+              type="button"
+              onClick={() => onSelectLesson(lesson.id)}
+              aria-current={current ? "true" : undefined}
+              className={`flex w-full items-center gap-2.5 border-l-2 py-2.5 pl-4 pr-3 text-left transition ${
+                current ? "border-ashoka bg-ashoka-soft" : "border-transparent hover:bg-raised"
+              }`}
+            >
+              {current ? (
+                <PlayCircleIcon className="shrink-0 text-[18px] text-ashoka" />
+              ) : locked ? (
+                <LockIcon className="shrink-0 text-[16px] text-ink-4" />
+              ) : lesson.completed ? (
+                <CheckCircleIcon className="shrink-0 text-[18px] text-chakra" />
+              ) : (
+                <CircleIcon className="shrink-0 text-[18px] text-hairline-strong" />
+              )}
+              <span
+                className={`min-w-0 flex-1 truncate text-sm leading-snug ${
+                  current ? "font-medium text-ink" : lesson.completed ? "text-ink-3" : "text-ink-2"
+                }`}
+              >
+                {lesson.title}
+              </span>
+              <span className="inline-flex shrink-0 items-center gap-1 text-xs tabular-nums text-ink-4">
+                <ClockIcon className="text-[14px]" />
+                {lesson.duration_min}
+              </span>
+            </button>
+          </li>
+        );
+      })}
+
+      {module.checkpoint_id !== null ? (
+        <li>
+          <button
+            type="button"
+            disabled={!module.checkpoint_unlocked}
+            onClick={() => onOpenCheckpoint(module.checkpoint_id as number)}
+            className={`flex w-full items-center gap-2.5 border-l-2 border-transparent py-2.5 pl-4 pr-3 text-left transition ${
+              module.checkpoint_unlocked ? "hover:bg-raised" : "cursor-not-allowed opacity-60"
+            }`}
+          >
+            {module.checkpoint_passed ? (
+              <CheckCircleIcon className="shrink-0 text-[18px] text-chakra" />
+            ) : module.checkpoint_unlocked ? (
+              <QuestionMarkerIcon className="shrink-0 text-[18px] text-ink-3" />
+            ) : (
+              <LockIcon className="shrink-0 text-[16px] text-ink-4" />
+            )}
+            {/* Two lines, as a quiz is listed on iGOT itself: what it is,
+                  then how many questions it asks and what passes it. */}
+            <span className="min-w-0 flex-1">
+              <span className="block truncate text-sm text-ink-2">
+                {module.lessons_total === 0 ? "Final assessment" : "Checkpoint quiz"}
+              </span>
+              <span className="mt-0.5 block truncate text-xs tabular-nums text-ink-4">
+                {module.question_count
+                  ? `${module.question_count} question${module.question_count === 1 ? "" : "s"} · `
+                  : ""}
+                pass {module.pass_pct}%
+              </span>
+            </span>
+            {module.best_score_pct !== null ? (
+              <span className="shrink-0 text-xs font-medium tabular-nums text-ink-3">
+                {module.best_score_pct}%
+              </span>
+            ) : null}
+          </button>
+        </li>
+      ) : null}
+    </ul>
   );
 }

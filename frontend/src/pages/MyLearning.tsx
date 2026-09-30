@@ -1,36 +1,42 @@
 import { useCallback, useEffect, useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import {
   completeLesson,
+  getActivity,
   getCheckpoint,
   getLearning,
+  getNextAction,
   submitCheckpoint,
 } from "../api";
 import type {
+  BestAction,
   CheckpointQuiz,
   CheckpointResult,
-  CourseStatus,
+  ContinueLearning,
+  LearnerActivity,
   LearningDashboard,
 } from "../api";
 import { CheckpointModal } from "../components/CheckpointModal";
+import { ContinueCard, pickResume } from "../components/ContinueCard";
+import { CourseLibrary } from "../components/CourseLibrary";
+import type { CourseFilter } from "../components/CourseLibrary";
 import { CourseTutorLauncher } from "../components/CourseTutor";
 import { CoursePlayerView } from "../components/CoursePlayerView";
-import { EnrolledCourseCard } from "../components/EnrolledCourseCard";
-import { ProgressBar, STATUS_META } from "../components/Progress";
-import { TopicMasteryPanel } from "../components/TopicMasteryPanel";
-import { Card, Empty, ErrorNote, Spinner } from "../components/ui";
 import { ErrorBoundary } from "../components/ErrorBoundary";
-
-const FILTERS: { key: CourseStatus | "all"; label: string }[] = [
-  { key: "all", label: "All" },
-  { key: "in_progress", label: "In progress" },
-  { key: "not_started", label: "Not started" },
-  { key: "completed", label: "Completed" },
-  { key: "expired", label: "Expired" },
-];
+import { ProgressOverview } from "../components/ProgressOverview";
+import { UpNext } from "../components/UpNext";
+import { WeekActivity } from "../components/WeekActivity";
+import { Button, Empty, ErrorNote, Spinner } from "../components/ui";
+import { useMomentum } from "../momentum/MomentumProvider";
 
 export default function MyLearning({ userId }: { userId: string }) {
+  const navigate = useNavigate();
+  // A course can be opened straight from a link - the dashboard's "Continue",
+  // a quest - so the open course is also held in the address.
+  const [searchParams, setSearchParams] = useSearchParams();
+  const { celebrate } = useMomentum();
   const [data, setData] = useState<LearningDashboard | null>(null);
-  const [filter, setFilter] = useState<CourseStatus | "all">("all");
+  const [filter, setFilter] = useState<CourseFilter>("all");
   const [busyLessonId, setBusyLessonId] = useState<number | null>(null);
   const [quiz, setQuiz] = useState<CheckpointQuiz | null>(null);
   const [result, setResult] = useState<CheckpointResult | null>(null);
@@ -39,11 +45,19 @@ export default function MyLearning({ userId }: { userId: string }) {
   // Which course is open. Null shows the list; a course opens the two-pane
   // player, so the outline is reachable without scrolling past everything.
   const [openCourseId, setOpenCourseId] = useState<string | null>(null);
-  // A lesson the tutor asked to have opened, and a counter that makes a repeat
-  // request for the same lesson still register as a request.
+  // A lesson somewhere else asked to have opened - the tutor, the continue
+  // card, the up-next list - and a counter that makes a repeat request for the
+  // same lesson still register as a request.
   const [focusLesson, setFocusLesson] = useState<{ lessonId: number; seq: number } | null>(
     null,
   );
+
+  // The week's study time and the course in hand load on their own: neither
+  // may hold up the course list, and if either fails its panel is simply left
+  // out or falls back to what the list itself knows.
+  const [activity, setActivity] = useState<LearnerActivity | null>(null);
+  const [activityFailed, setActivityFailed] = useState(false);
+  const [inHand, setInHand] = useState<ContinueLearning | null>(null);
 
   const load = useCallback(async () => {
     try {
@@ -53,12 +67,34 @@ export default function MyLearning({ userId }: { userId: string }) {
     }
   }, [userId]);
 
+  const loadAround = useCallback(() => {
+    getActivity(userId, 14)
+      .then((record) => {
+        setActivity(record);
+        setActivityFailed(false);
+      })
+      .catch(() => setActivityFailed(true));
+    getNextAction(userId)
+      .then((plan) => setInHand(plan.continue_learning))
+      .catch(() => setInHand(null));
+  }, [userId]);
+
   useEffect(() => {
     setData(null);
+    setActivity(null);
+    setInHand(null);
     setFilter("all");
-    setOpenCourseId(null);
+    setOpenCourseId(searchParams.get("course"));
     load();
-  }, [load]);
+    loadAround();
+    // Read once per officer: after that the open course is this page's state,
+    // written back to the address rather than read from it.
+  }, [load, loadAround]);
+
+  function openCourseView(identifier: string | null) {
+    setOpenCourseId(identifier);
+    setSearchParams(identifier ? { course: identifier } : {}, { replace: true });
+  }
 
   function apiError(e: unknown, fallback: string) {
     const detail = (e as { response?: { data?: { detail?: string } } })?.response?.data?.detail;
@@ -71,6 +107,8 @@ export default function MyLearning({ userId }: { userId: string }) {
     try {
       await completeLesson(userId, lessonId);
       await load();
+      loadAround();
+      celebrate("Video complete");
     } catch (e) {
       setError(apiError(e, "Could not record that video."));
     } finally {
@@ -79,16 +117,17 @@ export default function MyLearning({ userId }: { userId: string }) {
   }
 
   /**
-   * Put a lesson on screen, from the tutor's "Open".
+   * Put a lesson on screen - from the tutor's "Open", the continue card or the
+   * up-next list.
    *
-   * Navigation only. This was wired to handleWatch, which posts the completion
-   * endpoint: asking the tutor what to revise and pressing Open marked the
-   * video watched without playing a second of it, and moved the course
-   * progress bar with it. Progress has to mean the officer watched the thing.
+   * Navigation only. This was once wired to handleWatch, which posts the
+   * completion endpoint: asking the tutor what to revise and pressing Open
+   * marked the video watched without playing a second of it, and moved the
+   * course progress bar with it. Progress has to mean the officer watched it.
    */
   function handleOpenLesson(courseIdentifier: string, lessonId: number) {
     setError("");
-    setOpenCourseId(courseIdentifier);
+    openCourseView(courseIdentifier);
     setFocusLesson((current) => ({ lessonId, seq: (current?.seq ?? 0) + 1 }));
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
@@ -107,8 +146,11 @@ export default function MyLearning({ userId }: { userId: string }) {
     if (!quiz) return;
     setSubmitting(true);
     try {
-      setResult(await submitCheckpoint(quiz.checkpoint_id, userId, answers));
+      const outcome = await submitCheckpoint(quiz.checkpoint_id, userId, answers);
+      setResult(outcome);
       await load();
+      loadAround();
+      celebrate(outcome.passed ? "Checkpoint passed" : "Checkpoint recorded");
     } catch (e) {
       setError(apiError(e, "Could not submit the checkpoint."));
     } finally {
@@ -116,22 +158,33 @@ export default function MyLearning({ userId }: { userId: string }) {
     }
   }
 
+  function showStatus(status: CourseFilter) {
+    setFilter(status);
+    document.getElementById("course-library")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
   if (error && !data) return <ErrorNote>{error}</ErrorNote>;
   if (!data) return <Spinner label="Loading your learning record" />;
 
   const { summary, courses } = data;
-  const visible = filter === "all" ? courses : courses.filter((c) => c.status === filter);
-  const counts: Record<CourseStatus | "all", number> = {
-    all: courses.length,
-    in_progress: summary.in_progress,
-    not_started: summary.not_started,
-    completed: summary.completed,
-    expired: summary.expired,
-  };
-
   const openCourse = courses.find((c) => c.course_identifier === openCourseId) ?? null;
 
-  // One course open takes the whole screen. Keeping the summary, the filters
+  const checkpointModal = quiz && (
+    <CheckpointModal
+      quiz={quiz}
+      result={result}
+      submitting={submitting}
+      error={error}
+      onSubmit={handleSubmit}
+      onClose={() => {
+        setQuiz(null);
+        setResult(null);
+        setError("");
+      }}
+    />
+  );
+
+  // One course open takes the whole screen. Keeping the overview, the filters
   // and the tutor above it would push the video down and reintroduce exactly
   // the scrolling this layout removes.
   if (openCourse) {
@@ -144,25 +197,12 @@ export default function MyLearning({ userId }: { userId: string }) {
           userId={userId}
           busyLessonId={busyLessonId}
           focusLesson={focusLesson}
-          onBack={() => setOpenCourseId(null)}
+          onBack={() => openCourseView(null)}
           onWatch={handleWatch}
           onOpenCheckpoint={handleOpenCheckpoint}
         />
 
-        {quiz && (
-          <CheckpointModal
-            quiz={quiz}
-            result={result}
-            submitting={submitting}
-            error={error}
-            onSubmit={handleSubmit}
-            onClose={() => {
-              setQuiz(null);
-              setResult(null);
-              setError("");
-            }}
-          />
-        )}
+        {checkpointModal}
 
         {courses.length > 0 && (
           <ErrorBoundary label="The tutor">
@@ -178,145 +218,97 @@ export default function MyLearning({ userId }: { userId: string }) {
     );
   }
 
+  const resume = pickResume(courses, inHand);
+
   return (
     <div className="space-y-5">
       {error && <ErrorNote>{error}</ErrorNote>}
 
-      <Card
-        title="Learning summary"
-        subtitle={`${data.user_name} · ${data.role_name} · ${data.department}`}
-      >
-        <div className="grid gap-6 lg:grid-cols-3">
-          <div className="lg:col-span-2">
-            <div className="mb-1.5 flex items-baseline justify-between">
-              <span className="text-sm font-medium text-ink-2">
-                Overall completion across {summary.enrolled} courses
-              </span>
-              <span className="text-lg font-semibold tabular-nums text-ink">
-                {summary.overall_progress_pct}%
-              </span>
-            </div>
-            <ProgressBar
-              value={summary.overall_progress_pct}
-              status="in_progress"
-              height="h-2.5"
-            />
-            <p className="mt-2 text-xs text-ink-3">
-              {summary.lessons_completed} of {summary.lessons_total} videos watched and{" "}
-              {summary.checkpoints_passed} checkpoints passed. Progress is counted from
-              completed videos and passed checkpoints only.
-            </p>
-
-            <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-4">
-              {(["in_progress", "completed", "expired", "not_started"] as CourseStatus[]).map(
-                (s) => (
-                  <div
-                    key={s}
-                    className="rounded-lg border border-hairline px-3 py-2"
-                  >
-                    <div className="flex items-center gap-1.5">
-                      <span className={`h-1.5 w-1.5 rounded-full ${STATUS_META[s].dot}`} />
-                      <span className="text-xs text-ink-3">{STATUS_META[s].label}</span>
-                    </div>
-                    <p className="mt-0.5 text-xl font-semibold tabular-nums text-ink">
-                      {counts[s]}
-                    </p>
-                  </div>
-                ),
-              )}
-            </div>
-          </div>
-
-          <div className="rounded-xl bg-raised p-4">
-            <p className="text-xs font-medium uppercase tracking-wide text-ink-3">
-              Assessment record
-            </p>
-            <p className="mt-1.5 text-2xl font-semibold tabular-nums text-ink">
-              {summary.avg_checkpoint_score !== null
-                ? `${summary.avg_checkpoint_score}%`
-                : "—"}
-            </p>
-            <p className="text-xs text-ink-3">average checkpoint score</p>
-            <p className="mt-3 text-sm text-ink-2">
-              {summary.questions_correct} of {summary.questions_answered} questions answered
-              correctly
-            </p>
-            <p className="mt-3 border-t border-hairline pt-3 text-xs leading-relaxed text-ink-3">
-              A checkpoint quiz follows every three videos. It unlocks once those videos are
-              watched, and you can retake it until you pass.
-            </p>
-          </div>
-        </div>
-      </Card>
-
-      <Card
-        title="Courses"
-        subtitle="Everything you are enrolled in, with what to do next"
-        right={
-          <div className="flex flex-wrap gap-1">
-            {FILTERS.map((f) => (
-              <button
-                key={f.key}
-                onClick={() => setFilter(f.key)}
-                className={`rounded-lg px-2.5 py-1 text-xs font-medium transition ${
-                  filter === f.key
-                    ? "bg-ashoka text-white"
-                    : "text-ink-2 hover:bg-ground"
-                }`}
-              >
-                {f.label}
-                <span className="ml-1 tabular-nums opacity-60">{counts[f.key]}</span>
-              </button>
-            ))}
-          </div>
-        }
-      >
-        {visible.length === 0 ? (
-          <Empty>No courses in this category.</Empty>
-        ) : (
-          <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
-            {visible.map((course) => (
-              <EnrolledCourseCard
-                key={course.course_identifier}
-                course={course}
-                onOpen={() => setOpenCourseId(course.course_identifier)}
+      {courses.length > 0 && (
+        // Every column is sized from zero: an implicit grid column grows to its
+        // widest child, and the filter row's full width pushed a phone sideways.
+        <div
+          className={`grid grid-cols-[minmax(0,1fr)] gap-5 ${
+            resume ? "xl:grid-cols-[minmax(0,7fr)_minmax(0,5fr)]" : ""
+          }`}
+        >
+          {resume && (
+            <ErrorBoundary label="The course in hand">
+              <ContinueCard
+                resume={resume}
+                onPlayLesson={handleOpenLesson}
+                onCheckpoint={handleOpenCheckpoint}
+                onOpen={(id) => openCourseView(id)}
               />
-            ))}
-          </div>
-        )}
-      </Card>
-
-      <Card
-        title="Topic record"
-        subtitle="Accuracy on checkpoint questions you have answered, weakest first"
-      >
-        <TopicMasteryPanel topics={data.topic_mastery} />
-      </Card>
-
-      {quiz && (
-        <CheckpointModal
-          quiz={quiz}
-          result={result}
-          submitting={submitting}
-          error={error}
-          onSubmit={handleSubmit}
-          onClose={() => {
-            setQuiz(null);
-            setResult(null);
-            setError("");
-          }}
-        />
+            </ErrorBoundary>
+          )}
+          <ProgressOverview summary={summary} onFilter={showStatus} />
+        </div>
       )}
+
+      <div className="grid grid-cols-[minmax(0,1fr)] gap-5 xl:grid-cols-[minmax(0,1fr)_22rem] xl:items-start">
+        <CourseLibrary
+          courses={courses}
+          filter={filter}
+          onFilterChange={setFilter}
+          onOpen={(id) => openCourseView(id)}
+          empty={<NoLearningPath userId={userId} onAct={(path) => navigate(path)} />}
+        />
+
+        {courses.length > 0 && (
+          <aside className="space-y-5 xl:sticky xl:top-24" aria-label="This week and what is next">
+            <ErrorBoundary label="This week">
+              <WeekActivity activity={activity} failed={activityFailed} />
+            </ErrorBoundary>
+            <UpNext
+              courses={courses}
+              onPlayLesson={handleOpenLesson}
+              onCheckpoint={handleOpenCheckpoint}
+              onOpen={(id) => openCourseView(id)}
+            />
+          </aside>
+        )}
+      </div>
+
+      {checkpointModal}
 
       {courses.length > 0 && (
         <ErrorBoundary label="The tutor">
-          <CourseTutorLauncher
-            userId={userId}
-            courses={courses}
-            onOpenLesson={handleOpenLesson}
-          />
+          <CourseTutorLauncher userId={userId} courses={courses} onOpenLesson={handleOpenLesson} />
         </ErrorBoundary>
       )}
     </div>
+  );
+}
+
+/**
+ * The empty state for an officer with no courses at all: not "no results", but
+ * where the gap engine says to begin, and the one press that begins it.
+ */
+function NoLearningPath({ userId, onAct }: { userId: string; onAct: (path: string) => void }) {
+  const [best, setBest] = useState<BestAction | null>(null);
+
+  useEffect(() => {
+    getNextAction(userId)
+      .then((plan) => setBest(plan.best_action))
+      .catch(() => setBest(null));
+  }, [userId]);
+
+  const path =
+    best?.kind === "assess" && best.competency_id ? `/assess/${best.competency_id}` : "/learner";
+
+  return (
+    <Empty
+      title="You haven't started a learning path yet"
+      action={
+        <Button variant="primary" onClick={() => onAct(path)}>
+          {best?.kind === "assess" ? best.cta_label : "View recommended training"}
+        </Button>
+      }
+    >
+      {best?.competency_name
+        ? `Based on your competency record, start with ${best.competency_name}. ${best.reason}`
+        : "Your dashboard lists training matched to the competencies your role requires."}
+    </Empty>
   );
 }

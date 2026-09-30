@@ -150,7 +150,7 @@ export function CourseTutorLauncher({
           // Below the checkpoint modal's z-50 on purpose: a quiz in progress
           // is the whole screen, and a chat button floating over it would be
           // an invitation to leave the sitting half-answered.
-          className="dock-in fixed bottom-24 right-5 z-40 flex max-h-[min(34rem,calc(100vh-9rem))] w-[min(24rem,calc(100vw-2.5rem))] flex-col overflow-hidden rounded-2xl border border-hairline bg-surface shadow-[var(--shadow-lg)]"
+          className="dock-in fixed bottom-36 right-3 z-40 sm:bottom-24 sm:right-5 flex max-h-[min(34rem,calc(100vh-9rem))] w-[min(24rem,calc(100vw-2.5rem))] flex-col overflow-hidden rounded-2xl border border-hairline bg-surface shadow-[var(--shadow-lg)]"
         >
           <header className="flex items-start justify-between gap-3 border-b border-hairline px-4 py-3">
             <div className="min-w-0">
@@ -340,7 +340,7 @@ export function CourseTutorLauncher({
         aria-label={open ? "Hide the tutor" : "Ask about a course"}
         aria-expanded={open}
         title={open ? "Hide the tutor" : "Ask about a course"}
-        className="press fixed bottom-5 right-5 z-40 grid h-14 w-14 place-items-center rounded-full bg-ashoka text-xl text-white shadow-[var(--shadow-lg)] transition hover:bg-ashoka-2"
+        className="press fixed bottom-20 right-4 z-40 sm:bottom-5 sm:right-5 grid h-14 w-14 place-items-center rounded-full bg-ashoka text-xl text-white shadow-[var(--shadow-lg)] transition hover:bg-ashoka-2"
       >
         {open ? <CloseIcon /> : <ChatIcon />}
       </button>

@@ -36,6 +36,19 @@ describe("EnrolledCourseCard", () => {
     expect(screen.getByText(/1\/3 quizzes/)).toBeInTheDocument();
   });
 
+  it("stretches one link over the whole card, and keeps the hook that stops it shrinking", () => {
+    // The card is opened by pressing anywhere on it, which works because the
+    // title's button carries an overlay across the card. The press effect
+    // scales a button by 3%, which used to pull that overlay out from under
+    // the pointer and lose the click; index.css cancels it through .card-link,
+    // so the class and the overlay have to stay together.
+    const { container } = render(<EnrolledCourseCard course={makeCourse()} onOpen={() => {}} />);
+    const link = container.querySelector("button.card-link");
+    expect(link).toBeInTheDocument();
+    expect(link).toHaveClass("after:absolute");
+    expect(link).toHaveClass("after:inset-0");
+  });
+
   it("opens the course when clicked", async () => {
     const onOpen = vi.fn();
     render(<EnrolledCourseCard course={makeCourse()} onOpen={onOpen} />);

@@ -1,9 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
 import type { LearningCourse, LessonItem } from "../api";
+import { CourseAbout } from "./CourseAbout";
 import { CurriculumPanel } from "./CurriculumPanel";
 import { LessonPlayer } from "./LessonPlayer";
 import { ProgressBar, STATUS_META } from "./Progress";
-import { ChevronRightIcon, ClockIcon } from "./icons";
+import { ChevronRightIcon, ClockIcon, InfoIcon } from "./icons";
 
 /**
  * One course, open.
@@ -113,8 +114,8 @@ export function CoursePlayerView({
       {/* Main and outline. The outline is a fixed column on desktop and drops
           under the video on narrow screens, where a side panel has nowhere to
           go. */}
-      <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_340px]">
-        <div className="min-w-0">
+      <div className="grid grid-cols-[minmax(0,1fr)] gap-4 lg:grid-cols-[minmax(0,1fr)_340px]">
+        <div className="min-w-0 space-y-4">
           {selected ? (
             <LessonStage
               key={selected.id}
@@ -130,6 +131,11 @@ export function CoursePlayerView({
               This course is taken on the iGOT portal, so there are no videos to play here.
             </div>
           )}
+
+          {/* What the course is, under the video - the arrangement iGOT's own
+              player uses, and what a learner arriving from a recommendation
+              wants to check before spending an hour on it. */}
+          <CourseAbout course={course} />
         </div>
 
         <div className="lg:sticky lg:top-4 lg:h-[calc(100vh-2rem)]">
@@ -199,7 +205,20 @@ function LessonStage({
 
       <div className="flex flex-wrap items-start justify-between gap-3 rounded-xl border border-hairline bg-surface px-4 py-3">
         <div className="min-w-0">
-          <h2 className="text-lg font-semibold leading-snug text-ink">{lesson.title}</h2>
+          <h2 className="flex flex-wrap items-center gap-2 text-lg font-semibold leading-snug text-ink">
+            {lesson.title}
+            {lesson.title_from === "video" && (
+              <span
+                className="tip-host relative inline-flex text-ink-4"
+                title="iGOT published this video without a name; this is the title card the video opens on."
+              >
+                <InfoIcon className="text-[15px]" />
+                <span className="sr-only">
+                  Named from the video's own title card, because iGOT published no name for it.
+                </span>
+              </span>
+            )}
+          </h2>
           <p className="mt-1.5 inline-flex items-center gap-2 text-xs text-ink-3">
             <ClockIcon className="text-[13px]" />
             {lesson.duration_min} min

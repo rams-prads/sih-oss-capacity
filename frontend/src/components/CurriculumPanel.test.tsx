@@ -4,10 +4,13 @@ import { describe, expect, it, vi } from "vitest";
 import type { LearningCourse, ModuleItem } from "../api";
 import { CurriculumPanel } from "./CurriculumPanel";
 
+/** Sections as an author who names them writes them. */
+const SECTIONS = ["Sampling frames", "Field operations", "Editing and imputation"];
+
 function makeModule(index: number, over: Partial<ModuleItem> = {}): ModuleItem {
   return {
     module_index: index,
-    title: `Module ${index + 1}`,
+    title: SECTIONS[index] ?? `Module ${index + 1}`,
     topic_id: `T0${index}`,
     topic_name: `Topic ${index}`,
     checkpoint_id: 100 + index,
@@ -67,9 +70,9 @@ describe("CurriculumPanel", () => {
     render(
       <CurriculumPanel course={makeCourse()} selectedLessonId={null} onSelectLesson={noop} onOpenCheckpoint={noop} />,
     );
-    expect(screen.getByText("Module 1")).toBeInTheDocument();
-    expect(screen.getByText("Module 2")).toBeInTheDocument();
-    expect(screen.getByText("Module 3")).toBeInTheDocument();
+    expect(screen.getByText("Sampling frames")).toBeInTheDocument();
+    expect(screen.getByText("Field operations")).toBeInTheDocument();
+    expect(screen.getByText("Editing and imputation")).toBeInTheDocument();
   });
 
   it("opens the module holding the lesson being watched", () => {
@@ -92,7 +95,7 @@ describe("CurriculumPanel", () => {
     render(
       <CurriculumPanel course={makeCourse()} selectedLessonId={null} onSelectLesson={noop} onOpenCheckpoint={noop} />,
     );
-    const header = screen.getByRole("button", { name: /Module 1/ });
+    const header = screen.getByRole("button", { name: /Sampling frames/ });
     expect(header).toHaveAttribute("aria-expanded", "true");
     await userEvent.click(header);
     expect(header).toHaveAttribute("aria-expanded", "false");
@@ -144,6 +147,28 @@ describe("CurriculumPanel", () => {
     expect(within(checkpoint).getByText("75%")).toBeInTheDocument();
     await userEvent.click(checkpoint);
     expect(onOpenCheckpoint).toHaveBeenCalledWith(100);
+  });
+
+  it("lets the videos flow when the sections are only numbering", () => {
+    // iGOT lets an author skip naming the groups, and most do: a heading that
+    // repeats the position of what is under it is a row to read for nothing.
+    const numbered = makeCourse({
+      modules: [
+        makeModule(0, { title: "Videos 1-2" }),
+        makeModule(1, { title: "Videos 3-4" }),
+      ],
+    });
+    render(
+      <CurriculumPanel course={numbered} selectedLessonId={null} onSelectLesson={noop} onOpenCheckpoint={noop} />,
+    );
+    expect(screen.queryByText("Videos 1-2")).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { expanded: true })).not.toBeInTheDocument();
+    // Every video is on screen at once, with no section to open first.
+    for (const title of ["Lesson 0A", "Lesson 0B", "Lesson 1A", "Lesson 1B"]) {
+      expect(screen.getByText(title)).toBeInTheDocument();
+    }
+    expect(screen.getAllByText("Checkpoint quiz")).toHaveLength(2);
+    expect(screen.queryByText(/modules/)).not.toBeInTheDocument();
   });
 
   it("calls the final one a final assessment when it gates no videos", () => {

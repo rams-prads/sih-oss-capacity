@@ -166,6 +166,91 @@ export function Timeline({
   );
 }
 
+/**
+ * Volume, beside the button that mutes it.
+ *
+ * Built like the scrubber rather than from an <input type="range">, so it
+ * carries the bar's own look: a thin white track that thickens under the
+ * pointer, and a handle that only appears when reached for. White, not the
+ * accent - saffron means progress or attention here, and how loud a video is
+ * is neither.
+ *
+ * It is kept off phones, where the hardware keys do this better and the bar
+ * has no room for it.
+ */
+function VolumeSlider({
+  volume,
+  muted,
+  onVolume,
+}: {
+  volume: number;
+  muted: boolean;
+  onVolume: (value: number) => void;
+}) {
+  const trackRef = useRef<HTMLDivElement>(null);
+  const level = muted ? 0 : Math.min(1, Math.max(0, volume));
+
+  const setFromEvent = (clientX: number) => {
+    const track = trackRef.current;
+    if (!track) return;
+    const box = track.getBoundingClientRect();
+    onVolume(Math.min(1, Math.max(0, (clientX - box.left) / box.width)));
+  };
+
+  const step = (delta: number) => onVolume(Math.min(1, Math.max(0, Math.round((level + delta) * 100) / 100)));
+
+  return (
+    <div
+      ref={trackRef}
+      role="slider"
+      tabIndex={0}
+      aria-label="Volume"
+      aria-valuemin={0}
+      aria-valuemax={100}
+      aria-valuenow={Math.round(level * 100)}
+      aria-valuetext={`${Math.round(level * 100)}%`}
+      onPointerDown={(e) => {
+        e.currentTarget.setPointerCapture(e.pointerId);
+        setFromEvent(e.clientX);
+      }}
+      onPointerMove={(e) => {
+        // Only while dragging: pointer capture makes this the only listener.
+        if (e.currentTarget.hasPointerCapture(e.pointerId)) setFromEvent(e.clientX);
+      }}
+      onKeyDown={(e) => {
+        const keys: Record<string, () => void> = {
+          ArrowRight: () => step(0.05),
+          ArrowUp: () => step(0.05),
+          ArrowLeft: () => step(-0.05),
+          ArrowDown: () => step(-0.05),
+          Home: () => onVolume(0),
+          End: () => onVolume(1),
+        };
+        const action = keys[e.key];
+        if (!action) return;
+        e.preventDefault();
+        action();
+      }}
+      className="group/volume hidden h-10 w-20 cursor-pointer touch-none items-center
+        focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1
+        focus-visible:outline-white/60 sm:flex"
+    >
+      <div className="relative h-[5px] w-full rounded-full bg-white/25 transition-all duration-150 group-hover/volume:h-[7px]">
+        <div
+          className="absolute inset-y-0 left-0 rounded-full bg-white/85"
+          style={{ width: `${level * 100}%` }}
+        />
+        <span
+          className="absolute top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white
+            opacity-0 shadow transition-opacity group-hover/volume:opacity-100
+            group-focus-visible/volume:opacity-100"
+          style={{ left: `${level * 100}%` }}
+        />
+      </div>
+    </div>
+  );
+}
+
 const SPEEDS = [0.75, 1, 1.25, 1.5, 1.75, 2];
 
 /**
@@ -181,6 +266,7 @@ export function ControlBar({
   duration,
   buffered,
   muted,
+  volume,
   fullscreen,
   speed,
   prompts,
@@ -189,6 +275,7 @@ export function ControlBar({
   onSkip,
   onSeek,
   onToggleMute,
+  onVolume,
   onToggleFullscreen,
   onSpeed,
 }: {
@@ -197,6 +284,8 @@ export function ControlBar({
   duration: number;
   buffered: number;
   muted: boolean;
+  /** 0 to 1, as the video element reports it. */
+  volume: number;
   fullscreen: boolean;
   speed: number;
   prompts: VideoPrompt[];
@@ -205,6 +294,7 @@ export function ControlBar({
   onSkip: (seconds: number) => void;
   onSeek: (seconds: number) => void;
   onToggleMute: () => void;
+  onVolume: (value: number) => void;
   onToggleFullscreen: () => void;
   onSpeed: (rate: number) => void;
 }) {
@@ -270,9 +360,12 @@ export function ControlBar({
             )}
           </div>
 
-          <PlayerButton label={muted ? "Unmute" : "Mute"} onClick={onToggleMute}>
-            {muted ? <VolumeMutedIcon /> : <VolumeIcon />}
-          </PlayerButton>
+          <div className="flex items-center">
+            <PlayerButton label={muted ? "Unmute" : "Mute"} onClick={onToggleMute}>
+              {muted ? <VolumeMutedIcon /> : <VolumeIcon />}
+            </PlayerButton>
+            <VolumeSlider volume={volume} muted={muted} onVolume={onVolume} />
+          </div>
           <PlayerButton
             label={fullscreen ? "Exit full screen" : "Full screen"}
             onClick={onToggleFullscreen}

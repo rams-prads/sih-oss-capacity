@@ -97,6 +97,7 @@ describe("ControlBar", () => {
     duration: 300,
     buffered: 120,
     muted: false,
+    volume: 0.8,
     fullscreen: false,
     speed: 1,
     prompts: [] as VideoPrompt[],
@@ -105,9 +106,46 @@ describe("ControlBar", () => {
     onSkip: () => {},
     onSeek: () => {},
     onToggleMute: () => {},
+    onVolume: () => {},
     onToggleFullscreen: () => {},
     onSpeed: () => {},
   };
+
+  it("carries a volume slider beside the mute button", () => {
+    render(<ControlBar {...props} />);
+    const slider = screen.getByRole("slider", { name: "Volume" });
+    expect(slider).toHaveAttribute("aria-valuenow", "80");
+    expect(slider).toHaveAttribute("aria-valuetext", "80%");
+    expect(screen.getByRole("button", { name: "Mute" })).toBeInTheDocument();
+  });
+
+  it("shows a muted video as silent however loud it was", () => {
+    render(<ControlBar {...props} muted volume={0.8} />);
+    expect(screen.getByRole("slider", { name: "Volume" })).toHaveAttribute("aria-valuenow", "0");
+  });
+
+  it("sets the level from the keyboard, in steps and to either end", async () => {
+    const onVolume = vi.fn();
+    render(<ControlBar {...props} volume={0.5} onVolume={onVolume} />);
+    const slider = screen.getByRole("slider", { name: "Volume" });
+    slider.focus();
+    await userEvent.keyboard("{ArrowRight}");
+    expect(onVolume).toHaveBeenLastCalledWith(0.55);
+    await userEvent.keyboard("{ArrowDown}");
+    expect(onVolume).toHaveBeenLastCalledWith(0.45);
+    await userEvent.keyboard("{Home}");
+    expect(onVolume).toHaveBeenLastCalledWith(0);
+    await userEvent.keyboard("{End}");
+    expect(onVolume).toHaveBeenLastCalledWith(1);
+  });
+
+  it("never asks for a level outside the scale", async () => {
+    const onVolume = vi.fn();
+    render(<ControlBar {...props} volume={1} onVolume={onVolume} />);
+    screen.getByRole("slider", { name: "Volume" }).focus();
+    await userEvent.keyboard("{ArrowRight}");
+    expect(onVolume).toHaveBeenLastCalledWith(1);
+  });
 
   it("shows elapsed and total time", () => {
     const { container } = render(<ControlBar {...props} />);
