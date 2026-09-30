@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 import type { Course, Recommendation } from "../api";
-import { RecommendationCard } from "./RecommendationCard";
+import { RecommendationCard, difficultyLabel } from "./RecommendationCard";
 import { CourseCover } from "./CourseCover";
 
 function course(over: Partial<Course> = {}): Course {
@@ -101,6 +101,104 @@ describe("RecommendationCard", () => {
       "href",
       "https://igot.example/x",
     );
+  });
+});
+
+describe("RecommendationCard, once enrolled", () => {
+  const enrolment = (over: Partial<import("../api").Enrolment> = {}) => ({
+    course_identifier: "do_1",
+    course_name: "Foundations of Survey Design",
+    status: "in_progress",
+    progress_pct: 40,
+    ...over,
+  });
+
+  it("says why the course is recommended, and how demanding it is", () => {
+    render(card(rec()));
+    expect(screen.getByText(/Recommended because:/)).toBeInTheDocument();
+    expect(screen.getByText(/Closes your Survey Design gap/)).toBeInTheDocument();
+    expect(screen.getByText("Intermediate")).toBeInTheDocument();
+  });
+
+  it("resumes a course already begun, with its progress", async () => {
+    const onContinue = vi.fn();
+    render(
+      <RecommendationCard
+        rec={rec()}
+        enrolled
+        enrolment={enrolment()}
+        competencyName={lookup}
+        onEnrol={() => {}}
+        onContinue={onContinue}
+      />,
+    );
+    expect(screen.getByText("40%")).toBeInTheDocument();
+    await userEvent.click(screen.getByRole("button", { name: /Continue/ }));
+    expect(onContinue).toHaveBeenCalledWith("do_1");
+  });
+
+  it("offers to start an enrolled course not yet begun, and to review a finished one", () => {
+    const { unmount } = render(
+      <RecommendationCard
+        rec={rec()}
+        enrolled
+        enrolment={enrolment({ status: "not_started", progress_pct: 0 })}
+        competencyName={lookup}
+        onEnrol={() => {}}
+        onContinue={() => {}}
+      />,
+    );
+    expect(screen.getByRole("button", { name: /Start/ })).toBeInTheDocument();
+    unmount();
+
+    render(
+      <RecommendationCard
+        rec={rec()}
+        enrolled
+        enrolment={enrolment({ status: "completed", progress_pct: 100 })}
+        competencyName={lookup}
+        onEnrol={() => {}}
+        onContinue={() => {}}
+      />,
+    );
+    expect(screen.getByRole("button", { name: /Review/ })).toBeInTheDocument();
+  });
+
+  it("offers nothing to resume on a lapsed enrolment", () => {
+    render(
+      <RecommendationCard
+        rec={rec()}
+        enrolled
+        enrolment={enrolment({ status: "expired" })}
+        competencyName={lookup}
+        onEnrol={() => {}}
+        onContinue={() => {}}
+      />,
+    );
+    expect(screen.getByRole("button", { name: /Enrolled/ })).toBeDisabled();
+  });
+
+  it("never offers to play a classroom programme", () => {
+    render(
+      <RecommendationCard
+        rec={rec({ course: course({ source: "nssta", provider: "NSSTA" }) })}
+        enrolled
+        enrolment={enrolment()}
+        competencyName={lookup}
+        onEnrol={() => {}}
+        onContinue={() => {}}
+      />,
+    );
+    expect(screen.getByRole("button", { name: /Place requested/ })).toBeDisabled();
+  });
+});
+
+describe("difficultyLabel", () => {
+  it("reads the level a course builds towards", () => {
+    expect(difficultyLabel(0)).toBeNull();
+    expect(difficultyLabel(2)).toBe("Foundation");
+    expect(difficultyLabel(3)).toBe("Intermediate");
+    expect(difficultyLabel(4)).toBe("Advanced");
   });
 });
 

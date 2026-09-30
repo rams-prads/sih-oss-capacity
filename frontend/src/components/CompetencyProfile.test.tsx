@@ -2,7 +2,7 @@ import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 import type { GapItem } from "../api";
-import { CompetencyProfile } from "./CompetencyProfile";
+import { CompetencyProfile, ProfileSummary } from "./CompetencyProfile";
 
 function gap(over: Partial<GapItem> = {}): GapItem {
   return {
@@ -121,17 +121,71 @@ describe("CompetencyProfile", () => {
     expect(screen.getAllByText("critical")).toHaveLength(1);
   });
 
-  it("offers assessment where the target is not confirmed", async () => {
+  it("offers a test where the target is not confirmed", async () => {
     const onAssess = vi.fn();
-    render(<CompetencyProfile items={[gap({ recommended_action: "assess" })]} />);
-    expect(screen.getByText("Assess")).toBeInTheDocument();
+    render(<CompetencyProfile items={[gap({ recommended_action: "assess" })]} onAssess={onAssess} />);
+    expect(screen.getByRole("heading", { name: /Measure first/ })).toBeInTheDocument();
+    await userEvent.click(screen.getByRole("button", { name: "Take test" }));
+    expect(onAssess).toHaveBeenCalledWith(expect.objectContaining({ competency_id: "C01" }));
+  });
 
-    const { unmount } = render(
-      <CompetencyProfile items={[gap({ recommended_action: "assess" })]} onAssess={onAssess} />,
+  it("groups competencies by what the evidence says to do, in that order", () => {
+    render(
+      <CompetencyProfile
+        items={[
+          gap({ competency_id: "C02", competency_name: "Measure me", recommended_action: "assess" }),
+          gap({ competency_id: "C03", competency_name: "Met already", recommended_action: "maintain", meets_target: true, gap: 0 }),
+          gap({ competency_id: "C04", competency_name: "Train me", recommended_action: "train" }),
+          gap({ competency_id: "C05", competency_name: "Measure me too", recommended_action: "assess" }),
+        ]}
+      />,
     );
-    await userEvent.click(screen.getAllByRole("button", { name: "Take test" })[0]);
+    const headings = screen.getAllByRole("heading").map((h) => h.textContent);
+    expect(headings).toEqual(["Train1", "Measure first2", "On target1"]);
+    const measureGroup = screen.getByRole("heading", { name: /Measure first/ }).closest("section")!;
+    expect(within(measureGroup).getAllByRole("listitem")).toHaveLength(2);
+  });
+
+  it("leaves out a group with nothing in it", () => {
+    render(<CompetencyProfile items={[gap({ recommended_action: "assess" })]} />);
+    expect(screen.queryByRole("heading", { name: /Train/ })).not.toBeInTheDocument();
+    expect(screen.queryByRole("heading", { name: /On target/ })).not.toBeInTheDocument();
+  });
+
+  it("says how far below target a competency is, and draws that stretch as the shortfall", () => {
+    const { container } = render(<CompetencyProfile items={[gap({ attained_level: 1, target_level: 3, gap: 2 })]} />);
+    expect(screen.getByText("2 levels below")).toBeInTheDocument();
+    // Two steps from Aware up to Proficient: the two lines into levels 3 and 4.
+    expect(container.querySelectorAll('[data-segment="shortfall"]')).toHaveLength(2);
+  });
+
+  it("draws no shortfall once the target is met", () => {
+    const { container } = render(
+      <CompetencyProfile items={[gap({ attained_level: 3, target_level: 3, meets_target: true, gap: 0, recommended_action: "maintain" })]} />,
+    );
+    expect(screen.queryByText(/below/)).not.toBeInTheDocument();
+    expect(container.querySelectorAll('[data-segment="shortfall"]')).toHaveLength(0);
+  });
+
+  it("offers the training for a measured shortfall, with a retest beside it", async () => {
+    const onTrain = vi.fn();
+    const onAssess = vi.fn();
+    render(<CompetencyProfile items={[gap({ recommended_action: "train" })]} onAssess={onAssess} onTrain={onTrain} />);
+    await userEvent.click(screen.getByRole("button", { name: /Find training/ }));
+    expect(onTrain).toHaveBeenCalledWith(expect.objectContaining({ competency_id: "C01" }));
+    await userEvent.click(screen.getByRole("button", { name: "Retest" }));
     expect(onAssess).toHaveBeenCalled();
-    unmount();
+  });
+
+  it("falls back to a test for a measured shortfall when there is no training to show", () => {
+    render(<CompetencyProfile items={[gap({ recommended_action: "train" })]} onAssess={() => {}} />);
+    expect(screen.getByRole("button", { name: "Take test" })).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: /Find training/ })).not.toBeInTheDocument();
+  });
+
+  it("names the kind of competency", () => {
+    render(<CompetencyProfile items={[gap({ competency_type: "BEHAVIOURAL" })]} />);
+    expect(screen.getByText("Behavioural")).toBeInTheDocument();
   });
 
   it("does not offer assessment on a competency already on target", () => {
@@ -147,5 +201,38 @@ describe("CompetencyProfile", () => {
   it("renders nothing rather than breaking on an empty role", () => {
     const { container } = render(<CompetencyProfile items={[]} />);
     expect(within(container).queryAllByRole("listitem")).toHaveLength(0);
+  });
+});
+
+describe("ProfileSummary", () => {
+  const items = [
+    gap({ competency_id: "C01", recommended_action: "assess", evidence: "self_reported" }),
+    gap({ competency_id: "C02", recommended_action: "maintain", meets_target: true, gap: 0 }),
+    gap({ competency_id: "C03", recommended_action: "train" }),
+    gap({ competency_id: "C04", recommended_action: "assess", evidence: "self_reported" }),
+  ];
+
+  it("draws one segment per competency, in the order the list shows them", () => {
+    render(<ProfileSummary items={items} />);
+    const bar = screen.getByRole("img", { name: "Of 4 competencies: 1 to train, 2 to measure, 1 on target" });
+    expect(Array.from(bar.children).map((s) => s.getAttribute("title")?.split(": ")[1])).toEqual([
+      "train",
+      "measure first",
+      "measure first",
+      "on target",
+    ]);
+  });
+
+  it("writes each count out rather than leaving it to colour", () => {
+    render(<ProfileSummary items={items} />);
+    const summary = screen.getByTestId("profile-summary");
+    expect(summary).toHaveTextContent("1to train");
+    expect(summary).toHaveTextContent("2to measure");
+    expect(summary).toHaveTextContent("1on target");
+  });
+
+  it("renders nothing for an empty role", () => {
+    const { container } = render(<ProfileSummary items={[]} />);
+    expect(container).toBeEmptyDOMElement();
   });
 });

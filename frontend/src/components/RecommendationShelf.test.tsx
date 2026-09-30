@@ -147,6 +147,31 @@ describe("RecommendationShelf", () => {
     expect(screen.getByText("Foundations of Survey Design")).toBeInTheDocument();
   });
 
+  it("can be filtered from outside, by the competency profile's Find training", async () => {
+    const onFilterChange = vi.fn();
+    const recommendations = [
+      rec(),
+      rec({
+        course: course({ identifier: "do_2", name: "Data Quality Assurance", competency_ids: ["C03"] }),
+        covers_gap_competencies: ["C03"],
+      }),
+    ];
+    render(
+      shelf({
+        recommendations,
+        gaps: [gap("C01", "Survey Design"), gap("C03", "Data Quality")],
+        filter: "C03",
+        onFilterChange,
+      }),
+    );
+    expect(screen.queryByText("Foundations of Survey Design")).not.toBeInTheDocument();
+    expect(screen.getByText("Data Quality Assurance")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Data Quality" })).toHaveAttribute("aria-pressed", "true");
+
+    await userEvent.click(screen.getByRole("button", { name: "All" }));
+    expect(onFilterChange).toHaveBeenCalledWith("all");
+  });
+
   it("says plainly when no training is needed", () => {
     render(shelf({ recommendations: [], gaps: [] }));
     expect(screen.getByText(/every role requirement is met/)).toBeInTheDocument();

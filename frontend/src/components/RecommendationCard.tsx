@@ -1,7 +1,16 @@
 import { PROFICIENCY } from "../api";
-import type { Recommendation } from "../api";
+import type { CourseStatus, Enrolment, Recommendation } from "../api";
 import { CourseCover } from "./CourseCover";
-import { CheckCircleIcon, ClockIcon, ExternalLinkIcon } from "./icons";
+import { ProgressBar } from "./Progress";
+import { ArrowRightIcon, CheckCircleIcon, ClockIcon, ExternalLinkIcon } from "./icons";
+
+/** How demanding a course is, from the proficiency it builds towards. */
+export function difficultyLabel(targetLevel: number): string | null {
+  if (targetLevel <= 0) return null;
+  if (targetLevel <= 2) return "Foundation";
+  if (targetLevel === 3) return "Intermediate";
+  return "Advanced";
+}
 
 /**
  * One recommended course.
@@ -17,16 +26,34 @@ export function RecommendationCard({
   enrolled,
   competencyName,
   onEnrol,
+  enrolment,
+  onContinue,
 }: {
   rec: Recommendation;
   enrolled: boolean;
   competencyName: (id: string) => string;
   onEnrol: (identifier: string) => void;
+  /** The officer's enrolment in this course, when there is one. */
+  enrolment?: Enrolment;
+  /** Open an enrolled course. Without it an enrolled card simply says so. */
+  onContinue?: (identifier: string) => void;
 }) {
   const { course } = rec;
   const hours = course.duration_min >= 60 ? Math.round(course.duration_min / 60) : 0;
   const builds = course.competency_ids.map(competencyName).filter(Boolean);
   const classroom = course.source === "nssta";
+  const difficulty = difficultyLabel(course.target_level);
+  // A lapsed enrolment has nothing to resume, so it keeps the plain
+  // "Enrolled" state rather than offering to continue a closed window.
+  const resumable =
+    enrolled && !classroom && Boolean(onContinue) && enrolment?.status !== "expired";
+  const progressPct = enrolment?.progress_pct;
+  const barStatus: CourseStatus =
+    enrolment?.status === "completed"
+      ? "completed"
+      : progressPct
+        ? "in_progress"
+        : "not_started";
 
   return (
     <article className="flex w-[19rem] shrink-0 snap-start flex-col overflow-hidden rounded-xl border border-hairline bg-surface shadow-sm transition hover:border-hairline-strong hover:shadow-md">
@@ -55,7 +82,19 @@ export function RecommendationCard({
           </p>
         )}
 
+        {rec.reason && (
+          <p className="mt-2 line-clamp-2 text-xs leading-relaxed text-ink-3">
+            <span className="text-ink-2">Recommended because:</span> {rec.reason}
+          </p>
+        )}
+
         <p className="mt-2.5 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-ink-4">
+          {difficulty && (
+            <>
+              <span className="font-medium text-ink-3">{difficulty}</span>
+              <span aria-hidden>&middot;</span>
+            </>
+          )}
           <span>Takes you to {PROFICIENCY[course.target_level]}</span>
           {(hours > 0 || course.duration_min > 0) && (
             <>
@@ -81,9 +120,26 @@ export function RecommendationCard({
           {classroom && <Tag>Classroom programme</Tag>}
         </div>
 
+        {resumable && progressPct !== undefined && (
+          <div className="mt-3 flex items-center gap-2">
+            <ProgressBar value={progressPct} status={barStatus} />
+            <span className="shrink-0 text-2xs text-ink-3">{progressPct}%</span>
+          </div>
+        )}
+
         {/* Pinned to the bottom so buttons line up across a row of cards of
             different heights. */}
         <div className="mt-auto flex items-center gap-2 pt-3.5">
+          {resumable ? (
+            <button
+              type="button"
+              onClick={() => onContinue?.(course.identifier)}
+              className="inline-flex items-center gap-1.5 rounded-lg bg-ashoka px-3.5 py-2 text-xs font-semibold text-white transition hover:bg-ashoka-2"
+            >
+              {enrolment?.status === "completed" ? "Review" : progressPct ? "Continue" : "Start"}
+              <ArrowRightIcon className="text-[13px]" />
+            </button>
+          ) : (
           <button
             type="button"
             disabled={enrolled}
@@ -95,8 +151,9 @@ export function RecommendationCard({
             }`}
           >
             {enrolled && <CheckCircleIcon className="text-[14px]" />}
-            {enrolled ? "Enrolled" : classroom ? "Request a place" : "Enrol"}
+            {enrolled ? (classroom ? "Place requested" : "Enrolled") : classroom ? "Request a place" : "Enrol"}
           </button>
+          )}
 
           {course.url && (
             <a

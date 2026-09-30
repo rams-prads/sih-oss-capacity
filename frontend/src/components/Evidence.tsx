@@ -8,23 +8,23 @@ export const EVIDENCE_META: Record<
 > = {
   measured: {
     label: "Measured",
-    className: "bg-teal-50 text-teal-800 ring-teal-200",
+    className: "bg-chakra-soft text-chakra ring-chakra/25",
     explain: "Estimated from enough answered questions to separate levels.",
   },
   provisional: {
     label: "Provisional",
-    className: "bg-amber-50 text-amber-800 ring-amber-200",
+    className: "bg-saffron-soft text-saffron-ink ring-saffron/25",
     explain:
       "Some evidence, but not yet enough to tell this level from its neighbours.",
   },
   self_reported: {
     label: "Self-reported",
-    className: "bg-slate-100 text-slate-600 ring-slate-200",
+    className: "bg-ground text-ink-3 ring-hairline-strong",
     explain: "Taken from the officer's own estimate at sign-up, never demonstrated.",
   },
   unmeasured: {
     label: "Not measured",
-    className: "bg-slate-100 text-slate-500 ring-slate-200",
+    className: "bg-ground text-ink-4 ring-hairline-strong",
     explain: "No assessment record for this competency.",
   },
 };
@@ -35,18 +35,18 @@ export const ACTION_META: Record<
 > = {
   train: {
     label: "Train",
-    className: "bg-rose-50 text-rose-700 ring-rose-200",
+    className: "bg-alert-soft text-alert ring-alert/25",
     explain: "Measured below the level this role requires.",
   },
   assess: {
     label: "Assess",
-    className: "bg-blue-50 text-blue-700 ring-blue-200",
+    className: "bg-saffron-soft text-saffron-ink ring-saffron/25",
     explain:
       "We cannot yet tell whether this target is met. Measure before booking training.",
   },
   maintain: {
     label: "On target",
-    className: "bg-teal-50 text-teal-700 ring-teal-200",
+    className: "bg-chakra-soft text-chakra ring-chakra/25",
     explain: "Meets the level this role requires.",
   },
 };

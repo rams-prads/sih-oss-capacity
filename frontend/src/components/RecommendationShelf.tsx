@@ -1,7 +1,6 @@
-import { useRef, useState } from "react";
-import type { GapItem, Recommendation } from "../api";
-import { RecommendationCard } from "./RecommendationCard";
-import { ChevronRightIcon } from "./icons";
+import { useState } from "react";
+import type { Enrolment, GapItem, Recommendation } from "../api";
+import { CourseTrack, TrackButtons, useCourseTrack } from "./CourseTrack";
 import { Empty } from "./ui";
 
 /**
@@ -23,6 +22,11 @@ export function RecommendationShelf({
   source,
   competencyName,
   onEnrol,
+  enrolmentById,
+  onContinue,
+  hasProgression = false,
+  filter: controlledFilter,
+  onFilterChange,
 }: {
   recommendations: Recommendation[];
   gaps: GapItem[];
@@ -32,9 +36,20 @@ export function RecommendationShelf({
   source: string;
   competencyName: (id: string) => string;
   onEnrol: (identifier: string) => void;
+  /** The officer's enrolments, so the cards for courses already begun can resume. */
+  enrolmentById?: Map<string, Enrolment>;
+  onContinue?: (identifier: string) => void;
+  /** Whether the next designation up has training to show below. */
+  hasProgression?: boolean;
+  /** The competency the shelf is filtered to, when a caller sets it - the
+   *  competency profile's "Find training" does. Left out, the shelf keeps its own. */
+  filter?: string;
+  onFilterChange?: (competencyId: string) => void;
 }) {
-  const [filter, setFilter] = useState<string>("all");
-  const trackRef = useRef<HTMLDivElement>(null);
+  const [ownFilter, setOwnFilter] = useState<string>("all");
+  const filter = controlledFilter ?? ownFilter;
+  const setFilter = onFilterChange ?? setOwnFilter;
+  const track = useCourseTrack();
 
   // Only gaps something actually addresses; a filter that empties the shelf is
   // a dead end.
@@ -45,10 +60,6 @@ export function RecommendationShelf({
     filter === "all"
       ? recommendations
       : recommendations.filter((r) => r.covers_gap_competencies.includes(filter));
-
-  function scroll(direction: 1 | -1) {
-    trackRef.current?.scrollBy({ left: direction * 320, behavior: "smooth" });
-  }
 
   return (
     <section className="rounded-xl border border-hairline bg-surface p-5">
@@ -68,12 +79,7 @@ export function RecommendationShelf({
           </p>
         </div>
 
-        {recommendations.length > 2 && (
-          <div className="flex gap-1">
-            <ScrollButton label="Scroll back" onClick={() => scroll(-1)} back />
-            <ScrollButton label="Scroll forward" onClick={() => scroll(1)} />
-          </div>
-        )}
+        {recommendations.length > 2 && <TrackButtons scroll={track.scroll} />}
       </div>
 
       {chips.length > 0 && (
@@ -95,23 +101,37 @@ export function RecommendationShelf({
 
       {visible.length === 0 ? (
         <div className="mt-4">
-          <Empty>No training needed — every role requirement is met.</Empty>
+          <Empty
+            action={
+              hasProgression ? (
+                <button
+                  type="button"
+                  onClick={() =>
+                    document
+                      .getElementById("career-progression")
+                      ?.scrollIntoView({ behavior: "smooth", block: "start" })
+                  }
+                  className="rounded-lg border border-hairline-strong px-3 py-1.5 text-xs font-medium text-ink-2 transition hover:bg-surface"
+                >
+                  See what the step up asks for
+                </button>
+              ) : undefined
+            }
+          >
+            No training needed — every role requirement is met.
+            {hasProgression && " Training for the designation above yours is below."}
+          </Empty>
         </div>
       ) : (
-        <div
-          ref={trackRef}
-          className="-mx-1 mt-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-1 pb-2"
-        >
-          {visible.map((rec) => (
-            <RecommendationCard
-              key={rec.course.identifier}
-              rec={rec}
-              enrolled={enrolledIds.has(rec.course.identifier)}
-              competencyName={competencyName}
-              onEnrol={onEnrol}
-            />
-          ))}
-        </div>
+        <CourseTrack
+          trackRef={track.ref}
+          recommendations={visible}
+          enrolledIds={enrolledIds}
+          competencyName={competencyName}
+          onEnrol={onEnrol}
+          enrolmentById={enrolmentById}
+          onContinue={onContinue}
+        />
       )}
     </section>
   );
@@ -138,27 +158,6 @@ function Chip({
       }`}
     >
       {children}
-    </button>
-  );
-}
-
-function ScrollButton({
-  label,
-  onClick,
-  back = false,
-}: {
-  label: string;
-  onClick: () => void;
-  back?: boolean;
-}) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      aria-label={label}
-      className="grid h-8 w-8 place-items-center rounded-full border border-hairline-strong text-ink-2 transition hover:bg-raised"
-    >
-      <ChevronRightIcon className={`text-[15px] ${back ? "rotate-180" : ""}`} />
     </button>
   );
 }
