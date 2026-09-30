@@ -10,18 +10,25 @@ import {
   YAxis,
 } from "recharts";
 import {
+  getAdminEngagement,
   getAdminForecast,
   getAdminLearning,
   getAdminOverview,
   getDepartments,
 } from "../api";
-import type { AdminLearningOverview, AdminOverview, CapacityForecast } from "../api";
+import type {
+  AdminLearningOverview,
+  AdminOverview,
+  CapacityForecast,
+  EngagementOverview,
+} from "../api";
 import { CapacityForecastPanel } from "../components/CapacityForecast";
+import { EngagementPanel } from "../components/EngagementPanel";
 import { Heatmap } from "../components/Heatmap";
 import { AtRiskList, CourseRollupTable, TopicRollupTable } from "../components/LearningRollup";
 import { Card, Empty, ErrorNote, Spinner, Stat } from "../components/ui";
 
-type Tab = "capacity" | "learning" | "forecast";
+type Tab = "capacity" | "learning" | "engagement" | "forecast";
 
 /**
  * Department-wide analytics.
@@ -36,6 +43,10 @@ export default function Admin({ onSignedOut }: { onSignedOut: () => void }) {
   const [overview, setOverview] = useState<AdminOverview | null>(null);
   const [learning, setLearning] = useState<AdminLearningOverview | null>(null);
   const [forecast, setForecast] = useState<CapacityForecast | null>(null);
+  // Loaded on its own rather than inside the Promise.all below, so a failure
+  // here costs the Engagement tab and nothing else on this page.
+  const [engagement, setEngagement] = useState<EngagementOverview | null>(null);
+  const [engagementError, setEngagementError] = useState(false);
   const [departments, setDepartments] = useState<string[]>([]);
   const [department, setDepartment] = useState("");
   const [error, setError] = useState("");
@@ -67,6 +78,17 @@ export default function Admin({ onSignedOut }: { onSignedOut: () => void }) {
       });
   }, [department, onSignedOut]);
 
+  useEffect(() => {
+    setEngagement(null);
+    setEngagementError(false);
+    getAdminEngagement(department || undefined)
+      .then(setEngagement)
+      .catch((e) => {
+        if ((e as { response?: { status?: number } })?.response?.status === 401) onSignedOut();
+        else setEngagementError(true);
+      });
+  }, [department, onSignedOut]);
+
   if (error) return <ErrorNote>{error}</ErrorNote>;
   if (!overview || !learning) return <Spinner label="Aggregating capacity across the cadre" />;
 
@@ -82,10 +104,11 @@ export default function Admin({ onSignedOut }: { onSignedOut: () => void }) {
   return (
     <div className="space-y-5">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <div className="flex gap-1 rounded-xl bg-ground p-1">
+        <div className="flex flex-wrap gap-1 rounded-xl bg-ground p-1">
           {([
             ["capacity", "Competency capacity"],
             ["learning", "Training progress"],
+            ["engagement", "Learning engagement"],
             ["forecast", "Capacity forecast"],
           ] as [Tab, string][]).map(([key, label]) => (
             <button
@@ -116,7 +139,15 @@ export default function Admin({ onSignedOut }: { onSignedOut: () => void }) {
         </div>
       </div>
 
-      {tab === "forecast" ? (
+      {tab === "engagement" ? (
+        engagementError ? (
+          <ErrorNote>Could not load learning engagement.</ErrorNote>
+        ) : engagement ? (
+          <EngagementPanel data={engagement} />
+        ) : (
+          <Spinner label="Reading the cadre's study record" />
+        )
+      ) : tab === "forecast" ? (
         forecast ? (
           <CapacityForecastPanel forecast={forecast} />
         ) : (

@@ -24,6 +24,7 @@ from app.engines.progress import (
     derive_status,
 )
 from app.engines.forecast import forecast
+from app.engines.momentum import cohort_engagement
 from app.engines.gap import compute_gaps_bulk
 from app.engines.recommend import catalogue_coverage, recommend_courses
 from app.models import (
@@ -40,6 +41,7 @@ from app.models import (
 )
 from app.schemas import (
     AdminLearningOverview,
+    EngagementOverview,
     ForecastResponse,
     AdminOverview,
     AtRiskEnrolment,
@@ -417,3 +419,25 @@ def capacity_forecast(
     # asdict, not __dict__: the nested CompetencyForecast entries are dataclasses
     # too, and Pydantic cannot coerce those from attributes here.
     return ForecastResponse(**asdict(forecast(db, department, window_days)))
+
+
+@router.get("/admin/engagement", response_model=EngagementOverview)
+def learning_engagement(db: DbSession, admin: AdminUser, department: str | None = None):
+    """Whether the cadre is actually studying, week on week.
+
+    The rest of this dashboard says where capacity stands and where it is
+    heading. This says whether officers are turning up to close it: who studied
+    this week, whether weekly goals are being met, how many streaks are alive,
+    and which courses the time is going into. Named, because it sits behind an
+    administrator's password; the officer's own view of the same record shows a
+    rank and never a colleague's name.
+    """
+    stmt = select(User).order_by(User.name)
+    if department:
+        stmt = stmt.where(User.department == department)
+    users = list(db.scalars(stmt).all())
+    if not users:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "No officers in that department")
+    return EngagementOverview(
+        department=department or "All departments", **cohort_engagement(db, users)
+    )
